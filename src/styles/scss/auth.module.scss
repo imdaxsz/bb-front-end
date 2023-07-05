@@ -1,0 +1,69 @@
+@use "common";
+
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  @include common.flex(row, center, center);
+}
+
+.content {
+  width: 350px;
+  // height: 400px;
+}
+
+.input {
+  border: solid 2px #eee;
+  border-radius: 20px;
+  padding: 12px 16px;
+  margin-top: 10px;
+  width: 100%;
+  &:focus {
+    border-color: #a7c4bc;
+    transition: all 0.02;
+  }
+}
+
+.submit {
+  @extend .input;
+  background: #a7c4bc;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  &:hover {
+    background: #5e8b7e;
+    transition: all 0.2s;
+  }
+}
+
+.find {
+  @include common.flex(row, center, center);
+  padding: 10px 0;
+  li {
+    position: relative;
+    font-size: 14px;
+    color: #888888;
+    cursor: pointer;
+    &::after{
+      content: "|";
+      font-size: 13px;
+      padding: 0 14px 5px;
+      cursor: default;
+    }
+    &:last-child{
+      &::after{
+        content: none;
+        padding-left: 0;
+      }
+    }
+  }
+}
+
+.label {
+  @include common.flex(row, center, center);
+  font-size: 24px;
+  margin-bottom: 35px;
+  color:#5e8b7e;
+}

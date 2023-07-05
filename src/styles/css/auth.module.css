@@ -132,3 +132,43 @@ li {
   word-break: break-all;
   margin-top: 6px;
 }
+
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 300px;
+  height: 400px;
+}
+
+.input, .submit {
+  border: solid 2px #eee;
+  border-radius: 20px;
+  padding: 15px 20px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.submit {
+  background: #a7c4bc;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background: #5E8B7E;
+  transition: all 0.2s;
+}
+
+.input:focus, .submit:focus {
+  border-color: #a7c4bc;
+  transition: all 0.02;
+}
