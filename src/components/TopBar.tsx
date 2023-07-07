@@ -1,14 +1,14 @@
+import styles from '../styles/scss/bar.module.scss';
+
 export default function TopBar() {
   return (
-    <div className="bar-wrapper">
-      <div className="topbar">
+    <div className={styles.wrapper}>
+      <div className={styles.topbar}>
         <ul>
-          <li className="logo">북북</li>
-          <div className="right">
+          <li className={styles.logo}><a href="/">북북</a></li>
+          <div className={styles.right}>
             <li>후기작성</li>
-            <li>
-              <a href="/login">MY</a>
-            </li>
+            <li><a href="/my">MY</a></li>
           </div>
         </ul>
       </div>
