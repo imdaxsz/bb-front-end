@@ -1,6 +1,7 @@
-@mixin set-fixed($top) {
+@mixin set-fixed($top, $zIndex) {
   position: fixed;
   top: $top;
+  z-index: $zIndex;
 }
 
 @mixin flex($direction, $justify, $align) {
@@ -13,6 +14,13 @@
 @mixin setSize($width, $height) {
   width: $width;
   height: $height;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
 }
 
 // color

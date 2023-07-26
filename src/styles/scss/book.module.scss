@@ -1,0 +1,59 @@
+@use "common";
+
+.wrapper {
+  width: 100%;
+  height: 150.8px;
+  @include common.flex(row, flex-start, center);
+  border: solid 3px white;
+  position: relative;
+}
+
+.img {
+  @include common.setSize(110px, 146px);
+  margin-right: 12px;
+  img {
+    @include common.setSize(100%, 100%);
+    object-fit: cover;
+  }
+}
+
+.info {
+  position: relative;
+  width: calc(100% - 122px);
+  p {
+    color: #666;
+    line-height: 1.5;
+  }
+}
+
+.title {
+  font-size: 18px;
+  line-height: 25px;
+  margin-bottom: 4px;
+  font-weight: bold;
+  @include common.ellipsis;
+}
+
+.focus {
+  border-color: common.$secondary;
+}
+
+.hover {
+  cursor: pointer;
+  &:hover {
+    border-color: common.$secondary;
+  }
+}
+
+.score {
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: common.$secondary;
+  cursor: pointer;
+}

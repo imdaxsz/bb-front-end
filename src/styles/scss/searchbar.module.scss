@@ -1,10 +1,10 @@
+@use "common";
+
 .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include common.flex(row, space-between, center);
   flex-wrap: wrap;
   position: relative;
-  width: 230px;
+  width: inherit;
   background: white;
   border-radius: 30px;
   border: 2px solid #e3e5e9;
@@ -12,32 +12,49 @@
 }
 
 .icon {
+  @include common.setSize(40px, 40px);
+  @include common.flex(row, center, center);
   position: absolute;
   right: 0;
-  height: 40px;
-  width: 40px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
   color: #cacfe0;
 }
 
 .input {
-  width: 75%;
-  height: 35px;
-  color: black;
+  @include common.flex(row, center, center);
+  @include common.setSize(75%, 2.2em);
+  line-height: 2.2em;
   position: relative;
   left: 15px;
-  display: flex;
-  align-items: center;
+  color: black;
   font-size: 15px;
 }
 
 .container:focus-within {
   background: white;
-  border: 2px solid #A7C4BC;
+  border: 2px solid #a7c4bc;
   transition: all 0.02;
   .icon {
-    color: #A7C4BC;
+    color: #a7c4bc;
+  }
+}
+
+.med {
+  .container {
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #e3e5e9;
+    &:focus-within {
+      border-bottom: 2px solid #a7c4bc;
+    }
+  }
+  .input {
+    @include common.setSize(85%, 2.5em);
+    line-height: 2.5em;
+    left: 20px;
+    font-size: 20px;
+  }
+  .icon {
+    width: 53.2px;
+    height: 53.2px;
   }
 }
