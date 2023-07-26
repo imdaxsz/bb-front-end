@@ -1,4 +1,4 @@
-@use 'common';
+@use "common";
 
 .wrapper {
   @include common.setSize(100%, 50px);
@@ -9,9 +9,15 @@
 
 .topbar {
   @include common.setSize(100%, 50px);
-  @include common.set-fixed(0);
+  @include common.set-fixed(0, 500);
   background: #dfeeea;
   color: common.$highlight;
+}
+
+.logo {
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .menu-wrapper {
@@ -22,7 +28,7 @@
 .menu {
   max-width: 1200px;
   @include common.setSize(100%, 50px);
-  @include common.set-fixed(50px);
+  @include common.set-fixed(50px, 1000);
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
   ul {
@@ -47,8 +53,29 @@
   }
 }
 
-.logo {
-  margin-left: 20px;
-  font-size: 24px;
-  font-weight: bold;
+.searchbar {
+  width: 230px;
+}
+
+.write {
+  background: white;
+  span,
+  button {
+    font-size: 16px;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  button {
+    background: common.$secondary;
+    border: none;
+    color: white;
+  }
+  span {
+    border: solid 1px #ccc;
+  }
+  .right {
+    li:first-child {
+      margin-right: 10px;
+    }
+  }
 }
