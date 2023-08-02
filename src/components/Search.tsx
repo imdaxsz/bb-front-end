@@ -19,6 +19,8 @@ export default function Search({ setModal, setBook }: SearchBook) {
 
   const onClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
     setModal(false);
+    dispatch(setSelected(null));
+    dispatch(setResult([]));
   };
   const onClickInside = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -29,8 +31,8 @@ export default function Search({ setModal, setBook }: SearchBook) {
     else {
       setBook(selected);
       setModal(false);
-      dispatch(setSelected(null))
-      dispatch(setResult([]))
+      dispatch(setSelected(null));
+      dispatch(setResult([]));
     }
   };
 

@@ -4,7 +4,7 @@ export const setBookInfo = (data: any[]) => {
   let results: Book[] = [];
   data.forEach((b, i) => {
     const book: Book = {
-      isbn: b.isbn,
+      isbn: b.isbn13,
       title: b.title,
       author: b.author,
       publisher: b.publisher,

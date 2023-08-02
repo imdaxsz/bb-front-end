@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/scss/searchbar.module.scss";
 import { FiSearch } from "react-icons/fi";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setBookInfo } from "../utils/setBookInfo";
 import { reset, setResult } from "../store/searchResultSlice";
+import api from "../api/api";
 
 export default function SearchBar({ placeholder, keyword, role }: { placeholder: string; keyword?: string; role?: string }) {
   const [word, setWord] = useState("");
@@ -19,8 +19,8 @@ export default function SearchBar({ placeholder, keyword, role }: { placeholder:
     dispatch(reset)
     e.preventDefault();
     if (role === "write") {
-      axios.get(`http://localhost:8000/search/book?query=${word}`).then((result) => {
-        dispatch(setResult(setBookInfo(result.data.item)));
+      api.get(`/api/search/book?query=${word}`).then((res) => {
+        if (res.status === 200) dispatch(setResult(setBookInfo(res.data.item)));
       });
     }
 

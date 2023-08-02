@@ -8,9 +8,10 @@ interface ReviewBookInfoType {
   setBook?: React.Dispatch<React.SetStateAction<Book | null>>;
   rating: number;
   setRating?: React.Dispatch<React.SetStateAction<number>>;
+  isEdit?: boolean;
 }
 
-export default function ReviewBookInfo({ book, setBook, rating, setRating }: ReviewBookInfoType) {
+export default function ReviewBookInfo({ book, setBook, rating, setRating, isEdit }: ReviewBookInfoType) {
   const onClickStar = (i: number) => {
     if (setRating) setRating(i + 1);
   };
@@ -24,7 +25,7 @@ export default function ReviewBookInfo({ book, setBook, rating, setRating }: Rev
 
   return (
     <div className={styles.wrapper}>
-      {setBook && (
+      {setBook && !isEdit && (
         <span className={styles.delete} onClick={onClickDelete}>
           <RiCloseCircleFill size={27} />
         </span>
