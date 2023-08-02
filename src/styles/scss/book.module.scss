@@ -9,17 +9,30 @@
 }
 
 .img {
-  @include common.setSize(110px, 146px);
-  margin-right: 12px;
   img {
     @include common.setSize(100%, 100%);
     object-fit: cover;
   }
 }
 
+.img-sm {
+  @extend .img;
+  margin-right: 12px;
+  @include common.setSize(110px, 146px);
+}
+
+.img-lg {
+  @extend .img;
+  margin-right: 20px;
+  @include common.setSize(150px, 200px);
+  img {
+    border-radius: 0 25px 25px 0;
+  }
+}
+
 .info {
   position: relative;
-  width: calc(100% - 122px);
+  width: calc(100% - 152px);
   p {
     color: #666;
     line-height: 1.5;
@@ -31,7 +44,7 @@
   line-height: 25px;
   margin-bottom: 4px;
   font-weight: bold;
-  @include common.ellipsis;
+  // @include common.ellipsis;
 }
 
 .focus {
@@ -45,8 +58,7 @@
   }
 }
 
-.score {
-  cursor: pointer;
+.rating {
   margin-top: 10px;
 }
 

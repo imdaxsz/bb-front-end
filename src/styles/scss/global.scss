@@ -114,6 +114,14 @@ li {
   @include common.setSize($lg-icon, $lg-icon);
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.ellipsis {
+  @include common.ellipsis;
+}
+
 .title {
   display: block;
   width: 100%;

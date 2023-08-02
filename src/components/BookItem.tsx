@@ -15,11 +15,11 @@ export default function BookItem({ book }: { book: Book }) {
 
   return (
     <div className={`${styles.wrapper} ${styles.hover} ${isSelected ? styles.focus : ""}`} onClick={onClick}>
-      <div className={styles.img}>
+      <div className={styles['img-sm']}>
         <img src={book.image} alt="thumnail"></img>
       </div>
       <div className={styles.info}>
-        <div className={styles.title}>{book.title}</div>
+        <div className={`${styles.title} ellipsis`}>{book.title}</div>
         <p>저자&nbsp; {book.author}</p>
         <p>출판&nbsp; {book.publisher}</p>
       </div>
