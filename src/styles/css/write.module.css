@@ -1,0 +1,41 @@
+.wrapper {
+  width: 100%;
+  padding-top: 50px;
+}
+
+.content {
+  width: 900px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.date {
+  font-size: 18px;
+  margin-bottom: 1em;
+  margin-top: 80px;
+}
+
+.textarea {
+  font-size: 18px;
+}
+
+.btn-add {
+  width: inherit;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 2px solid #e3e5e9;
+  background: rgba(0, 0, 0, 0);
+  color: #b4b9c6;
+  cursor: pointer;
+}
+.btn-add:hover {
+  border: 2px solid #a7c4bc;
+  color: #a7c4bc;
+  transition: all 0.02;
+}
