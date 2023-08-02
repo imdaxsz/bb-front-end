@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from '../styles/scss/bar.module.scss';
 
 export default function TopBar() {
@@ -5,10 +6,16 @@ export default function TopBar() {
     <div className={styles.wrapper}>
       <div className={styles.topbar}>
         <ul>
-          <li className={styles.logo}><a href="/">북북</a></li>
+          <li className={styles.logo}>
+            <Link to="/">북북</Link>
+          </li>
           <div className={styles.right}>
-            <li>후기작성</li>
-            <li><a href="/my">MY</a></li>
+            <li>
+              <Link to="/write?mode=new">후기작성</Link>
+            </li>
+            <li>
+              <Link to="/my">MY</Link>
+            </li>
           </div>
         </ul>
       </div>
