@@ -1,21 +1,23 @@
 import { PiStarFill, PiStarLight } from "react-icons/pi";
-import styles from '../styles/scss/reviewitem.module.scss'
+import styles from "../styles/scss/reviewitem.module.scss";
+import { Link } from "react-router-dom";
+import { Review } from "../types/types";
 
-export default function ReviewItem({score}:{score:number}) {
+export default function ReviewItem({ review }: { review: Review }) {
   return (
-    <a href="/review/detail/1" className={styles.wrapper}>
+    <Link to={`/review/detail/${review._id}`} className={styles.wrapper}>
       <div className={styles.thumnail}>
-        <img src="https://shopping-phinf.pstatic.net/main_3243634/32436342677.20230704090706.jpg" alt="thumnail"></img>
+        <img src={review.book.image} alt="thumnail"></img>
       </div>
-      <div className="title">우리가 빛의 속도로 갈 수 없다면</div>
-      <div className={styles.score}>
-        {[...Array(score)].map((a, i) => (
+      <div className="title">{review.book.title}</div>
+      <div className={styles.rating}>
+        {[...Array(review.rating)].map((a, i) => (
           <PiStarFill className="star" key={i} />
         ))}
-        {[...Array(5 - score)].map((a, i) => (
+        {[...Array(5 - review.rating)].map((a, i) => (
           <PiStarLight className="star" key={i} />
         ))}
       </div>
-    </a>
+    </Link>
   );
 }

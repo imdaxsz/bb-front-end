@@ -1,6 +1,20 @@
 import ReviewItem from "./ReviewItem";
+import { useEffect, useState } from "react";
+import { Review } from "../types/types";
+import api from "../api/api";
+
 
 export default function Home() {
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  useEffect(() => {
+    api.get(`/api/reviews`).then((res) => {
+      if (res.status === 200) {
+        setReviews(res.data);
+      }
+    });
+  }, []);
+
   return (
     <div className="wrapper">
       {/* <div className="guide">
@@ -8,17 +22,9 @@ export default function Home() {
       </div> */}
       <div className="list-wrapper">
         <div className="list">
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
-          <ReviewItem score={3} />
+          {reviews.map((review, i) => (
+            <ReviewItem review={review} key={i} />
+          ))}
         </div>
       </div>
     </div>
