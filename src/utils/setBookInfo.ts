@@ -8,7 +8,7 @@ export const setBookInfo = (data: any[]) => {
       title: b.title,
       author: b.author,
       publisher: b.publisher,
-      image: b.image,
+      image: b.cover,
     };
     results.push(book);
   });

@@ -16,7 +16,7 @@ export default function Write() {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [text, setText] = useState("");
   const [book, setBook] = useState<Book | null>(null);
-  const [score, setScore] = useState(3);
+  const [rating, setRating] = useState(3);
   const date = new Date();
   const today = getDate(date);
 
@@ -25,7 +25,7 @@ export default function Write() {
     if (!book) window.alert("후기를 작성할 책을 선택해주세요!");
     else if (text === "") window.alert("후기 내용을 입력해주세요!");
     else {
-      axios.post(`http://localhost:8000/write/new`, { book, score, text, date }).then(() => navigate("/"));
+      axios.post(`http://localhost:8000/review/new`, { book, rating, text, date }).then(() => navigate("/"));
     }
   };
 
@@ -70,7 +70,7 @@ export default function Write() {
                 <BsPlusLg size={23} />
               </div>
             ) : (
-              <ReviewBookInfo book={book} setBook={setBook} score={score} setScore={setScore} />
+              <ReviewBookInfo book={book} setBook={setBook} rating={rating} setRating={setRating} />
             )}
             <form id="review" onSubmit={onSubmit} method="POST">
               <div className={styles.date}>{today}</div>

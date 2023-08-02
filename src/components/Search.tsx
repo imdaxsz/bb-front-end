@@ -52,7 +52,7 @@ export default function Search({ setModal, setBook }: SearchBook) {
     <div className={styles.wrapper} onClick={onClickOutside}>
       <div className={styles.modal} onClick={onClickInside}>
         <div className={styles.searchbar}>
-          <SearchBar placeholder="책 검색" filter="write" />
+          <SearchBar placeholder="책 검색" role="write" />
         </div>
         <div className={styles.list}>
           {result.map((book, i) => (

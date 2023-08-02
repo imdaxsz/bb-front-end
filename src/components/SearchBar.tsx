@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setBookInfo } from "../utils/setBookInfo";
 import { reset, setResult } from "../store/searchResultSlice";
 
-export default function SearchBar({ placeholder, keyword, filter }: { placeholder: string; keyword?: string; filter?: string }) {
+export default function SearchBar({ placeholder, keyword, role }: { placeholder: string; keyword?: string; role?: string }) {
   const [word, setWord] = useState("");
   const focusRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
@@ -18,9 +18,9 @@ export default function SearchBar({ placeholder, keyword, filter }: { placeholde
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     dispatch(reset)
     e.preventDefault();
-    if (filter === "write") {
+    if (role === "write") {
       axios.get(`http://localhost:8000/search/book?query=${word}`).then((result) => {
-        dispatch(setResult(setBookInfo(result.data.items)));
+        dispatch(setResult(setBookInfo(result.data.item)));
       });
     }
 
@@ -36,10 +36,10 @@ export default function SearchBar({ placeholder, keyword, filter }: { placeholde
   }, [keyword]);
 
   return (
-    <form onSubmit={onSubmit} aria-label="검색" role="search" className={`${filter === "write" ? styles.med : ""}`}>
+    <form onSubmit={onSubmit} aria-label="검색" role="search" className={`${role === "write" ? styles.med : ""}`}>
       <div className={styles.container} onClick={focusSearchBar}>
         <div className={styles.icon}>
-          <FiSearch size={`${filter === "write" ? 23 : ""}`} />
+          <FiSearch size={`${role === "write" ? 23 : ""}`} />
         </div>
         <input onChange={onChange} type="text" value={word} placeholder={placeholder} className={styles.input} ref={focusRef}></input>
       </div>
