@@ -8,7 +8,7 @@ export default function Root() {
   return (
     <div>
       <TopBar />
-      {["", "recommend", "my-list"].includes(pathname.split("/")[1]) && <Menu />}
+      {["", "search", "recommend", "my-list"].includes(pathname.split("/")[1]) && <Menu />}
       {pathname === "/" && <Home />}
       <Outlet />
     </div>
