@@ -12,7 +12,7 @@ interface SearchBook {
   setBook: React.Dispatch<React.SetStateAction<Book | null>>;
 }
 
-export default function Search({ setModal, setBook }: SearchBook) {
+export default function SearchModal({ setModal, setBook }: SearchBook) {
   const result = useSelector((state: RootState) => state.searchResult.books);
   const selected = useSelector((state: RootState) => state.searchResult.selected);
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ export default function Search({ setModal, setBook }: SearchBook) {
     <div className={styles.wrapper} onClick={onClickOutside}>
       <div className={styles.modal} onClick={onClickInside}>
         <div className={styles.searchbar}>
-          <SearchBar placeholder="책 검색" role="write" />
+          <SearchBar placeholder="책 검색"/>
         </div>
         <div className={styles.list}>
           {result.map((book, i) => (
