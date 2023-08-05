@@ -21,6 +21,9 @@
     border-color: #a7c4bc;
     transition: all 0.02;
   }
+  &.error {
+    border: solid 2px #ff3f3f;
+  }
 }
 
 .submit {
@@ -36,6 +39,9 @@
     background: common.$secondary;
     transition: all 0.2s;
   }
+  &:disabled {
+   background: #bbb; 
+  }
 }
 
 .find {
@@ -46,14 +52,14 @@
     font-size: 14px;
     color: #888888;
     cursor: pointer;
-    &::after{
+    &::after {
       content: "|";
       font-size: 13px;
       padding: 0 14px 5px;
       cursor: default;
     }
-    &:last-child{
-      &::after{
+    &:last-child {
+      &::after {
         content: none;
         padding-left: 0;
       }
@@ -65,5 +71,13 @@
   @include common.flex(row, center, center);
   font-size: 24px;
   margin-bottom: 35px;
-  color:#5e8b7e;
+  color: #5e8b7e;
+}
+
+.form {
+  @include common.flex(column, center, center);
+  span {
+    font-size: 13px;
+    color: #ff3f3f;
+  }
 }
