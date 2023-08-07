@@ -30,6 +30,12 @@ textarea::placeholder {
   color: #b4b9c6;
 }
 
+input[type=checkbox] {
+  -webkit-appearance: auto;
+     -moz-appearance: auto;
+          appearance: auto;
+}
+
 textarea {
   overflow: hidden;
   width: 100%;
@@ -52,7 +58,6 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
 }
 
 .wrapper {
@@ -123,24 +128,14 @@ li {
   word-break: break-all;
 }
 
-.title {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  margin-top: 6px;
-  font-family: "SUITE Variable";
-}
-
 .dropdown {
   position: relative;
-  border: solid 1px white;
+  border: solid 1px rgba(255, 255, 255, 0);
   width: 85px;
   color: #b4b9c6;
 }
 .dropdown:first-child {
+  cursor: pointer;
   padding: 4px 0 4px 6px;
   display: flex;
   flex-direction: row;
@@ -153,6 +148,7 @@ li {
   right: 0;
   font-size: 10px;
   padding-right: 5px;
+  cursor: pointer;
 }
 
 .dropdown-list {

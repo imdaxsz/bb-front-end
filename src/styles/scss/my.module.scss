@@ -2,7 +2,7 @@
 
 .wrapper {
   width: 100%;
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh);
   @include common.flex(row, center, center);
 }
 
@@ -10,7 +10,9 @@
   width: 90%;
   max-width: 860px;
   padding: 0 20px;
-  font-size: 20px;
+  span {
+    font-size: 20px;
+  }
 }
 
 .btn {
@@ -19,7 +21,6 @@
   font-size: 16px;
   cursor: pointer;
   width: fit-content;
-
 }
 
 .btn-primary {
@@ -62,6 +63,7 @@
 
 .title {
   width: 150px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -85,8 +87,50 @@
 .password {
   width: calc(100% - 150px);
   @include common.flex(column, flex-start, flex-end);
-
+  font-size: 20px;
   button {
     margin-top: 10px;
+  }
+}
+
+.leave {
+  @include common.setSize(700px, 100%);
+  margin: 0 auto;
+  padding: 100px 0;
+  p,
+  strong,
+  span {
+    line-height: 35px;
+    font-size: 18px;
+  }
+  h4 {
+    color: common.$highlight;
+    width: 100%;
+    font-size: 24px;
+    margin-bottom: 100px;
+  }
+  .icon {
+    color: common.$secondary;
+  }
+}
+
+.message {
+  display: flex;
+  margin: 20px 0;
+}
+
+.pform {
+  .input {
+    @include common.setSize(180px, 35px);
+    border: solid 1px #dadada;
+    border-radius: 30px;
+    padding: 0 12px;
+    margin: 5px 0;
+    font-size: 18px;
+  }
+
+  button {
+    display: block;
+    margin: 60px auto 0;
   }
 }
