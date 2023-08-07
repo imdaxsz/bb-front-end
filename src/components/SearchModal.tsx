@@ -2,7 +2,7 @@ import { setResult, setSelected } from "../store/searchResultSlice";
 import { RootState } from "../store/store";
 import styles from "../styles/scss/search.module.scss";
 import { Book } from "../types/types";
-import BookItem from "./BookItem";
+import SearchBookItem from "./SearchBookItem";
 import SearchBar from "./SearchBar";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -54,11 +54,11 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
     <div className={styles.wrapper} onClick={onClickOutside}>
       <div className={styles.modal} onClick={onClickInside}>
         <div className={styles.searchbar}>
-          <SearchBar placeholder="책 검색"/>
+          <SearchBar placeholder="책 검색" />
         </div>
         <div className={styles.list}>
           {result.map((book, i) => (
-            <BookItem book={book} key={i} />
+            <SearchBookItem book={book} key={i} />
           ))}
         </div>
         <button onClick={onClickOk} className="btn btn-primary">

@@ -17,6 +17,19 @@
   }
 }
 
+.title {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.author {
+  color: #666;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .rating {
   margin-top: 3px;
   @include common.flex(row, center, center);
