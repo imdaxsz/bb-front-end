@@ -1,6 +1,6 @@
 import styles from "../styles/scss/auth.module.scss";
 
-export default function LogIn() {
+export default function Signin() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
