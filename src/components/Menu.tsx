@@ -28,7 +28,7 @@ export default function Menu() {
               <Link to="/my-list">관심도서</Link>
             </li>
             <li className={pathname === "recommend" ? "active" : ""}>
-              <Link to="/recommend">추천도서</Link>
+              <Link to="/recommend?page=1">추천도서</Link>
             </li>
           </div>
           <div className={styles.right}>
