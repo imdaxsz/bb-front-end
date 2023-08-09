@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "../styles/scss/pagination.module.scss";
 
 interface Props {
@@ -14,12 +14,12 @@ export default function Pagination({ totalItems, itemCountPerPage, pageCount, cu
   const [start, setStart] = useState(1);
   const noPrev = start === 1;
   const noNext = start + pageCount - 1 >= totalPages;
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentPage === start + pageCount) setStart((prev) => prev + pageCount);
     if (currentPage < start) setStart((prev) => prev - pageCount);
-  }, [currentPage]);
+    window.scrollTo(0, 0);
+  }, [currentPage, pageCount, start]);
 
   return (
     <div className={styles.wrapper}>
@@ -28,13 +28,15 @@ export default function Pagination({ totalItems, itemCountPerPage, pageCount, cu
           <Link to={`?page=${start - 1}`}>이전</Link>
         </li>
         {[...Array(pageCount)].map((a, i) => (
-          <>
+          <React.Fragment key={i}>
             {start + i <= totalPages && (
-              <li className={`${styles.page} ${currentPage === start + i && styles.active}`} key={i} onClick={() => navigate(`?page=${start + i}`)}>
-                {start + i}
+              <li>
+                <Link className={`${styles.page} ${currentPage === start + i && styles.active}`} to={`?page=${start + i}`}>
+                  {start + i}
+                </Link>
               </li>
             )}
-          </>
+          </React.Fragment>
         ))}
         <li className={`${styles.move} ${noNext && styles.visible}`}>
           <Link to={`?page=${start + pageCount}`}>다음</Link>
