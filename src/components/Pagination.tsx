@@ -25,19 +25,19 @@ export default function Pagination({ totalItems, itemCountPerPage, pageCount, cu
     <div className={styles.wrapper}>
       <ul>
         <li className={`${styles.move} ${noPrev && styles.visible}`}>
-          <Link to={`/recommend?page=${start - 1}`}>이전</Link>
+          <Link to={`?page=${start - 1}`}>이전</Link>
         </li>
         {[...Array(pageCount)].map((a, i) => (
           <li
             className={`${styles.page} ${currentPage === start + i && styles.active}`}
             key={i}
-            onClick={() => navigate(`/recommend?page=${start + i}`)}
+            onClick={() => navigate(`?page=${start + i}`)}
           >
             {start + i <= totalPages && start + i}
           </li>
         ))}
         <li className={`${styles.move} ${noNext && styles.visible}`}>
-          <Link to={`/recommend?page=${start + pageCount}`}>다음</Link>
+          <Link to={`?page=${start + pageCount}`}>다음</Link>
         </li>
       </ul>
     </div>
