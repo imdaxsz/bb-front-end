@@ -13,7 +13,6 @@ export default function Recommend() {
   const page = searchParams.get("page");
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     api.get(`api/book/recommend?page=${page}`).then((res) => {
       if (res.status === 200) {
         setBooks(setBookInfo(res.data.item));
