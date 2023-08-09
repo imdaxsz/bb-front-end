@@ -24,6 +24,9 @@
   &.error {
     border: solid 2px #ff3f3f;
   }
+  &:disabled {
+    cursor: default;
+  }
 }
 
 .submit {

@@ -22,6 +22,12 @@
   border-color: #a7c4bc;
   transition: all 0.02;
 }
+.input.error, .error.submit {
+  border: solid 2px #ff3f3f;
+}
+.input:disabled, .submit:disabled {
+  cursor: default;
+}
 
 .submit {
   background: #a7c4bc;
@@ -35,6 +41,9 @@
 .submit:hover {
   background: #5E8B7E;
   transition: all 0.2s;
+}
+.submit:disabled {
+  background: #bbb;
 }
 
 .find {
@@ -69,4 +78,15 @@
   font-size: 24px;
   margin-bottom: 35px;
   color: #5e8b7e;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form span {
+  font-size: 13px;
+  color: #ff3f3f;
 }
