@@ -14,7 +14,7 @@ export default function Signup() {
 
   const navigate = useNavigate();
 
-  const active = email !== "" && password !== "" && pwConfirm !== "";
+  const disabled = email !== "" && password !== "" && pwConfirm !== "";
 
   const checkEmail = () => {
     const emailReg = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
@@ -52,7 +52,6 @@ export default function Signup() {
     if (email.length === 0) setValidateEmail(1);
     else if (!validatePw) setValidatePw(false);
     else if (!isSamePw) setIsSamePw(false);
-    console.log(validateEmail, validatePw, isSamePw);
     if (validateEmail === 0 && validatePw && isSamePw) {
       api.post("/api/user/signup", { email, password }).then((res) => {
         if (res.status === 200) {
@@ -79,8 +78,8 @@ export default function Signup() {
             required
             placeholder="이메일"
           />
-          {validateEmail === 1 && <span>{email.length <= 0 ? "이메일을 입력해주세요." : "이메일: 올바르지 않은 형식입니다."}</span>}
-          {validateEmail === 2 && <span>{"이미 사용중인 이메일입니다."}</span>}
+          {validateEmail === 1 && <span>이메일: 올바르지 않은 형식입니다.</span>}
+          {validateEmail === 2 && <span>이미 사용중인 이메일입니다.</span>}
           <input
             className={`${styles.input} ${validatePw === false && styles.error}`}
             name="password"
@@ -91,9 +90,7 @@ export default function Signup() {
             autoComplete="off"
             placeholder="비밀번호"
           />
-          {validatePw === false && (
-            <span>{password.length <= 0 ? "비밀번호를 입력해주세요." : `비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.`}</span>
-          )}
+          {validatePw === false && <span>비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>}
           <input
             className={`${styles.input} ${isSamePw === false && styles.error}`}
             name="pwConfirm"
@@ -104,7 +101,7 @@ export default function Signup() {
             placeholder="비밀번호 확인"
           />
           {isSamePw === false && <span>비밀번호가 일치하지 않습니다.</span>}
-          <input className={styles.submit} disabled={!active} type="submit" value="가입하기" />
+          <input className={styles.submit} disabled={!disabled} type="submit" value="가입하기" />
         </form>
       </div>
     </div>
