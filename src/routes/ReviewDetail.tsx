@@ -12,27 +12,42 @@ export default function ReviewDetail() {
   const navigate = useNavigate();
 
   const [review, setReview] = useState<Review | null>(null);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState("");
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    api.get(`/api/review/detail/${id}`).then((res) => {
-      if (res.status === 200) {
-        setReview(res.data);
-        setDate(getDate(new Date(res.data.date)));
-      }
-    });
-  }, [id]);
-
+    api
+      .get(`/api/review/detail/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setReview(res.data);
+          setDate(getDate(new Date(res.data.date)));
+        }
+      });
+  }, [id, token]);
 
   const onClickDelete = () => {
     const ok = window.confirm("삭제된 후기는 복구할 수 없습니다.\n삭제하시겠습니까?");
     if (ok) {
-      api.delete(`/api/review/${id}`).then((res) => {
-        if (res.status === 200) {
-          window.alert("삭제되었습니다.");
-          navigate("/");
-        }
-      });
+      api
+        .delete(`/api/review/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            window.alert("삭제되었습니다.");
+            navigate("/");
+          }
+        });
     }
   };
 

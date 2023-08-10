@@ -14,22 +14,46 @@ export default function Write() {
   const [modal, setModal] = useState(false);
   const [searchParams] = useSearchParams();
   const mode = searchParams.get("mode");
-  const id = searchParams.get("logNo");
-
+  const id = searchParams.get("logNo");  
+  
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [text, setText] = useState("");
   const [book, setBook] = useState<Book | null>(null);
   const [rating, setRating] = useState(3);
   const today = new Date();
   const [date, setDate] = useState(getDate(today));
+  
+  const token = localStorage.getItem("token");
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!book) window.alert("후기를 작성할 책을 선택해주세요!");
     else if (text === "") window.alert("후기 내용을 입력해주세요!");
     else {
-      if (mode === "new") api.post(`/api/review/new`, { book, rating, text, date:today }).then(() => navigate("/"));
-      else api.put(`/api/review/${id}`, { rating, text }).then(() => navigate(`/review/detail/${id}`));
+      if (mode === "new") api
+        .post(
+          `/api/review/new`,
+          { book, rating, text, date: today },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(() => navigate("/"));
+      else api
+        .put(
+          `/api/review/${id}`,
+          { rating, text },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(() => navigate(`/review/detail/${id}`));
     }
   };
 
@@ -46,16 +70,24 @@ export default function Write() {
   useEffect(() => {
     // 후기 수정일 경우
     if (mode === "edit") {
-      api.get(`/api/review/detail/${id}`).then((res) => {
-        if (res.status === 200) {
-          setBook(res.data.book);
-          setRating(res.data.rating);
-          setText(res.data.text);
-          setDate(getDate(new Date(res.data.date)));
-        }
-      });
+      api
+        .get(`/api/review/detail/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log(res.data);
+            setBook(res.data.book);
+            setRating(res.data.rating);
+            setText(res.data.text);
+            setDate(getDate(new Date(res.data.date)));
+          }
+        });
     }
-  }, [id, mode]);
+  }, [id, mode, token]);
 
   return (
     <>

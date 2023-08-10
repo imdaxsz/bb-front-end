@@ -6,11 +6,19 @@ export interface Book {
   image: string;
 }
 
+export interface BookInfo extends Book {
+  pubDate: string;
+  description: string;
+  category: { id: string; name: string };
+  itemPage: number;
+  link: string;
+}
+
 export interface Review {
-  _id: string,
-  book: Book,
-  // user?: any, // 글쓴이 정보
-  rating: number,
-  text: string,
-  date: Date,
+  _id: string;
+  book: Book;
+  user_id: string, // 글쓴이 정보
+  rating: number;
+  text: string;
+  date: Date;
 }
