@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import api from "../api/api";
 import { signOut } from "../utils/SignOut";
 import ResetPassword from "../components/ResetPassword";
+import { backUp } from "../utils/backUp";
 
 export default function My() {
   const [active, setActive] = useState(true);
@@ -12,6 +13,13 @@ export default function My() {
 
   const onRecommendClick = () => {
     setActive((prev) => !prev);
+  };
+
+  const onRequestDataClick = async () => {
+    const ok = window.confirm("후기 데이터를 요청하시겠습니까?");
+    if (ok) {
+      backUp(token);
+    }
   };
 
   useEffect(() => {
@@ -55,7 +63,9 @@ export default function My() {
         </div>
         <div className={styles["item-wrapper"]}>
           <span className={styles["title-md"]}>후기 데이터 다운로드</span>
-          <button className={styles["btn-primary"]}>데이터 요청하기</button>
+          <button className={styles["btn-primary"]} onClick={onRequestDataClick}>
+            데이터 요청하기
+          </button>
         </div>
         <div className={styles["item-wrapper"]}>
           <Link to="/leave">회원 탈퇴</Link>
