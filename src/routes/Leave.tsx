@@ -1,10 +1,13 @@
 import styles from "../styles/scss/my.module.scss";
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import api from "../api/api";
+import { signOut } from "../utils/SignOut";
 
 export default function Leave() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agree, setAgree] = useState(false);
+  const token = localStorage.getItem("token");
 
   const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -15,18 +18,45 @@ export default function Leave() {
     else setAgree(false);
   };
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (agree) {
-      api.post("/api/user/deleteAccount", { id: "id", password }).then((res) => {
-        if (res.status === 400) window.alert("비밀번호를 다시 확인하세요.");
-        else if (res.status === 200) {
-          window.alert("탈퇴 완료되었습니다.");
-          // 로그아웃
-        }
-      });
+      api
+        .post(
+          "/api/user/delete_account",
+          { password },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.status === 200 && res.data !== "ID or PW error") {
+            window.alert("탈퇴 완료되었습니다.");
+            signOut();
+          } else window.alert("비밀번호를 다시 확인하세요.");
+        });
     } else window.alert("회원 탈퇴 동의를 체크해 주세요.");
   };
+
+  useEffect(() => {
+    if (token) {
+      api
+        .get(`/api/user/info`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setEmail(res.data.email);
+          }
+        });
+    }
+  }, [token]);
 
   return (
     <div className={styles.wrapper}>
@@ -43,9 +73,17 @@ export default function Leave() {
             <input type="checkbox" onChange={onChangeCheck} />
             <span>&nbsp; 위 내용을 이해했으며, 모두 동의합니다.</span>
           </div>
-          <strong>본인 확인을 위해 'id' 계정의 비밀번호를 입력해주세요.</strong>
+          <strong>본인 확인을 위해 {email} 계정의 비밀번호를 입력해주세요.</strong>
           <form onSubmit={onSubmit} className={styles.pform}>
-            <input name="currentPw" type="password" value={password} onChange={onChangePw} placeholder="비밀번호 입력" autoComplete="off" className={styles.input} />
+            <input
+              name="currentPw"
+              type="password"
+              value={password}
+              onChange={onChangePw}
+              placeholder="비밀번호 입력"
+              autoComplete="off"
+              className={styles.input}
+            />
             <button type="submit" className={styles["btn-primary"]}>
               회원 탈퇴
             </button>
