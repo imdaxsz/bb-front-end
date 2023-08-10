@@ -94,14 +94,26 @@
 
 .password {
   width: calc(100% - 150px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;
   font-size: 20px;
 }
 .password button {
   margin-top: 10px;
+}
+.password button:disabled {
+  background: #bbb;
+  cursor: default;
+}
+.password form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.password form span {
+  width: 100%;
+  font-size: 13px;
+  text-align: center;
+  color: #ff3f3f;
 }
 
 .leave {

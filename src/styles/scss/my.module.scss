@@ -86,10 +86,22 @@
 
 .password {
   width: calc(100% - 150px);
-  @include common.flex(column, flex-start, flex-end);
   font-size: 20px;
   button {
     margin-top: 10px;
+    &:disabled {
+      background: #bbb;
+      cursor: default;
+    }
+  }
+  form {
+    @include common.flex(column, flex-start, flex-end);
+    span {
+      width: 100%;
+      font-size: 13px;
+      text-align: center;
+      color: #ff3f3f;
+    }
   }
 }
 
@@ -120,6 +132,7 @@
 }
 
 .pform {
+  // 회원탈퇴 폼
   .input {
     @include common.setSize(180px, 35px);
     border: solid 1px #dadada;

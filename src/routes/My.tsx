@@ -1,22 +1,18 @@
 import styles from "../styles/scss/my.module.scss";
-import inputstyles from "../styles/scss/auth.module.scss";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import api from "../api/api";
+import { signOut } from "../utils/SignOut";
+import ResetPassword from "../components/ResetPassword";
 
 export default function My() {
   const [active, setActive] = useState(true);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const token = localStorage.getItem("token");
 
   const onRecommendClick = () => {
     setActive((prev) => !prev);
   };
-
-  const signOut = () => {
-    localStorage.removeItem('token');
-    window.location.href = "/";
-  }
 
   useEffect(() => {
     if (token) {
@@ -48,10 +44,7 @@ export default function My() {
         <div className={styles["password-wrapper"]}>
           <div className={styles.title}>비밀번호 재설정</div>
           <div className={styles.password}>
-            <input className={inputstyles.input} placeholder="현재 비밀번호"></input>
-            <input className={inputstyles.input} placeholder="새 비밀번호"></input>
-            <input className={inputstyles.input} placeholder="새 비밀번호 확인"></input>
-            <button className={styles["btn-primary"]}>변경</button>
+            <ResetPassword token={token} />
           </div>
         </div>
         <div className={styles["item-wrapper"]}>
@@ -65,7 +58,7 @@ export default function My() {
           <button className={styles["btn-primary"]}>데이터 요청하기</button>
         </div>
         <div className={styles["item-wrapper"]}>
-          <a href="/#">회원 탈퇴</a>
+          <Link to="/leave">회원 탈퇴</Link>
         </div>
       </div>
     </div>
