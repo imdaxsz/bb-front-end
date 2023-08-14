@@ -16,6 +16,37 @@
   color: #2f5d62;
 }
 
+.topbar-light {
+  background: white;
+}
+.topbar-light button {
+  font-size: 16px;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.topbar-light span:first-child::after {
+  content: "|";
+  padding: 0 6px;
+  color: #ccc;
+}
+.topbar-light .number {
+  color: #5E8B7E;
+  font-size: 17px;
+  font-weight: 600;
+}
+.topbar-light .upload {
+  background: #5E8B7E;
+  border: none;
+  color: white;
+}
+.topbar-light .save {
+  background: white;
+  border: solid 1px #ccc;
+}
+.topbar-light .right li:first-child {
+  margin-right: 10px;
+}
+
 .logo {
   margin-left: 20px;
   font-size: 24px;
@@ -59,25 +90,4 @@
 .searchbar {
   width: 230px;
   margin-right: -30px;
-}
-
-.write {
-  background: white;
-}
-.write span,
-.write button {
-  font-size: 16px;
-  padding: 4px 12px;
-  border-radius: 20px;
-}
-.write button {
-  background: #5E8B7E;
-  border: none;
-  color: white;
-}
-.write span {
-  border: solid 1px #ccc;
-}
-.write .right li:first-child {
-  margin-right: 10px;
 }
