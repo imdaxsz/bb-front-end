@@ -3,6 +3,7 @@
 .wrapper {
   width: 100%;
   padding: 50px 0 70px;
+  min-height: calc(100vh);
 }
 
 .item {
@@ -85,4 +86,23 @@
   & div:first-child {
     margin-bottom: 10px;
   }
+}
+
+.link {
+  color: common.$secondary;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.like {
+  height: 1.5rem;
+  margin-top: 8px;
+  @include common.flex(row, center, center);
+  cursor: pointer;
+  position: absolute;
+  top: 30px;
+  right: 80px;
+  color: #666;
 }

@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { BookInfo } from "./../types/types";
 import { setBookDetailInfo } from "../utils/setBookInfo";
-import { RiCloseCircleFill } from "react-icons/ri";
 import api from "../api/api";
+import Like from "./../components/Like";
 
-export default function ReviewDetail() {
+export default function BookDetail() {
   const id = useLocation().pathname.split("/")[3];
+  const token = localStorage.getItem("token");
   const [book, setBook] = useState<BookInfo | null>(null);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function ReviewDetail() {
         setBook(setBookDetailInfo(res.data.item[0]));
       }
     });
-  }, []);
+  }, [id]);
 
   return (
     <div className="wrapper">
@@ -26,12 +27,12 @@ export default function ReviewDetail() {
         <div className={styles.item}>
           {book && (
             <>
+              <Like token={token} isbn={book.isbn} />
               <div className={styles.book}>
-                <span className={bs.delete} title="관심 도서에 추가">
-                  <RiCloseCircleFill size={27} />
-                </span>
-                <div className={bs["img-lg"]}>
-                  <img src={book.image} alt={book.title} />
+                <div>
+                  <div className={bs["img-lg"]}>
+                    <img src={book.image} alt={book.title} />
+                  </div>
                 </div>
                 <div className={bs.info}>
                   <div className={`${bs.title}`}>{book.title}</div>
