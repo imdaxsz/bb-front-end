@@ -1,0 +1,37 @@
+import modal from "../styles/scss/modal.module.scss";
+import { useEffect } from "react";
+
+interface Props {
+  onClickOutside: () => void;
+  content: JSX.Element;
+  bottom: JSX.Element;
+}
+
+export default function Modal({ onClickOutside, content, bottom }: Props) {
+  const onClickInside = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
+  useEffect(() => {
+    // 모달창 외부화면 스크롤 방지
+    document.body.style.cssText = `
+    position: fixed; 
+    top: -${window.scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
+
+  return (
+    <div className={modal.wrapper} onClick={onClickOutside}>
+      <div className={modal.modal} onClick={onClickInside}>
+        {content}
+        <div className={modal.bottom}>{bottom}</div>
+      </div>
+    </div>
+  );
+}

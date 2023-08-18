@@ -1,11 +1,11 @@
 import { setResult, setSelected } from "../store/searchResultSlice";
 import { RootState } from "../store/store";
-import styles from "../styles/scss/search.module.scss";
+import styles from "../styles/scss/modal.module.scss";
 import { Book } from "../types/types";
 import SearchBookItem from "./SearchBookItem";
 import SearchBar from "./SearchBar";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Modal from "./Modal";
 
 interface SearchBook {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,13 +17,10 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
   const selected = useSelector((state: RootState) => state.searchResult.selected);
   const dispatch = useDispatch();
 
-  const onClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onClickCancel = () => {
     setModal(false);
     dispatch(setSelected(null));
     dispatch(setResult([]));
-  };
-  const onClickInside = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
   };
 
   const onClickOk = () => {
@@ -36,23 +33,9 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
     }
   };
 
-  useEffect(() => {
-    // 모달창 외부화면 스크롤 방지
-    document.body.style.cssText = `
-    position: fixed; 
-    top: -${window.scrollY}px;
-    overflow-y: scroll;
-    width: 100%;`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = "";
-      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
-    };
-  }, []);
-
-  return (
-    <div className={styles.wrapper} onClick={onClickOutside}>
-      <div className={styles.modal} onClick={onClickInside}>
+  const Content = () => {
+    return (
+      <>
         <div className={styles.searchbar}>
           <SearchBar placeholder="책 검색" />
         </div>
@@ -61,10 +44,22 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
             <SearchBookItem book={book} key={i} />
           ))}
         </div>
+      </>
+    );
+  };
+
+  const Bottom = () => {
+    return (
+      <>
+        <button onClick={onClickCancel} className="btn btn-light">
+          취소
+        </button>
         <button onClick={onClickOk} className="btn btn-primary">
           선택
         </button>
-      </div>
-    </div>
-  );
+      </>
+    );
+  };
+
+  return <Modal onClickOutside={onClickCancel} content={<Content />} bottom={<Bottom />} />;
 }
