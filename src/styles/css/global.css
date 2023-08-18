@@ -77,6 +77,11 @@ li {
   color: white;
 }
 
+.btn-light {
+  background: white;
+  border: solid 1px #ccc;
+}
+
 .list-wrapper {
   width: 100%;
   padding: 50px 0 70px;

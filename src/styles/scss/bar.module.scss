@@ -24,18 +24,22 @@
 
   span {
     &:first-child {
-      &::after {
-        content: "|";
-        padding: 0 6px;
-        color: #ccc;
-      }
+      padding: 0 6px;
     }
   }
+  
   .number {
     color: common.$secondary;
     font-size: 17px;
     font-weight: 600;
+    padding-right: 6px;
+    &::before {
+      content: "|";
+      padding-right: 6px;
+      color: #ccc;
+    }
   }
+
   .upload {
     background: common.$secondary;
     border: none;
@@ -44,6 +48,7 @@
   .save {
     background: white;
     border: solid 1px #ccc;
+    padding: 4px 6px;
   }
   .right {
     li:first-child {

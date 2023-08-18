@@ -1,0 +1,90 @@
+@use "common";
+
+$padding: 20px;
+$icon: 50px;
+
+.wrapper {
+  width: calc(100vw - (100vw - 100%));
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  z-index: 800;
+  @include common.flex(row, center, center);
+}
+
+.modal {
+  min-width: 600px;
+  width: 50vw;
+  height: 600px;
+  // max-height: 90vh;
+  border-radius: 16px;
+  background: white;
+  box-shadow: rgba(101, 119, 134, 0.2) 0px 0px 15px;
+  padding: $padding;
+  position: relative;
+}
+
+.bottom {
+  position: absolute;
+  width: calc(100% - $padding * 2);
+  bottom: 20px;
+  gap: 10px;
+  @include common.flex(row, center, center);
+}
+
+.searchbar {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 30px;
+}
+
+.list {
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100% - 125px);
+  @include common.flex(column, flex-start, flex-start);
+  gap: 12px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  height: 2rem;
+  line-height: 2rem;
+  margin-bottom: 10px;
+}
+
+hr {
+  background: #ddd;
+  height: 1px;
+  border: 0;
+}
+
+.g0 {
+  gap: 0;
+}
+
+.list-item {
+  width: 100%;
+  border-bottom: solid 1px #ddd;
+  padding: 15px 0;
+  cursor: pointer;
+  color: #222;
+  @include common.flex(row, center, center);
+}
+
+.text-sm {
+  color: #aaa;
+  font-size: 15px;
+}
+
+.review {
+  width: calc(100% - $icon);
+}
+
+.icon {
+  @include common.setSize($icon, $icon);
+  @include common.flex(row, center, center);
+  color: #aaa;
+}

@@ -24,9 +24,15 @@
   padding: 4px 12px;
   border-radius: 20px;
 }
-.topbar-light span:first-child::after {
-  content: "|";
+.topbar-light span:first-child {
   padding: 0 6px;
+}
+.topbar-light span:last-child {
+  padding-right: 6px;
+}
+.topbar-light span:last-child::before {
+  content: "|";
+  padding-right: 6px;
   color: #ccc;
 }
 .topbar-light .number {
@@ -42,6 +48,7 @@
 .topbar-light .save {
   background: white;
   border: solid 1px #ccc;
+  padding: 4px 6px;
 }
 .topbar-light .right li:first-child {
   margin-right: 10px;
