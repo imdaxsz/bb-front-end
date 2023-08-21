@@ -24,7 +24,7 @@ export default function Recommend() {
   return (
     <div className="wrapper">
       <div className="list-wrapper">
-        <div className="list">
+        <div className="list" style={{marginBottom: "70px"}}>
           {books && (
             <>
               {books.map((book, i) => (
