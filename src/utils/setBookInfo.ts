@@ -2,7 +2,7 @@ import { Book, BookInfo } from "../types/types";
 
 export const setBookInfo = (data: any[]) => {
   let results: Book[] = [];
-  data.forEach((b, i) => {
+  data.forEach((b) => {
     const book: Book = {
       isbn: b.isbn13,
       title: b.title,
