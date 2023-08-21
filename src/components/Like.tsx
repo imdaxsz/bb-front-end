@@ -15,14 +15,13 @@ export default function Like({ token, isbn }: LikeProps) {
   useEffect(() => {
     if (token) {
       api
-        .get(`/api/like/${isbn}`, {
+        .get(`/api/like/book/${isbn}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) setLike(res.data);
         });
     }
