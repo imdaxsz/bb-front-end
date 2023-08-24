@@ -9,6 +9,7 @@ export default function Menu() {
   const filterList = ["최신순", "오래된 순", "제목순"];
   const filterPath = ["", "sort=date_asc", "sort=title"];
   const [filter, setFilter] = useState(filterList[0]);
+  const placeholder: Record<string, string> = { "": "도서명으로 후기 검색", "my_list": "제목 검색", "recommend": "제목, 저자명 검색" };
 
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("query");
@@ -35,7 +36,7 @@ export default function Menu() {
             </li>
           </div>
 
-          {["", "search", "recommend", "like"].includes(pathname) && (
+          {["", "search", "recommend", "my_list", "like"].includes(pathname) && (
             <div className={styles.right}>
               {pathname !== "recommend" && (
                 <li>
@@ -57,7 +58,7 @@ export default function Menu() {
               )}
               <li>
                 <div className={styles.searchbar}>
-                  <SearchBar placeholder={pathname === "" ? "후기 검색" : "제목, 저자명 검색"} keyword={keyword ? keyword : ""} />
+                  <SearchBar placeholder={placeholder[pathname]} keyword={keyword ? keyword : ""} />
                 </div>
               </li>
             </div>
