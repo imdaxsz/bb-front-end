@@ -27,7 +27,7 @@ export default function SearchBar({ placeholder, keyword }: { placeholder: strin
       });
     } else if (["/", "/search/review"].includes(pathname)) navigate(`/search/review?query=${word}`);
     else if (["/recommend", "/search/book"].includes(pathname)) navigate(`/search/book?query=${word}`);
-
+    else if (["/my_list", "/search/my_list"].includes(pathname)) navigate(`/search/my_list?query=${word}`);
     if (focusRef.current instanceof HTMLInputElement) focusRef.current.blur();
   };
 

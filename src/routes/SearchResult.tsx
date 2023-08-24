@@ -30,6 +30,21 @@ export default function SearchResult() {
             setReviews(res.data);
           }
         });
+    } else if (searchType === "my_list") {
+      // 관심 도서 내 검색
+      api
+        .get(`/api/search/my_list?query=${keyword}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log(res.data);
+            setBooks(setBookInfo(res.data));
+          }
+        });
     } else {
       // 도서 검색
       api.get(`/api/search/book?query=${keyword}`).then((res) => {
