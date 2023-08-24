@@ -33,9 +33,14 @@ export default function Write() {
     if (!book) window.alert("후기를 작성할 책을 선택해주세요!");
     else if (opt === "upload" && text === "") window.alert("후기 내용을 입력해주세요!");
     else {
-      if (mode === "new")
+      if (mode === "new") {
         // 새 후기 저장
-        saveReview(book, rating, today, text, opt, token);
+        saveReview(book, rating, today, text, opt, token).then((res) => {
+          if (res !== "") {
+            navigate(`/review/detail/${res}`);
+          } 
+        });
+      }
       // 후기 수정
       else
         api
