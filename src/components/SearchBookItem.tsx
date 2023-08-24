@@ -4,13 +4,24 @@ import styles from "../styles/scss/book.module.scss";
 import { Book } from "../types/types";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function SearchBookItem({ book }: { book: Book }) {
+interface Props {
+  book: Book;
+  listRef: React.MutableRefObject<HTMLDivElement | null>;
+  setScrollY: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export default function SearchBookItem({ book, listRef, setScrollY }: Props) {
   const selected = useSelector((state: RootState) => state.searchResult.selected);
   const isSelected = selected && selected.isbn === book.isbn;
   const dispatch = useDispatch();
 
   const onClick = () => {
     dispatch(setSelected(book));
+    if (listRef.current) {
+      const scrollY = listRef.current.scrollTop;
+      console.log("p: ", scrollY);
+      setScrollY(scrollY);
+    }
   };
 
   return (
