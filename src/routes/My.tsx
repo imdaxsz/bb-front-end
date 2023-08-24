@@ -12,7 +12,20 @@ export default function My() {
   const token = localStorage.getItem("token");
 
   const onRecommendClick = () => {
-    setActive((prev) => !prev);
+    api
+      .post(
+        `/api/recommend`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) setActive((prev) => !prev);
+      });
   };
 
   const onRequestDataClick = async () => {
@@ -36,6 +49,18 @@ export default function My() {
             setEmail(res.data.email);
           }
         });
+      api
+        .get(`/api/recommend`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setActive(!res.data);
+          }
+        });
     }
   }, [token]);
 
@@ -57,7 +82,7 @@ export default function My() {
         </div>
         <div className={styles["item-wrapper"]}>
           <span className={styles["title-md"]}>후기 작성 후 책 추천</span>
-          <div className={`toggle ${active === true ? "toggle-active" : ""}`} onClick={onRecommendClick}>
+          <div className={`toggle ${active ? "toggle-active" : ""}`} onClick={onRecommendClick}>
             <div className="circle" />
           </div>
         </div>
