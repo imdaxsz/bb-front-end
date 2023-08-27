@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Review } from "../types/types";
 import api from "../api/api";
 import { useSearchParams } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 
 export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -36,6 +37,9 @@ export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) 
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>북북 - 홈</title>
+      </Helmet>
       {isAuthenticated ? (
         <>
           {reviews.length === 0 ? (

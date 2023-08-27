@@ -5,6 +5,7 @@ import Pagination from "../components/Pagination";
 import api from "../api/api";
 import { setBookInfo } from "../utils/setBookInfo";
 import { useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function Recommend() {
   const [totalItems, setTotalItems] = useState(0);
@@ -23,8 +24,11 @@ export default function Recommend() {
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>북북 - 추천도서</title>
+      </Helmet>
       <div className="list-wrapper">
-        <div className="list" style={{marginBottom: "70px"}}>
+        <div className="list" style={{ marginBottom: "70px" }}>
           {books && (
             <>
               {books.map((book, i) => (

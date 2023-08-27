@@ -4,6 +4,7 @@ import api from "../api/api";
 import { setBookInfo } from "./../utils/setBookInfo";
 import BookItem from "../components/BookItem";
 import { useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function MyBookList({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [books, setBooks] = useState<Book[]>([]);
@@ -49,6 +50,9 @@ export default function MyBookList({ isAuthenticated }: { isAuthenticated: boole
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>북북 - 관심도서</title>
+      </Helmet>
       {isAuthenticated ? (
         <>
           {filteredBooks.length === 0 ? (

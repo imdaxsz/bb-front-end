@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import api from "../api/api";
 import styles from "../styles/scss/auth.module.scss";
 import { FormEvent, useState } from "react";
@@ -65,6 +66,9 @@ export default function Signup() {
 
   return (
     <div className={styles.wrapper}>
+      <Helmet>
+        <title>북북 - 회원가입</title>
+      </Helmet>
       <div className={styles.content}>
         <a href="/">북북</a>
         <form onSubmit={onSubmit} className={styles.form}>

@@ -1,6 +1,8 @@
 import api from "../api/api";
 import styles from "../styles/scss/auth.module.scss";
 import { useState, FormEvent } from "react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
@@ -24,17 +26,20 @@ export default function Signin() {
     else if (password.length <= 0) setBlankPw(true);
     if (!blankEmail && !blankPw) {
       api.post("/api/user/signin", { email, password }).then((res) => {
-        if (res.status === 200 && res.data !== 'ID or PW error') {
+        if (res.status === 200 && res.data !== "ID or PW error") {
           console.log(res);
           localStorage.setItem("token", res.data.token);
           window.location.href = "/";
-        } else console.log('아이디 또는 비밀번호를 다시 확인해주세요.');
+        } else console.log("아이디 또는 비밀번호를 다시 확인해주세요.");
       });
     }
   };
 
   return (
     <div className={styles.wrapper}>
+      <Helmet>
+        <title>북북 - 로그인</title>
+      </Helmet>
       <div className={styles.content}>
         <a href="/">북북</a>
         <form onSubmit={onSubmit} className={styles.form}>
@@ -52,13 +57,14 @@ export default function Signin() {
         </form>
         <ul className={styles.find}>
           <li>
-            <a href="/find_password">비밀번호 찾기</a>
+            <Link to="/find_password">비밀번호 찾기</Link>
           </li>
           <li>
-            <a href="/signup">회원가입</a>
+            <Link to="/signup">회원가입</Link>
           </li>
         </ul>
       </div>
     </div>
+    // </GoogleOAuthProvider>
   );
 }

@@ -5,6 +5,7 @@ import api from "../api/api";
 import { useLocation, useSearchParams } from "react-router-dom";
 import BookItem from "../components/BookItem";
 import { setBookInfo } from "../utils/setBookInfo";
+import { Helmet } from "react-helmet-async";
 
 export default function SearchResult() {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -57,6 +58,9 @@ export default function SearchResult() {
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>북북 - 검색 결과</title>
+      </Helmet>
       <div className="list-wrapper">
         <div className="list">
           {reviews.map((review, i) => (

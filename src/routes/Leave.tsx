@@ -2,6 +2,7 @@ import styles from "../styles/scss/my.module.scss";
 import { useState, useEffect, FormEvent } from "react";
 import api from "../api/api";
 import { signOut } from "../utils/SignOut";
+import { Helmet } from "react-helmet-async";
 
 export default function Leave() {
   const [email, setEmail] = useState("");
@@ -60,6 +61,9 @@ export default function Leave() {
 
   return (
     <div className={styles.wrapper}>
+      <Helmet>
+        <title>북북 - 회원탈퇴</title>
+      </Helmet>
       <div className={styles.content}>
         <div className={styles.leave}>
           <h4>회원 탈퇴</h4>
@@ -84,7 +88,7 @@ export default function Leave() {
               autoComplete="off"
               className={styles.input}
             />
-            <button type="submit" className={styles["btn-primary"]}>
+            <button type="submit" className={styles["btn-secondary"]}>
               회원 탈퇴
             </button>
           </form>
