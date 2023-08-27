@@ -16,7 +16,6 @@ import BookDetail from "./routes/BookDetail";
 import PrivateRoute from "./components/PrivateRoute";
 import { useState, useEffect } from "react";
 import api from "./api/api";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,25 +43,23 @@ function App() {
 
   return (
     <>
-      <GoogleOAuthProvider clientId="">
-        <Routes>
-          <Route path="" element={<Root />}>
-            <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
-            <Route path="/recommend" element={<Recommend />} />
-            <Route path="/book/detail/:id" element={<BookDetail />} />
-            <Route path="/my" element={<PrivateRoute component={<My />} isAuthenticated={isAuthenticated} />} />
-            <Route path="/review/detail/:id" element={<PrivateRoute component={<ReviewDetail />} isAuthenticated={isAuthenticated} />} />
-            <Route path="/my_list" element={<MyBookList isAuthenticated={isAuthenticated} />} />
-            <Route path="/search/:filter" element={<SearchResult />} />
-            <Route path="/leave" element={<PrivateRoute component={<Leave />} isAuthenticated={isAuthenticated} />} />
-          </Route>
-          <Route path="/write" element={<PrivateRoute component={<Write />} isAuthenticated={isAuthenticated} />} />
-          <Route path="/find_password" element={<Find />} />
-          <Route path="/reset_password" element={<Reset />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
-      </GoogleOAuthProvider>
+      <Routes>
+        <Route path="" element={<Root />}>
+          <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
+          <Route path="/recommend" element={<Recommend />} />
+          <Route path="/book/detail/:id" element={<BookDetail />} />
+          <Route path="/my" element={<PrivateRoute component={<My />} isAuthenticated={isAuthenticated} />} />
+          <Route path="/review/detail/:id" element={<PrivateRoute component={<ReviewDetail />} isAuthenticated={isAuthenticated} />} />
+          <Route path="/my_list" element={<MyBookList isAuthenticated={isAuthenticated} />} />
+          <Route path="/search/:filter" element={<SearchResult />} />
+          <Route path="/leave" element={<PrivateRoute component={<Leave />} isAuthenticated={isAuthenticated} />} />
+        </Route>
+        <Route path="/write" element={<PrivateRoute component={<Write />} isAuthenticated={isAuthenticated} />} />
+        <Route path="/find_password" element={<Find />} />
+        <Route path="/reset_password" element={<Reset />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
     </>
   );
 }

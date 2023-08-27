@@ -35,10 +35,8 @@ export default function SavedList({ setModal, setBook, setText, setRating, token
           },
         })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             const newReviews = reviews.filter((a) => a._id !== reviews[i]._id);
-            console.log(newReviews);
             setReviews(newReviews);
           }
           else window.alert("삭제 오류입니다");
@@ -62,7 +60,7 @@ export default function SavedList({ setModal, setBook, setText, setRating, token
   const Content = () => {
     return (
       <>
-        <div className={styles.title}>임시저장</div>
+        <div className={`${styles.title} ${styles.mb}`}>임시저장</div>
         <hr></hr>
         <div className={`${styles.list} ${styles.g0}`}>
           {reviews.map((review, i) => (

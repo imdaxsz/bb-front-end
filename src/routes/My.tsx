@@ -5,27 +5,18 @@ import api from "../api/api";
 import { signOut } from "../utils/SignOut";
 import ResetPassword from "../components/ResetPassword";
 import { backUp } from "../utils/backUp";
+import { Helmet } from "react-helmet-async";
+import { setRecommend } from "../utils/recommend";
 
 export default function My() {
   const [active, setActive] = useState(true);
   const [email, setEmail] = useState("");
+  
   const token = localStorage.getItem("token");
 
-  const onRecommendClick = () => {
-    api
-      .post(
-        `/api/recommend`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        if (res.status === 200) setActive((prev) => !prev);
-      });
+  const onRecommendClick = async () => {
+    const result = await setRecommend(token);
+    if (result === 200) setActive((prev) => !prev);
   };
 
   const onRequestDataClick = async () => {
@@ -58,7 +49,7 @@ export default function My() {
         })
         .then((res) => {
           if (res.status === 200) {
-            setActive(!res.data);
+            setActive(res.data);
           }
         });
     }
@@ -66,6 +57,9 @@ export default function My() {
 
   return (
     <div className={styles.wrapper}>
+      <Helmet>
+        <title>북북 - 마이페이지</title>
+      </Helmet>
       <div className={styles.content}>
         <div className={styles["item-wrapper"]}>
           <span className={styles.title}>이메일</span>
@@ -88,7 +82,7 @@ export default function My() {
         </div>
         <div className={styles["item-wrapper"]}>
           <span className={styles["title-md"]}>후기 데이터 다운로드</span>
-          <button className={styles["btn-primary"]} onClick={onRequestDataClick}>
+          <button className={styles["btn-secondary"]} onClick={onRequestDataClick}>
             데이터 요청하기
           </button>
         </div>

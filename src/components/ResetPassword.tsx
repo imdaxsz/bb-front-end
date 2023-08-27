@@ -96,7 +96,7 @@ export default function ResetPassword({ token }: { token: string | null }) {
       />
       {isSamePw === false && <span>비밀번호가 일치하지 않습니다.</span>}
       {error !== 0 && <span>{message[error]}</span>}
-      <button disabled={!disabled} type="submit" className={btnstyles["btn-primary"]}>
+      <button disabled={!disabled} type="submit" className={btnstyles["btn-secondary"]}>
         변경
       </button>
     </form>
