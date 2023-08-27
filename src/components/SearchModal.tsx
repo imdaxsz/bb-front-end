@@ -1,4 +1,4 @@
-import { setResult, setSelected } from "../store/searchResultSlice";
+import { reset, setKeyword, setResult, setSelected } from "../store/searchResultSlice";
 import { RootState } from "../store/store";
 import styles from "../styles/scss/modal.module.scss";
 import { Book } from "../types/types";
@@ -22,8 +22,7 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
 
   const onClickCancel = () => {
     setModal(false);
-    dispatch(setSelected(null));
-    dispatch(setResult([]));
+    dispatch(reset());
     setScrollY(0);
   };
 
@@ -34,6 +33,7 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
       setModal(false);
       dispatch(setSelected(null));
       dispatch(setResult([]));
+      dispatch(setKeyword(""));
       setScrollY(0);
     }
   };
@@ -66,7 +66,7 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
         <button onClick={onClickCancel} className="btn btn-light">
           취소
         </button>
-        <button onClick={onClickOk} className="btn btn-primary">
+        <button onClick={onClickOk} className="btn btn-secondary">
           선택
         </button>
       </>

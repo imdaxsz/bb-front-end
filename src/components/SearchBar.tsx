@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/scss/searchbar.module.scss";
 import { FiSearch } from "react-icons/fi";
-import { useDispatch } from "react-redux";
-import { setBookInfo } from "../utils/setBookInfo";
-import { reset, setResult } from "../store/searchResultSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchBookInfo } from "../utils/setBookInfo";
+import { setKeyword, setResult } from "../store/searchResultSlice";
 import api from "../api/api";
 import { useLocation, useNavigate } from "react-router-dom";
+import { RootState } from "../store/store";
 
 export default function SearchBar({ placeholder, keyword }: { placeholder: string; keyword?: string }) {
-  const [word, setWord] = useState("");
+  const [word, setWord] = useState(keyword || "");
+  const writeKeyword = useSelector((state: RootState) => state.searchResult.keyword);
   const focusRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,11 +21,13 @@ export default function SearchBar({ placeholder, keyword }: { placeholder: strin
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    dispatch(reset);
     e.preventDefault();
     if (pathname === "/write") {
       api.get(`/api/search/book?query=${word}`).then((res) => {
-        if (res.status === 200) dispatch(setResult(setBookInfo(res.data.item)));
+        if (res.status === 200) {
+          dispatch(setKeyword(word));
+          dispatch(setResult(setSearchBookInfo(res.data.item)));
+        }
       });
     } else if (["/", "/search/review"].includes(pathname)) navigate(`/search/review?query=${word}`);
     else if (["/recommend", "/search/book"].includes(pathname)) navigate(`/search/book?query=${word}`);
@@ -36,14 +40,15 @@ export default function SearchBar({ placeholder, keyword }: { placeholder: strin
   };
 
   useEffect(() => {
-    setWord(keyword || "");
-  }, [keyword]);
+    if (pathname !== "/write") setWord(keyword || "");
+    if (writeKeyword !== "") setWord(writeKeyword);
+  }, [keyword, pathname, writeKeyword]);
 
   return (
     <form onSubmit={onSubmit} aria-label="검색" role="search" className={`${pathname === "/write" && styles.med}`}>
       <div className={styles.container} onClick={focusSearchBar}>
         <div className={styles.icon}>
-          <FiSearch size={`${pathname === "write" ? 23 : ""}`} />
+          <FiSearch size={`${pathname === "/write" ? 23 : ""}`} />
         </div>
         <input onChange={onChange} type="text" value={word} placeholder={placeholder} className={styles.input} ref={focusRef}></input>
       </div>
