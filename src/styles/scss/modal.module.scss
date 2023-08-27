@@ -4,6 +4,7 @@ $padding: 20px;
 $icon: 50px;
 
 .wrapper {
+  display: block;
   width: calc(100vw - (100vw - 100%));
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
@@ -22,6 +23,14 @@ $icon: 50px;
   box-shadow: rgba(101, 119, 134, 0.2) 0px 0px 15px;
   padding: $padding;
   position: relative;
+}
+
+.modal-sm {
+  max-width: 500px;
+  min-width: auto;
+  width: 80%;
+  height: 450px;
+  border-radius: 16px;
 }
 
 .bottom {
@@ -52,6 +61,10 @@ $icon: 50px;
   font-weight: 600;
   height: 2rem;
   line-height: 2rem;
+  margin-bottom: 2px;
+}
+
+.mb {
   margin-bottom: 10px;
 }
 
@@ -77,6 +90,10 @@ hr {
 .text-sm {
   color: #aaa;
   font-size: 15px;
+}
+
+.des {
+  color: #888;
 }
 
 .review {

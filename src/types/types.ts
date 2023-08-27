@@ -6,6 +6,10 @@ export interface Book {
   image: string;
 }
 
+export interface SearchResultBook extends Book {
+  categoryId: string;
+}
+
 export interface BookInfo extends Book {
   pubDate: string;
   description: string;
@@ -17,7 +21,7 @@ export interface BookInfo extends Book {
 export interface Review {
   _id: string;
   book: Book;
-  user_id: string, // 글쓴이 정보
+  user_id: string; // 글쓴이 정보
   rating: number;
   text: string;
   date: Date;

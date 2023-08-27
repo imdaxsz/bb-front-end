@@ -1,14 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Book } from "../types/types";
+import { SearchResultBook } from "../types/types";
 
 interface searchResult {
-  books: Book[],
-  selected: Book | null,
+  keyword: string;
+  books: SearchResultBook[];
+  selected: SearchResultBook | null;
+  categoryId: string;
 }
 
 const initialState: searchResult = {
+  keyword: "",
   books: [],
-  selected: null
+  selected: null,
+  categoryId: "",
 };
 
 export const searchResultSlice = createSlice({
@@ -16,14 +20,21 @@ export const searchResultSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    setResult(state, action: PayloadAction<Book[]>) {
+
+    setKeyword(state, action: PayloadAction<string>) {
+      state.keyword = action.payload;
+    },
+    setResult(state, action: PayloadAction<SearchResultBook[]>) {
       state.books = action.payload;
     },
-    setSelected(state, action: PayloadAction<Book | null>) {
+    setSelected(state, action: PayloadAction<SearchResultBook | null>) {
       state.selected = action.payload;
-    }
+    },
+    setCategoryId(state, action: PayloadAction<string>) {
+      state.categoryId = action.payload;
+    },
   },
 });
 
-export const { reset, setResult, setSelected } = searchResultSlice.actions;
+export const { reset, setKeyword, setResult, setSelected, setCategoryId } = searchResultSlice.actions;
 export default searchResultSlice.reducer;

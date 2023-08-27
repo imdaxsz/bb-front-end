@@ -10,9 +10,15 @@ import api from "../api/api";
 import TopBar from "../components/TopBar";
 import SavedList from "../components/SavedList";
 import { loadReviews, saveReview } from "../utils/review";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { setRecBook, setRecModal } from "../store/recommendSlice";
+import { setBookInfo } from "../utils/setBookInfo";
 
 export default function Write() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [modal, setModal] = useState(false);
   const [savedModal, setSavedModal] = useState(false);
   const [searchParams] = useSearchParams();
@@ -29,16 +35,49 @@ export default function Write() {
   const token = localStorage.getItem("token");
   const [savedCount, setSavedCount] = useState(0);
 
+  const categoryId = useSelector((state: RootState) => state.searchResult.categoryId);
+
   const onSubmit = (opt: "save" | "upload") => {
     if (!book) window.alert("후기를 작성할 책을 선택해주세요!");
     else if (opt === "upload" && text === "") window.alert("후기 내용을 입력해주세요!");
     else {
       if (mode === "new") {
         // 새 후기 저장
-        saveReview(book, rating, today, text, opt, token).then((res) => {
-          if (res !== "") {
-            navigate(`/review/detail/${res}`);
-          } 
+        saveReview(book, rating, today, text, opt, token).then((id) => {
+          if (id !== "" && opt === "upload") {
+            // 추천 기능 사용 여부 확인
+            api
+              .get(`/api/recommend`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+              .then((res) => {
+                if (res.status === 200 && res.data === true) {
+                  // 추천 사용한다면 추천 요청
+                  api
+                    .post(
+                      `/api/recommend/foryou`,
+                      { categoryId },
+                      {
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${token}`,
+                        },
+                      }
+                    )
+                    .then((res) => {
+                      if (res.status === 200) {
+                        dispatch(setRecBook(setBookInfo([res.data])[0]));
+                        dispatch(setRecModal(true));
+                        navigate(`/review/detail/${id}`);
+                      }
+                    });
+                } 
+                else navigate(`/review/detail/${id}`);
+              });
+          }
         });
       }
       // 후기 수정

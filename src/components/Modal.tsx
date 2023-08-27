@@ -5,9 +5,10 @@ interface Props {
   onClickOutside: () => void;
   content: JSX.Element;
   bottom: JSX.Element;
+  size?: "md";
 }
 
-export default function Modal({ onClickOutside, content, bottom }: Props) {
+export default function Modal({ onClickOutside, content, bottom, size }: Props) {
   const onClickInside = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
@@ -28,7 +29,7 @@ export default function Modal({ onClickOutside, content, bottom }: Props) {
 
   return (
     <div className={modal.wrapper} onClick={onClickOutside}>
-      <div className={modal.modal} onClick={onClickInside}>
+      <div className={`${modal.modal} ${size && modal["modal-sm"]}`} onClick={onClickInside}>
         {content}
         <div className={modal.bottom}>{bottom}</div>
       </div>

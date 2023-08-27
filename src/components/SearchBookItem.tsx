@@ -1,11 +1,11 @@
-import { setSelected } from "../store/searchResultSlice";
+import { setCategoryId, setSelected } from "../store/searchResultSlice";
 import { RootState } from "../store/store";
 import styles from "../styles/scss/book.module.scss";
-import { Book } from "../types/types";
+import { SearchResultBook } from "../types/types";
 import { useSelector, useDispatch } from "react-redux";
 
 interface Props {
-  book: Book;
+  book: SearchResultBook;
   listRef: React.MutableRefObject<HTMLDivElement | null>;
   setScrollY: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -17,9 +17,9 @@ export default function SearchBookItem({ book, listRef, setScrollY }: Props) {
 
   const onClick = () => {
     dispatch(setSelected(book));
+    dispatch(setCategoryId(book.categoryId));
     if (listRef.current) {
       const scrollY = listRef.current.scrollTop;
-      console.log("p: ", scrollY);
       setScrollY(scrollY);
     }
   };
