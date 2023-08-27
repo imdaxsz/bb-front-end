@@ -10,7 +10,7 @@
 .topbar {
   @include common.setSize(100%, 50px);
   @include common.set-fixed(0, 500);
-  background: #dfeeea;
+  background: common.$primary;
   color: common.$highlight;
 }
 
@@ -71,7 +71,7 @@
 .menu {
   max-width: 1150px;
   @include common.setSize(100%, 50px);
-  @include common.set-fixed(50px, 1000);
+  @include common.set-fixed(50px, 600);
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
   ul {

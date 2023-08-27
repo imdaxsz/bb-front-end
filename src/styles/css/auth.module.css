@@ -39,7 +39,7 @@
   cursor: pointer;
 }
 .submit:hover {
-  background: #5E8B7E;
+  background: #5e8b7e;
   transition: all 0.2s;
 }
 .submit:disabled {

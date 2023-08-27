@@ -16,7 +16,7 @@
   font-size: 20px;
 }
 
-.btn, .btn-white, .btn-primary {
+.btn, .btn-white, .btn-secondary {
   border-radius: 20px;
   padding: 4px 12px;
   font-size: 16px;
@@ -25,8 +25,8 @@
   width: fit-content;
 }
 
-.btn-primary {
-  background: #5E8B7E;
+.btn-secondary {
+  background: #5e8b7e;
   color: white;
   border: none;
 }
@@ -135,7 +135,7 @@
   margin-bottom: 100px;
 }
 .leave .icon {
-  color: #5E8B7E;
+  color: #5e8b7e;
 }
 
 .message {

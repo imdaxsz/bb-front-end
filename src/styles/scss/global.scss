@@ -72,7 +72,14 @@ li {
   border-radius: 20px;
 }
 
-.btn-primary {
+.btn-neutral {
+  background: #efefef;
+  background: common.$primary;
+  border: solid 1px #ccc;
+  color: #333;
+}
+
+.btn-secondary {
   background: common.$secondary;
   border: none;
   color: white;

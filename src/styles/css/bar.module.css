@@ -27,21 +27,19 @@
 .topbar-light span:first-child {
   padding: 0 6px;
 }
-.topbar-light span:last-child {
+.topbar-light .number {
+  color: #5e8b7e;
+  font-size: 17px;
+  font-weight: 600;
   padding-right: 6px;
 }
-.topbar-light span:last-child::before {
+.topbar-light .number::before {
   content: "|";
   padding-right: 6px;
   color: #ccc;
 }
-.topbar-light .number {
-  color: #5E8B7E;
-  font-size: 17px;
-  font-weight: 600;
-}
 .topbar-light .upload {
-  background: #5E8B7E;
+  background: #5e8b7e;
   border: none;
   color: white;
 }
@@ -70,7 +68,7 @@
   height: 50px;
   position: fixed;
   top: 50px;
-  z-index: 1000;
+  z-index: 600;
   background: rgba(255, 255, 255, 0.8);
   -webkit-backdrop-filter: blur(12px);
           backdrop-filter: blur(12px);

@@ -87,7 +87,7 @@
   cursor: pointer;
 }
 .tool-item:hover {
-  color: #5E8B7E;
+  color: #5e8b7e;
 }
 
 .content {
@@ -102,7 +102,7 @@
 }
 
 .link {
-  color: #5E8B7E;
+  color: #5e8b7e;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   cursor: pointer;

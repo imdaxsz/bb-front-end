@@ -48,14 +48,14 @@
 }
 
 .focus {
-  border-color: #5E8B7E;
+  border-color: #5e8b7e;
 }
 
 .hover {
   cursor: pointer;
 }
 .hover:hover {
-  border-color: #5E8B7E;
+  border-color: #5e8b7e;
 }
 
 .rating {
@@ -66,6 +66,6 @@
   position: absolute;
   top: 0;
   right: 0;
-  color: #5E8B7E;
+  color: #5e8b7e;
   cursor: pointer;
 }

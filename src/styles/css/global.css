@@ -71,8 +71,15 @@ li {
   border-radius: 20px;
 }
 
-.btn-primary {
-  background: #5E8B7E;
+.btn-neutral {
+  background: #efefef;
+  background: #dfeeea;
+  border: solid 1px #ccc;
+  color: #333;
+}
+
+.btn-secondary {
+  background: #5e8b7e;
   border: none;
   color: white;
 }
@@ -209,7 +216,7 @@ li {
 }
 
 .toggle-active {
-  background: #5E8B7E;
+  background: #5e8b7e;
 }
 .toggle-active .circle {
   transform: translate(1.375rem);
