@@ -16,7 +16,7 @@
   line-height: 94%;
   color: common.$primary;
   margin-bottom: 10px;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
 
@@ -89,6 +89,12 @@
   font-size: 24px;
   margin-bottom: 35px;
   color: #5e8b7e;
+}
+
+.label-sm {
+  @extend .label;
+  font-size: 18px;
+  margin: 10px 0;
 }
 
 .form {
