@@ -9,6 +9,7 @@ export default function Signin() {
   const [password, setPassword] = useState("");
   const [blankEmail, setBlankEmail] = useState(false);
   const [blankPw, setBlankPw] = useState(false);
+  const [error, setError] = useState(false);
 
   const disabled = email !== "" && password !== "";
 
@@ -30,7 +31,7 @@ export default function Signin() {
           console.log(res);
           localStorage.setItem("token", res.data.token);
           window.location.href = "/";
-        } else console.log("아이디 또는 비밀번호를 다시 확인해주세요.");
+        } else setError(true);
       });
     }
   };
@@ -41,9 +42,9 @@ export default function Signin() {
         <title>북북 - 로그인</title>
       </Helmet>
       <div className={styles.content}>
-        <a href="/">북북</a>
+        <Link to="/">북북</Link>
         <form onSubmit={onSubmit} className={styles.form}>
-          <input className={styles.input} name="email" type="email" value={email} onChange={onChangeEmail} required placeholder="이메일" />
+          <input className={styles.input} name="email" type="text" value={email} onChange={onChangeEmail} placeholder="이메일" />
           <input
             className={styles.input}
             name="password"
@@ -53,6 +54,7 @@ export default function Signin() {
             autoComplete="off"
             placeholder="비밀번호"
           />
+          {error && <span>이메일 또는 비밀번호를 다시 확인해주세요.</span>}
           <input className={styles.submit} disabled={!disabled} type="submit" value="로그인" />
         </form>
         <ul className={styles.find}>
@@ -65,6 +67,5 @@ export default function Signin() {
         </ul>
       </div>
     </div>
-    // </GoogleOAuthProvider>
   );
 }
