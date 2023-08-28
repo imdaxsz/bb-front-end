@@ -1,8 +1,7 @@
 @use "common";
 
 .wrapper {
-  width: 100%;
-  height: 150.8px;
+  @include common.setSize(100%, 150.8px);
   @include common.flex(row, flex-start, center);
   border: solid 3px white;
   position: relative;

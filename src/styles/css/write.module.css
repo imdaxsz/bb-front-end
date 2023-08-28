@@ -1,11 +1,11 @@
 .wrapper {
   width: 100%;
+  height: 105%;
   padding-top: 50px;
 }
 
 .content {
   width: 900px;
-  height: 100vh;
   margin: 0 auto;
 }
 

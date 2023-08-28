@@ -10,11 +10,11 @@ export default function Root() {
   const modal = useSelector((state: RootState) => state.recommend.modal);
 
   return (
-    <div>
+    <>
       {modal  && <RecommendModal />}
       <TopBar />
       {["", "search", "recommend", "my_list", "book"].includes(pathname.split("/")[1]) && <Menu />}
       <Outlet />
-    </div>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 .wrapper {
   display: block;
   width: calc(100vw - (100vw - 100%));
-  height: 100vh;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
   z-index: 800;
@@ -49,9 +49,9 @@
 
 .list {
   width: 100%;
+  height: calc(100% - 125px);
   overflow-y: auto;
   overflow-x: hidden;
-  height: calc(100% - 125px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -1,17 +1,14 @@
 @use "common";
 
 .wrapper {
-  width: 150px;
-  height: 260px;
+  @include common.setSize(150px, 260px);
   cursor: pointer;
 }
 
 .thumnail {
-  width: 100%;
-  height: 210px;
+  @include common.setSize(100%, 210px);
   img {
-    width: 100%;
-    height: 100%;
+    @include common.setSize(100%, 100%);
     object-fit: cover;
     border-radius: 0 20px 20px 0;
   }

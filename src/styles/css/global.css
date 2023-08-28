@@ -16,6 +16,12 @@ a {
   font-weight: normal;
   font-style: normal;
 }
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   font-family: "SUITE Variable";
 }
@@ -68,7 +74,7 @@ li {
 
 .wrapper {
   width: 100%;
-  height: calc(100vh - 50px);
+  height: calc(100% - 50px);
 }
 
 .btn {

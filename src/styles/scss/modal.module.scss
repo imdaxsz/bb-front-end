@@ -2,11 +2,11 @@
 
 $padding: 20px;
 $icon: 50px;
+$wrapper-width: calc(100vw - (100vw - 100%));
 
 .wrapper {
   display: block;
-  width: calc(100vw - (100vw - 100%));
-  height: 100vh;
+  @include common.setSize($wrapper-width, 100%);
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
   z-index: 800;
@@ -15,8 +15,7 @@ $icon: 50px;
 
 .modal {
   min-width: 600px;
-  width: 50vw;
-  height: 600px;
+  @include common.setSize(50vw, 600px);
   // max-height: 90vh;
   border-radius: 16px;
   background: white;
@@ -28,8 +27,7 @@ $icon: 50px;
 .modal-sm {
   max-width: 500px;
   min-width: auto;
-  width: 80%;
-  height: 450px;
+  @include common.setSize(80%, 450px);
   border-radius: 16px;
 }
 
@@ -42,16 +40,16 @@ $icon: 50px;
 }
 
 .searchbar {
-  width: 100%;
-  height: 50px;
+  @include common.setSize(100%, 50px);
   margin-bottom: 30px;
 }
 
 .list {
   width: 100%;
+  height: calc(100% - 125px);
+
   overflow-y: auto;
   overflow-x: hidden;
-  height: calc(100% - 125px);
   @include common.flex(column, flex-start, flex-start);
   gap: 12px;
 }
