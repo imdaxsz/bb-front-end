@@ -42,9 +42,11 @@ export default function Signin() {
         <title>북북 - 로그인</title>
       </Helmet>
       <div className={styles.content}>
-        <Link to="/">북북</Link>
-        <form onSubmit={onSubmit} className={styles.form}>
-          <input className={styles.input} name="email" type="text" value={email} onChange={onChangeEmail} placeholder="이메일" />
+        <div className={styles.logo}>
+          <Link to="/">북북</Link>
+        </div>
+        <form onSubmit={onSubmit} className={styles.form} noValidate>
+          <input className={styles.input} name="email" type="email" value={email} onChange={onChangeEmail} placeholder="이메일" />
           <input
             className={styles.input}
             name="password"

@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import api from "../api/api";
 import styles from "../styles/scss/auth.module.scss";
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -70,8 +70,10 @@ export default function Signup() {
         <title>북북 - 회원가입</title>
       </Helmet>
       <div className={styles.content}>
-        <a href="/">북북</a>
-        <form onSubmit={onSubmit} className={styles.form}>
+        <div className={styles.logo}>
+          <Link to="/">북북</Link>
+        </div>
+        <form onSubmit={onSubmit} className={styles.form} noValidate>
           <input
             className={`${styles.input} ${(validateEmail === 1 || validateEmail === 2) && styles.error}`}
             name="email"
@@ -79,7 +81,6 @@ export default function Signup() {
             value={email}
             onChange={onChangeEmail}
             onBlur={checkEmail}
-            required
             placeholder="이메일"
           />
           {validateEmail === 1 && <span>이메일: 올바르지 않은 형식입니다.</span>}
