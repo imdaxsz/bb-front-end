@@ -13,10 +13,11 @@ interface Props {
   setBook: React.Dispatch<React.SetStateAction<Book | null>>;
   setText: React.Dispatch<React.SetStateAction<string>>;
   setRating: React.Dispatch<React.SetStateAction<number>>;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
   token: string | null;
 }
 
-export default function SavedList({ setModal, setBook, setText, setRating, token }: Props) {
+export default function SavedList({ setModal, setBook, setText, setRating, setCount, token }: Props) {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   const onClickCancel = () => {
@@ -38,6 +39,7 @@ export default function SavedList({ setModal, setBook, setText, setRating, token
           if (res.status === 200) {
             const newReviews = reviews.filter((a) => a._id !== reviews[i]._id);
             setReviews(newReviews);
+            setCount((prev) => prev - 1);
           }
           else window.alert("삭제 오류입니다");
         });

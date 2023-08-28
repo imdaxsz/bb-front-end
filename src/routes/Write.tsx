@@ -43,7 +43,7 @@ export default function Write() {
     else {
       if (mode === "new") {
         // 새 후기 저장
-        saveReview(book, rating, today, text, opt, token).then((id) => {
+        saveReview(book, rating, today, text, opt, token, setSavedCount).then((id) => {
           if (id !== "" && opt === "upload") {
             // 추천 기능 사용 여부 확인
             api
@@ -74,8 +74,7 @@ export default function Write() {
                         navigate(`/review/detail/${id}`);
                       }
                     });
-                } 
-                else navigate(`/review/detail/${id}`);
+                } else navigate(`/review/detail/${id}`);
               });
           }
         });
@@ -137,7 +136,7 @@ export default function Write() {
   return (
     <>
       {modal && <SearchModal setModal={setModal} setBook={setBook} />}
-      {savedModal && <SavedList setModal={setSavedModal} setBook={setBook} setText={setText} setRating={setRating} token={token} />}
+      {savedModal && <SavedList setModal={setSavedModal} setBook={setBook} setText={setText} setRating={setRating} setCount={setSavedCount} token={token} />}
       <TopBar write={{ mode: mode ? mode : "new", savedCount, onClick: onSubmit, onNumClick: showSavedReviews }} />
       <div className="wrapper">
         <div className={styles.wrapper}>

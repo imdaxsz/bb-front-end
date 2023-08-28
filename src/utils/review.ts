@@ -1,9 +1,17 @@
 import api from "../api/api";
 import { Book, Review } from "../types/types";
 
-type saveParams = (book: Book | null, rating: number, date: Date, text: string, opt: "save" | "upload", token: string | null) => Promise<any>;
+type saveParams = (
+  book: Book | null,
+  rating: number,
+  date: Date,
+  text: string,
+  opt: "save" | "upload",
+  token: string | null,
+  setCount: React.Dispatch<React.SetStateAction<number>>
+) => Promise<any>;
 
-export const saveReview: saveParams = async (book, rating, date, text, opt, token) => {
+export const saveReview: saveParams = async (book, rating, date, text, opt, token, setCount) => {
   let reviewId = "";
   await api
     .post(
@@ -18,8 +26,11 @@ export const saveReview: saveParams = async (book, rating, date, text, opt, toke
     )
     .then((res) => {
       if (res.status === 200) {
-        if (opt === "save") window.alert("저장 완료"); // 임시 저장
-        else reviewId = res.data;
+        if (opt === "save") {
+          // 임시 저장
+          window.alert("저장 완료");
+          setCount((prev) => prev + 1);
+        } else reviewId = res.data;
       } else {
         throw new Error("Failed to save review");
       }
