@@ -73,7 +73,7 @@
   @include common.flex(row, center, center);
   cursor: pointer;
   &:hover {
-    color: common.$secondary;
+    color: common.$primary;
   }
 }
 
@@ -89,7 +89,7 @@
 }
 
 .link {
-  color: common.$secondary;
+  color: common.$primary;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   cursor: pointer;

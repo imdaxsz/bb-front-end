@@ -11,6 +11,21 @@
   width: 350px;
 }
 
+.logo {
+  width: 100%;
+  font-family: "GeekbleMalang2";
+  font-size: 50px;
+  line-height: 94%;
+  color: #5e8b7e;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo > a {
+  display: block;
+}
+
 .input, .submit {
   border: solid 2px #eee;
   border-radius: 20px;
@@ -43,7 +58,7 @@
   transition: all 0.2s;
 }
 .submit:disabled {
-  background: #bbb;
+  background: #bac1d0;
 }
 
 .find {

@@ -88,7 +88,7 @@ export default function Leave() {
               autoComplete="off"
               className={styles.input}
             />
-            <button type="submit" className={styles["btn-secondary"]}>
+            <button type="submit" className={styles["btn-primary"]}>
               회원 탈퇴
             </button>
           </form>

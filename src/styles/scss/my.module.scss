@@ -23,9 +23,9 @@
   width: fit-content;
 }
 
-.btn-secondary {
+.btn-primary {
   @extend .btn;
-  background: common.$secondary;
+  background: common.$primary;
   color: white;
   border: none;
 }
@@ -122,7 +122,7 @@
     margin-bottom: 100px;
   }
   .icon {
-    color: common.$secondary;
+    color: common.$primary;
   }
 }
 

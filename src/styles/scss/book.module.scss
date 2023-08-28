@@ -47,13 +47,13 @@
 }
 
 .focus {
-  border-color: common.$secondary;
+  border-color: common.$primary;
 }
 
 .hover {
   cursor: pointer;
   &:hover {
-    border-color: common.$secondary;
+    border-color: common.$primary;
   }
 }
 
@@ -65,6 +65,6 @@
   position: absolute;
   top: 0;
   right: 0;
-  color: common.$secondary;
+  color: common.$primary;
   cursor: pointer;
 }

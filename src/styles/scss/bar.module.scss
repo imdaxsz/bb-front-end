@@ -10,8 +10,12 @@
 .topbar {
   @include common.setSize(100%, 50px);
   @include common.set-fixed(0, 500);
-  background: common.$primary;
-  color: common.$highlight;
+  background: white;
+  border-bottom: solid 1px #eee;
+  color: common.$primary;
+  .right {
+    font-weight: 700;
+  }
 }
 
 .topbar-light {
@@ -27,9 +31,9 @@
       padding: 0 6px;
     }
   }
-  
+
   .number {
-    color: common.$secondary;
+    color: common.$primary;
     font-size: 17px;
     font-weight: 600;
     padding-right: 6px;
@@ -41,7 +45,7 @@
   }
 
   .upload {
-    background: common.$secondary;
+    background: common.$primary;
     border: none;
     color: white;
   }
@@ -59,8 +63,9 @@
 
 .logo {
   margin-left: 20px;
-  font-size: 24px;
-  font-weight: bold;
+  font-family: "GeekbleMalang2";
+  font-size: 30px;
+  line-height: 90%;
 }
 
 .menu-wrapper {

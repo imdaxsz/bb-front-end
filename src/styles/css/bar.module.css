@@ -12,8 +12,12 @@
   position: fixed;
   top: 0;
   z-index: 500;
-  background: #dfeeea;
-  color: #2f5d62;
+  background: white;
+  border-bottom: solid 1px #eee;
+  color: #5e8b7e;
+}
+.topbar .right {
+  font-weight: 700;
 }
 
 .topbar-light {
@@ -54,8 +58,9 @@
 
 .logo {
   margin-left: 20px;
-  font-size: 24px;
-  font-weight: bold;
+  font-family: "GeekbleMalang2";
+  font-size: 30px;
+  line-height: 90%;
 }
 
 .menu-wrapper {

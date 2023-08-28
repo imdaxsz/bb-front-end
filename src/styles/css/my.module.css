@@ -16,7 +16,7 @@
   font-size: 20px;
 }
 
-.btn, .btn-white, .btn-secondary {
+.btn, .btn-white, .btn-primary {
   border-radius: 20px;
   padding: 4px 12px;
   font-size: 16px;
@@ -25,7 +25,7 @@
   width: fit-content;
 }
 
-.btn-secondary {
+.btn-primary {
   background: #5e8b7e;
   color: white;
   border: none;

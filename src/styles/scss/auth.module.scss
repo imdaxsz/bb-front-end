@@ -11,6 +11,22 @@
   // height: 400px;
 }
 
+.logo {
+  width: 100%;
+  font-family: "GeekbleMalang2";
+  font-size: 50px;
+  line-height: 94%;
+  color: common.$primary;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > a {
+    display: block;
+  }
+}
+
 .input {
   border: solid 2px #eee;
   border-radius: 20px;
@@ -39,11 +55,11 @@
   margin-top: 20px;
   cursor: pointer;
   &:hover {
-    background: common.$secondary;
+    background: common.$primary;
     transition: all 0.2s;
   }
   &:disabled {
-   background: #bbb; 
+    background: #bac1d0;
   }
 }
 

@@ -66,7 +66,7 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
         <button onClick={onClickCancel} className="btn btn-light">
           취소
         </button>
-        <button onClick={onClickOk} className="btn btn-secondary">
+        <button onClick={onClickOk} className="btn btn-primary">
           선택
         </button>
       </>
