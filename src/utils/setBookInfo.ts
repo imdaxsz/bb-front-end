@@ -4,7 +4,7 @@ export const setBookInfo = (data: any[]) => {
   let results: Book[] = [];
   data.forEach((b) => {
     const book: Book = {
-      isbn: b.isbn13,
+      isbn: b.isbn13 !== "" ? b.isbn13 : b.isbn,
       title: b.title,
       author: b.author,
       publisher: b.publisher,
@@ -19,7 +19,7 @@ export const setSearchBookInfo = (data: any[]) => {
   let results: SearchResultBook[] = [];
   data.forEach((b) => {
     const book: SearchResultBook = {
-      isbn: b.isbn13,
+      isbn: b.isbn13 !== "" ? b.isbn13 : b.isbn,
       title: b.title,
       author: b.author,
       publisher: b.publisher,
@@ -33,7 +33,7 @@ export const setSearchBookInfo = (data: any[]) => {
 
 export const setBookDetailInfo = (data: any) => {
   let result: BookInfo = {
-    isbn: data.isbn13,
+    isbn: data.isbn13 !== "" ? data.isbn13 : data.isbn,
     title: data.title,
     author: data.author,
     publisher: data.publisher,
