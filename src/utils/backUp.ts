@@ -6,7 +6,7 @@ export const backUp = async (token: string | null) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-        "Access-Control-Allow-Origin": `https://bookbook-phi.vercel.app/`,
+        "Access-Control-Allow-Origin": `https://bookbook-phi.vercel.app`,
         "Access-Control-Allow-Credentials": "true",
       },
     });
