@@ -33,7 +33,6 @@ export default function Signin() {
     if (!blankEmail && !blankPw) {
       api.post("/api/user/signin", { email, password }).then((res) => {
         if (res.status === 200 && res.data !== "ID or PW error") {
-          console.log(res);
           dispatch(signin(res.data.token));
           navigate("/");
         } else setError(true);
