@@ -4,6 +4,7 @@ export const backUp = async (token: string | null) => {
   try {
     const response = await api.get(`/api/review/backup`, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
