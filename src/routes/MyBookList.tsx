@@ -5,11 +5,13 @@ import { setBookInfo } from "./../utils/setBookInfo";
 import BookItem from "../components/BookItem";
 import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export default function MyBookList({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [books, setBooks] = useState<Book[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
-  const token = localStorage.getItem("token");
+  const token = useSelector((state: RootState) => state.auth.token);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
 

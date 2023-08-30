@@ -6,10 +6,12 @@ import { BookInfo } from "./../types/types";
 import { setBookDetailInfo } from "../utils/setBookInfo";
 import api from "../api/api";
 import Like from "./../components/Like";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export default function BookDetail() {
   const id = useLocation().pathname.split("/")[3];
-  const token = localStorage.getItem("token");
+  const token = useSelector((state: RootState) => state.auth.token);
   const [book, setBook] = useState<BookInfo | null>(null);
 
   useEffect(() => {

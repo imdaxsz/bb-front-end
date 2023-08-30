@@ -10,7 +10,7 @@ import { setRecommend } from "../utils/recommend";
 export default function RecommendModal() {
   const book = useSelector((state: RootState) => state.recommend.book);
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const onClickCancel = () => {
     dispatch(reset());

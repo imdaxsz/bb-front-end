@@ -32,7 +32,7 @@ export default function Write() {
   const today = new Date();
   const [date, setDate] = useState(getDate(today));
 
-  const token = localStorage.getItem("token");
+  const token = useSelector((state: RootState) => state.auth.token);
   const [savedCount, setSavedCount] = useState(0);
 
   const categoryId = useSelector((state: RootState) => state.searchResult.categoryId);
@@ -151,7 +151,7 @@ export default function Write() {
             )}
             <form>
               <div className={styles.date}>{date}</div>
-              <textarea ref={textareaRef} value={text} onChange={onChange} placeholder="내용을 입력하세요" autoFocus className={styles.textarea} />
+              <textarea ref={textareaRef} value={text} onChange={onChange} placeholder="내용을 입력하세요" className={styles.textarea} />
             </form>
           </div>
         </div>

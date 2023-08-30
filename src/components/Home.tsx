@@ -4,12 +4,14 @@ import { Review } from "../types/types";
 import api from "../api/api";
 import { useSearchParams } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
-  const token = localStorage.getItem("token");
+  const token = useSelector((state: RootState) => state.auth.token);
 
   useEffect(() => {
     if (isAuthenticated) {

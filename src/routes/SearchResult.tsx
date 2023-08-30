@@ -6,6 +6,8 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import BookItem from "../components/BookItem";
 import { setBookInfo } from "../utils/setBookInfo";
 import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export default function SearchResult() {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -13,7 +15,7 @@ export default function SearchResult() {
   const searchType = useLocation().pathname.split("/")[2];
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("query");
-  const token = localStorage.getItem("token");
+  const token = useSelector((state: RootState) => state.auth.token);
 
   useEffect(() => {
     if (searchType === "review") {

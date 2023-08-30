@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getDate } from "../utils/getDate";
 import api from "../api/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export default function ReviewDetail() {
   const id = useLocation().pathname.split("/")[3];
@@ -14,7 +16,7 @@ export default function ReviewDetail() {
   const [review, setReview] = useState<Review | null>(null);
   const [date, setDate] = useState("");
 
-  const token = localStorage.getItem("token");
+  const token = useSelector((state: RootState) => state.auth.token);
 
   useEffect(() => {
     api

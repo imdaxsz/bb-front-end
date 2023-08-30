@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Find from "./components/Find";
 import Reset from "./components/Reset";
 import Signup from "./routes/Signup";
@@ -14,15 +14,19 @@ import Signin from "./routes/Signin";
 import Leave from "./routes/Leave";
 import BookDetail from "./routes/BookDetail";
 import PrivateRoute from "./components/PrivateRoute";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import api from "./api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./store/store";
+import { setIsAuthenticated } from "./store/authSlice";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // 토큰 검증
-    const token = localStorage.getItem("token");
     if (token) {
       api
         .get("/api/verify-token", {
@@ -32,14 +36,13 @@ function App() {
           },
         })
         .then((res) => {
-          if (res.data.valid) setIsAuthenticated(true);
-          else setIsAuthenticated(false);
+          dispatch(setIsAuthenticated(res.data.valid));
         })
         .catch((error) => {
           console.error("Token verification error:", error);
         });
     }
-  }, []);
+  }, [dispatch, token]);
 
   return (
     <>
@@ -57,8 +60,8 @@ function App() {
         <Route path="/write" element={<PrivateRoute component={<Write />} isAuthenticated={isAuthenticated} />} />
         <Route path="/find_password" element={<Find />} />
         <Route path="/reset_password" element={<Reset />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={isAuthenticated ? <Navigate replace to="/" /> : <Signin />} />
+        <Route path="/signup" element={isAuthenticated ? <Navigate replace to="/" /> : <Signup />} />
       </Routes>
     </>
   );

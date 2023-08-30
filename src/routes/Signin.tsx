@@ -1,8 +1,10 @@
 import api from "../api/api";
 import styles from "../styles/scss/auth.module.scss";
 import { useState, FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useDispatch } from "react-redux";
+import { signin } from "../store/authSlice";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
@@ -10,6 +12,9 @@ export default function Signin() {
   const [blankEmail, setBlankEmail] = useState(false);
   const [blankPw, setBlankPw] = useState(false);
   const [error, setError] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const disabled = email !== "" && password !== "";
 
@@ -29,8 +34,8 @@ export default function Signin() {
       api.post("/api/user/signin", { email, password }).then((res) => {
         if (res.status === 200 && res.data !== "ID or PW error") {
           console.log(res);
-          localStorage.setItem("token", res.data.token);
-          window.location.href = "/";
+          dispatch(signin(res.data.token));
+          navigate("/");
         } else setError(true);
       });
     }
