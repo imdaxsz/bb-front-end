@@ -6,8 +6,12 @@ export const backUp = async (token: string | null) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+        "Access-Control-Allow-Origin": `https://bookbook-phi.vercel.app/`,
+        "Access-Control-Allow-Credentials": "true",
       },
     });
+
+    console.log(response);
 
     const backupData = JSON.stringify(response.data, null, 2);
 
