@@ -1,9 +1,10 @@
 .wrapper {
   display: block;
-  width: calc(100vw - (100vw - 100%));
+  width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
+  bottom: 0;
   z-index: 800;
   display: flex;
   flex-direction: row;
@@ -12,8 +13,8 @@
 }
 
 .modal {
-  min-width: 600px;
-  width: 50vw;
+  max-width: 700px;
+  width: 70%;
   height: 600px;
   border-radius: 16px;
   background: white;
@@ -114,4 +115,13 @@ hr {
   justify-content: center;
   align-items: center;
   color: #aaa;
+}
+
+@media screen and (max-width: 650px) {
+  .modal:not(.modal-sm) {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    border-radius: 0;
+  }
 }

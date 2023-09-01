@@ -7,7 +7,8 @@
   color: #888;
   font-size: 14px;
 }
-.wrapper a, .wrapper li {
+.wrapper a,
+.wrapper li {
   height: 25px;
   line-height: 25px;
 }
@@ -19,9 +20,6 @@
   border-radius: 30px;
   border: solid 1px rgba(0, 0, 0, 0);
   text-align: center;
-}
-.page:hover {
-  border: solid 1px #aaa;
 }
 
 .icon, .move:last-child::after, .move:first-child::before {
@@ -63,4 +61,10 @@
   font-weight: 700;
   background: #2f5d62;
   color: white;
+}
+
+@media (hover: hover) {
+  .page:hover {
+    border: solid 1px #aaa;
+  }
 }

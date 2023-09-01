@@ -1,6 +1,7 @@
-@mixin set-fixed($top, $zIndex) {
+@mixin set-fixed($top, $zIndex, $bottom: auto) {
   position: fixed;
   top: $top;
+  bottom: $bottom;
   z-index: $zIndex;
 }
 

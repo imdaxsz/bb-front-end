@@ -10,6 +10,8 @@
   border-radius: 30px;
   border: 2px solid #e3e5e9;
   overflow: hidden;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .icon {
@@ -51,6 +53,7 @@
   border: none;
   border-radius: 0;
   border-bottom: 2px solid #e3e5e9;
+  height: 50px;
 }
 .med .container:focus-within {
   border-bottom: 2px solid #a7c4bc;

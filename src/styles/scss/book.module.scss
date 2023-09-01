@@ -51,9 +51,6 @@
 
 .hover {
   cursor: pointer;
-  &:hover {
-    border-color: common.$primary;
-  }
 }
 
 .rating {
@@ -66,4 +63,23 @@
   right: 0;
   color: common.$primary;
   cursor: pointer;
+}
+
+@media screen and (max-width: 650px) {
+  .title {
+    font-size: 16x;
+    line-height: 18px;
+  }
+  .info {
+    p {
+      font-size: 14px;
+      line-height: normal;
+    }
+  }
+}
+
+@media (hover: hover) {
+  .hover:hover {
+    border-color: common.$primary;
+  }
 }

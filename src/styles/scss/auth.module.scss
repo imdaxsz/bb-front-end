@@ -104,3 +104,9 @@
     color: #ff3f3f;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .submit {
+    background: common.$primary;
+  }
+}

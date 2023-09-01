@@ -1,7 +1,9 @@
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import styles from "../styles/scss/bar.module.scss";
+import { FiSearch } from "react-icons/fi";
 
 export default function Menu() {
   const pathname = useLocation().pathname.split("/")[1];
@@ -9,10 +11,13 @@ export default function Menu() {
   const filterList = ["최신순", "오래된 순", "제목순"];
   const filterPath = ["", "sort=date_asc", "sort=title"];
   const [filter, setFilter] = useState(filterList[0]);
-  const placeholder: Record<string, string> = { "": "도서명으로 후기 검색", "my_list": "제목 검색", "recommend": "제목, 저자명 검색" };
+  const placeholder: Record<string, string> = { "": "도서명으로 후기 검색", my_list: "제목 검색", recommend: "제목, 저자명 검색" };
 
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("query");
+
+  const isMobile = useMediaQuery({ maxWidth: 650 });
+  const [showMbSearch, setShowMbSerach] = useState(false);
 
   const selectFilter = (e: React.MouseEvent<HTMLLIElement>, i: number) => {
     e.stopPropagation();
@@ -20,9 +25,29 @@ export default function Menu() {
     setStyle("");
   };
 
+  const onClickSearchbar = () => {
+    if (isMobile) setShowMbSerach(true);
+  };
+
+  const onClickCancel = () => {
+    setShowMbSerach(false);
+  };
+
   return (
     <div className={styles["menu-wrapper"]}>
       <div className={styles.menu}>
+        {isMobile && showMbSearch && (
+          <ul className={styles["mobile-search"]}>
+            <li>
+              <div className={styles["mobile-searchbar"]}>
+                <SearchBar placeholder={placeholder[pathname]} keyword={keyword ? keyword : ""} />
+              </div>
+            </li>
+            <li onClick={onClickCancel}>
+              <span>취소</span>
+            </li>
+          </ul>
+        )}
         <ul>
           <div className={styles.tab}>
             <li className={pathname === "" ? "active" : ""}>
@@ -57,9 +82,15 @@ export default function Menu() {
                 </li>
               )}
               <li>
-                <div className={styles.searchbar}>
-                  <SearchBar placeholder={placeholder[pathname]} keyword={keyword ? keyword : ""} />
-                </div>
+                {isMobile ? (
+                  <div className={styles["mb-search-icon"]} onClick={onClickSearchbar}>
+                    <FiSearch size={20} />
+                  </div>
+                ) : (
+                  <div className={styles.searchbar}>
+                    <SearchBar placeholder={placeholder[pathname]} keyword={keyword ? keyword : ""} />
+                  </div>
+                )}
               </li>
             </div>
           )}

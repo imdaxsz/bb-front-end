@@ -54,9 +54,6 @@
 .hover {
   cursor: pointer;
 }
-.hover:hover {
-  border-color: #5e8b7e;
-}
 
 .rating {
   margin-top: 10px;
@@ -68,4 +65,20 @@
   right: 0;
   color: #5e8b7e;
   cursor: pointer;
+}
+
+@media screen and (max-width: 650px) {
+  .title {
+    font-size: 16x;
+    line-height: 18px;
+  }
+  .info p {
+    font-size: 14px;
+    line-height: normal;
+  }
+}
+@media (hover: hover) {
+  .hover:hover {
+    border-color: #5e8b7e;
+  }
 }

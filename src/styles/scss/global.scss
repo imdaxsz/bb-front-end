@@ -28,11 +28,13 @@ a {
 html,
 body,
 #root {
+  width: 100%;
   height: 100%;
 }
 
 body {
   font-family: "SUITE Variable";
+  color: #333;
 }
 
 input,
@@ -101,6 +103,7 @@ li {
 .btn-light {
   background: white;
   border: solid 1px #ccc;
+  color: #333;
 }
 
 .list-wrapper {
@@ -228,4 +231,25 @@ li {
     transform: translate(1.375rem);
     box-shadow: rgba(0, 0, 0, 0.1) -2px 0px 4px;
   }
+}
+
+
+@media screen and (max-width: 650px) {
+  .dropdown {
+    width: 75px;
+    font-size: 14px;
+    &:first-child {
+      cursor: pointer;
+      padding: 4px 0 4px 6px;
+      @include common.flex(row, flex-start, center);
+      &::after {
+        content: "▼";
+        position: absolute;
+        right: 0;
+        font-size: 10px;
+        padding-right: 2px;
+        cursor: pointer;
+      }
+    }
+}
 }

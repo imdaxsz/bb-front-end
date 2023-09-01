@@ -110,3 +110,9 @@
   font-size: 13px;
   color: #ff3f3f;
 }
+
+@media screen and (max-width: 650px) {
+  .submit {
+    background: #5e8b7e;
+  }
+}

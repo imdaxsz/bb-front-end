@@ -9,6 +9,7 @@
   border-radius: 30px;
   border: 2px solid #e3e5e9;
   overflow: hidden;
+  height: fit-content;
 }
 
 .icon {
@@ -43,12 +44,14 @@
     border: none;
     border-radius: 0;
     border-bottom: 2px solid #e3e5e9;
+    height: 50px;
     &:focus-within {
       border-bottom: 2px solid #a7c4bc;
     }
   }
   .input {
     @include common.setSize(85%, 2.5em);
+
     line-height: 2.5em;
     left: 20px;
     font-size: 20px;

@@ -5,8 +5,10 @@
 }
 
 .content {
-  width: 900px;
+  max-width: 940px;
+  width: 100%;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 .date {
@@ -38,4 +40,14 @@
   border: 2px solid #a7c4bc;
   color: #a7c4bc;
   transition: all 0.02;
+}
+
+@media screen and (max-width: 650px) {
+  .wrapper {
+    height: 100%;
+    padding-top: 20px;
+  }
+  .date {
+    margin-top: 30px;
+  }
 }
