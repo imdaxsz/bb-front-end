@@ -8,6 +8,7 @@ import { setBookInfo } from "../utils/setBookInfo";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import Pagination from "../components/Pagination";
 
 export default function SearchResult() {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -16,6 +17,9 @@ export default function SearchResult() {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("query");
   const token = useSelector((state: RootState) => state.auth.token);
+
+  const page = searchParams.get("page") ? searchParams.get("page") : "1";
+  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
     if (searchType === "review") {
@@ -44,19 +48,19 @@ export default function SearchResult() {
         })
         .then((res) => {
           if (res.status === 200) {
-            console.log(res.data);
             setBooks(setBookInfo(res.data));
           }
         });
     } else {
       // 도서 검색
-      api.get(`/api/search/book?query=${keyword}`).then((res) => {
+      api.get(`/api/search/book?&page=${page}&query=${keyword}`).then((res) => {
         if (res.status === 200) {
           setBooks(setBookInfo(res.data.item));
+          setTotalItems(res.data.totalResults);
         }
       });
     }
-  }, [searchType, keyword, token]);
+  }, [searchType, page, keyword, token]);
 
   return (
     <div className="wrapper">
@@ -69,11 +73,12 @@ export default function SearchResult() {
             <ReviewItem review={review} key={i} />
           ))}
         </div>
-        <div className="list">
+        <div className="list" style={{ marginBottom: "70px" }}>
           {books.map((book, i) => (
             <BookItem book={book} key={i} />
           ))}
         </div>
+        <Pagination totalItems={totalItems} currentPage={page ? parseInt(page) : 1} pageCount={5} itemCountPerPage={50} />
       </div>
     </div>
   );

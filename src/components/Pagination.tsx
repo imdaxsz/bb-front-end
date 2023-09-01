@@ -15,6 +15,10 @@ export default function Pagination({ totalItems, itemCountPerPage, pageCount, cu
   const noPrev = start === 1;
   const noNext = start + pageCount - 1 >= totalPages;
 
+  let url = window.location.href;
+  if (!url.includes("page")) url += "&";
+  else url = url.split("&")[0] + "&";
+
   useEffect(() => {
     if (currentPage === start + pageCount) setStart((prev) => prev + pageCount);
     if (currentPage < start) setStart((prev) => prev - pageCount);
@@ -25,13 +29,13 @@ export default function Pagination({ totalItems, itemCountPerPage, pageCount, cu
     <div className={styles.wrapper}>
       <ul>
         <li className={`${styles.move} ${noPrev && styles.visible}`}>
-          <Link to={`?page=${start - 1}`}>이전</Link>
+          <Link to={`${url}&page=${start - 1}`}>이전</Link>
         </li>
         {[...Array(pageCount)].map((a, i) => (
           <React.Fragment key={i}>
             {start + i <= totalPages && (
               <li>
-                <Link className={`${styles.page} ${currentPage === start + i && styles.active}`} to={`?page=${start + i}`}>
+                <Link className={`${styles.page} ${currentPage === start + i && styles.active}`} to={`${url}page=${start + i}`}>
                   {start + i}
                 </Link>
               </li>
