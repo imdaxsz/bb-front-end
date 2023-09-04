@@ -18,17 +18,6 @@
   }
 }
 
-.bottom_nav {
-  @include common.setSize(100%, 52px);
-  @include common.set-fixed(auto, 500, 0);
-  background: white;
-  border-bottom: solid 1px #eee;
-  color: common.$primary;
-  .right {
-    font-weight: 700;
-  }
-}
-
 .topbar-light {
   background: white;
   button {
@@ -83,18 +72,14 @@
 .menu-wrapper {
   @extend .wrapper;
   width: 100%;
-  // padding: 0 5%;
   max-width: 1200px;
 }
 
 .menu {
   max-width: 1200px;
   padding: 0 25px;
-  // @include common.setSize(100%, 50px);
   @include common.setSize(100%, 50px);
-  // width: 100%;
-  // padding: 0 10%;
-  @include common.set-fixed(52px, 600);
+  @include common.set-fixed(52px, 400);
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
   ul {
@@ -135,7 +120,9 @@
   background: rgb(247, 247, 247);
   position: absolute;
   left: 0;
-  z-index: 900;
+  z-index: 450;
+  transform: translateY(-50px);
+  transition: all 0.2s;
   li:first-of-type {
     width: 100%;
     padding-left: 16px;
@@ -146,6 +133,11 @@
     padding: 0 16px 0 12px;
     flex-shrink: 0;
   }
+}
+
+// mobile-search show
+.show {
+  transform: translateY(0px);
 }
 
 .mobile-searchbar {

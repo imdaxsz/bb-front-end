@@ -36,8 +36,8 @@ export default function Menu() {
   return (
     <div className={styles["menu-wrapper"]}>
       <div className={styles.menu}>
-        {isMobile && showMbSearch && (
-          <ul className={styles["mobile-search"]}>
+        {isMobile && (
+          <ul className={`${styles["mobile-search"]} ${showMbSearch && styles.show}`}>
             <li>
               <div className={styles["mobile-searchbar"]}>
                 <SearchBar placeholder={placeholder[pathname]} keyword={keyword ? keyword : ""} />
