@@ -38,11 +38,19 @@
   }
 }
 
+.detail-info {
+  @extend .info;
+}
+
 .title {
   font-size: 18px;
   line-height: 25px;
   margin-bottom: 4px;
   font-weight: bold;
+}
+
+.detail-title {
+  @extend .title;
 }
 
 .focus {
@@ -67,14 +75,24 @@
 
 @media screen and (max-width: 650px) {
   .title {
-    font-size: 16x;
     line-height: 18px;
   }
   .info {
+    line-height: normal;
+  }
+
+  .detail-title {
+    font-size: 16px;
+    line-height: 18px;
+  }
+  .detail-info {
     p {
-      font-size: 14px;
+      font-size: 13px;
       line-height: normal;
     }
+  }
+  .img-lg {
+    @include common.setSize(110px, 146px);
   }
 }
 

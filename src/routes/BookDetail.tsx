@@ -17,7 +17,6 @@ export default function BookDetail() {
   useEffect(() => {
     api.get(`/api/book/detail/${id}`).then((res) => {
       if (res.status === 200) {
-        console.log(res.data);
         setBook(setBookDetailInfo(res.data.item[0]));
       }
     });
@@ -29,15 +28,14 @@ export default function BookDetail() {
         <div className={styles.item}>
           {book && (
             <>
-              <Like token={token} isbn={book.isbn} />
               <div className={styles.book}>
                 <div>
                   <div className={bs["img-lg"]}>
                     <img src={book.image} alt={book.title} />
                   </div>
                 </div>
-                <div className={bs.info}>
-                  <div className={`${bs.title}`}>{book.title}</div>
+                <div className={bs["detail-info"]}>
+                  <div className={bs["detail-title"]}>{book.title}</div>
                   <p>저자&nbsp; {book.author}</p>
                   <p>출판&nbsp; {book.publisher}</p>
                   <p>출간&nbsp; {book.pubDate}</p>
@@ -51,6 +49,7 @@ export default function BookDetail() {
                   자세히 보기
                 </div>
               </div>
+              <Like token={token} isbn={book.isbn} />
             </>
           )}
         </div>
