@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Find from "./components/Find";
-import Reset from "./components/Reset";
+import Find from "./routes/Find";
 import Signup from "./routes/Signup";
 import ReviewDetail from "./routes/ReviewDetail";
 import My from "./routes/My";
@@ -59,9 +58,9 @@ function App() {
         </Route>
         <Route path="/write" element={<PrivateRoute component={<Write />} isAuthenticated={isAuthenticated} />} />
         <Route path="/find_password" element={<Find />} />
-        <Route path="/reset_password" element={<Reset />} />
         <Route path="/signin" element={isAuthenticated ? <Navigate replace to="/" /> : <Signin />} />
         <Route path="/signup" element={isAuthenticated ? <Navigate replace to="/" /> : <Signup />} />
+        <Route path="/signup/next" element={isAuthenticated ? <Navigate replace to="/" /> : <Signup />} />
       </Routes>
     </>
   );

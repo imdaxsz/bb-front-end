@@ -1,41 +1,26 @@
 import { Helmet } from "react-helmet-async";
 import api from "../api/api";
 import styles from "../styles/scss/auth.module.scss";
-import { FormEvent, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { FormEvent, useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import EmailCerti from "./EmailCerti";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pwConfirm, setPwConfirm] = useState("");
-
-  const [validateEmail, setValidateEmail] = useState<number | null>(null);
   const [validatePw, setValidatePw] = useState<boolean | null>(null);
   const [isSamePw, setIsSamePw] = useState<boolean | null>(null);
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  const disabled = email !== "" && password !== "" && pwConfirm !== "";
-
-  const checkEmail = () => {
-    const emailReg = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
-    if (emailReg.test(email)) {
-      // 패턴 검사
-      setValidateEmail(0);
-      api.post("/api/user/checkemail", { email }).then((res) => {
-        if (res.status === 200 && res.data.exists) setValidateEmail(2);
-      });
-    } else setValidateEmail(1);
-  };
+  const disabled = password !== "" && pwConfirm !== "";
 
   const checkPassword = () => {
     const passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
     if (passwordReg.test(password)) setValidatePw(true);
     else setValidatePw(false);
-  };
-
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
   };
 
   const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,19 +35,28 @@ export default function Signup() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (email.length === 0) setValidateEmail(1);
-    else if (!validatePw) setValidatePw(false);
+    if (!validatePw) setValidatePw(false);
     else if (!isSamePw) setIsSamePw(false);
-    if (validateEmail === 0 && validatePw && isSamePw) {
+    if (validatePw && isSamePw) {
       api.post("/api/user/signup", { email, password }).then((res) => {
         if (res.status === 200) {
           window.alert("가입이 완료되었습니다!");
           navigate("/signin");
         }
-
       });
     }
   };
+
+  useEffect(() => {
+    if (pathname === "/signup/next") {
+      // 인증 상태 요청
+      if (email !== "") {
+        api.get(`/api/certification/certi-status/${email}`).then((res) => {
+          if (!(res.status === 200) || !res.data) navigate("/signup");
+        });
+      } else navigate("/signup");
+    }
+  }, [email, pathname, navigate]);
 
   return (
     <div className={styles.wrapper}>
@@ -73,41 +67,34 @@ export default function Signup() {
         <div className={styles.logo}>
           <Link to="/">북북</Link>
         </div>
-        <form onSubmit={onSubmit} className={styles.form} noValidate>
-          <input
-            className={`${styles.input} ${(validateEmail === 1 || validateEmail === 2) && styles.error}`}
-            name="email"
-            type="email"
-            value={email}
-            onChange={onChangeEmail}
-            onBlur={checkEmail}
-            placeholder="이메일"
-          />
-          {validateEmail === 1 && <span>이메일: 올바르지 않은 형식입니다.</span>}
-          {validateEmail === 2 && <span>이미 사용중인 이메일입니다.</span>}
-          <input
-            className={`${styles.input} ${validatePw === false && styles.error}`}
-            name="password"
-            type="password"
-            value={password}
-            onChange={onChangePw}
-            onBlur={checkPassword}
-            autoComplete="off"
-            placeholder="비밀번호"
-          />
-          {validatePw === false && <span>비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>}
-          <input
-            className={`${styles.input} ${isSamePw === false && styles.error}`}
-            name="pwConfirm"
-            type="password"
-            value={pwConfirm}
-            onChange={onChangePwConfirm}
-            autoComplete="off"
-            placeholder="비밀번호 확인"
-          />
-          {isSamePw === false && <span>비밀번호가 일치하지 않습니다.</span>}
-          <input className={styles.submit} disabled={!disabled} type="submit" value="가입하기" />
-        </form>
+        {pathname === "/signup" ? (
+          <EmailCerti email={email} setEmail={setEmail} />
+        ) : (
+          <form onSubmit={onSubmit} className={styles.form} noValidate>
+            <input
+              className={`${styles.input} ${validatePw === false && styles.error}`}
+              name="password"
+              type="password"
+              value={password}
+              onChange={onChangePw}
+              onBlur={checkPassword}
+              autoComplete="off"
+              placeholder="비밀번호"
+            />
+            {validatePw === false && <span>비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>}
+            <input
+              className={`${styles.input} ${isSamePw === false && styles.error}`}
+              name="pwConfirm"
+              type="password"
+              value={pwConfirm}
+              onChange={onChangePwConfirm}
+              autoComplete="off"
+              placeholder="비밀번호 확인"
+            />
+            {isSamePw === false && <span>비밀번호가 일치하지 않습니다.</span>}
+            <input className={styles.submit} disabled={!disabled} type="submit" value="가입하기" />
+          </form>
+        )}
       </div>
     </div>
   );
