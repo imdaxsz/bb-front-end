@@ -8,7 +8,7 @@ interface Props {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function EmailCerti({ email, setEmail }: Props) {
+export default function EmailCertiForSignUp({ email, setEmail }: Props) {
   const [validateEmail, setValidateEmail] = useState<number | null>(null);
   const [code, setCode] = useState("");
   const [showCode, setShowCode] = useState(false);

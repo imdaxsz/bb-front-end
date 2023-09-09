@@ -3,7 +3,7 @@ import api from "../api/api";
 import styles from "../styles/scss/auth.module.scss";
 import { FormEvent, useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import EmailCerti from "./EmailCerti";
+import EmailCertiForSignUp from "./EmailCertiForSignUp";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -68,7 +68,7 @@ export default function Signup() {
           <Link to="/">북북</Link>
         </div>
         {pathname === "/signup" ? (
-          <EmailCerti email={email} setEmail={setEmail} />
+          <EmailCertiForSignUp email={email} setEmail={setEmail} />
         ) : (
           <form onSubmit={onSubmit} className={styles.form} noValidate>
             <input
