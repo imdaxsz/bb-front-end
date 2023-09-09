@@ -124,7 +124,6 @@
   margin: 0 auto;
   padding: 100px 0;
 }
-.leave p,
 .leave strong,
 .leave span {
   line-height: 35px;
@@ -136,42 +135,30 @@
   font-size: 24px;
   margin-bottom: 100px;
 }
+.leave .inform {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 5px;
+  gap: 2px;
+}
 .leave .icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   color: #5e8b7e;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
-@media screen and (max-width: 650px) {
-  .wrapper {
-    align-items: flex-start;
-  }
-  .content {
-    width: 95%;
-    margin-top: 50px;
-  }
-  .content span {
-    font-size: 18px;
-  }
-  .content .title,
-  .content .title-md {
-    font-size: 18px;
-    width: 80px;
-  }
-  .leave {
-    padding: 0;
-    height: -moz-fit-content;
-    height: fit-content;
-  }
-  .leave h4 {
-    margin-bottom: 50px;
-  }
-  .leave strong {
-    line-height: normal;
-    margin-bottom: 10px;
-    display: inline-block;
-  }
-}
 .message {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   margin: 20px 0;
 }
 
@@ -187,4 +174,86 @@
 .pform button {
   display: block;
   margin: 60px auto 0;
+}
+
+@media screen and (max-width: 650px) {
+  .wrapper {
+    align-items: flex-start;
+    height: calc(100% - 52px);
+  }
+  .content {
+    width: 97%;
+    margin-top: 20px;
+  }
+  .content span {
+    font-size: 18px;
+  }
+  .content .title,
+  .content .title-md {
+    font-size: 18px;
+    width: -moz-fit-content;
+    width: fit-content;
+    flex-shrink: 0;
+  }
+  .item-wrapper {
+    gap: 12px;
+  }
+  .item-wrapper a {
+    font-size: 14px;
+  }
+  .password-wrapper {
+    flex-direction: column;
+    margin: 15px 0;
+  }
+  .password {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .password input {
+    height: 40px;
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+  .password button {
+    margin-top: 4px;
+  }
+  .btn, .btn-primary, .btn-white {
+    font-size: 14px;
+  }
+  .btn-white {
+    width: -moz-fit-content;
+    width: fit-content;
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+  .leave {
+    padding: 0;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  .leave h4 {
+    margin: 40px 0 50px;
+  }
+  .leave p,
+  .leave strong,
+  .leave span {
+    font-size: 16px;
+    line-height: normal;
+  }
+  .leave strong {
+    line-height: normal;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+}
+@media screen and (max-width: 540px) {
+  .leave .inform {
+    align-items: flex-start;
+  }
+}
+@media screen and (max-width: 450px) {
+  .pform .input {
+    width: 100%;
+  }
 }

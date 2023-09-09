@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useSignOut } from "../hooks/useSignout";
+import { AiOutlineCheck } from "react-icons/ai";
 
 export default function Leave() {
   const [email, setEmail] = useState("");
@@ -70,12 +71,18 @@ export default function Leave() {
       <div className={styles.content}>
         <div className={styles.leave}>
           <h4>회원 탈퇴</h4>
-          <p>
-            <span className={styles.icon}>✔</span>&nbsp;&nbsp;탈퇴할 경우 복구가 불가능합니다.
-          </p>
-          <p>
-            <span className={styles.icon}>✔</span>&nbsp;&nbsp;탈퇴 후 회원정보 및 서비스 이용기록(후기/관심 도서)는 모두 삭제됩니다.
-          </p>
+          <div className={styles.inform}>
+            <div className={styles.icon}>
+              <AiOutlineCheck strokeWidth="100" />
+            </div>
+            <span>탈퇴할 경우 복구가 불가능합니다.</span>
+          </div>
+          <div className={styles.inform}>
+            <div className={styles.icon}>
+              <AiOutlineCheck strokeWidth="100" />
+            </div>
+            <span>탈퇴 후 회원정보 및 서비스 이용기록(후기/관심 도서)는 모두 삭제됩니다.</span>
+          </div>
           <div className={styles.message}>
             <input type="checkbox" onChange={onChangeCheck} />
             <span>&nbsp; 위 내용을 이해했으며, 모두 동의합니다.</span>
