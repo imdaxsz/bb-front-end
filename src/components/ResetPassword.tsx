@@ -37,11 +37,10 @@ export default function ResetPassword({ token }: { token: string | null }) {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(0);
-    if (newPw !== pwConfirm) setIsSamePw(false);
-    else setIsSamePw(true);
-    if (newPw === currentPw && newPw !== "") setError(2);
-    else if (validatePw && isSamePw && error === 0) {
+    const sameCurrentPw = newPw === currentPw && newPw !== "";
+    // 현재 비밀번호와 동일 비밀번호인가
+    if (sameCurrentPw) setError(2);
+    else if (validatePw && isSamePw && !sameCurrentPw) {
       api
         .put(
           "/api/user/change_password",
@@ -54,7 +53,6 @@ export default function ResetPassword({ token }: { token: string | null }) {
           }
         )
         .then((res) => {
-          console.log(res);
           if (res.status === 200 && res.data !== "PW Error") {
             window.alert("비밀번호 변경이 완료되었습니다.");
             window.location.reload();
