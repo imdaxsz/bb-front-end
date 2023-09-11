@@ -15,7 +15,7 @@ export default function My() {
   const [email, setEmail] = useState("");
 
   const token = useSelector((state: RootState) => state.auth.token);
-  const { onClickSignout } = useSignOut();
+  const { Signout } = useSignOut();
 
   const onRecommendClick = async () => {
     const result = await setRecommend(token);
@@ -67,7 +67,7 @@ export default function My() {
         <div className={styles["item-wrapper"]}>
           <span className={styles.title}>이메일</span>
           <span className={styles["user-info"]}>{email}</span>
-          <button className={styles["btn-white"]} onClick={onClickSignout}>
+          <button className={styles["btn-white"]} onClick={Signout}>
             로그아웃
           </button>
         </div>

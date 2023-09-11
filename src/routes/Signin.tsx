@@ -40,6 +40,10 @@ export default function Signin() {
     }
   };
 
+  const onClickGoogle = () => {
+    window.location.href = "http://localhost:8000/auth/google";
+  };
+
   return (
     <div className={styles.wrapper}>
       <Helmet>
@@ -62,6 +66,7 @@ export default function Signin() {
           />
           {error && <span>이메일 또는 비밀번호를 다시 확인해주세요.</span>}
           <input className={styles.submit} disabled={!disabled} type="submit" value="로그인" />
+          <button onClick={onClickGoogle}>구글 로그인</button>
         </form>
         <ul className={styles.find}>
           <li>

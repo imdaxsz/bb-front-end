@@ -12,7 +12,7 @@ export default function Leave() {
   const [password, setPassword] = useState("");
   const [agree, setAgree] = useState(false);
   const token = useSelector((state: RootState) => state.auth.token);
-  const { onClickSignout } = useSignOut();
+  const { Signout } = useSignOut();
 
   const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -40,7 +40,7 @@ export default function Leave() {
         .then((res) => {
           if (res.status === 200 && res.data !== "ID or PW error") {
             window.alert("탈퇴 완료되었습니다.");
-            onClickSignout();
+            Signout();
           } else window.alert("비밀번호를 다시 확인하세요.");
         });
     } else window.alert("회원 탈퇴 동의를 체크해 주세요.");

@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 export const useSignOut = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onClickSignout = () => {
+  const Signout = () => {
     dispatch(signout());
     navigate("/");
     
   };
 
-  return { onClickSignout };
+  return { Signout };
 };
