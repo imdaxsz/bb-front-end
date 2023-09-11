@@ -56,7 +56,8 @@ export default function Signup() {
         });
       } else navigate("/signup");
     }
-  }, [email, pathname, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, pathname]);
 
   return (
     <div className={styles.wrapper}>

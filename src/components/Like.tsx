@@ -59,7 +59,6 @@ export default function Like({ token, isbn }: LikeProps) {
         </div>
       ) : (
         <div onClick={onClick} className={styles.like} title="관심 도서">
-          {" "}
           {like ? <PiHeartFill color="#f94a7b" size="24px" /> : <PiHeartLight size="24px" />}
         </div>
       )}
