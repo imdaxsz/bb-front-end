@@ -18,11 +18,13 @@ import api from "./api/api";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store/store";
 import { setIsAuthenticated } from "./store/authSlice";
+import { useSignOut } from "./hooks/useSignout";
 
 function App() {
   const token = useSelector((state: RootState) => state.auth.token);
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
+  const { Signout } = useSignOut();
 
   useEffect(() => {
     // 토큰 검증
@@ -36,11 +38,13 @@ function App() {
         })
         .then((res) => {
           dispatch(setIsAuthenticated(res.data.valid));
+          if (!res.data.valid) Signout();
         })
         .catch((error) => {
-          console.error("Token verification error:", error);
+          console.log("Token verification error:", error);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, token]);
 
   return (
