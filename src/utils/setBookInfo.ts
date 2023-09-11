@@ -1,12 +1,16 @@
 import { Book, BookInfo, SearchResultBook } from "../types/types";
 
+const fetchAuthor = (author: string) => {
+  return author.replace(/\s?\(지은이\)|\s?\(옮긴이\)|\s?\(글\)|\s?\(그림\)/g, "");
+};
+
 export const setBookInfo = (data: any[]) => {
   let results: Book[] = [];
   data.forEach((b) => {
     const book: Book = {
       isbn: b.isbn13 !== "" ? b.isbn13 : b.isbn,
       title: b.title,
-      author: b.author,
+      author: fetchAuthor(b.author),
       publisher: b.publisher,
       image: b.cover,
     };
