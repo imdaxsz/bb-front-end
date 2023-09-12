@@ -1,7 +1,7 @@
 import { Book } from "../types/types";
 import styles from "../styles/scss/book.module.scss";
 import { PiStarFill, PiStarLight } from "react-icons/pi";
-import { RiCloseCircleFill } from "react-icons/ri";
+import { IoMdClose } from "react-icons/io";
 
 interface ReviewBookInfoType {
   book: Book;
@@ -27,7 +27,7 @@ export default function ReviewBookInfo({ book, setBook, rating, setRating, isEdi
     <div className={styles.wrapper}>
       {setBook && !isEdit && (
         <span className={styles.delete} onClick={onClickDelete}>
-          <RiCloseCircleFill size={27} />
+          <IoMdClose />
         </span>
       )}
       <div className={`${setBook ? styles["img-sm"] : styles["img-lg"]}`}>

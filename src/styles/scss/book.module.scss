@@ -69,16 +69,38 @@
   position: absolute;
   top: 0;
   right: 0;
-  color: common.$primary;
+  background: common.$primary;
+  color: white;
+  @include common.setSize(24px, 24px);
+  @include common.flex(row, center, center);
+  border-radius: 50%;
   cursor: pointer;
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media screen and (max-width: 650px) {
   .title {
+    font-size: 16px;
     line-height: 18px;
   }
   .info {
-    line-height: normal;
+    width: calc(100% - 122px);
+    p {
+      font-size: 13px;
+      line-height: normal;
+    }
+  }
+
+  .rating {
+    margin-top: 6px;
+  }
+
+  .delete {
+    left: 2px;
+    top: 2px;
   }
 
   .detail-title {
@@ -93,6 +115,7 @@
   }
   .img-lg {
     @include common.setSize(110px, 146px);
+    margin-right: 10px;
   }
 }
 
