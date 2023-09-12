@@ -6,7 +6,8 @@ import styles from "../styles/scss/bar.module.scss";
 import { FiSearch } from "react-icons/fi";
 
 export default function Menu() {
-  const pathname = useLocation().pathname.split("/")[1];
+  const fullPath = useLocation().pathname;
+  const pathname = fullPath.split("/")[1];
   const [style, setStyle] = useState("");
   const filterList = ["최신순", "오래된 순", "제목순"];
   const filterPath = ["", "sort=date_asc", "sort=title"];
@@ -50,13 +51,13 @@ export default function Menu() {
         )}
         <ul>
           <div className={styles.tab}>
-            <li className={pathname === "" ? "active" : ""}>
+            <li className={["/", "/search/review"].includes(fullPath) ? "active" : ""}>
               <Link to="/">후기</Link>
             </li>
-            <li className={pathname === "my_list" ? "active" : ""}>
+            <li className={fullPath.includes("my_list") ? "active" : ""}>
               <Link to="/my_list">관심도서</Link>
             </li>
-            <li className={pathname === "recommend" ? "active" : ""}>
+            <li className={["/recommend", "/search/book"].includes(fullPath) ? "active" : ""}>
               <Link to="/recommend?page=1">추천도서</Link>
             </li>
           </div>
