@@ -162,7 +162,7 @@
   margin: 20px 0;
 }
 
-.pform .input {
+.delete-form .input {
   width: 180px;
   height: 35px;
   border: solid 1px #dadada;
@@ -171,7 +171,7 @@
   margin: 5px 0;
   font-size: 18px;
 }
-.pform button {
+.delete-form button {
   display: block;
   margin: 60px auto 0;
 }
@@ -182,11 +182,11 @@
     height: calc(100% - 52px);
   }
   .content {
-    width: 97%;
+    width: 100%;
     margin-top: 20px;
   }
   .content span {
-    font-size: 18px;
+    font-size: 15px;
   }
   .content .title,
   .content .title-md {
@@ -253,7 +253,13 @@
   }
 }
 @media screen and (max-width: 450px) {
-  .pform .input {
+  .delete-form .input {
     width: 100%;
+  }
+  .user-info {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
   }
 }

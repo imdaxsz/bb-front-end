@@ -21,21 +21,6 @@
   font-weight: 700;
 }
 
-.bottom_nav {
-  width: 100%;
-  height: 52px;
-  position: fixed;
-  top: auto;
-  bottom: 0;
-  z-index: 500;
-  background: white;
-  border-bottom: solid 1px #eee;
-  color: #5e8b7e;
-}
-.bottom_nav .right {
-  font-weight: 700;
-}
-
 .topbar-light {
   background: white;
 }
@@ -93,7 +78,7 @@
   position: fixed;
   top: 52px;
   bottom: auto;
-  z-index: 600;
+  z-index: 400;
   background: rgba(255, 255, 255, 0.8);
   -webkit-backdrop-filter: blur(12px);
           backdrop-filter: blur(12px);
@@ -133,7 +118,9 @@
   background: rgb(247, 247, 247);
   position: absolute;
   left: 0;
-  z-index: 900;
+  z-index: 450;
+  transform: translateY(-50px);
+  transition: all 0.2s;
 }
 .mobile-search li:first-of-type {
   width: 100%;
@@ -144,6 +131,10 @@
   color: #b4b9c6;
   padding: 0 16px 0 12px;
   flex-shrink: 0;
+}
+
+.show {
+  transform: translateY(0px);
 }
 
 .mobile-searchbar {

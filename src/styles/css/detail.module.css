@@ -121,10 +121,44 @@
   top: 30px;
   right: 80px;
   color: #666;
+  gap: 10px;
 }
 
+@media screen and (max-width: 900px) {
+  .book {
+    max-width: 80%;
+  }
+}
 @media screen and (max-width: 650px) {
   .wrapper {
     height: 100%;
+    padding: 0;
+  }
+  .item {
+    border: none;
+    padding: 30px 10px;
+  }
+  .book {
+    max-width: 97%;
+    height: 200px;
+  }
+  .like {
+    margin-top: 0;
+    right: 20px;
+  }
+  .content {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .like {
+    position: relative;
+    right: auto;
+    width: 90%;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: solid 1px #eee;
   }
 }
