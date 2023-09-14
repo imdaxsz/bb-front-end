@@ -16,14 +16,15 @@ export default function Pagination({ totalItems, itemCountPerPage, pageCount, cu
   const noNext = start + pageCount - 1 >= totalPages;
 
   let url = window.location.href;
-  if (url.includes("query")) url += "&";
+  if (url.includes("query") && url.includes("page")) url = url.split("page")[0];
+  else if (url.includes("query")) url += "&";
   else url = url.split("?")[0] + "?";
 
   useEffect(() => {
     if (currentPage === start + pageCount) setStart((prev) => prev + pageCount);
     if (currentPage < start) setStart((prev) => prev - pageCount);
     window.scrollTo(0, 0);
-  }, [currentPage, pageCount, start]);
+  }, [currentPage, pageCount, start, url]);
 
   return (
     <div className={styles.wrapper}>
