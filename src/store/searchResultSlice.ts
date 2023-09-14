@@ -3,7 +3,7 @@ import { SearchResultBook } from "../types/types";
 
 interface searchResult {
   keyword: string;
-  books: SearchResultBook[];
+  books: SearchResultBook[] | null;
   selected: SearchResultBook | null;
   categoryId: string;
 }
