@@ -8,7 +8,7 @@ import Recommend from "./routes/Recommend";
 import MyBookList from "./routes/MyBookList";
 import Write from "./routes/Write";
 import SearchResult from "./routes/SearchResult";
-import Home from "./components/Home";
+import Home from "./routes/Home";
 import Signin from "./routes/Signin";
 import Leave from "./routes/Leave";
 import BookDetail from "./routes/BookDetail";
@@ -44,8 +44,7 @@ function App() {
           console.log("Token verification error:", error);
         });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, token]);
+  }, [Signout, dispatch, token]);
 
   return (
     <>

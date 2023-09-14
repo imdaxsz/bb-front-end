@@ -1,4 +1,4 @@
-import ReviewItem from "./ReviewItem";
+import ReviewItem from "../components/ReviewItem";
 import { useEffect, useState } from "react";
 import { Review } from "../types/types";
 import api from "../api/api";
@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 
 export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -17,6 +17,8 @@ export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) 
 
   useEffect(() => {
     if (isAuthenticated) {
+      // console.log("token: ", token);
+      // console.log(isAuthenticated);
       let url = `/api/review/list`;
       if (sort === "date_asc") url = `/api/review/list?sort=date_asc`;
       else if (sort === "title") url = `/api/review/list?sort=title`;
