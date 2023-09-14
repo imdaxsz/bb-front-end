@@ -27,7 +27,7 @@ export default function Write() {
   const token = useSelector((state: RootState) => state.auth.token);
 
   const { book, setBook, text, setText, rating, setRating, date, loading, setLoading, loadReview, addReview, updateReview } = useReview();
-  const { loadSavedReviews } = useSavedReview();
+  const { reviews, loadSavedReviews } = useSavedReview();
   const { checkUserRecommend, getRecommendBook } = useRecommend();
 
   const onSubmit = async (opt: "save" | "upload") => {
@@ -36,7 +36,7 @@ export default function Write() {
     else {
       if (mode === "new") {
         // 새 후기 저장
-        const id = await addReview(book, rating, today, text, opt, token);
+        const id = await addReview(book, rating, today, text, opt, token, reviews);
         if (id !== "" && opt === "upload") {
           setLoading(true);
           // 새 후기 발행
@@ -70,35 +70,37 @@ export default function Write() {
   useEffect(() => {
     // 후기 수정일 경우
     if (mode === "edit") loadReview(id, token);
-    else loadSavedReviews(token);
-  }, [id, mode, token, loadReview, loadSavedReviews]);
+    else loadSavedReviews(token, setLoading);
+  }, [id, mode, token, loadReview, loadSavedReviews, setLoading]);
 
   return (
     <>
       {loading && <Loading />}
       {searchModal && <SearchModal setModal={setSearchModal} setBook={setBook} />}
       {savedModal && <SavedList setModal={setSavedModal} setBook={setBook} setText={setText} setRating={setRating} token={token} />}
-      <TopBar write={{ mode: mode ? mode : "new", onClick: onSubmit, onNumClick: showSavedReviews }} />
-      <div className="wrapper">
-        {!loading && (
-          <div className={styles.wrapper}>
-            <div className={styles.content}>
-              {!book ? (
-                <div className={styles["btn-add"]} onClick={() => setSearchModal(true)}>
-                  <span>책 추가&nbsp;&nbsp;</span>
-                  <BsPlusLg size={23} />
-                </div>
-              ) : (
-                <ReviewBookInfo book={book} setBook={setBook} rating={rating} setRating={setRating} isEdit={mode === "edit"} />
-              )}
-              <form>
-                <div className={styles.date}>{date}</div>
-                <textarea ref={textareaRef} value={text} onChange={onChange} placeholder="내용을 입력하세요" className={styles.textarea} />
-              </form>
+      {!loading && (
+        <>
+          <TopBar write={{ mode: mode ? mode : "new", onClick: onSubmit, onNumClick: showSavedReviews }} />
+          <div className="wrapper">
+            <div className={styles.wrapper}>
+              <div className={styles.content}>
+                {!book ? (
+                  <div className={styles["btn-add"]} onClick={() => setSearchModal(true)}>
+                    <span>책 추가&nbsp;&nbsp;</span>
+                    <BsPlusLg size={23} />
+                  </div>
+                ) : (
+                  <ReviewBookInfo book={book} setBook={setBook} rating={rating} setRating={setRating} isEdit={mode === "edit"} />
+                )}
+                <form>
+                  <div className={styles.date}>{date}</div>
+                  <textarea ref={textareaRef} value={text} onChange={onChange} placeholder="내용을 입력하세요" className={styles.textarea} />
+                </form>
+              </div>
             </div>
           </div>
-        )}
-      </div>
+        </>
+      )}
     </>
   );
 }
