@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import styles from "../styles/scss/bar.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 interface Props {
   write?: {
     mode: string;
-    savedCount: number;
     onClick: (opt: "save" | "upload") => void;
     onNumClick: () => void;
   };
 }
 
 export default function TopBar({ write }: Props) {
+  const savedCount = useSelector((state: RootState) => state.savedReview.count);
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.topbar} ${write && styles["topbar-light"]}`}>
@@ -34,9 +36,9 @@ export default function TopBar({ write }: Props) {
                   <li>
                     <button className={styles.save}>
                       <span onClick={() => write.onClick("save")}>저장</span>
-                      {write.savedCount > 0 && (
+                      {savedCount > 0 && (
                         <span onClick={write.onNumClick} className={styles.number}>
-                          {write.savedCount}
+                          {savedCount}
                         </span>
                       )}
                     </button>

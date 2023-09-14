@@ -4,6 +4,7 @@ import { recommendSlice } from "./recommendSlice";
 import { authSlice } from "./authSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
+import { savedReviewSlice } from "./savedReviewSlice";
 
 const persistConfig = {
   key: "root",
@@ -11,10 +12,11 @@ const persistConfig = {
   whitelist: ["auth"],
 };
 
-const rootReducer =  combineReducers({
+const rootReducer = combineReducers({
   searchResult: searchResultSlice.reducer,
   recommend: recommendSlice.reducer,
   auth: authSlice.reducer,
+  savedReview: savedReviewSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
