@@ -2,8 +2,9 @@ import btnstyles from "../styles/scss/my.module.scss";
 import styles from "../styles/scss/auth.module.scss";
 import { useState } from "react";
 import api from "../api/api";
+import Loading from "./Loading";
 
-export default function ResetPassword({ token }: { token: string | null }) {
+export default function ChangePassword({ token }: { token: string | null }) {
   const [currentPw, setCurrentPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [pwConfirm, setPwConfirm] = useState("");
@@ -14,6 +15,8 @@ export default function ResetPassword({ token }: { token: string | null }) {
   const [error, setError] = useState(0);
   const message = ["", "비밀번호를 정확하게 입력해주세요.", "현재 비밀번호와 같은 비밀번호는 사용할 수 없습니다."];
   const disabled = currentPw !== "" && newPw !== "" && pwConfirm !== "";
+
+  const [loading, setLoading] = useState(false);
 
   const onChangeCurrentPw = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentPw(e.target.value);
@@ -41,28 +44,36 @@ export default function ResetPassword({ token }: { token: string | null }) {
     // 현재 비밀번호와 동일 비밀번호인가
     if (sameCurrentPw) setError(2);
     else if (validatePw && isSamePw && !sameCurrentPw) {
-      api
-        .put(
-          "/api/user/change_password",
-          { currentPw, newPw },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          if (res.status === 200 && res.data !== "PW Error") {
-            window.alert("비밀번호 변경이 완료되었습니다.");
-            window.location.reload();
-          } else setError(1);
-        });
+      setLoading(true);
+      try {
+        api
+          .put(
+            "/api/user/change_password",
+            { currentPw, newPw },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200 && res.data !== "PW Error") {
+              window.alert("비밀번호 변경이 완료되었습니다.");
+              window.location.reload();
+            } else setError(1);
+            setLoading(false);
+          });
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
     }
   };
 
   return (
     <form onSubmit={onSubmit}>
+      {loading && <Loading />}
       <input
         className={styles.input}
         name="currentPw"
