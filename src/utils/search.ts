@@ -1,6 +1,13 @@
 import { AxiosResponse } from "axios";
 import api from "../api/api";
 
+export type getSearchResultType = (
+  page: string | null,
+  keyword: string | null,
+  searchType: string,
+  token?: string | null
+) => void;
+
 type SearchFunType = (
   page: string | null,
   keyword: string | null,

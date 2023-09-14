@@ -17,10 +17,10 @@ export default function SearchResult() {
   const keyword = searchParams.get("query");
   const page = searchParams.get("page") ? searchParams.get("page") : "1";
 
-  const { books, reviews, totalItems, loading, getSearchResult } = useSearch({ page, keyword, searchType, token });
+  const { books, reviews, totalItems, loading, getSearchResult } = useSearch();
 
   useEffect(() => {
-    getSearchResult();
+    getSearchResult(page, keyword, searchType, token);
   }, [searchType, page, keyword, token, getSearchResult]);
 
   return (
