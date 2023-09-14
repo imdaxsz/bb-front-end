@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import Loading from "../components/Loading";
 
 export default function MyBookList({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [books, setBooks] = useState<Book[]>([]);
@@ -14,9 +15,11 @@ export default function MyBookList({ isAuthenticated }: { isAuthenticated: boole
   const token = useSelector((state: RootState) => state.auth.token);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
+      setLoading(true);
       try {
         api
           .get(`/api/like/list`, {
@@ -30,8 +33,10 @@ export default function MyBookList({ isAuthenticated }: { isAuthenticated: boole
               setBooks(setBookInfo(res.data));
               setFilteredBooks(setBookInfo(res.data));
             }
+            setLoading(false);
           });
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
     }
@@ -55,9 +60,10 @@ export default function MyBookList({ isAuthenticated }: { isAuthenticated: boole
       <Helmet>
         <title>북북 - 관심도서</title>
       </Helmet>
+      {loading && <Loading />}
       {isAuthenticated ? (
         <>
-          {filteredBooks.length === 0 ? (
+          {filteredBooks.length === 0 && !loading ? (
             <div className="guide">
               <span>관심 도서가 없어요.</span>
             </div>

@@ -6,18 +6,21 @@ import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import Loading from "./Loading";
 
 export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const token = useSelector((state: RootState) => state.auth.token);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
       let url = `/api/review/list`;
       if (sort === "date_asc") url = `/api/review/list?sort=date_asc`;
       else if (sort === "title") url = `/api/review/list?sort=title`;
+      setLoading(true);
       try {
         api
           .get(url, {
@@ -29,10 +32,12 @@ export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) 
           .then((res) => {
             if (res.status === 200) {
               setReviews(res.data);
+              setLoading(false);
             }
           });
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     }
   }, [isAuthenticated, sort, token]);
@@ -42,9 +47,10 @@ export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) 
       <Helmet>
         <title>북북 - 홈</title>
       </Helmet>
+      {loading && <Loading />}
       {isAuthenticated ? (
         <>
-          {reviews.length === 0 ? (
+          {reviews.length === 0 && !loading ? (
             <div className="guide">
               <span>아직 작성한 후기가 없어요.</span>
             </div>

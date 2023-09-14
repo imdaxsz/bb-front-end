@@ -8,52 +8,62 @@ import api from "../api/api";
 import Like from "./../components/Like";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import Loading from "../components/Loading";
 
 export default function BookDetail() {
   const id = useLocation().pathname.split("/")[3];
   const token = useSelector((state: RootState) => state.auth.token);
   const [book, setBook] = useState<BookInfo | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    api.get(`/api/book/detail/${id}`).then((res) => {
-      if (res.status === 200) {
-        setBook(setBookDetailInfo(res.data.item[0]));
-      }
-    });
+    setLoading(true);
+    try {
+      api.get(`/api/book/detail/${id}`).then((res) => {
+        if (res.status === 200) setBook(setBookDetailInfo(res.data.item[0]));
+        setLoading(false);
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   }, [id]);
 
   return (
     <div className="wrapper">
-      <div className={styles.wrapper}>
-        <div className={styles.item}>
-          {book && (
-            <>
-              <div className={styles.book}>
-                <div>
-                  <div className={bs["img-lg"]}>
-                    <img src={book.image} alt={book.title} />
+      {loading && <Loading />}
+      {!loading && (
+        <div className={styles.wrapper}>
+          <div className={styles.item}>
+            {book && (
+              <>
+                <div className={styles.book}>
+                  <div>
+                    <div className={bs["img-lg"]}>
+                      <img src={book.image} alt={book.title} />
+                    </div>
+                  </div>
+                  <div className={bs["detail-info"]}>
+                    <div className={bs["detail-title"]}>{book.title}</div>
+                    <p>저자&nbsp; {book.author}</p>
+                    <p>출판&nbsp; {book.publisher}</p>
+                    <p>출간&nbsp; {book.pubDate}</p>
+                    <p>분야&nbsp; {book.category.name}</p>
+                    <p>쪽수&nbsp; {book.itemPage}쪽</p>
                   </div>
                 </div>
-                <div className={bs["detail-info"]}>
-                  <div className={bs["detail-title"]}>{book.title}</div>
-                  <p>저자&nbsp; {book.author}</p>
-                  <p>출판&nbsp; {book.publisher}</p>
-                  <p>출간&nbsp; {book.pubDate}</p>
-                  <p>분야&nbsp; {book.category.name}</p>
-                  <p>쪽수&nbsp; {book.itemPage}쪽</p>
+                <div className={styles.content}>
+                  <div>{book.description}</div>
+                  <div className={styles.link} onClick={() => window.open(book.link)}>
+                    자세히 보기
+                  </div>
                 </div>
-              </div>
-              <div className={styles.content}>
-                <div>{book.description}</div>
-                <div className={styles.link} onClick={() => window.open(book.link)}>
-                  자세히 보기
-                </div>
-              </div>
-              <Like token={token} isbn={book.isbn} />
-            </>
-          )}
+                <Like token={token} isbn={book.isbn} />
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

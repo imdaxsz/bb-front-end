@@ -8,6 +8,7 @@ import { getDate } from "../utils/getDate";
 import api from "../api/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import Loading from "../components/Loading";
 
 export default function ReviewDetail() {
   const id = useLocation().pathname.split("/")[3];
@@ -18,7 +19,10 @@ export default function ReviewDetail() {
 
   const token = useSelector((state: RootState) => state.auth.token);
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     api
       .get(`/api/review/detail/${id}`, {
         headers: {
@@ -31,6 +35,7 @@ export default function ReviewDetail() {
           setReview(res.data);
           setDate(getDate(new Date(res.data.date)));
         }
+        setLoading(false);
       });
   }, [id, token]);
 
@@ -55,29 +60,32 @@ export default function ReviewDetail() {
 
   return (
     <div className="wrapper">
-      <div className={styles.wrapper}>
-        <div className={styles.item}>
-          <div className={styles.tool}>
-            <div className={styles["tool-item"]}>
-              <Link to={`/write?mode=edit&logNo=${id}`}>수정</Link>
+      {loading && <Loading />}
+      {!loading && (
+        <div className={styles.wrapper}>
+          <div className={styles.item}>
+            <div className={styles.tool}>
+              <div className={styles["tool-item"]}>
+                <Link to={`/write?mode=edit&logNo=${id}`}>수정</Link>
+              </div>
+              <div className={styles["tool-item"]} onClick={onClickDelete}>
+                삭제
+              </div>
             </div>
-            <div className={styles["tool-item"]} onClick={onClickDelete}>
-              삭제
-            </div>
+            {review && (
+              <>
+                <div className={styles.book}>
+                  <ReviewBookInfo book={review.book} rating={review.rating} />
+                </div>
+                <div className={styles.content}>
+                  <div>{date}</div>
+                  <div>{review.text}</div>
+                </div>
+              </>
+            )}
           </div>
-          {review && (
-            <>
-              <div className={styles.book}>
-                <ReviewBookInfo book={review.book} rating={review.rating} />
-              </div>
-              <div className={styles.content}>
-                <div>{date}</div>
-                <div>{review.text}</div>
-              </div>
-            </>
-          )}
         </div>
-      </div>
+      )}
     </div>
   );
 }
