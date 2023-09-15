@@ -3,6 +3,7 @@ import { PiHeartFill, PiHeartLight } from "react-icons/pi";
 import api from "../api/api";
 import styles from "../styles/scss/detail.module.scss";
 import { useMediaQuery } from "react-responsive";
+import { BeatLoader } from "react-spinners";
 
 interface LikeProps {
   token: string | null;
@@ -11,11 +12,13 @@ interface LikeProps {
 
 export default function Like({ token, isbn }: LikeProps) {
   const [like, setLike] = useState(false);
+  const [loading, setLoading] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: 450 });
 
   // 서버에서 좋아요 여부 확인
   useEffect(() => {
     if (token) {
+      setLoading(true);
       api
         .get(`/api/like/book/${isbn}`, {
           headers: {
@@ -24,6 +27,7 @@ export default function Like({ token, isbn }: LikeProps) {
           },
         })
         .then((res) => {
+          setLoading(false);
           if (res.status === 200) setLike(res.data);
         });
     }
@@ -55,13 +59,18 @@ export default function Like({ token, isbn }: LikeProps) {
       {isMobile ? (
         <div onClick={onClick} className={styles.like}>
           <span>관심도서</span>
-          {like ? <PiHeartFill color="#f94a7b" size="22px" /> : <PiHeartLight size="22px" />}
+          <Icon loading={loading} like={like} />
         </div>
       ) : (
         <div onClick={onClick} className={styles.like} title="관심 도서">
-          {like ? <PiHeartFill color="#f94a7b" size="24px" /> : <PiHeartLight size="24px" />}
+          <Icon loading={loading} like={like} />
         </div>
       )}
     </>
   );
+}
+
+function Icon({ loading, like }: { loading: boolean; like: boolean }) {
+  if (loading) return <BeatLoader size={2} color="#777" />;
+  return <>{like ? <PiHeartFill color="#f94a7b" size="24px" /> : <PiHeartLight size="24px" />}</>;
 }
