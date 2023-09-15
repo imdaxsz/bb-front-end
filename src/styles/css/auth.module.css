@@ -42,6 +42,7 @@
 }
 .input:disabled, .submit:disabled {
   cursor: default;
+  background: #eee;
 }
 
 .submit {

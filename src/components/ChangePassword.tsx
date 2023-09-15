@@ -4,7 +4,7 @@ import { useState } from "react";
 import api from "../api/api";
 import Loading from "./Loading";
 
-export default function ChangePassword({ token }: { token: string | null }) {
+export default function ChangePassword({ token, isOauthUser }: { token: string | null; isOauthUser:boolean }) {
   const [currentPw, setCurrentPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [pwConfirm, setPwConfirm] = useState("");
@@ -82,6 +82,7 @@ export default function ChangePassword({ token }: { token: string | null }) {
         onChange={onChangeCurrentPw}
         autoComplete="off"
         placeholder="현재 비밀번호"
+        disabled={isOauthUser}
       />
       <input
         className={`${styles.input} ${validatePw === false && styles.error}`}
@@ -92,6 +93,7 @@ export default function ChangePassword({ token }: { token: string | null }) {
         onBlur={checkPassword}
         autoComplete="off"
         placeholder="새 비밀번호"
+        disabled={isOauthUser}
       />
       {validatePw === false && <span>새 비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>}
       <input
@@ -102,6 +104,7 @@ export default function ChangePassword({ token }: { token: string | null }) {
         onChange={onChangeConfirmPw}
         autoComplete="off"
         placeholder="새 비밀번호 확인"
+        disabled={isOauthUser}
       />
       {isSamePw === false && <span>비밀번호가 일치하지 않습니다.</span>}
       {error !== 0 && <span>{message[error]}</span>}
