@@ -8,25 +8,22 @@ export default function GoogleCallback() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const params = new URLSearchParams(location.search);
-  const userExists = params.get("userExists");
-  const token = params.get("token");
-
   useEffect(() => {
-    if (token && !userExists) {
+    const params = new URLSearchParams(location.search);
+    const userExists = params.get("userExists");
+    const token = params.get("token");
+
+    if (userExists) {
+      window.alert("이메일로 가입된 계정입니다. 이메일로 로그인 해주세요.");
+      navigate("/signin");
+    } else if (token) {
       dispatch(signin(token));
       console.log(token);
       navigate("/");
-    } else navigate("/404");
-    if (userExists) {
-      window.alert("이메일 가입한 회원입니다. 이메일로 로그인 해주세요.");
-      navigate("/signin");
+    } else {
+      navigate("/404");
     }
-  }, [dispatch, navigate, token, userExists]);
+  }, [dispatch, location.search, navigate]);
 
-  return (
-    <div>
-      <h2>Callback</h2>
-    </div>
-  );
+  return <></>;
 }
