@@ -8,7 +8,13 @@ import api from "../api/api";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RootState } from "../store/store";
 
-export default function SearchBar({ placeholder, keyword }: { placeholder: string; keyword?: string }) {
+interface Props {
+  placeholder: string;
+  keyword?: string;
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function SearchBar({ placeholder, keyword, setLoading }: Props) {
   const [word, setWord] = useState(keyword || "");
   const writeKeyword = useSelector((state: RootState) => state.searchResult.keyword);
   const focusRef = useRef<HTMLInputElement>(null);
@@ -23,11 +29,13 @@ export default function SearchBar({ placeholder, keyword }: { placeholder: strin
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (pathname === "/write") {
+      if (setLoading) setLoading(true);
       api.get(`/api/search/book?query=${word}`).then((res) => {
         if (res.status === 200) {
           dispatch(setKeyword(word));
           dispatch(setResult(setSearchBookInfo(res.data.item)));
         }
+        if (setLoading) setLoading(false);
       });
     } else if (["/", "/search/review"].includes(pathname)) navigate(`/search/review?query=${word}`);
     else if (["/recommend", "/search/book"].includes(pathname)) navigate(`/search/book?query=${word}`);

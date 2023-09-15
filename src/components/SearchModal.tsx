@@ -7,6 +7,7 @@ import SearchBar from "./SearchBar";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "./Modal";
 import { useEffect, useRef, useState } from "react";
+import Loading from "./Loading";
 
 interface SearchBook {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,7 +20,7 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
   const [scrollY, setScrollY] = useState(0);
   const listRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onClickCancel = () => {
     setModal(false);
@@ -50,10 +51,10 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
     return (
       <>
         <div className={styles.searchbar}>
-          <SearchBar placeholder="책 검색" />
+          <SearchBar placeholder="책 검색" setLoading={setLoading} />
         </div>
         <div className={styles.list} ref={listRef}>
-          {/* {loading && "로딩중"} */}
+          {loading && <Loading />}
           {result && result.map((book, i) => <SearchBookItem book={book} listRef={listRef} setScrollY={setScrollY} key={i} />)}
         </div>
       </>

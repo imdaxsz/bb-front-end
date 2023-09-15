@@ -10,7 +10,7 @@ interface searchResult {
 
 const initialState: searchResult = {
   keyword: "",
-  books: [],
+  books: null,
   selected: null,
   categoryId: "",
 };
