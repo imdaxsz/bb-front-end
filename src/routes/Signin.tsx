@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 import { signin } from "../store/authSlice";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
@@ -40,10 +41,6 @@ export default function Signin() {
     }
   };
 
-  const onClickGoogle = () => {
-    window.location.href = "http://localhost:8000/auth/google";
-  };
-
   return (
     <div className={styles.wrapper}>
       <Helmet>
@@ -66,7 +63,6 @@ export default function Signin() {
           />
           {error && <span>이메일 또는 비밀번호를 다시 확인해주세요.</span>}
           <input className={styles.submit} disabled={!disabled} type="submit" value="로그인" />
-          <button onClick={onClickGoogle}>구글 로그인</button>
         </form>
         <ul className={styles.find}>
           <li>
@@ -76,6 +72,7 @@ export default function Signin() {
             <Link to="/signup">회원가입</Link>
           </li>
         </ul>
+        <GoogleLoginButton />
       </div>
     </div>
   );

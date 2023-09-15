@@ -61,13 +61,28 @@
   }
 }
 
+.google {
+  @include common.flex(row, center, center);
+  @include common.setSize(100%, 52.8px);
+  background: white;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  border: solid 2px #eee;
+  border-radius: 20px;
+  padding: 12px 16px;
+  margin-top: 30px;
+  gap: 8px;
+}
+
 .find {
   @include common.flex(row, center, center);
-  padding: 10px 0;
+  // padding: 10px 0;
   li {
     position: relative;
+    height: 50px;
     font-size: 14px;
-    color: #888888;
+    color: #888;
     cursor: pointer;
     &::after {
       content: "|";
