@@ -4,6 +4,7 @@ import { useState, FormEvent, useEffect } from "react";
 import api from "../api/api";
 import EmailCertiForResetPW from "./EmailCertiForResetPW";
 import { Helmet } from "react-helmet-async";
+import Loading from "../components/Loading";
 
 export default function FindPassword() {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ export default function FindPassword() {
   const [pwConfirm, setPwConfirm] = useState("");
   const [validatePw, setValidatePw] = useState<boolean | null>(null);
   const [isSamePw, setIsSamePw] = useState<boolean | null>(null);
+
+  const [loading, setLoading] = useState(false);
 
   const pwButtonDisabled = password !== "" && pwConfirm !== "";
 
@@ -36,14 +39,20 @@ export default function FindPassword() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO 비밀번호 재설정
     if (validatePw && isSamePw) {
-      api.put("/api/user/reset_password", { email, password }).then((res) => {
-        if (res.status === 200) {
-          window.alert("비밀번호 재설정이 완료되었습니다!");
-          navigate("/signin");
-        }
-      });
+      try {
+        setLoading(true);
+        api.put("/api/user/reset_password", { email, password }).then((res) => {
+          if (res.status === 200) {
+            setLoading(false);
+            window.alert("비밀번호 재설정이 완료되었습니다!");
+            navigate("/signin");
+          }
+        });
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+      }
     }
   };
 
@@ -64,6 +73,7 @@ export default function FindPassword() {
       <Helmet>
         <title>북북 - 비밀번호 찾기</title>
       </Helmet>
+      {loading && <Loading />}
       <div className={styles.content}>
         <div className={styles.logo}>
           <Link to="/">북북</Link>

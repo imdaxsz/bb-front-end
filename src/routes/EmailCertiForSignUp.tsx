@@ -1,4 +1,5 @@
 import api from "../api/api";
+import Loading from "../components/Loading";
 import styles from "../styles/scss/auth.module.scss";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +14,7 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
   const [code, setCode] = useState("");
   const [showCode, setShowCode] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -27,13 +29,17 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
     if (emailReg.test(email)) {
       // 패턴 검사
       setValidateEmail(0);
+      setLoading(true);
       api.post("/api/user/checkemail", { email }).then((res) => {
+        setLoading(false);
         if (res.status === 200 && res.data.exists) setValidateEmail(2);
         if (res.status === 200 && !res.data.exists) {
           // 인증 메일 요청
+          setLoading(true);
           api.post("/api/certification/send-email", { email }).then((res) => {
             if (res.status === 200) setShowCode(true);
             else console.log(res.status, " server error");
+            setLoading(false);
           });
         }
       });
@@ -42,19 +48,22 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     api.post("/api/certification/verify-code", { email, userCode: code }).then((res) => {
       if (res.status === 200 && res.data) {
         window.alert("인증에 성공하였습니다.");
         navigate("/signup/next");
       } else {
-        window.alert("인증에 실패하였습니다. 다시 시도하세요.")
+        window.alert("인증에 실패하였습니다. 다시 시도하세요.");
         window.location.reload();
       }
+      setLoading(false);
     });
   };
 
   return (
     <form onSubmit={onSubmit} className={styles.form} noValidate>
+      {loading && <Loading />}
       <input
         className={`${styles.input} ${(validateEmail === 1 || validateEmail === 2) && styles.error}`}
         name="email"
