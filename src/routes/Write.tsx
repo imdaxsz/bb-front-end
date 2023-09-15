@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import styles from "../styles/scss/write.module.scss";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import SearchModal from "../components/SearchModal";
 import { BsPlusLg } from "react-icons/bs";
 import ReviewBookInfo from "../components/ReviewBookInfo";
@@ -14,7 +14,6 @@ import useSavedReview from "../hooks/useSavedReview";
 import useRecommend from "../hooks/useRecommend";
 
 export default function Write() {
-  const navigate = useNavigate();
   const [searchModal, setSearchModal] = useState(false);
   const [savedModal, setSavedModal] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -28,7 +27,9 @@ export default function Write() {
 
   const { book, setBook, text, setText, rating, setRating, date, loading, setLoading, loadReview, addReview, updateReview } = useReview();
   const { reviews, loadSavedReviews } = useSavedReview();
-  const { checkUserRecommend, getRecommendBook } = useRecommend();
+  const { getRecommendBook } = useRecommend();
+
+  const savedCount = useSelector((state: RootState) => state.savedReview.count);
 
   const onSubmit = async (opt: "save" | "upload") => {
     if (!book) window.alert("후기를 작성할 책을 선택해주세요!");
@@ -38,14 +39,10 @@ export default function Write() {
         // 새 후기 저장
         const id = await addReview(book, rating, today, text, opt, token, reviews);
         if (id !== "" && opt === "upload") {
-          setLoading(true);
           // 새 후기 발행
-          // 추천 기능 사용 여부 확인
-          const res = await checkUserRecommend(token);
-          if (res.status === 200 && res.data === true) {
-            await getRecommendBook(id, token);
-            setLoading(false);
-          } else navigate(`/review/detail/${id}`);
+          setLoading(true);
+          // 후기 기반 도서 추천
+          await getRecommendBook(id, token);
         }
       }
       // 후기 수정
@@ -71,7 +68,7 @@ export default function Write() {
     // 후기 수정일 경우
     if (mode === "edit") loadReview(id, token);
     else loadSavedReviews(token, setLoading);
-  }, [id, mode, token, loadReview, loadSavedReviews, setLoading]);
+  }, [id, mode, token, loadReview, loadSavedReviews, setLoading, savedCount]);
 
   return (
     <>
