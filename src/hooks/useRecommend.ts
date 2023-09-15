@@ -8,8 +8,9 @@ import { RootState } from "../store/store";
 export default function useRecommend() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-   const categoryId = useSelector((state: RootState) => state.searchResult.categoryId);
-
+  const categoryId = useSelector((state: RootState) => state.searchResult.categoryId);
+  
+  // 추천 도서 데이터 요청
   const getRecommendBook = async (id: string, token: string | null) => {
     const res = await api.post(
       `/api/recommend/foryou`,
@@ -21,22 +22,12 @@ export default function useRecommend() {
         },
       }
     );
-    if (res.status === 200) {
+    if (res.status === 200 && res.data !== "Recommend not used") {
       dispatch(setRecBook(setBookInfo([res.data])[0]));
       dispatch(setRecModal(true));
-      navigate(`/review/detail/${id}`);
     }
+    navigate(`/review/detail/${id}`);
   };
 
-  const checkUserRecommend = async (token: string | null) => {
-    const res = await api.get(`/api/recommend`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return res;
-  };
-
-  return { checkUserRecommend, getRecommendBook };
+  return { getRecommendBook };
 }
