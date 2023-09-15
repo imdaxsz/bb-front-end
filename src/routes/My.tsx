@@ -2,7 +2,7 @@ import styles from "../styles/scss/my.module.scss";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/api";
-import ResetPassword from "../components/ResetPassword";
+import ChangePassword from "../components/ChangePassword";
 import { backUp } from "../utils/backUp";
 import { Helmet } from "react-helmet-async";
 import { setRecommend } from "../utils/recommend";
@@ -74,7 +74,7 @@ export default function My() {
         <div className={styles["password-wrapper"]}>
           <div className={styles.title}>비밀번호 재설정</div>
           <div className={styles.password}>
-            <ResetPassword token={token} />
+            <ChangePassword token={token} />
           </div>
         </div>
         <div className={styles["item-wrapper"]}>

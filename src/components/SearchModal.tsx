@@ -19,6 +19,7 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
   const [scrollY, setScrollY] = useState(0);
   const listRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
+  // const [loading, setLoading] = useState(false);
 
   const onClickCancel = () => {
     setModal(false);
@@ -52,9 +53,8 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
           <SearchBar placeholder="책 검색" />
         </div>
         <div className={styles.list} ref={listRef}>
-          {result.map((book, i) => (
-            <SearchBookItem book={book} listRef={listRef} setScrollY={setScrollY} key={i} />
-          ))}
+          {/* {loading && "로딩중"} */}
+          {result && result.map((book, i) => <SearchBookItem book={book} listRef={listRef} setScrollY={setScrollY} key={i} />)}
         </div>
       </>
     );
