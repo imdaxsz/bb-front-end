@@ -35,12 +35,10 @@ export default function Signin() {
       api.post("/api/user/signin", { email, password }).then((res) => {
         if (res.status === 200 && res.data === "oauth member") {
           window.alert("구글 연동으로 가입된 계정입니다. 구글 로그인을 이용해주세요.");
-        }
-        else if (res.status === 200 && res.data !== "ID or PW error") {
+        } else if (res.status === 200 && res.data !== "ID or PW error") {
           dispatch(signin(res.data.token));
           navigate("/");
-        }
-        else setError(true);
+        } else setError(true);
       });
     }
   };

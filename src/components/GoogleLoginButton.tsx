@@ -3,9 +3,10 @@ import { FcGoogle } from "react-icons/fc";
 
 export default function GoogleLoginButton() {
   const onClickGoogle = () => {
-    window.location.href = `${process.env.REACT_APP_API_ROOT}/auth/google`;
+    const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+    window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=openid email profile`;
   };
-
   return (
     <button className={styles.google} type="button" onClick={onClickGoogle}>
       <FcGoogle size={20} />

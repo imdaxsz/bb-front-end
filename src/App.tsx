@@ -7,6 +7,7 @@ import SearchResult from "./routes/SearchResult";
 import BookDetail from "./routes/BookDetail";
 import Signup from "./routes/Signup";
 import Signin from "./routes/Signin";
+import GoogleRedirect from "./routes/GoogleRedirect";
 import GoogleCallback from "./routes/GoogleCallback";
 import FindPassword from "./routes/FindPassword";
 
@@ -67,6 +68,7 @@ function App() {
         <Route path="/find_password/next" element={isAuthenticated ? <Navigate replace to="/" /> : <FindPassword />} />
         <Route path="/signin" element={isAuthenticated ? <Navigate replace to="/" /> : <Signin />} />
         <Route path="/auth/google/callback" element={isAuthenticated ? <Navigate replace to="/" /> : <GoogleCallback />} />
+        <Route path="/auth/google" element={isAuthenticated ? <Navigate replace to="/" /> : <GoogleRedirect />} />
         <Route path="/signup" element={isAuthenticated ? <Navigate replace to="/" /> : <Signup />} />
         <Route path="/signup/next" element={isAuthenticated ? <Navigate replace to="/" /> : <Signup />} />
       </Routes>
