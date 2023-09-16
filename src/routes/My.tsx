@@ -11,12 +11,12 @@ import Loading from "../components/Loading";
 
 export default function My() {
   const token = useSelector((state: RootState) => state.auth.token);
-  const { email, active, isOauthUser, loading, getUserInfo, onRecommendClick, onRequestDataClick } = useUserInfo();
+  const { email, active, isOauthUser, loading, getUserInfo, onRecommendClick, onRequestDataClick } = useUserInfo({token});
   const { Signout } = useSignOut();
 
   useEffect(() => {
     if (token) {
-      getUserInfo(token);
+      getUserInfo();
     }
   }, [token, getUserInfo]);
 
@@ -43,13 +43,13 @@ export default function My() {
           </div>
           <div className={styles["item-wrapper"]}>
             <span className={styles["title-md"]}>후기 작성 후 책 추천</span>
-            <div className={`toggle ${active ? "toggle-active" : ""}`} onClick={() => onRecommendClick(token)}>
+            <div className={`toggle ${active ? "toggle-active" : ""}`} onClick={() => onRecommendClick()}>
               <div className="circle" />
             </div>
           </div>
           <div className={styles["item-wrapper"]}>
             <span className={styles["title-md"]}>후기 데이터 다운로드</span>
-            <button className={styles["btn-primary"]} onClick={() => onRequestDataClick(token)}>
+            <button className={styles["btn-primary"]} onClick={() => onRequestDataClick()}>
               데이터 요청하기
             </button>
           </div>

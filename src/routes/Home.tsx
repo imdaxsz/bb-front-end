@@ -7,22 +7,21 @@ import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Loading from "../components/Loading";
+import { useSignOut } from "../hooks/useSignout";
 
 export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const token = useSelector((state: RootState) => state.auth.token);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(isAuthenticated);
+  const { Signout } = useSignOut();
 
   useEffect(() => {
     if (isAuthenticated) {
-      // console.log("token: ", token);
-      // console.log(isAuthenticated);
       let url = `/api/review/list`;
       if (sort === "date_asc") url = `/api/review/list?sort=date_asc`;
       else if (sort === "title") url = `/api/review/list?sort=title`;
-      setLoading(true);
       try {
         api
           .get(url, {
@@ -35,14 +34,14 @@ export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) 
             if (res.status === 200) {
               setReviews(res.data);
               setLoading(false);
-            }
+            } if (res.status === 403) Signout();
           });
       } catch (error) {
         console.log(error);
         setLoading(false);
       }
     }
-  }, [isAuthenticated, sort, token]);
+  }, [Signout, isAuthenticated, sort, token]);
 
   return (
     <div className="wrapper">

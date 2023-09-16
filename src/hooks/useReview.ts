@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { setCount } from "../store/savedReviewSlice";
+import { useSignOut } from "./useSignout";
 
 type addReviewFunType = (
   book: Book | null,
@@ -29,22 +30,28 @@ export default function useReview() {
   const dispatch = useDispatch();
   const savedCount = useSelector((state: RootState) => state.savedReview.count);
 
-  const loadReview = useCallback(async (id: string | null, token: string | null) => {
-    setLoading(true);
-    const res = await api.get(`/api/review/detail/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setLoading(false);
-    if (res.status === 200) {
-      setBook(res.data.book);
-      setRating(res.data.rating);
-      setText(res.data.text);
-      setDate(getDate(new Date(res.data.date)));
-    }
-  }, []);
+  const { Signout } = useSignOut();
+
+  // 후기 수정 시 후기 불러오기
+  const loadReview = useCallback(
+    async (id: string | null, token: string | null) => {
+      setLoading(true);
+      const res = await api.get(`/api/review/detail/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setLoading(false);
+      if (res.status === 200) {
+        setBook(res.data.book);
+        setRating(res.data.rating);
+        setText(res.data.text);
+        setDate(getDate(new Date(res.data.date)));
+      } else if (res.status === 403) Signout();
+    },
+    [Signout]
+  );
 
   const updateReview = async (id: string | null, token: string | null) => {
     const res = await api.put(
@@ -58,6 +65,7 @@ export default function useReview() {
       }
     );
     if (res.status === 200) navigate(`/review/detail/${id}`);
+    else if (res.status === 403) Signout();
   };
 
   const addReview: addReviewFunType = async (book, rating, date, text, opt, token, savedReviews) => {
@@ -87,7 +95,8 @@ export default function useReview() {
         window.alert("저장 완료");
         if (!isSavedReview) dispatch(setCount(savedCount + 1)); // 임시 저장에 없는 후기일 경우에만 개수 증가
       } else reviewId = res.data;
-    } else {
+    } else if (res.status === 403) Signout();
+    else {
       throw new Error("Failed to save review");
     }
     return reviewId;

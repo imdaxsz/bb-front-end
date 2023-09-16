@@ -7,6 +7,7 @@ import { RootState } from "../store/store";
 import { useSignOut } from "../hooks/useSignout";
 import { AiOutlineCheck } from "react-icons/ai";
 import Loading from "../components/Loading";
+import { signout } from "../store/authSlice";
 
 export default function Leave() {
   const [email, setEmail] = useState("");
@@ -68,6 +69,7 @@ export default function Leave() {
           })
           .then((res) => {
             if (res.status === 200) setEmail(res.data.email);
+            if (res.status === 403) signout();
             setLoading(false);
           });
       } catch (error) {

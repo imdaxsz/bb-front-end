@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Loading from "../components/Loading";
+import { useSignOut } from "../hooks/useSignout";
 
 export default function MyBookList({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [books, setBooks] = useState<Book[]>([]);
@@ -15,11 +16,11 @@ export default function MyBookList({ isAuthenticated }: { isAuthenticated: boole
   const token = useSelector((state: RootState) => state.auth.token);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(isAuthenticated);
+  const { Signout } = useSignOut();
 
   useEffect(() => {
     if (isAuthenticated) {
-      setLoading(true);
       try {
         api
           .get(`/api/like/list`, {
@@ -32,7 +33,7 @@ export default function MyBookList({ isAuthenticated }: { isAuthenticated: boole
             if (res.status === 200) {
               setBooks(setBookInfo(res.data));
               setFilteredBooks(setBookInfo(res.data));
-            }
+            } if (res.status === 403) Signout();
             setLoading(false);
           });
       } catch (error) {
@@ -40,7 +41,7 @@ export default function MyBookList({ isAuthenticated }: { isAuthenticated: boole
         console.log(error);
       }
     }
-  }, [isAuthenticated, token]);
+  }, [Signout, isAuthenticated, token]);
 
   useEffect(() => {
     if (books.length > 0) {

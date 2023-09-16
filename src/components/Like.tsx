@@ -4,6 +4,7 @@ import api from "../api/api";
 import styles from "../styles/scss/detail.module.scss";
 import { useMediaQuery } from "react-responsive";
 import { BeatLoader } from "react-spinners";
+import { useSignOut } from "../hooks/useSignout";
 
 interface LikeProps {
   token: string | null;
@@ -14,6 +15,7 @@ export default function Like({ token, isbn }: LikeProps) {
   const [like, setLike] = useState(false);
   const [loading, setLoading] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: 450 });
+  const { Signout } = useSignOut();
 
   // 서버에서 좋아요 여부 확인
   useEffect(() => {
@@ -50,6 +52,10 @@ export default function Like({ token, isbn }: LikeProps) {
         )
         .then((res) => {
           if (res.status === 200) setLike((prev) => !prev);
+          else if (res.status === 403) {
+            window.alert("관심 도서 추가는 로그인 후 가능합니다!");
+            Signout();
+          }
         });
     }
   };
