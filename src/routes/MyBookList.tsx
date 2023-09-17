@@ -1,60 +1,27 @@
-import { useEffect, useState } from "react";
-import { Book } from "../types/types";
-import api from "../api/api";
-import { setBookInfo } from "./../utils/setBookInfo";
+import { useEffect } from "react";
 import BookItem from "../components/BookItem";
 import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Loading from "../components/Loading";
-import { useSignOut } from "../hooks/useSignout";
+import useMyBookList from "../hooks/useMyBookList";
 
 export default function MyBookList({ isAuthenticated }: { isAuthenticated: boolean }) {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const token = useSelector((state: RootState) => state.auth.token);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
-  const [loading, setLoading] = useState(isAuthenticated);
-  const { Signout } = useSignOut();
+
+  const { filteredBooks, getUserMyBookList, getSortedUserMyList, loading, setLoading } = useMyBookList();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      try {
-        api
-          .get(`/api/like/list`, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              setBooks(setBookInfo(res.data));
-              setFilteredBooks(setBookInfo(res.data));
-            } if (res.status === 403) Signout();
-            setLoading(false);
-          });
-      } catch (error) {
-        setLoading(false);
-        console.log(error);
-      }
-    }
-  }, [Signout, isAuthenticated, token]);
+    if (!token) setLoading(false);
+    else getUserMyBookList(token);
+  }, [getUserMyBookList, setLoading, token]);
 
   useEffect(() => {
-    if (books.length > 0) {
-      if (sort === "date_asc") {
-        setFilteredBooks([...books].reverse());
-      } else if (sort === "title") {
-        const result = [...books].sort((a, b) => a.title.localeCompare(b.title));
-        setFilteredBooks([...result]);
-      } else {
-        setFilteredBooks([...books]);
-      }
-    }
-  }, [books, books.length, sort]);
+    if (token) getSortedUserMyList(sort);
+  }, [getSortedUserMyList, sort, token]);
 
   return (
     <div className="wrapper">

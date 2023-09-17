@@ -1,47 +1,22 @@
 import ReviewItem from "../components/ReviewItem";
-import { useEffect, useState } from "react";
-import { Review } from "../types/types";
-import api from "../api/api";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Loading from "../components/Loading";
-import { useSignOut } from "../hooks/useSignout";
+import useGetReviews from "../hooks/useGetReviews";
 
 export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) {
-  const [reviews, setReviews] = useState<Review[]>([]);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const token = useSelector((state: RootState) => state.auth.token);
-  const [loading, setLoading] = useState(isAuthenticated);
-  const { Signout } = useSignOut();
+  const { reviews, getUserReviews, loading, setLoading } = useGetReviews();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      let url = `/api/review/list`;
-      if (sort === "date_asc") url = `/api/review/list?sort=date_asc`;
-      else if (sort === "title") url = `/api/review/list?sort=title`;
-      try {
-        api
-          .get(url, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              setReviews(res.data);
-              setLoading(false);
-            } if (res.status === 403) Signout();
-          });
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    }
-  }, [Signout, isAuthenticated, sort, token]);
+    if (!token) setLoading(false);
+    else getUserReviews(sort, token);
+  }, [getUserReviews, setLoading, sort, token]);
 
   return (
     <div className="wrapper">
