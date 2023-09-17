@@ -1,6 +1,6 @@
 import styles from "../styles/scss/my.module.scss";
 import { useState, useEffect, FormEvent } from "react";
-import api from "../api/api";
+import api, { isAxiosError, AxiosError } from "../api/api";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -49,6 +49,10 @@ export default function Leave() {
             } else window.alert("비밀번호를 다시 확인하세요.");
           });
       } catch (error) {
+        if (isAxiosError(error)) {
+          const axiosError = error as AxiosError;
+          if (axiosError.response && axiosError.response.status === 403) signOut();
+        }
         setLoading(false);
         console.log(error);
       }
@@ -68,10 +72,13 @@ export default function Leave() {
           })
           .then((res) => {
             if (res.status === 200) setEmail(res.data.email);
-            if (res.status === 403) signOut("/");
             setLoading(false);
           });
       } catch (error) {
+        if (isAxiosError(error)) {
+          const axiosError = error as AxiosError;
+          if (axiosError.response && axiosError.response.status === 403) signOut();
+        }
         setLoading(false);
         console.log(error);
       }

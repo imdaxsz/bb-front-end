@@ -32,9 +32,9 @@ export default function useUserInfo({ token }: { token: string | null }) {
   }, [signOut, token]);
 
   const onRecommendClick = async () => {
-    const result = await setRecommend(token);
-    if (result === 200) setActive((prev) => !prev);
-    else if (result === 403) signOut();
+    const res = await setRecommend(token);
+    if (res === 200) setActive((prev) => !prev);
+    else if (res === 403) signOut();
   };
 
   const onRequestDataClick = async () => {

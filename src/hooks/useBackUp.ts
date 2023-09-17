@@ -1,4 +1,4 @@
-import api from "../api/api";
+import api, { isAxiosError, AxiosError } from "../api/api";
 import useSignOut from "./useSignout";
 
 export default function useBackUp() {
@@ -12,8 +12,6 @@ export default function useBackUp() {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      if (res.status === 403) signOut();
       if (res.status === 200) {
         const backupData = JSON.stringify(res.data, null, 2);
 
@@ -27,6 +25,10 @@ export default function useBackUp() {
         URL.revokeObjectURL(url);
       }
     } catch (error) {
+      if (isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response && axiosError.response.status === 403) signOut();
+      }
       console.error("Error downloading backup:", error);
     }
   };

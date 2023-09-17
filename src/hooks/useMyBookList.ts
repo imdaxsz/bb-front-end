@@ -1,4 +1,4 @@
-import api from "../api/api";
+import api, { isAxiosError, AxiosError } from "../api/api";
 import { Book } from "../types/types";
 import { setBookInfo } from "../utils/setBookInfo";
 import useSignOut from "./useSignout";
@@ -26,9 +26,12 @@ export default function useMyBookList() {
           setBooks(setBookInfo(res.data));
           setFilteredBooks(setBookInfo(res.data));
         }
-        if (res.status === 403) signOut();
       } catch (error) {
         setLoading(false);
+        if (isAxiosError(error)) {
+          const axiosError = error as AxiosError;
+          if (axiosError.response && axiosError.response.status === 403) signOut();
+        }
         console.log(error);
       }
     },

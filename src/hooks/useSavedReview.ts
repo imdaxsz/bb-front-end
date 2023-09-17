@@ -1,6 +1,6 @@
 import { SetStateAction, useCallback, useState } from "react";
 import { Review } from "../types/types";
-import api from "../api/api";
+import api, { isAxiosError, AxiosError } from "../api/api";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { setCount } from "../store/savedReviewSlice";
@@ -30,10 +30,14 @@ export default function useSavedReview() {
         if (res.status === 200) {
           if (setReviews) setReviews(res.data);
           dispatch(setCount(res.data.length));
-        } else if (res.status === 403) signOut();
+        }
       } catch (error) {
         setLoading(false);
         if (setWriteLoading) setWriteLoading(false);
+        if (isAxiosError(error)) {
+          const axiosError = error as AxiosError;
+          if (axiosError.response && axiosError.response.status === 403) signOut();
+        }
         console.log(error);
       }
     },

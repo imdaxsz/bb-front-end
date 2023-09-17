@@ -42,7 +42,7 @@ function App() {
         })
         .then((res) => {
           dispatch(setIsAuthenticated(res.data.valid));
-          if (!res.data.valid) signOut();
+          if (!res.data.valid) signOut("/");
         })
         .catch((error) => {
           console.log("Token verification error:", error);

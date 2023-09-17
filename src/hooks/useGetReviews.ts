@@ -1,4 +1,4 @@
-import api from "../api/api";
+import api, { isAxiosError, AxiosError } from "../api/api";
 import { Review } from "../types/types";
 import useSignOut from "./useSignout";
 import { useState } from "react";
@@ -24,9 +24,11 @@ export default function useGetReviews() {
         });
         setLoading(false);
         if (res.status === 200) setReviews(res.data);
-        if (res.status === 403) signOut();
       } catch (error) {
-        console.log(error);
+        if (isAxiosError(error)) {
+          const axiosError = error as AxiosError;
+          if (axiosError.response && axiosError.response.status === 403) signOut();
+        }
         setLoading(false);
       }
     },

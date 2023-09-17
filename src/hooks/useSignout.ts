@@ -11,7 +11,7 @@ export default function useSignOut() {
     (url?: string) => {
       dispatch(signout());
 
-      if (url) navigate("/");
+      if (url) navigate(url);
       else navigate("/signin");
     },
     [dispatch, navigate]
