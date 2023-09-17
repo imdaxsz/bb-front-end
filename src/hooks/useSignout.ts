@@ -3,14 +3,19 @@ import { signout } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 
-export const useSignOut = () => {
+export default function useSignOut() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
- const Signout = useCallback(() => {
-   dispatch(signout());
-   navigate("/");
- }, [dispatch, navigate]);
+  const signOut = useCallback(
+    (url?: string) => {
+      dispatch(signout());
 
-  return { Signout };
-};
+      if (url) navigate("/");
+      else navigate("/signin");
+    },
+    [dispatch, navigate]
+  );
+
+  return { signOut };
+}

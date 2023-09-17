@@ -4,17 +4,16 @@ import api from "../api/api";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { useSignOut } from "../hooks/useSignout";
+import useSignOut from "../hooks/useSignout";
 import { AiOutlineCheck } from "react-icons/ai";
 import Loading from "../components/Loading";
-import { signout } from "../store/authSlice";
 
 export default function Leave() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agree, setAgree] = useState(false);
   const token = useSelector((state: RootState) => state.auth.token);
-  const { Signout } = useSignOut();
+  const { signOut } = useSignOut();
   const [loading, setLoading] = useState(false);
 
   const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +45,7 @@ export default function Leave() {
             setLoading(false);
             if (res.status === 200 && res.data !== "ID or PW error") {
               window.alert("탈퇴 완료되었습니다.");
-              Signout();
+              signOut();
             } else window.alert("비밀번호를 다시 확인하세요.");
           });
       } catch (error) {
@@ -69,7 +68,7 @@ export default function Leave() {
           })
           .then((res) => {
             if (res.status === 200) setEmail(res.data.email);
-            if (res.status === 403) signout();
+            if (res.status === 403) signOut("/");
             setLoading(false);
           });
       } catch (error) {
@@ -77,7 +76,7 @@ export default function Leave() {
         console.log(error);
       }
     }
-  }, [token]);
+  }, [signOut, token]);
 
   return (
     <div className={styles.wrapper}>

@@ -9,7 +9,7 @@ import api from "../api/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Loading from "../components/Loading";
-import { useSignOut } from "./../hooks/useSignout";
+import useSignOut from "./../hooks/useSignout";
 
 export default function ReviewDetail() {
   const id = useLocation().pathname.split("/")[3];
@@ -19,7 +19,7 @@ export default function ReviewDetail() {
   const [date, setDate] = useState("");
 
   const token = useSelector((state: RootState) => state.auth.token);
-  const { Signout } = useSignOut();
+  const { signOut } = useSignOut();
 
   const [loading, setLoading] = useState(false);
 
@@ -37,10 +37,10 @@ export default function ReviewDetail() {
           setReview(res.data);
           setDate(getDate(new Date(res.data.date)));
         }
-        if (res.status === 403) Signout();
+        if (res.status === 403) signOut();
         setLoading(false);
       });
-  }, [Signout, id, token]);
+  }, [signOut, id, token]);
 
   const onClickDelete = () => {
     const ok = window.confirm("삭제된 후기는 복구할 수 없습니다.\n삭제하시겠습니까?");
@@ -57,7 +57,7 @@ export default function ReviewDetail() {
             window.alert("삭제되었습니다.");
             navigate("/");
           }
-          if (res.status === 403) Signout();
+          if (res.status === 403) signOut();
         });
     }
   };

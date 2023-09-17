@@ -31,7 +31,7 @@ export default function My() {
           <div className={styles["item-wrapper"]}>
             <span className={styles.title}>이메일</span>
             <span className={styles["user-info"]}>{email}</span>
-            <button className={styles["btn-white"]} onClick={signOut}>
+            <button className={styles["btn-white"]} onClick={()=>signOut("/")}>
               로그아웃
             </button>
           </div>
