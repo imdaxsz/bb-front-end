@@ -5,14 +5,14 @@ import ChangePassword from "../components/ChangePassword";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { useSignOut } from "../hooks/useSignout";
+import useSignOut from "../hooks/useSignout";
 import useUserInfo from "../hooks/useUserInfo";
 import Loading from "../components/Loading";
 
 export default function My() {
   const token = useSelector((state: RootState) => state.auth.token);
-  const { email, active, isOauthUser, loading, getUserInfo, onRecommendClick, onRequestDataClick } = useUserInfo({token});
-  const { Signout } = useSignOut();
+  const { email, active, isOauthUser, infoLoading, backUploading, getUserInfo, onRecommendClick, onRequestDataClick } = useUserInfo({ token });
+  const { signOut } = useSignOut();
 
   useEffect(() => {
     if (token) {
@@ -25,13 +25,13 @@ export default function My() {
       <Helmet>
         <title>북북 - 마이페이지</title>
       </Helmet>
-      {loading && <Loading />}
-      {!loading && (
+      {(infoLoading || backUploading) && <Loading />}
+      {!infoLoading && (
         <div className={styles.content}>
           <div className={styles["item-wrapper"]}>
             <span className={styles.title}>이메일</span>
             <span className={styles["user-info"]}>{email}</span>
-            <button className={styles["btn-white"]} onClick={Signout}>
+            <button className={styles["btn-white"]} onClick={signOut}>
               로그아웃
             </button>
           </div>
