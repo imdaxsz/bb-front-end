@@ -29,13 +29,13 @@ export default function SearchBar({ placeholder, keyword, setLoading }: Props) {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (pathname === "/write") {
+      dispatch(setKeyword(word));
       if (setLoading) setLoading(true);
       api.get(`/api/search/book?query=${word}`).then((res) => {
         if (res.status === 200) {
-          dispatch(setKeyword(word));
+          if (setLoading) setLoading(false);
           dispatch(setResult(setSearchBookInfo(res.data.item)));
         }
-        if (setLoading) setLoading(false);
       });
     } else if (["/", "/search/review"].includes(pathname)) navigate(`/search/review?query=${word}`);
     else if (["/recommend", "/search/book"].includes(pathname)) navigate(`/search/book?query=${word}`);
