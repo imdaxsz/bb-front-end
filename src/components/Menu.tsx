@@ -12,7 +12,7 @@ export default function Menu() {
   const filterList = ["최신순", "오래된 순", "제목순"];
   const filterPath = ["", "sort=date_asc", "sort=title"];
   const [filter, setFilter] = useState(filterList[0]);
-  const placeholder: Record<string, string> = { "": "도서명으로 후기 검색", my_list: "제목 검색", recommend: "제목, 저자명 검색" };
+  const placeholder: Record<string, string> = { "": "도서명으로 후기 검색", my_list: "제목 검색", recommend: "제목 검색" };
 
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("query");
