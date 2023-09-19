@@ -1,33 +1,21 @@
 import styles from "../styles/scss/detail.module.scss";
 import bs from "../styles/scss/book.module.scss";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { BookInfo } from "./../types/types";
-import { setBookDetailInfo } from "../utils/setBookInfo";
-import api from "../api/api";
 import Like from "./../components/Like";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Loading from "../components/Loading";
+import useGetBookInfo from "../hooks/useGetBookInfo";
 
 export default function BookDetail() {
   const id = useLocation().pathname.split("/")[3];
   const token = useSelector((state: RootState) => state.auth.token);
-  const [book, setBook] = useState<BookInfo | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, book, getBookDetailInfo } = useGetBookInfo();
 
   useEffect(() => {
-    setLoading(true);
-    try {
-      api.get(`/api/book/detail/${id}`).then((res) => {
-        if (res.status === 200) setBook(setBookDetailInfo(res.data.item[0]));
-        setLoading(false);
-      });
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  }, [id]);
+    getBookDetailInfo(id);
+  }, [getBookDetailInfo, id]);
 
   return (
     <div className="wrapper">

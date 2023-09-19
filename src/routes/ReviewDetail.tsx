@@ -1,64 +1,28 @@
 import styles from "../styles/scss/detail.module.scss";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ReviewBookInfo from "../components/ReviewBookInfo";
-import { Review } from "./../types/types";
-import { useState } from "react";
 import { useEffect } from "react";
-import { getDate } from "../utils/getDate";
-import api from "../api/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Loading from "../components/Loading";
-import useSignOut from "./../hooks/useSignout";
+import useReview from "../hooks/useReview";
+import useGetReviewInfo from "../hooks/useGetReviewInfo";
 
 export default function ReviewDetail() {
   const id = useLocation().pathname.split("/")[3];
-  const navigate = useNavigate();
-
-  const [review, setReview] = useState<Review | null>(null);
-  const [date, setDate] = useState("");
-
   const token = useSelector((state: RootState) => state.auth.token);
-  const { signOut } = useSignOut();
 
-  const [loading, setLoading] = useState(false);
+  const { loading, review, date, getReviewDetailInfo } = useGetReviewInfo();
+  const { deleteReview } = useReview();
 
   useEffect(() => {
-    setLoading(true);
-    api
-      .get(`/api/review/detail/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setReview(res.data);
-          setDate(getDate(new Date(res.data.date)));
-        }
-        if (res.status === 403) signOut();
-        setLoading(false);
-      });
-  }, [signOut, id, token]);
+    getReviewDetailInfo(id, token);
+  }, [getReviewDetailInfo, id, token]);
 
   const onClickDelete = () => {
     const ok = window.confirm("삭제된 후기는 복구할 수 없습니다.\n삭제하시겠습니까?");
     if (ok) {
-      api
-        .delete(`/api/review/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            window.alert("삭제되었습니다.");
-            navigate("/");
-          }
-          if (res.status === 403) signOut();
-        });
+      deleteReview(id, token);
     }
   };
 

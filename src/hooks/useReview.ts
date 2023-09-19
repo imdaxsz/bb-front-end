@@ -53,6 +53,7 @@ export default function useReview() {
     [signOut]
   );
 
+  // 후기 수정
   const updateReview = async (id: string | null, token: string | null) => {
     const res = await api.put(
       `/api/review/${id}`,
@@ -68,6 +69,7 @@ export default function useReview() {
     else if (res.status === 403) signOut();
   };
 
+  // 후기 저장 또는 발행
   const addReview: addReviewFunType = async (book, rating, date, text, opt, token, savedReviews) => {
     setLoading(true);
     let reviewId = "";
@@ -102,5 +104,20 @@ export default function useReview() {
     return reviewId;
   };
 
-  return { text, setText, book, setBook, rating, setRating, date, loading, setLoading, loadReview, addReview, updateReview };
+  const deleteReview = async (id: string, token: string | null) => {
+    const res = await api.delete(`/api/review/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.status === 200) {
+      window.alert("삭제되었습니다.");
+      navigate("/");
+    }
+    if (res.status === 403) signOut();
+  };
+
+  return { text, setText, book, setBook, rating, setRating, date, loading, setLoading, loadReview, addReview, updateReview, deleteReview };
 }
