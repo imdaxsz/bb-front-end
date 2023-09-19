@@ -46,6 +46,7 @@ function App() {
         })
         .catch((error) => {
           console.log("Token verification error:", error);
+          signOut("/");
         });
     }
   }, [signOut, dispatch, token]);
