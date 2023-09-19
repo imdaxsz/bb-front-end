@@ -18,7 +18,7 @@ export default function Menu() {
   const keyword = searchParams.get("query");
 
   const isMobile = useMediaQuery({ maxWidth: 650 });
-  const [showMbSearch, setShowMbSerach] = useState(false);
+  const [showMbSearch, setShowMbSearch] = useState(false);
 
   const selectFilter = (e: React.MouseEvent<HTMLLIElement>, i: number) => {
     e.stopPropagation();
@@ -27,11 +27,11 @@ export default function Menu() {
   };
 
   const onClickSearchbar = () => {
-    if (isMobile) setShowMbSerach(true);
+    if (isMobile) setShowMbSearch(true);
   };
 
   const onClickCancel = () => {
-    setShowMbSerach(false);
+    setShowMbSearch(false);
   };
 
   return (
