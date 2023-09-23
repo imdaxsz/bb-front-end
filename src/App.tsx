@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store/store";
 import { setIsAuthenticated } from "./store/authSlice";
 import useSignOut from "./hooks/useSignout";
+import NotFound from "./routes/NotFound";
 
 function App() {
   const token = useSelector((state: RootState) => state.auth.token);
@@ -72,6 +73,7 @@ function App() {
         <Route path="/auth/google" element={isAuthenticated ? <Navigate replace to="/" /> : <GoogleRedirect />} />
         <Route path="/signup" element={isAuthenticated ? <Navigate replace to="/" /> : <Signup />} />
         <Route path="/signup/next" element={isAuthenticated ? <Navigate replace to="/" /> : <Signup />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
