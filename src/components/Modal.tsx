@@ -1,4 +1,4 @@
-import modal from "../styles/scss/modal.module.scss";
+import modal from "../styles/modal.module.scss";
 import { useEffect } from "react";
 
 interface Props {

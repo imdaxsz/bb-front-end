@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { PiHeartFill, PiHeartLight } from "react-icons/pi";
 import api from "../api/api";
-import styles from "../styles/scss/detail.module.scss";
+import styles from "../styles/detail.module.scss";
 import { useMediaQuery } from "react-responsive";
 import { BeatLoader } from "react-spinners";
 import useSignOut from "../hooks/useSignout";

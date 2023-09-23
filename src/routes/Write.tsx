@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import styles from "../styles/scss/write.module.scss";
+import styles from "../styles/write.module.scss";
 import { useSearchParams } from "react-router-dom";
 import SearchModal from "../components/SearchModal";
 import { BsPlusLg } from "react-icons/bs";

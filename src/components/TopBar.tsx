@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "../styles/scss/bar.module.scss";
+import styles from "../styles/bar.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 

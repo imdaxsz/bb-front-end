@@ -1,6 +1,6 @@
 import { setCategoryId, setSelected } from "../store/searchResultSlice";
 import { RootState } from "../store/store";
-import styles from "../styles/scss/book.module.scss";
+import styles from "../styles/book.module.scss";
 import { SearchResultBook } from "../types/types";
 import { useSelector, useDispatch } from "react-redux";
 

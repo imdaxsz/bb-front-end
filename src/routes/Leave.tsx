@@ -1,4 +1,4 @@
-import styles from "../styles/scss/my.module.scss";
+import styles from "../styles/my.module.scss";
 import { useState, useEffect, FormEvent } from "react";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";

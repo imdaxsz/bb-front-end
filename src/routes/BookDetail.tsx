@@ -1,5 +1,5 @@
-import styles from "../styles/scss/detail.module.scss";
-import bs from "../styles/scss/book.module.scss";
+import styles from "../styles/detail.module.scss";
+import bs from "../styles/book.module.scss";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Like from "./../components/Like";

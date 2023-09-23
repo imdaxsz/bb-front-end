@@ -1,6 +1,6 @@
 import { reset, setKeyword, setResult, setSelected } from "../store/searchResultSlice";
 import { RootState } from "../store/store";
-import styles from "../styles/scss/modal.module.scss";
+import styles from "../styles/modal.module.scss";
 import { Book } from "../types/types";
 import SearchBookItem from "./SearchBookItem";
 import SearchBar from "./SearchBar";

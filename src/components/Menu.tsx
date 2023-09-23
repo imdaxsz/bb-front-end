@@ -2,7 +2,7 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import styles from "../styles/scss/bar.module.scss";
+import styles from "../styles/bar.module.scss";
 import { FiSearch } from "react-icons/fi";
 
 export default function Menu() {

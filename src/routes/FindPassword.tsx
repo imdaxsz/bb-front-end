@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import styles from "../styles/scss/auth.module.scss";
+import styles from "../styles/auth.module.scss";
 import { useState, FormEvent, useEffect } from "react";
 import api from "../api/api";
 import EmailCertiForResetPW from "./EmailCertiForResetPW";

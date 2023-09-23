@@ -1,5 +1,5 @@
 import { Book } from "../types/types";
-import styles from "../styles/scss/book.module.scss";
+import styles from "../styles/book.module.scss";
 import { PiStarFill, PiStarLight } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
 

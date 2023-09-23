@@ -1,4 +1,4 @@
-import styles from "../styles/scss/detail.module.scss";
+import styles from "../styles/detail.module.scss";
 import { Link, useLocation } from "react-router-dom";
 import ReviewBookInfo from "../components/ReviewBookInfo";
 import { useEffect } from "react";

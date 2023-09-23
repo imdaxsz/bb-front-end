@@ -1,5 +1,5 @@
-import btnstyles from "../styles/scss/my.module.scss";
-import styles from "../styles/scss/auth.module.scss";
+import btnstyles from "../styles/my.module.scss";
+import styles from "../styles/auth.module.scss";
 import { useState } from "react";
 import api from "../api/api";
 import Loading from "./Loading";

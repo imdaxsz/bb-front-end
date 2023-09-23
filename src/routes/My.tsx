@@ -1,4 +1,4 @@
-import styles from "../styles/scss/my.module.scss";
+import styles from "../styles/my.module.scss";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import ChangePassword from "../components/ChangePassword";

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import styles from "../styles/scss/searchbar.module.scss";
+import styles from "../styles/searchbar.module.scss";
 import { FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchBookInfo } from "../utils/setBookInfo";

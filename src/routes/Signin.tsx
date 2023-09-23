@@ -1,5 +1,5 @@
 import api from "../api/api";
-import styles from "../styles/scss/auth.module.scss";
+import styles from "../styles/auth.module.scss";
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";

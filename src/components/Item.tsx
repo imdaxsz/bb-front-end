@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import styles from "../styles/scss/item.module.scss";
+import styles from "../styles/item.module.scss";
 import { Link } from "react-router-dom";
 import { reset } from "../store/recommendSlice";
 
