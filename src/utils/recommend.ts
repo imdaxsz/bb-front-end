@@ -1,4 +1,4 @@
-import api from "../api/api";
+import api from "@/api";
 
 type SetRecommendFun = (token: string | null) => Promise<number>;
 
@@ -12,7 +12,7 @@ export const setRecommend: SetRecommendFun = async (token) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     )
     .then((res) => res.status);
 };

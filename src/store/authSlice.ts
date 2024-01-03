@@ -24,8 +24,7 @@ export const authSlice = createSlice({
     },
     setIsAuthenticated: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
-    }
-
+    },
   },
 });
 
