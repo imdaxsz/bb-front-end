@@ -3,12 +3,12 @@ import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import ChangePassword from "@/components/ChangePassword";
-import Loading from "@/components/Loading";
-import useSignOut from "@/hooks/useSignout";
-import useUserInfo from "@/hooks/useUserInfo";
-import { RootState } from "@/store/store";
-import styles from "@/styles/my.module.scss";
+import ChangePassword from "components/ChangePassword";
+import Loading from "components/Loading";
+import useSignOut from "hooks/useSignout";
+import useUserInfo from "hooks/useUserInfo";
+import { RootState } from "store/store";
+import styles from "styles/my.module.scss";
 
 export default function My() {
   const token = useSelector((state: RootState) => state.auth.token);

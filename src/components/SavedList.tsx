@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-import useSavedReview from "@/hooks/useSavedReview";
-import styles from "@/styles/modal.module.scss";
-import { Book } from "@/types";
-import { getDate } from "@/utils/getDate";
+import useSavedReview from "hooks/useSavedReview";
+import styles from "styles/modal.module.scss";
+import { Book } from "types";
+import { getDate } from "utils/getDate";
 
 import Loading from "./Loading";
 import Modal from "./Modal";

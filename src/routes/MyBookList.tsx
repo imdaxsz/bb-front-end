@@ -3,10 +3,10 @@ import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
-import BookItem from "@/components/BookItem";
-import Loading from "@/components/Loading";
-import useMyBookList from "@/hooks/useMyBookList";
-import { RootState } from "@/store/store";
+import BookItem from "components/BookItem";
+import Loading from "components/Loading";
+import useMyBookList from "hooks/useMyBookList";
+import { RootState } from "store/store";
 
 export default function MyBookList({
   isAuthenticated,

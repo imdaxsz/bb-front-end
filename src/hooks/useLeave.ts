@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import api, { isAxiosError, AxiosError } from "@/api";
+import api, { isAxiosError, AxiosError } from "api";
 
 import useSignOut from "./useSignout";
 

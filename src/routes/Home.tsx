@@ -3,10 +3,10 @@ import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
-import Loading from "@/components/Loading";
-import ReviewItem from "@/components/ReviewItem";
-import useGetReviews from "@/hooks/useGetReviews";
-import { RootState } from "@/store/store";
+import Loading from "components/Loading";
+import ReviewItem from "components/ReviewItem";
+import useGetReviews from "hooks/useGetReviews";
+import { RootState } from "store/store";
 
 export default function Home({
   isAuthenticated,

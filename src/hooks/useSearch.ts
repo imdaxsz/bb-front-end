@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 
-import { Book, Review } from "@/types";
-import { Search, getSearchResultType } from "@/utils/search";
-import { setBookInfo } from "@/utils/setBookInfo";
+import { Book, Review } from "types";
+import { Search, getSearchResultType } from "utils/search";
+import { setBookInfo } from "utils/setBookInfo";
 
 import useSignOut from "./useSignout";
 

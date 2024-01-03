@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { Book } from "@/types";
+import { Book } from "types";
 
 interface Recommend {
   book: Book | null;

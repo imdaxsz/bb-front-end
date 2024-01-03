@@ -3,11 +3,11 @@ import { FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import api from "@/api";
-import { setKeyword, setResult } from "@/store/searchResultSlice";
-import { RootState } from "@/store/store";
-import styles from "@/styles/searchbar.module.scss";
-import { setSearchBookInfo } from "@/utils/setBookInfo";
+import api from "api";
+import { setKeyword, setResult } from "store/searchResultSlice";
+import { RootState } from "store/store";
+import styles from "styles/searchbar.module.scss";
+import { setSearchBookInfo } from "utils/setBookInfo";
 
 interface Props {
   placeholder: string;

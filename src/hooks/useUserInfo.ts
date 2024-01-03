@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 
-import api from "@/api";
-import { setRecommend } from "@/utils/recommend";
+import api from "api";
+import { setRecommend } from "utils/recommend";
 
 import useBackUp from "./useBackUp";
 import useSignOut from "./useSignout";

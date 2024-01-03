@@ -1,7 +1,7 @@
 import { PiStarFill, PiStarLight } from "react-icons/pi";
 
-import styles from "@/styles/item.module.scss";
-import { Review } from "@/types";
+import styles from "styles/item.module.scss";
+import { Review } from "types";
 
 import Item from "./Item";
 

@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
 
-import BookItem from "@/components/BookItem";
-import Loading from "@/components/Loading";
-import Pagination from "@/components/Pagination";
-import useGetBooks from "@/hooks/useGetBooks";
+import BookItem from "components/BookItem";
+import Loading from "components/Loading";
+import Pagination from "components/Pagination";
+import useGetBooks from "hooks/useGetBooks";
 
 export default function Recommend() {
   const [searchParams] = useSearchParams();

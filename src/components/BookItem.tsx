@@ -1,5 +1,5 @@
-import styles from "@/styles/item.module.scss";
-import { Book } from "@/types";
+import styles from "styles/item.module.scss";
+import { Book } from "types";
 
 import Item from "./Item";
 

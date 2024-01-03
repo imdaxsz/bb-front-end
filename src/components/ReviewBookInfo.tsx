@@ -1,8 +1,8 @@
 import { IoMdClose } from "react-icons/io";
 import { PiStarFill, PiStarLight } from "react-icons/pi";
 
-import styles from "@/styles/book.module.scss";
-import { Book } from "@/types";
+import styles from "styles/book.module.scss";
+import { Book } from "types";
 
 interface ReviewBookInfoType {
   book: Book;

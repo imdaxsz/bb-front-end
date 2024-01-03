@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { useMediaQuery } from "react-responsive";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 
-import styles from "@/styles/bar.module.scss";
+import styles from "styles/bar.module.scss";
 
 import SearchBar from "./SearchBar";
 

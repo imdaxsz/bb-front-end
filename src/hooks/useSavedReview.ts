@@ -1,10 +1,10 @@
 import { SetStateAction, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import api, { isAxiosError, AxiosError } from "@/api";
-import { setCount } from "@/store/savedReviewSlice";
-import { RootState } from "@/store/store";
-import { Review } from "@/types";
+import api, { isAxiosError, AxiosError } from "api";
+import { setCount } from "store/savedReviewSlice";
+import { RootState } from "store/store";
+import { Review } from "types";
 
 import useSignOut from "./useSignout";
 

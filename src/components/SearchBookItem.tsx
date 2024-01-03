@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import { setCategoryId, setSelected } from "@/store/searchResultSlice";
-import { RootState } from "@/store/store";
-import styles from "@/styles/book.module.scss";
-import { SearchResultBook } from "@/types";
+import { setCategoryId, setSelected } from "store/searchResultSlice";
+import { RootState } from "store/store";
+import styles from "styles/book.module.scss";
+import { SearchResultBook } from "types";
 
 interface Props {
   book: SearchResultBook;

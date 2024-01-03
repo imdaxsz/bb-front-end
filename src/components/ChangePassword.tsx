@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import api from "@/api";
-import styles from "@/styles/auth.module.scss";
-import btnstyles from "@/styles/my.module.scss";
+import api from "api";
+import styles from "styles/auth.module.scss";
+import btnstyles from "styles/my.module.scss";
 
 import Loading from "./Loading";
 

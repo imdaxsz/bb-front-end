@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 
-import api from "@/api";
-import { Review } from "@/types";
-import { getDate } from "@/utils/getDate";
+import api from "api";
+import { Review } from "types";
+import { getDate } from "utils/getDate";
 
 import useSignOut from "./useSignout";
 

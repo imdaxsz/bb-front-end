@@ -3,16 +3,16 @@ import { BsPlusLg } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
-import Loading from "@/components/Loading";
-import ReviewBookInfo from "@/components/ReviewBookInfo";
-import SavedList from "@/components/SavedList";
-import SearchModal from "@/components/SearchModal";
-import TopBar from "@/components/TopBar";
-import useRecommend from "@/hooks/useRecommend";
-import useReview from "@/hooks/useReview";
-import useSavedReview from "@/hooks/useSavedReview";
-import { RootState } from "@/store/store";
-import styles from "@/styles/write.module.scss";
+import Loading from "components/Loading";
+import ReviewBookInfo from "components/ReviewBookInfo";
+import SavedList from "components/SavedList";
+import SearchModal from "components/SearchModal";
+import TopBar from "components/TopBar";
+import useRecommend from "hooks/useRecommend";
+import useReview from "hooks/useReview";
+import useSavedReview from "hooks/useSavedReview";
+import { RootState } from "store/store";
+import styles from "styles/write.module.scss";
 
 export default function Write() {
   const [searchModal, setSearchModal] = useState(false);

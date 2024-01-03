@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 
-import { Book } from "@/types";
-import { setBookInfo } from "@/utils/setBookInfo";
+import { Book } from "types";
+import { setBookInfo } from "utils/setBookInfo";
 
 import api, { isAxiosError, AxiosError } from "../api";
 

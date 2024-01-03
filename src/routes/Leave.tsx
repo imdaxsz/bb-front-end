@@ -3,11 +3,11 @@ import { Helmet } from "react-helmet-async";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
-import Loading from "@/components/Loading";
-import useLeave from "@/hooks/useLeave";
-import useUserInfo from "@/hooks/useUserInfo";
-import { RootState } from "@/store/store";
-import styles from "@/styles/my.module.scss";
+import Loading from "components/Loading";
+import useLeave from "hooks/useLeave";
+import useUserInfo from "hooks/useUserInfo";
+import { RootState } from "store/store";
+import styles from "styles/my.module.scss";
 
 export default function Leave() {
   const [password, setPassword] = useState("");

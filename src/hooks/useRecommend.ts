@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import api from "@/api";
-import { setRecBook, setRecModal } from "@/store/recommendSlice";
-import { RootState } from "@/store/store";
-import { setBookInfo } from "@/utils/setBookInfo";
+import api from "api";
+import { setRecBook, setRecModal } from "store/recommendSlice";
+import { RootState } from "store/store";
+import { setBookInfo } from "utils/setBookInfo";
 
 import useSignOut from "./useSignout";
 

@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { reset } from "@/store/recommendSlice";
-import { RootState } from "@/store/store";
-import styles from "@/styles/modal.module.scss";
-import { setRecommend } from "@/utils/recommend";
+import { reset } from "store/recommendSlice";
+import { RootState } from "store/store";
+import styles from "styles/modal.module.scss";
+import { setRecommend } from "utils/recommend";
 
 import BookItem from "./BookItem";
 import Modal from "./Modal";

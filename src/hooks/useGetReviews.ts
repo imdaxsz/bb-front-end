@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 
-import api, { isAxiosError, AxiosError } from "@/api";
-import { Review } from "@/types";
+import api, { isAxiosError, AxiosError } from "api";
+import { Review } from "types";
 
 import useSignOut from "./useSignout";
 

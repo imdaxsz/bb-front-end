@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { reset } from "@/store/recommendSlice";
-import styles from "@/styles/item.module.scss";
+import { reset } from "store/recommendSlice";
+import styles from "styles/item.module.scss";
 
 interface Props {
   type: string;

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { SearchResultBook } from "@/types";
+import { SearchResultBook } from "types";
 
 interface searchResult {
   keyword: string;

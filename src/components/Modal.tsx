@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import modal from "@/styles/modal.module.scss";
+import modal from "styles/modal.module.scss";
 
 interface Props {
   onClickOutside: () => void;

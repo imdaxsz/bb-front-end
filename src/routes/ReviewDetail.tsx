@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
-import Loading from "@/components/Loading";
-import ReviewBookInfo from "@/components/ReviewBookInfo";
-import useGetReviewInfo from "@/hooks/useGetReviewInfo";
-import useReview from "@/hooks/useReview";
-import { RootState } from "@/store/store";
-import styles from "@/styles/detail.module.scss";
+import Loading from "components/Loading";
+import ReviewBookInfo from "components/ReviewBookInfo";
+import useGetReviewInfo from "hooks/useGetReviewInfo";
+import useReview from "hooks/useReview";
+import { RootState } from "store/store";
+import styles from "styles/detail.module.scss";
 
 export default function ReviewDetail() {
   const id = useLocation().pathname.split("/")[3];

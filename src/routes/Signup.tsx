@@ -2,8 +2,8 @@ import { FormEvent, useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import api from "@/api";
-import styles from "@/styles/auth.module.scss";
+import api from "api";
+import styles from "styles/auth.module.scss";
 
 import EmailCertiForSignUp from "./EmailCertiForSignUp";
 

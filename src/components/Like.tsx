@@ -3,9 +3,9 @@ import { PiHeartFill, PiHeartLight } from "react-icons/pi";
 import { useMediaQuery } from "react-responsive";
 import { BeatLoader } from "react-spinners";
 
-import api from "@/api";
-import useSignOut from "@/hooks/useSignout";
-import styles from "@/styles/detail.module.scss";
+import api from "api";
+import useSignOut from "hooks/useSignout";
+import styles from "styles/detail.module.scss";
 
 interface LikeProps {
   token: string | null;

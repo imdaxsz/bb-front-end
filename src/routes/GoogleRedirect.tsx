@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-import api from "@/api";
-import Loading from "@/components/Loading";
+import api from "api";
+import Loading from "components/Loading";
 
 export default function GoogleRedirect() {
   const navigate = useNavigate();

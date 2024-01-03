@@ -1,9 +1,9 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import api from "@/api";
-import Loading from "@/components/Loading";
-import styles from "@/styles/auth.module.scss";
+import api from "api";
+import Loading from "components/Loading";
+import styles from "styles/auth.module.scss";
 
 interface Props {
   email: string;

@@ -3,10 +3,10 @@ import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import api from "@/api";
-import GoogleLoginButton from "@/components/GoogleLoginButton";
-import { signin } from "@/store/authSlice";
-import styles from "@/styles/auth.module.scss";
+import api from "api";
+import GoogleLoginButton from "components/GoogleLoginButton";
+import { signin } from "store/authSlice";
+import styles from "styles/auth.module.scss";
 
 export default function Signin() {
   const [email, setEmail] = useState("");

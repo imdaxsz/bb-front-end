@@ -2,11 +2,11 @@ import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import api from "@/api";
-import { setCount } from "@/store/savedReviewSlice";
-import { RootState } from "@/store/store";
-import { Book, Review } from "@/types";
-import { getDate } from "@/utils/getDate";
+import api from "api";
+import { setCount } from "store/savedReviewSlice";
+import { RootState } from "store/store";
+import { Book, Review } from "types";
+import { getDate } from "utils/getDate";
 
 import useSignOut from "./useSignout";
 

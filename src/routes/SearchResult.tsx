@@ -3,12 +3,12 @@ import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
 
-import BookItem from "@/components/BookItem";
-import Loading from "@/components/Loading";
-import Pagination from "@/components/Pagination";
-import ReviewItem from "@/components/ReviewItem";
-import useSearch from "@/hooks/useSearch";
-import { RootState } from "@/store/store";
+import BookItem from "components/BookItem";
+import Loading from "components/Loading";
+import Pagination from "components/Pagination";
+import ReviewItem from "components/ReviewItem";
+import useSearch from "hooks/useSearch";
+import { RootState } from "store/store";
 
 export default function SearchResult() {
   const token = useSelector((state: RootState) => state.auth.token);
