@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import styles from "../styles/bar.module.scss";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { Link } from "react-router-dom";
+
+import { RootState } from "@/store/store";
+import styles from "@/styles/bar.module.scss";
 
 interface Props {
   write?: {
@@ -37,7 +38,10 @@ export default function TopBar({ write }: Props) {
                     <button className={styles.save}>
                       <span onClick={() => write.onClick("save")}>저장</span>
                       {savedCount > 0 && (
-                        <span onClick={write.onNumClick} className={styles.number}>
+                        <span
+                          onClick={write.onNumClick}
+                          className={styles.number}
+                        >
                           {savedCount}
                         </span>
                       )}
@@ -45,7 +49,10 @@ export default function TopBar({ write }: Props) {
                   </li>
                 )}
                 <li>
-                  <button className={styles.upload} onClick={() => write.onClick("upload")}>
+                  <button
+                    className={styles.upload}
+                    onClick={() => write.onClick("upload")}
+                  >
                     완료
                   </button>
                 </li>

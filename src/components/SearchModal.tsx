@@ -1,13 +1,21 @@
-import { reset, setKeyword, setResult, setSelected } from "../store/searchResultSlice";
-import { RootState } from "../store/store";
-import styles from "../styles/modal.module.scss";
-import { Book } from "../types/types";
-import SearchBookItem from "./SearchBookItem";
-import SearchBar from "./SearchBar";
-import { useSelector, useDispatch } from "react-redux";
-import Modal from "./Modal";
 import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { RootState } from "@/store/store";
+import styles from "@/styles/modal.module.scss";
+import { Book } from "@/types";
+
+import {
+  reset,
+  setKeyword,
+  setResult,
+  setSelected,
+} from "../store/searchResultSlice";
+
 import Loading from "./Loading";
+import Modal from "./Modal";
+import SearchBar from "./SearchBar";
+import SearchBookItem from "./SearchBookItem";
 
 interface SearchBook {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,7 +24,9 @@ interface SearchBook {
 
 export default function SearchModal({ setModal, setBook }: SearchBook) {
   const result = useSelector((state: RootState) => state.searchResult.books);
-  const selected = useSelector((state: RootState) => state.searchResult.selected);
+  const selected = useSelector(
+    (state: RootState) => state.searchResult.selected,
+  );
   const [scrollY, setScrollY] = useState(0);
   const listRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
@@ -55,7 +65,15 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
         </div>
         <div className={styles.list} ref={listRef}>
           {loading && <Loading />}
-          {result && result.map((book, i) => <SearchBookItem book={book} listRef={listRef} setScrollY={setScrollY} key={i} />)}
+          {result &&
+            result.map((book, i) => (
+              <SearchBookItem
+                book={book}
+                listRef={listRef}
+                setScrollY={setScrollY}
+                key={i}
+              />
+            ))}
         </div>
       </>
     );
@@ -74,5 +92,11 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
     );
   };
 
-  return <Modal onClickOutside={onClickCancel} content={<Content />} bottom={<Bottom />} />;
+  return (
+    <Modal
+      onClickOutside={onClickCancel}
+      content={<Content />}
+      bottom={<Bottom />}
+    />
+  );
 }

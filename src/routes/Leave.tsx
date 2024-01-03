@@ -1,12 +1,13 @@
-import styles from "../styles/my.module.scss";
 import { useState, useEffect, FormEvent } from "react";
 import { Helmet } from "react-helmet-async";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import { AiOutlineCheck } from "react-icons/ai";
-import Loading from "../components/Loading";
-import useUserInfo from "../hooks/useUserInfo";
-import useLeave from "../hooks/useLeave";
+import { useSelector } from "react-redux";
+
+import Loading from "@/components/Loading";
+import useLeave from "@/hooks/useLeave";
+import useUserInfo from "@/hooks/useUserInfo";
+import { RootState } from "@/store/store";
+import styles from "@/styles/my.module.scss";
 
 export default function Leave() {
   const [password, setPassword] = useState("");
@@ -58,13 +59,18 @@ export default function Leave() {
               <div className={styles.icon}>
                 <AiOutlineCheck strokeWidth="100" />
               </div>
-              <span>탈퇴 후 회원정보 및 서비스 이용기록(후기/관심 도서)는 모두 삭제됩니다.</span>
+              <span>
+                탈퇴 후 회원정보 및 서비스 이용기록(후기/관심 도서)는 모두
+                삭제됩니다.
+              </span>
             </div>
             <div className={styles.message}>
               <input type="checkbox" onChange={onChangeCheck} />
               <span>&nbsp; 위 내용을 이해했으며, 모두 동의합니다.</span>
             </div>
-            <strong>본인 확인을 위해 {email} 계정의 비밀번호를 입력해주세요.</strong>
+            <strong>
+              본인 확인을 위해 {email} 계정의 비밀번호를 입력해주세요.
+            </strong>
             <form onSubmit={onSubmit} className={styles["delete-form"]}>
               <input
                 name="currentPw"

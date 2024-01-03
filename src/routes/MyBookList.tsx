@@ -1,18 +1,29 @@
 import { useEffect } from "react";
-import BookItem from "../components/BookItem";
-import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import Loading from "../components/Loading";
-import useMyBookList from "../hooks/useMyBookList";
+import { useSearchParams } from "react-router-dom";
 
-export default function MyBookList({ isAuthenticated }: { isAuthenticated: boolean }) {
+import BookItem from "@/components/BookItem";
+import Loading from "@/components/Loading";
+import useMyBookList from "@/hooks/useMyBookList";
+import { RootState } from "@/store/store";
+
+export default function MyBookList({
+  isAuthenticated,
+}: {
+  isAuthenticated: boolean;
+}) {
   const token = useSelector((state: RootState) => state.auth.token);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
 
-  const { filteredBooks, getUserMyBookList, getSortedUserMyList, loading, setLoading } = useMyBookList();
+  const {
+    filteredBooks,
+    getUserMyBookList,
+    getSortedUserMyList,
+    loading,
+    setLoading,
+  } = useMyBookList();
 
   useEffect(() => {
     if (!token) setLoading(false);

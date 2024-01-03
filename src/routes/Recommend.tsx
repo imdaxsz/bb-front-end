@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import BookItem from "../components/BookItem";
-import Pagination from "../components/Pagination";
-import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import Loading from "../components/Loading";
-import useGetBooks from "../hooks/useGetBooks";
+import { useSearchParams } from "react-router-dom";
+
+import BookItem from "@/components/BookItem";
+import Loading from "@/components/Loading";
+import Pagination from "@/components/Pagination";
+import useGetBooks from "@/hooks/useGetBooks";
 
 export default function Recommend() {
   const [searchParams] = useSearchParams();
@@ -25,7 +26,12 @@ export default function Recommend() {
           {loading && <Loading />}
           {books && books.map((book, i) => <BookItem book={book} key={i} />)}
         </div>
-        <Pagination totalItems={totalBooks} currentPage={page ? parseInt(page) : 1} pageCount={5} itemCountPerPage={50} />
+        <Pagination
+          totalItems={totalBooks}
+          currentPage={page ? parseInt(page) : 1}
+          pageCount={5}
+          itemCountPerPage={50}
+        />
       </div>
     </div>
   );

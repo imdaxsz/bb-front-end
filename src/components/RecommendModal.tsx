@@ -1,11 +1,12 @@
-import styles from "../styles/modal.module.scss";
-import Modal from "./Modal";
-import BookItem from "./BookItem";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { reset } from "../store/recommendSlice";
-import { setRecommend } from "../utils/recommend";
 
+import { reset } from "@/store/recommendSlice";
+import { RootState } from "@/store/store";
+import styles from "@/styles/modal.module.scss";
+import { setRecommend } from "@/utils/recommend";
+
+import BookItem from "./BookItem";
+import Modal from "./Modal";
 
 export default function RecommendModal() {
   const book = useSelector((state: RootState) => state.recommend.book);
@@ -19,14 +20,22 @@ export default function RecommendModal() {
   const onNoMoreRec = () => {
     setRecommend(token);
     dispatch(reset());
-  }
+  };
 
   const Content = () => {
     return (
       <>
         <div className={styles.title}>당신을 위한 추천</div>
-        <span className={styles.des}>다음엔 뭘 읽어볼까? 이런 책은 어때요?</span>
-        <div style={{ display: "flex", justifyContent: "center", margin: "30px 0" }}>
+        <span className={styles.des}>
+          다음엔 뭘 읽어볼까? 이런 책은 어때요?
+        </span>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "30px 0",
+          }}
+        >
           {book && <BookItem book={book} rec />}
         </div>
       </>
@@ -46,5 +55,12 @@ export default function RecommendModal() {
     );
   };
 
-  return <Modal onClickOutside={onClickCancel} content={<Content />} bottom={<Bottom />} size="md" />;
+  return (
+    <Modal
+      onClickOutside={onClickCancel}
+      content={<Content />}
+      bottom={<Bottom />}
+      size="md"
+    />
+  );
 }

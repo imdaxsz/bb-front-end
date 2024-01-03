@@ -1,12 +1,13 @@
-import styles from "../styles/detail.module.scss";
-import { Link, useLocation } from "react-router-dom";
-import ReviewBookInfo from "../components/ReviewBookInfo";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import Loading from "../components/Loading";
-import useReview from "../hooks/useReview";
-import useGetReviewInfo from "../hooks/useGetReviewInfo";
+import { Link, useLocation } from "react-router-dom";
+
+import Loading from "@/components/Loading";
+import ReviewBookInfo from "@/components/ReviewBookInfo";
+import useGetReviewInfo from "@/hooks/useGetReviewInfo";
+import useReview from "@/hooks/useReview";
+import { RootState } from "@/store/store";
+import styles from "@/styles/detail.module.scss";
 
 export default function ReviewDetail() {
   const id = useLocation().pathname.split("/")[3];
@@ -20,7 +21,9 @@ export default function ReviewDetail() {
   }, [getReviewDetailInfo, id, token]);
 
   const onClickDelete = () => {
-    const ok = window.confirm("삭제된 후기는 복구할 수 없습니다.\n삭제하시겠습니까?");
+    const ok = window.confirm(
+      "삭제된 후기는 복구할 수 없습니다.\n삭제하시겠습니까?",
+    );
     if (ok) {
       deleteReview(id, token);
     }

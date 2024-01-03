@@ -1,27 +1,28 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import "./styles/global.scss";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
-import ScrollToTop from "./components/ScrollToTop";
 import { HelmetProvider } from "react-helmet-async";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+import App from "./App";
+import ScrollToTop from "./components/ScrollToTop";
+import "./styles/global.scss";
+import reportWebVitals from "./reportWebVitals";
+import { store } from "./store/store";
+
+const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-    <HelmetProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <App />
-      </BrowserRouter>
-    </HelmetProvider>
+      <HelmetProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <App />
+        </BrowserRouter>
+      </HelmetProvider>
     </React.StrictMode>
-  </Provider>
+  </Provider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

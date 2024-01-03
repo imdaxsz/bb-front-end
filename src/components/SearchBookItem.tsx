@@ -1,8 +1,9 @@
-import { setCategoryId, setSelected } from "../store/searchResultSlice";
-import { RootState } from "../store/store";
-import styles from "../styles/book.module.scss";
-import { SearchResultBook } from "../types/types";
 import { useSelector, useDispatch } from "react-redux";
+
+import { setCategoryId, setSelected } from "@/store/searchResultSlice";
+import { RootState } from "@/store/store";
+import styles from "@/styles/book.module.scss";
+import { SearchResultBook } from "@/types";
 
 interface Props {
   book: SearchResultBook;
@@ -11,7 +12,9 @@ interface Props {
 }
 
 export default function SearchBookItem({ book, listRef, setScrollY }: Props) {
-  const selected = useSelector((state: RootState) => state.searchResult.selected);
+  const selected = useSelector(
+    (state: RootState) => state.searchResult.selected,
+  );
   const isSelected = selected && selected.isbn === book.isbn;
   const dispatch = useDispatch();
 
@@ -25,7 +28,12 @@ export default function SearchBookItem({ book, listRef, setScrollY }: Props) {
   };
 
   return (
-    <div className={`${styles.wrapper} ${styles.hover} ${isSelected ? styles.focus : ""}`} onClick={onClick}>
+    <div
+      className={`${styles.wrapper} ${styles.hover} ${
+        isSelected ? styles.focus : ""
+      }`}
+      onClick={onClick}
+    >
       <div className={styles["img-sm"]}>
         <img src={book.image} alt="thumnail"></img>
       </div>

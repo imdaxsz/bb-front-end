@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { PiHeartFill, PiHeartLight } from "react-icons/pi";
-import api from "../api/api";
-import styles from "../styles/detail.module.scss";
 import { useMediaQuery } from "react-responsive";
 import { BeatLoader } from "react-spinners";
-import useSignOut from "../hooks/useSignout";
+
+import api from "@/api";
+import useSignOut from "@/hooks/useSignout";
+import styles from "@/styles/detail.module.scss";
 
 interface LikeProps {
   token: string | null;
@@ -48,7 +49,7 @@ export default function Like({ token, isbn }: LikeProps) {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         )
         .then((res) => {
           if (res.status === 200) setLike((prev) => !prev);
@@ -78,5 +79,13 @@ export default function Like({ token, isbn }: LikeProps) {
 
 function Icon({ loading, like }: { loading: boolean; like: boolean }) {
   if (loading) return <BeatLoader size={2} color="#777" />;
-  return <>{like ? <PiHeartFill color="#f94a7b" size="24px" /> : <PiHeartLight size="24px" />}</>;
+  return (
+    <>
+      {like ? (
+        <PiHeartFill color="#f94a7b" size="24px" />
+      ) : (
+        <PiHeartLight size="24px" />
+      )}
+    </>
+  );
 }

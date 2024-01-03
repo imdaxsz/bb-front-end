@@ -1,17 +1,27 @@
-import styles from "../styles/my.module.scss";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import ChangePassword from "../components/ChangePassword";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import useSignOut from "../hooks/useSignout";
-import useUserInfo from "../hooks/useUserInfo";
-import Loading from "../components/Loading";
+import { Link } from "react-router-dom";
+
+import ChangePassword from "@/components/ChangePassword";
+import Loading from "@/components/Loading";
+import useSignOut from "@/hooks/useSignout";
+import useUserInfo from "@/hooks/useUserInfo";
+import { RootState } from "@/store/store";
+import styles from "@/styles/my.module.scss";
 
 export default function My() {
   const token = useSelector((state: RootState) => state.auth.token);
-  const { email, active, isOauthUser, infoLoading, backUploading, getUserInfo, onRecommendClick, onRequestDataClick } = useUserInfo({ token });
+  const {
+    email,
+    active,
+    isOauthUser,
+    infoLoading,
+    backUploading,
+    getUserInfo,
+    onRecommendClick,
+    onRequestDataClick,
+  } = useUserInfo({ token });
   const { signOut } = useSignOut();
 
   useEffect(() => {
@@ -31,7 +41,10 @@ export default function My() {
           <div className={styles["item-wrapper"]}>
             <span className={styles.title}>이메일</span>
             <span className={styles["user-info"]}>{email}</span>
-            <button className={styles["btn-white"]} onClick={()=>signOut("/")}>
+            <button
+              className={styles["btn-white"]}
+              onClick={() => signOut("/")}
+            >
               로그아웃
             </button>
           </div>
@@ -43,13 +56,19 @@ export default function My() {
           </div>
           <div className={styles["item-wrapper"]}>
             <span className={styles["title-md"]}>후기 작성 후 책 추천</span>
-            <div className={`toggle ${active ? "toggle-active" : ""}`} onClick={() => onRecommendClick()}>
+            <div
+              className={`toggle ${active ? "toggle-active" : ""}`}
+              onClick={() => onRecommendClick()}
+            >
               <div className="circle" />
             </div>
           </div>
           <div className={styles["item-wrapper"]}>
             <span className={styles["title-md"]}>후기 데이터 다운로드</span>
-            <button className={styles["btn-primary"]} onClick={() => onRequestDataClick()}>
+            <button
+              className={styles["btn-primary"]}
+              onClick={() => onRequestDataClick()}
+            >
               데이터 요청하기
             </button>
           </div>

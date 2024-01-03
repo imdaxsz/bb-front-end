@@ -1,9 +1,10 @@
-import api from "../api/api";
-import { useState } from "react";
-import { useCallback } from "react";
-import { setRecommend } from "../utils/recommend";
-import useSignOut from "./useSignout";
+import { useState, useCallback } from "react";
+
+import api from "@/api";
+import { setRecommend } from "@/utils/recommend";
+
 import useBackUp from "./useBackUp";
+import useSignOut from "./useSignout";
 
 export default function useUserInfo({ token }: { token: string | null }) {
   const [email, setEmail] = useState("");
@@ -46,5 +47,16 @@ export default function useUserInfo({ token }: { token: string | null }) {
     }
   };
 
-  return { active, setActive, email, setEmail, isOauthUser, infoLoading, backUploading, getUserInfo, onRecommendClick, onRequestDataClick };
+  return {
+    active,
+    setActive,
+    email,
+    setEmail,
+    isOauthUser,
+    infoLoading,
+    backUploading,
+    getUserInfo,
+    onRecommendClick,
+    onRequestDataClick,
+  };
 }

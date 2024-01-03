@@ -1,5 +1,7 @@
 import { useState } from "react";
-import api, { isAxiosError, AxiosError } from "../api/api";
+
+import api, { isAxiosError, AxiosError } from "@/api";
+
 import useSignOut from "./useSignout";
 
 export default function useLeave() {
@@ -17,7 +19,7 @@ export default function useLeave() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       setLoading(false);
@@ -28,7 +30,8 @@ export default function useLeave() {
     } catch (error) {
       if (isAxiosError(error)) {
         const axiosError = error as AxiosError;
-        if (axiosError.response && axiosError.response.status === 403) signOut();
+        if (axiosError.response && axiosError.response.status === 403)
+          signOut();
       }
       setLoading(false);
       console.log(error);

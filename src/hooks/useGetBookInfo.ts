@@ -1,7 +1,8 @@
 import { useCallback, useState } from "react";
-import { BookInfo } from "../types/types";
-import api from "../api/api";
-import { setBookDetailInfo } from "../utils/setBookInfo";
+
+import api from "@/api";
+import { BookInfo } from "@/types";
+import { setBookDetailInfo } from "@/utils/setBookInfo";
 
 export default function useGetBookInfo() {
   const [loading, setLoading] = useState(false);

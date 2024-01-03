@@ -1,7 +1,9 @@
 import { useCallback, useState } from "react";
-import { Search, getSearchResultType } from "../utils/search";
-import { Book, Review } from "../types/types";
-import { setBookInfo } from "../utils/setBookInfo";
+
+import { Book, Review } from "@/types";
+import { Search, getSearchResultType } from "@/utils/search";
+import { setBookInfo } from "@/utils/setBookInfo";
+
 import useSignOut from "./useSignout";
 
 export default function useSearch() {
@@ -21,12 +23,14 @@ export default function useSearch() {
         else if (searchType === "my_list") setBooks(setBookInfo(res.data));
         else {
           setBooks(setBookInfo(res.data.item));
-          setTotalItems(res.data.totalResults <= 200 ? res.data.totalResults : 200);
+          setTotalItems(
+            res.data.totalResults <= 200 ? res.data.totalResults : 200,
+          );
         }
       } else if (res.status === 403) signOut();
       setLoading(false);
     },
-    [signOut]
+    [signOut],
   );
 
   return { books, reviews, totalItems, loading, setLoading, getSearchResult };

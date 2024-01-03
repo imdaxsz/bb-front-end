@@ -1,9 +1,11 @@
 import { SetStateAction, useCallback, useState } from "react";
-import { Review } from "../types/types";
-import api, { isAxiosError, AxiosError } from "../api/api";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { setCount } from "../store/savedReviewSlice";
+
+import api, { isAxiosError, AxiosError } from "@/api";
+import { setCount } from "@/store/savedReviewSlice";
+import { RootState } from "@/store/store";
+import { Review } from "@/types";
+
 import useSignOut from "./useSignout";
 
 export default function useSavedReview() {
@@ -15,7 +17,10 @@ export default function useSavedReview() {
   const { signOut } = useSignOut();
 
   const loadSavedReviews = useCallback(
-    async (token: string | null, setWriteLoading?: React.Dispatch<SetStateAction<boolean>>) => {
+    async (
+      token: string | null,
+      setWriteLoading?: React.Dispatch<SetStateAction<boolean>>,
+    ) => {
       setLoading(true);
       if (setWriteLoading) setWriteLoading(true);
       try {
@@ -36,12 +41,13 @@ export default function useSavedReview() {
         if (setWriteLoading) setWriteLoading(false);
         if (isAxiosError(error)) {
           const axiosError = error as AxiosError;
-          if (axiosError.response && axiosError.response.status === 403) signOut();
+          if (axiosError.response && axiosError.response.status === 403)
+            signOut();
         }
         console.log(error);
       }
     },
-    [signOut, dispatch]
+    [signOut, dispatch],
   );
 
   const deleteSavedReview = async (i: number, token: string | null) => {
@@ -59,5 +65,12 @@ export default function useSavedReview() {
     else window.alert("삭제 오류입니다");
   };
 
-  return { reviews, setReviews, loadSavedReviews, deleteSavedReview, loading, setLoading };
+  return {
+    reviews,
+    setReviews,
+    loadSavedReviews,
+    deleteSavedReview,
+    loading,
+    setLoading,
+  };
 }

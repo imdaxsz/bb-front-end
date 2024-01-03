@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { SearchResultBook } from "../types/types";
+
+import { SearchResultBook } from "@/types";
 
 interface searchResult {
   keyword: string;
@@ -36,5 +37,6 @@ export const searchResultSlice = createSlice({
   },
 });
 
-export const { reset, setKeyword, setResult, setSelected, setCategoryId } = searchResultSlice.actions;
+export const { reset, setKeyword, setResult, setSelected, setCategoryId } =
+  searchResultSlice.actions;
 export default searchResultSlice.reducer;

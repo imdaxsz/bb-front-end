@@ -1,8 +1,9 @@
-import api, { isAxiosError, AxiosError } from "../api/api";
-import { Review } from "../types/types";
+import { useState, useCallback } from "react";
+
+import api, { isAxiosError, AxiosError } from "@/api";
+import { Review } from "@/types";
+
 import useSignOut from "./useSignout";
-import { useState } from "react";
-import { useCallback } from "react";
 
 export default function useGetReviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -27,12 +28,13 @@ export default function useGetReviews() {
       } catch (error) {
         if (isAxiosError(error)) {
           const axiosError = error as AxiosError;
-          if (axiosError.response && axiosError.response.status === 403) signOut();
+          if (axiosError.response && axiosError.response.status === 403)
+            signOut();
         }
         setLoading(false);
       }
     },
-    [signOut]
+    [signOut],
   );
 
   return { loading, setLoading, reviews, getUserReviews };

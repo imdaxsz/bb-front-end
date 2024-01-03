@@ -1,11 +1,14 @@
-import { Book, BookInfo, SearchResultBook } from "../types/types";
+import { Book, BookInfo, SearchResultBook } from "../types";
 
 const fetchAuthor = (author: string) => {
-  return author.replace(/\s?\(지은이\)|\s?\(옮긴이\)|\s?\(글\)|\s?\(그림\)/g, "");
+  return author.replace(
+    /\s?\(지은이\)|\s?\(옮긴이\)|\s?\(글\)|\s?\(그림\)/g,
+    "",
+  );
 };
 
 export const setBookInfo = (data: any[]) => {
-  let results: Book[] = [];
+  const results: Book[] = [];
   data.forEach((b) => {
     const book: Book = {
       isbn: b.isbn13 !== "" ? b.isbn13 : b.isbn,
@@ -20,7 +23,7 @@ export const setBookInfo = (data: any[]) => {
 };
 
 export const setSearchBookInfo = (data: any[]) => {
-  let results: SearchResultBook[] = [];
+  const results: SearchResultBook[] = [];
   data.forEach((b) => {
     const book: SearchResultBook = {
       isbn: b.isbn13 !== "" ? b.isbn13 : b.isbn,
@@ -36,7 +39,7 @@ export const setSearchBookInfo = (data: any[]) => {
 };
 
 export const setBookDetailInfo = (data: any) => {
-  let result: BookInfo = {
+  const result: BookInfo = {
     isbn: data.isbn13 !== "" ? data.isbn13 : data.isbn,
     title: data.title,
     author: data.author,

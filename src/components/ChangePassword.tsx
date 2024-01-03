@@ -1,10 +1,18 @@
-import btnstyles from "../styles/my.module.scss";
-import styles from "../styles/auth.module.scss";
 import { useState } from "react";
-import api from "../api/api";
+
+import api from "@/api";
+import styles from "@/styles/auth.module.scss";
+import btnstyles from "@/styles/my.module.scss";
+
 import Loading from "./Loading";
 
-export default function ChangePassword({ token, isOauthUser }: { token: string | null; isOauthUser:boolean }) {
+export default function ChangePassword({
+  token,
+  isOauthUser,
+}: {
+  token: string | null;
+  isOauthUser: boolean;
+}) {
   const [currentPw, setCurrentPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [pwConfirm, setPwConfirm] = useState("");
@@ -13,7 +21,11 @@ export default function ChangePassword({ token, isOauthUser }: { token: string |
   const [isSamePw, setIsSamePw] = useState<boolean | null>(null);
 
   const [error, setError] = useState(0);
-  const message = ["", "비밀번호를 정확하게 입력해주세요.", "현재 비밀번호와 같은 비밀번호는 사용할 수 없습니다."];
+  const message = [
+    "",
+    "비밀번호를 정확하게 입력해주세요.",
+    "현재 비밀번호와 같은 비밀번호는 사용할 수 없습니다.",
+  ];
   const disabled = currentPw !== "" && newPw !== "" && pwConfirm !== "";
 
   const [loading, setLoading] = useState(false);
@@ -55,7 +67,7 @@ export default function ChangePassword({ token, isOauthUser }: { token: string |
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
-            }
+            },
           )
           .then((res) => {
             if (res.status === 200 && res.data !== "PW Error") {
@@ -95,7 +107,9 @@ export default function ChangePassword({ token, isOauthUser }: { token: string |
         placeholder="새 비밀번호"
         disabled={isOauthUser}
       />
-      {validatePw === false && <span>새 비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>}
+      {validatePw === false && (
+        <span>새 비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>
+      )}
       <input
         className={`${styles.input} ${isSamePw === false && styles.error}`}
         name="pwConfirm"
@@ -108,7 +122,11 @@ export default function ChangePassword({ token, isOauthUser }: { token: string |
       />
       {isSamePw === false && <span>비밀번호가 일치하지 않습니다.</span>}
       {error !== 0 && <span>{message[error]}</span>}
-      <button disabled={!disabled} type="submit" className={btnstyles["btn-primary"]}>
+      <button
+        disabled={!disabled}
+        type="submit"
+        className={btnstyles["btn-primary"]}
+      >
         변경
       </button>
     </form>

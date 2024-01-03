@@ -1,21 +1,27 @@
 import { AxiosResponse } from "axios";
-import api from "../api/api";
+
+import api from "@/api";
 
 export type getSearchResultType = (
   page: string | null,
   keyword: string | null,
   searchType: string,
-  token?: string | null
+  token?: string | null,
 ) => void;
 
 type SearchFunType = (
   page: string | null,
   keyword: string | null,
   searchType: string,
-  token?: string | null
+  token?: string | null,
 ) => Promise<AxiosResponse>;
 
-export const Search: SearchFunType = async (page, keyword, searchType, token) => {
+export const Search: SearchFunType = async (
+  page,
+  keyword,
+  searchType,
+  token,
+) => {
   switch (searchType) {
     case "review":
       return api.get(`/api/search/review?query=${keyword}`, {

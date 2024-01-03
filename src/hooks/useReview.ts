@@ -1,11 +1,13 @@
 import { useCallback, useState } from "react";
-import { Book, Review } from "../types/types";
-import { getDate } from "../utils/getDate";
-import api from "../api/api";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { setCount } from "../store/savedReviewSlice";
+import { useNavigate } from "react-router-dom";
+
+import api from "@/api";
+import { setCount } from "@/store/savedReviewSlice";
+import { RootState } from "@/store/store";
+import { Book, Review } from "@/types";
+import { getDate } from "@/utils/getDate";
+
 import useSignOut from "./useSignout";
 
 type addReviewFunType = (
@@ -15,7 +17,7 @@ type addReviewFunType = (
   text: string,
   opt: "save" | "upload",
   token: string | null,
-  savedReviews?: Review[]
+  savedReviews?: Review[],
 ) => Promise<any>;
 
 export default function useReview() {
@@ -50,7 +52,7 @@ export default function useReview() {
         setDate(getDate(new Date(res.data.date)));
       } else if (res.status === 403) signOut();
     },
-    [signOut]
+    [signOut],
   );
 
   // 후기 수정
@@ -63,14 +65,22 @@ export default function useReview() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
     if (res.status === 200) navigate(`/review/detail/${id}`);
     else if (res.status === 403) signOut();
   };
 
   // 후기 저장 또는 발행
-  const addReview: addReviewFunType = async (book, rating, date, text, opt, token, savedReviews) => {
+  const addReview: addReviewFunType = async (
+    book,
+    rating,
+    date,
+    text,
+    opt,
+    token,
+    savedReviews,
+  ) => {
     setLoading(true);
     let reviewId = "";
     let isSavedReview = false; // 이미 임시저장되어 있는 리뷰인가
@@ -88,7 +98,7 @@ export default function useReview() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
     setLoading(false);
     if (res.status === 200) {
@@ -119,5 +129,19 @@ export default function useReview() {
     if (res.status === 403) signOut();
   };
 
-  return { text, setText, book, setBook, rating, setRating, date, loading, setLoading, loadReview, addReview, updateReview, deleteReview };
+  return {
+    text,
+    setText,
+    book,
+    setBook,
+    rating,
+    setRating,
+    date,
+    loading,
+    setLoading,
+    loadReview,
+    addReview,
+    updateReview,
+    deleteReview,
+  };
 }

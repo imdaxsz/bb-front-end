@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import styles from "../styles/pagination.module.scss";
 
 interface Props {
@@ -9,7 +10,12 @@ interface Props {
   currentPage: number;
 }
 
-export default function Pagination({ totalItems, itemCountPerPage, pageCount, currentPage }: Props) {
+export default function Pagination({
+  totalItems,
+  itemCountPerPage,
+  pageCount,
+  currentPage,
+}: Props) {
   const totalPages = Math.ceil(totalItems / itemCountPerPage);
   const [start, setStart] = useState(1);
   const noPrev = start === 1;
@@ -36,7 +42,12 @@ export default function Pagination({ totalItems, itemCountPerPage, pageCount, cu
           <React.Fragment key={i}>
             {start + i <= totalPages && (
               <li>
-                <Link className={`${styles.page} ${currentPage === start + i && styles.active}`} to={`${url}page=${start + i}`}>
+                <Link
+                  className={`${styles.page} ${
+                    currentPage === start + i && styles.active
+                  }`}
+                  to={`${url}page=${start + i}`}
+                >
                   {start + i}
                 </Link>
               </li>

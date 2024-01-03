@@ -1,13 +1,18 @@
-import ReviewItem from "../components/ReviewItem";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import Loading from "../components/Loading";
-import useGetReviews from "../hooks/useGetReviews";
+import { useSearchParams } from "react-router-dom";
 
-export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) {
+import Loading from "@/components/Loading";
+import ReviewItem from "@/components/ReviewItem";
+import useGetReviews from "@/hooks/useGetReviews";
+import { RootState } from "@/store/store";
+
+export default function Home({
+  isAuthenticated,
+}: {
+  isAuthenticated: boolean;
+}) {
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const token = useSelector((state: RootState) => state.auth.token);

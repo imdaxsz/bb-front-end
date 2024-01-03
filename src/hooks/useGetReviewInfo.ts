@@ -1,8 +1,10 @@
 import { useCallback, useState } from "react";
-import api from "../api/api";
+
+import api from "@/api";
+import { Review } from "@/types";
+import { getDate } from "@/utils/getDate";
+
 import useSignOut from "./useSignout";
-import { Review } from "../types/types";
-import { getDate } from "../utils/getDate";
 
 export default function useGetReviewInfo() {
   const [review, setReview] = useState<Review | null>(null);
@@ -28,7 +30,7 @@ export default function useGetReviewInfo() {
       if (res.status === 403) signOut();
       setLoading(false);
     },
-    [signOut]
+    [signOut],
   );
 
   return { loading, review, date, getReviewDetailInfo };

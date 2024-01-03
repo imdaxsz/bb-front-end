@@ -1,4 +1,5 @@
-import api, { isAxiosError, AxiosError } from "../api/api";
+import api, { isAxiosError, AxiosError } from "@/api";
+
 import useSignOut from "./useSignout";
 
 export default function useBackUp() {
@@ -27,7 +28,8 @@ export default function useBackUp() {
     } catch (error) {
       if (isAxiosError(error)) {
         const axiosError = error as AxiosError;
-        if (axiosError.response && axiosError.response.status === 403) signOut();
+        if (axiosError.response && axiosError.response.status === 403)
+          signOut();
       }
       console.error("Error downloading backup:", error);
     }

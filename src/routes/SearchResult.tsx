@@ -1,13 +1,14 @@
-import ReviewItem from "../components/ReviewItem";
 import { useEffect } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
-import BookItem from "../components/BookItem";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import Pagination from "../components/Pagination";
-import Loading from "../components/Loading";
-import useSearch from "../hooks/useSearch";
+import { useLocation, useSearchParams } from "react-router-dom";
+
+import BookItem from "@/components/BookItem";
+import Loading from "@/components/Loading";
+import Pagination from "@/components/Pagination";
+import ReviewItem from "@/components/ReviewItem";
+import useSearch from "@/hooks/useSearch";
+import { RootState } from "@/store/store";
 
 export default function SearchResult() {
   const token = useSelector((state: RootState) => state.auth.token);
@@ -31,14 +32,28 @@ export default function SearchResult() {
       {loading && <Loading />}
       <div className="list-wrapper">
         <div className="list">
-          {reviews.length === 0 && searchType === "review" && !loading && "검색 결과가 없어요."}
-          {!loading && reviews.map((review, i) => <ReviewItem review={review} key={i} />)}
+          {reviews.length === 0 &&
+            searchType === "review" &&
+            !loading &&
+            "검색 결과가 없어요."}
+          {!loading &&
+            reviews.map((review, i) => <ReviewItem review={review} key={i} />)}
         </div>
         <div className="list" style={{ marginBottom: "70px" }}>
-          {books.length === 0 && searchType !== "review" && !loading && "검색 결과가 없어요."}
+          {books.length === 0 &&
+            searchType !== "review" &&
+            !loading &&
+            "검색 결과가 없어요."}
           {!loading && books.map((book, i) => <BookItem book={book} key={i} />)}
         </div>
-        {!loading && <Pagination totalItems={totalItems} currentPage={page ? parseInt(page) : 1} pageCount={5} itemCountPerPage={50} />}
+        {!loading && (
+          <Pagination
+            totalItems={totalItems}
+            currentPage={page ? parseInt(page) : 1}
+            pageCount={5}
+            itemCountPerPage={50}
+          />
+        )}
       </div>
     </div>
   );

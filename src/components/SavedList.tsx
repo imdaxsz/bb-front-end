@@ -1,11 +1,13 @@
-import styles from "../styles/modal.module.scss";
-import { Book} from "../types/types";
-import { getDate } from "../utils/getDate";
-import Modal from "./Modal";
 import { useEffect } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
-import useSavedReview from "../hooks/useSavedReview";
+
+import useSavedReview from "@/hooks/useSavedReview";
+import styles from "@/styles/modal.module.scss";
+import { Book } from "@/types";
+import { getDate } from "@/utils/getDate";
+
 import Loading from "./Loading";
+import Modal from "./Modal";
 
 interface Props {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,8 +17,15 @@ interface Props {
   token: string | null;
 }
 
-export default function SavedList({ setModal, setBook, setText, setRating,  token }: Props) {
-  const { reviews, loadSavedReviews, deleteSavedReview, loading } = useSavedReview();
+export default function SavedList({
+  setModal,
+  setBook,
+  setText,
+  setRating,
+  token,
+}: Props) {
+  const { reviews, loadSavedReviews, deleteSavedReview, loading } =
+    useSavedReview();
 
   const onClickCancel = () => {
     setModal(false);
@@ -24,7 +33,9 @@ export default function SavedList({ setModal, setBook, setText, setRating,  toke
 
   const onClickDelete = (e: React.MouseEvent<SVGElement>, i: number) => {
     e.stopPropagation();
-    const ok = window.confirm("선택된 임시저장 글을 삭제하시겠습니까?\n삭제된 글은 복구되지 않습니다.");
+    const ok = window.confirm(
+      "선택된 임시저장 글을 삭제하시겠습니까?\n삭제된 글은 복구되지 않습니다.",
+    );
     if (ok) {
       deleteSavedReview(i, token);
     }
@@ -50,10 +61,16 @@ export default function SavedList({ setModal, setBook, setText, setRating,  toke
         <hr></hr>
         <div className={`${styles.list} ${styles.g0}`}>
           {reviews.map((review, i) => (
-            <div className={styles["list-item"]} key={i} onClick={()=>loadReview(i)}>
+            <div
+              className={styles["list-item"]}
+              key={i}
+              onClick={() => loadReview(i)}
+            >
               <div className={styles.review}>
                 <div className="ellipsis">{review.book.title}</div>
-                <div className={styles["text-sm"]}>{getDate(new Date(review.date), "-")}</div>
+                <div className={styles["text-sm"]}>
+                  {getDate(new Date(review.date), "-")}
+                </div>
               </div>
               <div className={styles.icon}>
                 <FaRegTrashAlt onClick={(e) => onClickDelete(e, i)} />
@@ -73,5 +90,11 @@ export default function SavedList({ setModal, setBook, setText, setRating,  toke
     );
   };
 
-  return <Modal onClickOutside={onClickCancel} content={<Content />} bottom={<Bottom />} />;
+  return (
+    <Modal
+      onClickOutside={onClickCancel}
+      content={<Content />}
+      bottom={<Bottom />}
+    />
+  );
 }

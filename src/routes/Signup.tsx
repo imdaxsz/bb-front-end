@@ -1,8 +1,10 @@
-import { Helmet } from "react-helmet-async";
-import api from "../api/api";
-import styles from "../styles/auth.module.scss";
 import { FormEvent, useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import api from "@/api";
+import styles from "@/styles/auth.module.scss";
+
 import EmailCertiForSignUp from "./EmailCertiForSignUp";
 
 export default function Signup() {
@@ -73,7 +75,9 @@ export default function Signup() {
         ) : (
           <form onSubmit={onSubmit} className={styles.form} noValidate>
             <input
-              className={`${styles.input} ${validatePw === false && styles.error}`}
+              className={`${styles.input} ${
+                validatePw === false && styles.error
+              }`}
               name="password"
               type="password"
               value={password}
@@ -82,9 +86,13 @@ export default function Signup() {
               autoComplete="off"
               placeholder="비밀번호"
             />
-            {validatePw === false && <span>비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>}
+            {validatePw === false && (
+              <span>비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>
+            )}
             <input
-              className={`${styles.input} ${isSamePw === false && styles.error}`}
+              className={`${styles.input} ${
+                isSamePw === false && styles.error
+              }`}
               name="pwConfirm"
               type="password"
               value={pwConfirm}
@@ -93,7 +101,12 @@ export default function Signup() {
               placeholder="비밀번호 확인"
             />
             {isSamePw === false && <span>비밀번호가 일치하지 않습니다.</span>}
-            <input className={styles.submit} disabled={!disabled} type="submit" value="가입하기" />
+            <input
+              className={styles.submit}
+              disabled={!disabled}
+              type="submit"
+              value="가입하기"
+            />
           </form>
         )}
       </div>

@@ -1,9 +1,11 @@
-import api, { isAxiosError, AxiosError } from "../api/api";
-import { Book } from "../types/types";
-import { setBookInfo } from "../utils/setBookInfo";
+import { useState, useCallback } from "react";
+
+import { Book } from "@/types";
+import { setBookInfo } from "@/utils/setBookInfo";
+
+import api, { isAxiosError, AxiosError } from "../api";
+
 import useSignOut from "./useSignout";
-import { useState } from "react";
-import { useCallback } from "react";
 
 export default function useMyBookList() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -30,12 +32,13 @@ export default function useMyBookList() {
         setLoading(false);
         if (isAxiosError(error)) {
           const axiosError = error as AxiosError;
-          if (axiosError.response && axiosError.response.status === 403) signOut();
+          if (axiosError.response && axiosError.response.status === 403)
+            signOut();
         }
         console.log(error);
       }
     },
-    [signOut]
+    [signOut],
   );
 
   const getSortedUserMyList = useCallback(
@@ -44,13 +47,22 @@ export default function useMyBookList() {
         if (sort === "date_asc") {
           setFilteredBooks([...books].reverse());
         } else if (sort === "title") {
-          const result = [...books].sort((a, b) => a.title.localeCompare(b.title));
+          const result = [...books].sort((a, b) =>
+            a.title.localeCompare(b.title),
+          );
           setFilteredBooks([...result]);
         } else setFilteredBooks([...books]);
       }
     },
-    [books]
+    [books],
   );
 
-  return { loading, setLoading, books, filteredBooks, getUserMyBookList, getSortedUserMyList };
+  return {
+    loading,
+    setLoading,
+    books,
+    filteredBooks,
+    getUserMyBookList,
+    getSortedUserMyList,
+  };
 }
