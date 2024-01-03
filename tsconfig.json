@@ -16,9 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["node", "react", "redux-persist"],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "baseUrl": "src",
   },
   "include": ["src"]
 }
