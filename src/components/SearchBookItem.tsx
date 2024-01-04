@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 
+import { DetailBookResponse } from "api/BookApi";
+import { RootState } from "store";
 import { setCategoryId, setSelected } from "store/searchResultSlice";
-import { RootState } from "store/store";
 import styles from "styles/book.module.scss";
-import { SearchResultBook } from "types";
 
 interface Props {
-  book: SearchResultBook;
+  book: DetailBookResponse;
   listRef: React.MutableRefObject<HTMLDivElement | null>;
   setScrollY: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -35,7 +35,7 @@ export default function SearchBookItem({ book, listRef, setScrollY }: Props) {
       onClick={onClick}
     >
       <div className={styles["img-sm"]}>
-        <img src={book.image} alt="thumnail"></img>
+        <img src={book.cover} alt="thumnail"></img>
       </div>
       <div className={styles.info}>
         <div className={`${styles.title} ellipsis`}>{book.title}</div>

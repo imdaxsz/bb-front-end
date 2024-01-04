@@ -9,7 +9,7 @@ export default function BookItem({ book, rec }: { book: Book; rec?: boolean }) {
       type="book"
       id={book.isbn}
       title={book.title}
-      image={book.image}
+      image={book.cover}
       rec={rec}
     >
       <p className={`${styles.author} ellipsis`}>{book.author}</p>

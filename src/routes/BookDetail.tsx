@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import Like from "components/Like";
 import Loading from "components/Loading";
 import useGetBookInfo from "hooks/useGetBookInfo";
-import { RootState } from "store/store";
+import { RootState } from "store";
 import bs from "styles/book.module.scss";
 import styles from "styles/detail.module.scss";
 
@@ -29,7 +29,7 @@ export default function BookDetail() {
                 <div className={styles.book}>
                   <div>
                     <div className={bs["img-lg"]}>
-                      <img src={book.image} alt={book.title} />
+                      <img src={book.cover} alt={book.title} />
                     </div>
                   </div>
                   <div className={bs["detail-info"]}>

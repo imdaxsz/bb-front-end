@@ -1,4 +1,5 @@
-import { Book, BookInfo, SearchResultBook } from "../types";
+import { BookInfoResponse, DetailBookResponse } from "api/BookApi";
+import { Book, BookInfo } from "types";
 
 const fetchAuthor = (author: string) => {
   return author.replace(
@@ -7,7 +8,7 @@ const fetchAuthor = (author: string) => {
   );
 };
 
-export const setBookInfo = (data: any[]) => {
+export const setBookInfo = (data: BookInfoResponse[]) => {
   const results: Book[] = [];
   data.forEach((b) => {
     const book: Book = {
@@ -15,22 +16,22 @@ export const setBookInfo = (data: any[]) => {
       title: b.title,
       author: fetchAuthor(b.author),
       publisher: b.publisher,
-      image: b.cover,
+      cover: b.cover,
     };
     results.push(book);
   });
   return results;
 };
 
-export const setSearchBookInfo = (data: any[]) => {
-  const results: SearchResultBook[] = [];
+export const setSearchBookInfo = (data: DetailBookResponse[]) => {
+  const results: (Book & Pick<DetailBookResponse, "categoryId">)[] = [];
   data.forEach((b) => {
-    const book: SearchResultBook = {
+    const book = {
       isbn: b.isbn13 !== "" ? b.isbn13 : b.isbn,
       title: b.title,
       author: b.author,
       publisher: b.publisher,
-      image: b.cover,
+      cover: b.cover,
       categoryId: b.categoryId,
     };
     results.push(book);
@@ -38,7 +39,7 @@ export const setSearchBookInfo = (data: any[]) => {
   return results;
 };
 
-export const setBookDetailInfo = (data: any) => {
+export const setBookDetailInfo = (data: DetailBookResponse) => {
   const result: BookInfo = {
     isbn: data.isbn13 !== "" ? data.isbn13 : data.isbn,
     title: data.title,
@@ -46,7 +47,7 @@ export const setBookDetailInfo = (data: any) => {
     publisher: data.publisher,
     pubDate: data.pubDate,
     description: data.description,
-    image: data.cover,
+    cover: data.cover,
     category: { id: data.categoryId, name: data.categoryName },
     itemPage: data.subInfo.itemPage,
     link: data.link,

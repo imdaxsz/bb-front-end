@@ -38,7 +38,7 @@ export default function ReviewBookInfo({
         </span>
       )}
       <div className={`${setBook ? styles["img-sm"] : styles["img-lg"]}`}>
-        <img src={book.image} alt={book.title} />
+        <img src={book.cover} alt={book.title} />
       </div>
       <div className={styles.info}>
         <div className={`${styles.title}`}>{book.title}</div>
