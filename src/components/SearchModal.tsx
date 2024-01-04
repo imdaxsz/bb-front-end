@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { RootState } from "store/store";
+import { RootState } from "store";
 import styles from "styles/modal.module.scss";
 import { Book } from "types";
 

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { RootState } from "store/store";
+import { RootState } from "store";
 import styles from "styles/bar.module.scss";
 
 interface Props {

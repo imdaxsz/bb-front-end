@@ -5,11 +5,12 @@ import { HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
+import { store } from "store";
+
 import App from "./App";
 import ScrollToTop from "./components/ScrollToTop";
 import "./styles/global.scss";
 import reportWebVitals from "./reportWebVitals";
-import { store } from "./store/store";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
