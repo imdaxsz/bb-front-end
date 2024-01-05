@@ -1,4 +1,4 @@
-import { get, post, put } from "lib/api";
+import { get, patch, post } from "lib/api";
 import { User } from "types";
 
 /**
@@ -49,7 +49,7 @@ export const getUser = () => {
  * @param {string} newPw
  */
 export const changePassword = (currentPw: string, newPw: string) => {
-  return put("/api/user/change_password", { currentPw, newPw });
+  return patch("/api/user/change_password", { currentPw, newPw });
 };
 
 /**
@@ -58,7 +58,7 @@ export const changePassword = (currentPw: string, newPw: string) => {
  * @param {string} password
  */
 export const resetPassword = (email: string, password: string) => {
-  return put("/api/user/reset_password", { email, password });
+  return patch("/api/user/reset_password", { email, password });
 };
 
 // TODO: method del로 바꾸기
