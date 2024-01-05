@@ -2,7 +2,7 @@ import { useState, FormEvent, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import api from "api";
+import { checkCertiStatus, resetPassword } from "api/UserApi";
 import Loading from "components/Loading";
 import styles from "styles/auth.module.scss";
 
@@ -39,33 +39,36 @@ export default function FindPassword() {
     else setIsSamePw(true);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validatePw && isSamePw) {
       try {
         setLoading(true);
-        api.put("/api/user/reset_password", { email, password }).then((res) => {
-          if (res.status === 200) {
-            setLoading(false);
-            window.alert("비밀번호 재설정이 완료되었습니다!");
-            navigate("/signin");
-          }
-        });
+        await resetPassword(email, password);
+        window.alert("비밀번호 재설정이 완료되었습니다!");
+        navigate("/signin");
       } catch (error) {
-        setLoading(false);
         console.log(error);
       }
+      setLoading(false);
+    }
+  };
+
+  const checkValidation = async (email: string) => {
+    try {
+      const res = await checkCertiStatus(email);
+      if (!res) navigate("/find_password");
+    } catch (error) {
+      console.log(error);
+      navigate("/find_password");
     }
   };
 
   useEffect(() => {
     if (pathname === "/find_password/next") {
       // 인증 상태 요청
-      if (email !== "") {
-        api.get(`/api/certification/certi-status/${email}`).then((res) => {
-          if (!(res.status === 200) || !res.data) navigate("/find_password");
-        });
-      } else navigate("/find_password");
+      if (email.trim() === "") return;
+      checkValidation(email);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, pathname]);

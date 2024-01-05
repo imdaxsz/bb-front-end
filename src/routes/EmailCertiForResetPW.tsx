@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import api from "api";
+import { checkEmail, requestEmailCerti, verifyCode } from "api/UserApi";
 import Loading from "components/Loading";
 import styles from "styles/auth.module.scss";
 
@@ -25,40 +25,49 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
     setCode(e.target.value);
   };
 
-  const requestCertifications = () => {
+  const requestCertifications = async () => {
     setLoading(true);
-    api.post("/api/user/checkemail", { email }).then((res) => {
-      if (res.status === 200 && !res.data.exists) {
+    try {
+      const res = await checkEmail(email);
+      setLoading(false);
+      if (!res.exists) {
         setError(true);
-        setLoading(false);
+        return;
       }
-      if (res.status === 200 && res.data.exists) {
-        setError(false);
-        // 인증 메일 요청
-        api.post("/api/certification/send-email", { email }).then((res) => {
-          if (res.status === 200) setShowCode(true);
-          else console.log(res.status, " server error");
-          setLoading(false);
-        });
-      }
-    });
+      requestMailCode();
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const requestMailCode = async () => {
+    setLoading(true);
+    try {
+      await requestEmailCerti(email);
+      setShowCode(true);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    api
-      .post("/api/certification/verify-code", { email, userCode: code })
-      .then((res) => {
-        if (res.status === 200 && res.data) {
-          window.alert("인증에 성공하였습니다.");
-          navigate("/find_password/next");
-        } else {
-          window.alert("인증에 실패하였습니다. 다시 시도하세요.");
-          window.location.reload();
-        }
-        setLoading(false);
-      });
+    try {
+      const res = await verifyCode(email, code);
+      if (res) {
+        window.alert("인증에 성공하였습니다.");
+        navigate("/find_password/next");
+        return;
+      }
+      window.alert("인증에 실패하였습니다. 다시 시도하세요.");
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
 
   return (
