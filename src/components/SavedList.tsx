@@ -14,7 +14,6 @@ interface Props {
   setBook: React.Dispatch<React.SetStateAction<Book | null>>;
   setText: React.Dispatch<React.SetStateAction<string>>;
   setRating: React.Dispatch<React.SetStateAction<number>>;
-  token: string | null;
 }
 
 export default function SavedList({
@@ -22,7 +21,6 @@ export default function SavedList({
   setBook,
   setText,
   setRating,
-  token,
 }: Props) {
   const { reviews, loadSavedReviews, deleteSavedReview, loading } =
     useSavedReview();
@@ -37,7 +35,7 @@ export default function SavedList({
       "선택된 임시저장 글을 삭제하시겠습니까?\n삭제된 글은 복구되지 않습니다.",
     );
     if (ok) {
-      deleteSavedReview(i, token);
+      deleteSavedReview(i);
     }
   };
 
@@ -50,8 +48,8 @@ export default function SavedList({
   };
 
   useEffect(() => {
-    loadSavedReviews(token);
-  }, [loadSavedReviews, token]);
+    loadSavedReviews();
+  }, [loadSavedReviews]);
 
   const Content = () => {
     return (
