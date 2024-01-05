@@ -8,7 +8,7 @@
 .item {
   width: 100%;
   max-width: 1150px;
-  border: solid 1px rgb(236, 236, 236);
+  border: solid 1px common.$neutral-05;
   border-radius: 0 30px 30px 0;
   margin: 0 auto;
   padding: 30px 80px;
@@ -44,7 +44,7 @@
 }
 
 .sub-info {
-  color: #888;
+  color: common.$neutral-50;
   font-size: 20px;
   line-height: 180%;
 }
@@ -77,7 +77,7 @@
   width: 100%;
   margin-top: 20px;
   padding: 30px 12px 12px;
-  border-top: solid 1px #ccc;
+  border-top: solid 1px common.$neutral-20;
   font-size: 18px;
   & div:first-child {
     margin-bottom: 10px;
@@ -100,7 +100,7 @@
   position: absolute;
   top: 30px;
   right: 80px;
-  color: #666;
+  color: common.$neutral-60;
   gap: 10px;
 }
 
@@ -140,6 +140,6 @@
     height: fit-content;
     padding: 8px 12px;
     border-radius: 8px;
-    border: solid 1px #eee;
+    border: solid 1px common.$neutral-05;
   }
 }
