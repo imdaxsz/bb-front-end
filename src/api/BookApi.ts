@@ -27,6 +27,15 @@ export const getMyBooks = () => {
 };
 
 /**
+ * @description 관심도서 내 검색
+ * @param {string | null} keyword
+ * @returns 조건을 만족하는 도서 목록
+ */
+export const searchMyBook = (keyword: string | null) => {
+  return get<BookInfoResponse[]>(`/api/search/my_list?query=${keyword}`);
+};
+
+/**
  * @description 도서 상세 조회
  * @param {string} id
  * @returns 도서 정보
@@ -36,7 +45,7 @@ export const getBook = (id: string) => {
 };
 
 /**
- * @description 도서 검색
+ * @description 추천 도서 검색
  * @param {string | null} keyword
  * @param {string | null} page
  * @returns 조건을 만족하는 도서 목록
