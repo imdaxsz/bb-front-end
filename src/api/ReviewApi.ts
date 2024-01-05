@@ -18,7 +18,7 @@ export const getReviews = (sort: string | null) => {
  * @param {string | null} keyword 검색어
  * @returns 조건을 만족하는 후기 목록
  */
-export const searchReviews = (keyword: string | null) => {
+export const searchReview = (keyword: string | null) => {
   return get<Review[]>(`/api/search/review?query=${keyword}`);
 };
 
