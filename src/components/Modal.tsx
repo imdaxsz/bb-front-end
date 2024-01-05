@@ -34,10 +34,10 @@ export default function Modal({
   }, []);
 
   return (
-    <div className={modal.wrapper} onClick={onClickOutside}>
+    <div className={modal.wrapper} onMouseDown={onClickOutside}>
       <div
         className={`${modal.modal} ${size && modal["modal-sm"]}`}
-        onClick={onClickInside}
+        onMouseDown={onClickInside}
       >
         {content}
         <div className={modal.bottom}>{bottom}</div>
