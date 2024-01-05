@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 
+import { toggleRecommend } from "api/RecommendApi";
+import { RootState } from "store";
 import { reset } from "store/recommendSlice";
-import { RootState } from "store/store";
 import styles from "styles/modal.module.scss";
-import { setRecommend } from "utils/recommend";
 
 import BookItem from "./BookItem";
 import Modal from "./Modal";
@@ -11,14 +11,13 @@ import Modal from "./Modal";
 export default function RecommendModal() {
   const book = useSelector((state: RootState) => state.recommend.book);
   const dispatch = useDispatch();
-  const token = useSelector((state: RootState) => state.auth.token);
 
   const onClickCancel = () => {
     dispatch(reset());
   };
 
-  const onNoMoreRec = () => {
-    setRecommend(token);
+  const onNoMoreRec = async () => {
+    await toggleRecommend();
     dispatch(reset());
   };
 
