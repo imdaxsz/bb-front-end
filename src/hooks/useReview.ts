@@ -2,13 +2,16 @@ import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import api from "api";
+import {
+  getReview,
+  postReview,
+  updateReview as requestUpdate,
+  deleteReview as requestDelete,
+} from "api/ReviewApi";
+import { RootState } from "store";
 import { setCount } from "store/savedReviewSlice";
-import { RootState } from "store/store";
 import { Book, Review } from "types";
 import { getDate } from "utils/getDate";
-
-import useSignOut from "./useSignout";
 
 type addReviewFunType = (
   book: Book | null,
@@ -18,7 +21,7 @@ type addReviewFunType = (
   opt: "save" | "upload",
   token: string | null,
   savedReviews?: Review[],
-) => Promise<any>;
+) => Promise<string>;
 
 export default function useReview() {
   const [text, setText] = useState("");
@@ -32,43 +35,31 @@ export default function useReview() {
   const dispatch = useDispatch();
   const savedCount = useSelector((state: RootState) => state.savedReview.count);
 
-  const { signOut } = useSignOut();
-
   // 후기 수정 시 후기 불러오기
-  const loadReview = useCallback(
-    async (id: string | null, token: string | null) => {
-      setLoading(true);
-      const res = await api.get(`/api/review/detail/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setLoading(false);
-      if (res.status === 200) {
-        setBook(res.data.book);
-        setRating(res.data.rating);
-        setText(res.data.text);
-        setDate(getDate(new Date(res.data.date)));
-      } else if (res.status === 403) signOut();
-    },
-    [signOut],
-  );
+  const loadReview = useCallback(async (id: string | null) => {
+    if (!id) return;
+    setLoading(true);
+    try {
+      const res = await getReview(id);
+      setBook(res.book);
+      setRating(res.rating);
+      setText(res.text);
+      setDate(getDate(new Date(res.date)));
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }, []);
 
   // 후기 수정
-  const updateReview = async (id: string | null, token: string | null) => {
-    const res = await api.put(
-      `/api/review/${id}`,
-      { rating, text },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-    if (res.status === 200) navigate(`/review/detail/${id}`);
-    else if (res.status === 403) signOut();
+  const updateReview = async (id: string | null) => {
+    if (!id) return;
+    try {
+      await requestUpdate(id, rating, text);
+      navigate(`/review/detail/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // 후기 저장 또는 발행
@@ -90,43 +81,29 @@ export default function useReview() {
       if (book && savedIsbns.includes(book.isbn)) isSavedReview = true;
     }
 
-    const res = await api.post(
-      `/api/review/new`,
-      { book, rating, date, text, status: opt },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-    setLoading(false);
-    if (res.status === 200) {
+    try {
+      const res = await postReview(book, rating, date, text, opt);
       if (opt === "save") {
         // 임시 저장
         window.alert("저장 완료");
         if (!isSavedReview) dispatch(setCount(savedCount + 1)); // 임시 저장에 없는 후기일 경우에만 개수 증가
-      } else reviewId = res.data;
-    } else if (res.status === 403) signOut();
-    else {
-      throw new Error("Failed to save review");
+      } else reviewId = res;
+    } catch (error) {
+      console.log(error);
     }
+
+    setLoading(false);
     return reviewId;
   };
 
-  const deleteReview = async (id: string, token: string | null) => {
-    const res = await api.delete(`/api/review/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (res.status === 200) {
+  const deleteReview = async (id: string) => {
+    try {
+      await requestDelete(id);
       window.alert("삭제되었습니다.");
       navigate("/");
+    } catch (error) {
+      console.log(error);
     }
-    if (res.status === 403) signOut();
   };
 
   return {

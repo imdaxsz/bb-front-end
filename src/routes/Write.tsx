@@ -11,7 +11,7 @@ import TopBar from "components/TopBar";
 import useRecommend from "hooks/useRecommend";
 import useReview from "hooks/useReview";
 import useSavedReview from "hooks/useSavedReview";
-import { RootState } from "store/store";
+import { RootState } from "store";
 import styles from "styles/write.module.scss";
 
 export default function Write() {
@@ -65,11 +65,11 @@ export default function Write() {
           // 새 후기 발행
           setLoading(true);
           // 후기 기반 도서 추천
-          await getRecommendBook(id, token);
+          await getRecommendBook(id);
         }
       }
       // 후기 수정
-      else updateReview(id, token);
+      else updateReview(id);
     }
   };
 
@@ -89,9 +89,9 @@ export default function Write() {
 
   useEffect(() => {
     // 후기 수정일 경우
-    if (mode === "edit") loadReview(id, token);
-    else loadSavedReviews(token, setLoading);
-  }, [id, mode, token, loadReview, loadSavedReviews, setLoading, savedCount]);
+    if (mode === "edit") loadReview(id);
+    else loadSavedReviews(setLoading);
+  }, [id, mode, loadReview, loadSavedReviews, setLoading, savedCount]);
 
   return (
     <>
@@ -105,7 +105,6 @@ export default function Write() {
           setBook={setBook}
           setText={setText}
           setRating={setRating}
-          token={token}
         />
       )}
       {!loading && (
