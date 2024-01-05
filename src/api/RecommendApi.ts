@@ -1,12 +1,16 @@
 import { post } from "lib/api";
 
+import { BookInfoResponse } from "./BookApi";
+
 /**
  * @description 도서 추천 요청
  * @param {string} categoryId
  * @returns 추천 도서 정보
  */
 export const recommend = (categoryId: string) => {
-  return post(`/api/recommend/foryou`, { categoryId });
+  return post<BookInfoResponse | string>(`/api/recommend/foryou`, {
+    categoryId,
+  });
 };
 
 /**
