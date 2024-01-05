@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { useSelector } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 import BookItem from "components/BookItem";
@@ -8,11 +7,8 @@ import Loading from "components/Loading";
 import Pagination from "components/Pagination";
 import ReviewItem from "components/ReviewItem";
 import useSearch from "hooks/useSearch";
-import { RootState } from "store/store";
 
 export default function SearchResult() {
-  const token = useSelector((state: RootState) => state.auth.token);
-
   const searchType = useLocation().pathname.split("/")[2];
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("query");
@@ -21,8 +17,8 @@ export default function SearchResult() {
   const { books, reviews, totalItems, loading, getSearchResult } = useSearch();
 
   useEffect(() => {
-    getSearchResult(page, keyword, searchType, token);
-  }, [searchType, page, keyword, token, getSearchResult]);
+    getSearchResult(page, keyword, searchType);
+  }, [searchType, page, keyword, getSearchResult]);
 
   return (
     <div className="wrapper">
