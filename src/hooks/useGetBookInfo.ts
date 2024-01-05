@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-import api from "api";
+import { getBook } from "api/BookApi";
 import { BookInfo } from "types";
 import { setBookDetailInfo } from "utils/setBookInfo";
 
@@ -12,8 +12,8 @@ export default function useGetBookInfo() {
   const getBookDetailInfo = useCallback(async (id: string) => {
     setLoading(true);
     try {
-      const res = await api.get(`/api/book/detail/${id}`);
-      if (res.status === 200) setBook(setBookDetailInfo(res.data.item[0]));
+      const res = await getBook(id);
+      setBook(setBookDetailInfo(res));
       setLoading(false);
     } catch (error) {
       setLoading(false);

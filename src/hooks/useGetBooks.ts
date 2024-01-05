@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-import api from "api";
+import { getRecommendBooks as request } from "api/BookApi";
 import { Book } from "types";
 import { setBookInfo } from "utils/setBookInfo";
 
@@ -13,16 +13,13 @@ export default function useGetBooks() {
   const getRecommendBooks = useCallback(async (page: string | null) => {
     setLoading(true);
     try {
-      const res = await api.get(`api/book/recommend?page=${page}`);
-      if (res.status === 200) {
-        setBooks(setBookInfo(res.data.item));
-        setTotalBooks(res.data.totalResults);
-      }
-      setLoading(false);
+      const res = await request(page);
+      setBooks(setBookInfo(res.item));
+      setTotalBooks(res.totalResults);
     } catch (error) {
-      setLoading(false);
       console.log(error);
     }
+    setLoading(false);
   }, []);
 
   return { loading, books, totalBooks, getRecommendBooks };

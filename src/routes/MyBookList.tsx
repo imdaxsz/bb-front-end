@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import BookItem from "components/BookItem";
 import Loading from "components/Loading";
 import useMyBookList from "hooks/useMyBookList";
-import { RootState } from "store/store";
+import { RootState } from "store";
 
 export default function MyBookList({
   isAuthenticated,
@@ -27,7 +27,7 @@ export default function MyBookList({
 
   useEffect(() => {
     if (!token) setLoading(false);
-    else getUserMyBookList(token);
+    else getUserMyBookList();
   }, [getUserMyBookList, setLoading, token]);
 
   useEffect(() => {
