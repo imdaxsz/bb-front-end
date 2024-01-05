@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import Loading from "components/Loading";
 import useLeave from "hooks/useLeave";
 import useUserInfo from "hooks/useUserInfo";
-import { RootState } from "store/store";
+import { RootState } from "store";
 import styles from "styles/my.module.scss";
 
 export default function Leave() {
@@ -29,7 +29,7 @@ export default function Leave() {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (agree) {
-      deleteAccount(password, token);
+      deleteAccount(password);
     } else window.alert("회원 탈퇴 동의를 체크해 주세요.");
   };
 
@@ -65,8 +65,10 @@ export default function Leave() {
               </span>
             </div>
             <div className={styles.message}>
-              <input type="checkbox" onChange={onChangeCheck} />
-              <span>&nbsp; 위 내용을 이해했으며, 모두 동의합니다.</span>
+              <input id="agree" type="checkbox" onChange={onChangeCheck} />
+              <label htmlFor="agree">
+                &nbsp; 위 내용을 이해했으며, 모두 동의합니다.
+              </label>
             </div>
             <strong>
               본인 확인을 위해 {email} 계정의 비밀번호를 입력해주세요.
