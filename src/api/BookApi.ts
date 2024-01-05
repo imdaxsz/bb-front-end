@@ -84,5 +84,5 @@ export interface DetailBookResponse extends BookInfoResponse {
 
 export interface BookList {
   totalResults: number;
-  item: BookInfoResponse[];
+  item: DetailBookResponse[];
 }
