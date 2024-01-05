@@ -23,22 +23,6 @@ export const setBookInfo = (data: BookInfoResponse[]) => {
   return results;
 };
 
-export const setSearchBookInfo = (data: DetailBookResponse[]) => {
-  const results: (Book & Pick<DetailBookResponse, "categoryId">)[] = [];
-  data.forEach((b) => {
-    const book = {
-      isbn: b.isbn13 !== "" ? b.isbn13 : b.isbn,
-      title: b.title,
-      author: b.author,
-      publisher: b.publisher,
-      cover: b.cover,
-      categoryId: b.categoryId,
-    };
-    results.push(book);
-  });
-  return results;
-};
-
 export const setBookDetailInfo = (data: DetailBookResponse) => {
   const result: BookInfo = {
     isbn: data.isbn13 !== "" ? data.isbn13 : data.isbn,

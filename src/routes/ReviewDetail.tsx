@@ -1,31 +1,28 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 import Loading from "components/Loading";
 import ReviewBookInfo from "components/ReviewBookInfo";
 import useGetReviewInfo from "hooks/useGetReviewInfo";
 import useReview from "hooks/useReview";
-import { RootState } from "store/store";
 import styles from "styles/detail.module.scss";
 
 export default function ReviewDetail() {
   const id = useLocation().pathname.split("/")[3];
-  const token = useSelector((state: RootState) => state.auth.token);
 
   const { loading, review, date, getReviewDetailInfo } = useGetReviewInfo();
   const { deleteReview } = useReview();
 
   useEffect(() => {
-    getReviewDetailInfo(id, token);
-  }, [getReviewDetailInfo, id, token]);
+    getReviewDetailInfo(id);
+  }, [getReviewDetailInfo, id]);
 
   const onClickDelete = () => {
     const ok = window.confirm(
       "삭제된 후기는 복구할 수 없습니다.\n삭제하시겠습니까?",
     );
     if (ok) {
-      deleteReview(id, token);
+      deleteReview(id);
     }
   };
 
