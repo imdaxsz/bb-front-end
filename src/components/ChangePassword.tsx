@@ -1,16 +1,14 @@
 import { useState } from "react";
 
-import api from "api";
+import { changePassword } from "api/UserApi";
 import styles from "styles/auth.module.scss";
 import btnstyles from "styles/my.module.scss";
 
 import Loading from "./Loading";
 
 export default function ChangePassword({
-  token,
   isOauthUser,
 }: {
-  token: string | null;
   isOauthUser: boolean;
 }) {
   const [currentPw, setCurrentPw] = useState("");
@@ -50,7 +48,7 @@ export default function ChangePassword({
     else setValidatePw(false);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const sameCurrentPw = newPw === currentPw && newPw !== "";
     // 현재 비밀번호와 동일 비밀번호인가
@@ -58,28 +56,15 @@ export default function ChangePassword({
     else if (validatePw && isSamePw && !sameCurrentPw) {
       setLoading(true);
       try {
-        api
-          .put(
-            "/api/user/change_password",
-            { currentPw, newPw },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            },
-          )
-          .then((res) => {
-            if (res.status === 200 && res.data !== "PW Error") {
-              window.alert("비밀번호 변경이 완료되었습니다.");
-              window.location.reload();
-            } else setError(1);
-            setLoading(false);
-          });
+        const res = await changePassword(currentPw, newPw);
+        if (res !== "PW Error") {
+          window.alert("비밀번호 변경이 완료되었습니다.");
+          window.location.reload();
+        } else setError(1);
       } catch (error) {
         console.log(error);
-        setLoading(false);
       }
+      setLoading(false);
     }
   };
 
