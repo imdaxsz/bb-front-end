@@ -138,6 +138,10 @@
 .message {
   @include common.flex(row, flex-start, center);
   margin: 20px 0;
+
+  label {
+    cursor: pointer;
+  }
 }
 
 .delete-form {
