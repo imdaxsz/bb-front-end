@@ -24,8 +24,8 @@ instance.interceptors.response.use(
       // TODO: access token 제거
     }
     if (error.response?.data) {
-      const { message, status } = error.response.data;
-      return Promise.reject(new ApiError(message, status));
+      const { message } = error.response.data;
+      return Promise.reject(new ApiError(message, error.response.status));
     }
 
     if (error.message.startsWith("timeout")) {
