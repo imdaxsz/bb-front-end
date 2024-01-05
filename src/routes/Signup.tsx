@@ -2,7 +2,7 @@ import { FormEvent, useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import api from "api";
+import { checkCertiStatus, signUp } from "api/UserApi";
 import styles from "styles/auth.module.scss";
 
 import EmailCertiForSignUp from "./EmailCertiForSignUp";
@@ -35,17 +35,27 @@ export default function Signup() {
     else setIsSamePw(true);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validatePw) setValidatePw(false);
     else if (!isSamePw) setIsSamePw(false);
     if (validatePw && isSamePw) {
-      api.post("/api/user/signup", { email, password }).then((res) => {
-        if (res.status === 200) {
-          window.alert("가입이 완료되었습니다!");
-          navigate("/signin");
-        }
-      });
+      try {
+        await signUp(email, password);
+        window.alert("가입이 완료되었습니다!");
+        navigate("/signin");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const checkValidation = async (email: string) => {
+    try {
+      await checkCertiStatus(email);
+    } catch (error) {
+      console.log(error);
+      navigate("/signup");
     }
   };
 
@@ -53,9 +63,7 @@ export default function Signup() {
     if (pathname === "/signup/next") {
       // 인증 상태 요청
       if (email !== "") {
-        api.get(`/api/certification/certi-status/${email}`).then((res) => {
-          if (!(res.status === 200) || !res.data) navigate("/signup");
-        });
+        checkValidation(email);
       } else navigate("/signup");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

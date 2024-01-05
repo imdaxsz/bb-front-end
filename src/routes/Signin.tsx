@@ -3,8 +3,9 @@ import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import api from "api";
+import { signIn } from "api/UserApi";
 import GoogleLoginButton from "components/GoogleLoginButton";
+import { ApiError } from "lib/error";
 import { signin } from "store/authSlice";
 import styles from "styles/auth.module.scss";
 
@@ -28,21 +29,28 @@ export default function Signin() {
     setPassword(e.target.value);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(false);
     if (email.length <= 0) setBlankEmail(true);
     else if (password.length <= 0) setBlankPw(true);
     if (!blankEmail && !blankPw) {
-      api.post("/api/user/signin", { email, password }).then((res) => {
-        if (res.status === 200 && res.data === "oauth member") {
-          window.alert(
-            "구글 연동으로 가입된 계정입니다. 구글 로그인을 이용해주세요.",
-          );
-        } else if (res.status === 200 && res.data !== "ID or PW error") {
-          dispatch(signin(res.data.token));
+      try {
+        const res = await signIn(email, password);
+        if (res.token) {
+          dispatch(signin(res.token));
           navigate("/");
-        } else setError(true);
-      });
+        }
+      } catch (error) {
+        if (error instanceof ApiError) {
+          if (error.status === 409)
+            window.alert(
+              "구글 연동으로 가입된 계정입니다. 구글 로그인을 이용해주세요.",
+            );
+          if (error.status === 400) setError(true);
+        }
+        console.log(error);
+      }
     }
   };
 
