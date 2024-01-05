@@ -3,11 +3,10 @@ import { FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import api from "api";
+import { searchBook } from "api/BookApi";
+import { RootState } from "store";
 import { setKeyword, setResult } from "store/searchResultSlice";
-import { RootState } from "store/store";
 import styles from "styles/searchbar.module.scss";
-import { setSearchBookInfo } from "utils/setBookInfo";
 
 interface Props {
   placeholder: string;
@@ -29,17 +28,18 @@ export default function SearchBar({ placeholder, keyword, setLoading }: Props) {
     setWord(e.currentTarget.value);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (pathname === "/write") {
       dispatch(setKeyword(word));
       if (setLoading) setLoading(true);
-      api.get(`/api/search/book?query=${word}`).then((res) => {
-        if (res.status === 200) {
-          if (setLoading) setLoading(false);
-          dispatch(setResult(setSearchBookInfo(res.data.item)));
-        }
-      });
+      try {
+        const res = await searchBook(word, null);
+        dispatch(setResult(res.item));
+        if (setLoading) setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     } else if (["/", "/search/review"].includes(pathname))
       navigate(`/search/review?query=${word}`);
     else if (["/recommend", "/search/book"].includes(pathname))
