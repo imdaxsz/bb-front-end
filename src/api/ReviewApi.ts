@@ -1,4 +1,4 @@
-import { del, get, post, put } from "lib/api";
+import { del, get, patch, post } from "lib/api";
 import { Book, Review } from "types";
 
 /**
@@ -46,6 +46,7 @@ export const getSavedReviews = () => {
  * @param {Date} date 후기 작성 시간
  * @param {string} text 후기 내용
  * @param {string} opt 발행 옵션 (업로드 | 임시저장)
+ * @return 생성된 리뷰 아이디
  */
 export const postReview = (
   book: Book | null,
@@ -71,7 +72,7 @@ export const postReview = (
  * @param {string} text 후기 내용
  */
 export const updateReview = (id: string, rating: number, text: string) => {
-  return put<Review>(`/api/review/${id}`, { rating, text });
+  return patch<Review>(`/api/review/${id}`, { rating, text });
 };
 
 /**
