@@ -7,7 +7,7 @@ import ChangePassword from "components/ChangePassword";
 import Loading from "components/Loading";
 import useSignOut from "hooks/useSignout";
 import useUserInfo from "hooks/useUserInfo";
-import { RootState } from "store/store";
+import { RootState } from "store";
 import styles from "styles/my.module.scss";
 
 export default function My() {
@@ -51,7 +51,7 @@ export default function My() {
           <div className={styles["password-wrapper"]}>
             <div className={styles.title}>비밀번호 재설정</div>
             <div className={styles.password}>
-              <ChangePassword token={token} isOauthUser={isOauthUser} />
+              <ChangePassword isOauthUser={isOauthUser} />
             </div>
           </div>
           <div className={styles["item-wrapper"]}>

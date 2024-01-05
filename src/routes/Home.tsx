@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import Loading from "components/Loading";
 import ReviewItem from "components/ReviewItem";
 import useGetReviews from "hooks/useGetReviews";
-import { RootState } from "store/store";
+import { RootState } from "store";
 
 export default function Home({
   isAuthenticated,
@@ -20,7 +20,7 @@ export default function Home({
 
   useEffect(() => {
     if (!token) setLoading(false);
-    else getUserReviews(sort, token);
+    else getUserReviews(sort);
   }, [getUserReviews, setLoading, sort, token]);
 
   return (
