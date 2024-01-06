@@ -3,11 +3,7 @@ export interface Book {
   title: string;
   author: string;
   publisher: string;
-  image: string;
-}
-
-export interface SearchResultBook extends Book {
-  categoryId: string;
+  cover: string;
 }
 
 export interface BookInfo extends Book {
@@ -25,4 +21,10 @@ export interface Review {
   rating: number;
   text: string;
   date: Date;
+}
+
+export interface User {
+  email: string;
+  recommend: boolean;
+  oauth: boolean;
 }

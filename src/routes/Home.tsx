@@ -1,13 +1,14 @@
-import ReviewItem from "../components/ReviewItem";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import Loading from "../components/Loading";
-import useGetReviews from "../hooks/useGetReviews";
+import { useSearchParams } from "react-router-dom";
 
-export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) {
+import Head from "components/Head";
+import Loading from "components/Loading";
+import ReviewItem from "components/ReviewItem";
+import useGetReviews from "hooks/useGetReviews";
+import { RootState } from "store";
+
+export default function Home() {
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const token = useSelector((state: RootState) => state.auth.token);
@@ -15,16 +16,14 @@ export default function Home({ isAuthenticated }: { isAuthenticated: boolean }) 
 
   useEffect(() => {
     if (!token) setLoading(false);
-    else getUserReviews(sort, token);
+    else getUserReviews(sort);
   }, [getUserReviews, setLoading, sort, token]);
 
   return (
     <div className="wrapper">
-      <Helmet>
-        <title>북북 - 홈</title>
-      </Helmet>
+      <Head />
       {loading && <Loading />}
-      {isAuthenticated ? (
+      {token ? (
         <>
           {reviews.length === 0 && !loading ? (
             <div className="guide">

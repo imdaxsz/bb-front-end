@@ -11,7 +11,7 @@
   @include common.setSize(100%, 52px);
   @include common.set-fixed(0, 500);
   background: white;
-  border-bottom: solid 1px #eee;
+  border-bottom: solid 1px common.$neutral-05;
   color: common.$primary;
   .right {
     font-weight: 700;
@@ -29,7 +29,7 @@
   span {
     &:first-child {
       padding: 0 6px;
-      color: #333;
+      color: common.$neutral-80;
     }
   }
 
@@ -41,7 +41,7 @@
     &::before {
       content: "|";
       padding-right: 6px;
-      color: #ccc;
+      color: common.$neutral-20;
     }
   }
 
@@ -52,7 +52,7 @@
   }
   .save {
     background: white;
-    border: solid 1px #ccc;
+    border: solid 1px common.$neutral-20;
     padding: 4px 6px;
   }
   .right {
@@ -117,7 +117,7 @@
 
 .mobile-search {
   width: 100%;
-  background: rgb(247, 247, 247);
+  background: #f7f7f7;
   position: absolute;
   left: 0;
   z-index: 450;
@@ -129,7 +129,7 @@
   }
   li:last-of-type {
     font-size: 14px;
-    color: #b4b9c6;
+    color: common.$bluegray-30;
     padding: 0 16px 0 12px;
     flex-shrink: 0;
   }
@@ -146,7 +146,7 @@
 
 .mb-search-icon {
   padding: 0 6px;
-  color: #cacfe0;
+  color: common.$bluegray-20;
 }
 
 @media screen and (max-width: 650px) {

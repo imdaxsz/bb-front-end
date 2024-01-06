@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { PiHeartFill, PiHeartLight } from "react-icons/pi";
-import api from "../api/api";
-import styles from "../styles/detail.module.scss";
 import { useMediaQuery } from "react-responsive";
 import { BeatLoader } from "react-spinners";
-import useSignOut from "../hooks/useSignout";
+
+import { getLikeState, toggleLike } from "api/BookApi";
+import { handleUnauthorizated } from "lib/error";
+import styles from "styles/detail.module.scss";
 
 interface LikeProps {
   token: string | null;
@@ -15,48 +16,37 @@ export default function Like({ token, isbn }: LikeProps) {
   const [like, setLike] = useState(false);
   const [loading, setLoading] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: 450 });
-  const { signOut } = useSignOut();
+
+  const getLike = useCallback(async () => {
+    setLoading(true);
+    try {
+      const result = await getLikeState(isbn);
+      setLike(result);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }, [isbn]);
 
   // 서버에서 좋아요 여부 확인
   useEffect(() => {
     if (token) {
-      setLoading(true);
-      api
-        .get(`/api/like/book/${isbn}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setLoading(false);
-          if (res.status === 200) setLike(res.data);
-        });
+      getLike();
     }
-  }, [token, isbn]);
+  }, [token, getLike]);
 
-  const onClick = () => {
-    if (!token) window.alert("관심 도서 추가는 로그인 후 가능합니다!");
-    else {
-      // 추가 또는 삭제
-      api
-        .post(
-          `/api/like`,
-          { isbn },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          if (res.status === 200) setLike((prev) => !prev);
-          else if (res.status === 403) {
-            window.alert("관심 도서 추가는 로그인 후 가능합니다!");
-            signOut();
-          }
-        });
+  const onClick = async () => {
+    if (!token) {
+      window.alert("관심 도서 추가는 로그인 후 가능합니다!");
+      return;
+    }
+    // 추가 또는 삭제
+    try {
+      await toggleLike(isbn);
+      setLike((prev) => !prev);
+    } catch (error) {
+      console.log(error);
+      handleUnauthorizated(error, "confirm");
     }
   };
 
@@ -78,5 +68,13 @@ export default function Like({ token, isbn }: LikeProps) {
 
 function Icon({ loading, like }: { loading: boolean; like: boolean }) {
   if (loading) return <BeatLoader size={2} color="#777" />;
-  return <>{like ? <PiHeartFill color="#f94a7b" size="24px" /> : <PiHeartLight size="24px" />}</>;
+  return (
+    <>
+      {like ? (
+        <PiHeartFill color="#f94a7b" size="24px" />
+      ) : (
+        <PiHeartLight size="24px" />
+      )}
+    </>
+  );
 }

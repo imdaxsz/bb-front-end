@@ -1,8 +1,16 @@
 import { useCallback, useState } from "react";
-import { Search, getSearchResultType } from "../utils/search";
-import { Book, Review } from "../types/types";
-import { setBookInfo } from "../utils/setBookInfo";
-import useSignOut from "./useSignout";
+
+import { searchBook, searchMyBook } from "api/BookApi";
+import { searchReview } from "api/ReviewApi";
+import { handleUnauthorizated } from "lib/error";
+import { Book, Review } from "types";
+import { setBookInfo } from "utils/setBookInfo";
+
+export type getSearchResultType = (
+  page: string | null,
+  keyword: string | null,
+  searchType: string,
+) => void;
 
 export default function useSearch() {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -10,23 +18,29 @@ export default function useSearch() {
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const { signOut } = useSignOut();
-
   const getSearchResult: getSearchResultType = useCallback(
-    async (page, keyword, searchType, token) => {
+    async (page, keyword, searchType) => {
       setLoading(true);
-      const res = await Search(page, keyword, searchType, token);
-      if (res.status === 200) {
-        if (searchType === "review") setReviews(res.data);
-        else if (searchType === "my_list") setBooks(setBookInfo(res.data));
-        else {
-          setBooks(setBookInfo(res.data.item));
-          setTotalItems(res.data.totalResults <= 200 ? res.data.totalResults : 200);
+      try {
+        if (searchType === "review") {
+          const res = await searchReview(keyword);
+          setReviews(res);
+        } else if (searchType === "my_list") {
+          const res = await searchMyBook(keyword);
+          console.log(res);
+          setBooks(setBookInfo(res));
+        } else {
+          const res = await searchBook(keyword, page);
+          setBooks(setBookInfo(res.item));
+          setTotalItems(res.totalResults <= 200 ? res.totalResults : 200);
         }
-      } else if (res.status === 403) signOut();
+      } catch (error) {
+        console.log(error);
+        handleUnauthorizated(error);
+      }
       setLoading(false);
     },
-    [signOut]
+    [],
   );
 
   return { books, reviews, totalItems, loading, setLoading, getSearchResult };

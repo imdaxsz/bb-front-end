@@ -1,10 +1,12 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import styles from "../styles/auth.module.scss";
 import { useState, FormEvent, useEffect } from "react";
-import api from "../api/api";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import { checkCertiStatus, resetPassword } from "api/UserApi";
+import Head from "components/Head";
+import Loading from "components/Loading";
+import styles from "styles/auth.module.scss";
+
 import EmailCertiForResetPW from "./EmailCertiForResetPW";
-import { Helmet } from "react-helmet-async";
-import Loading from "../components/Loading";
 
 export default function FindPassword() {
   const navigate = useNavigate();
@@ -37,42 +39,43 @@ export default function FindPassword() {
     else setIsSamePw(true);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validatePw && isSamePw) {
       try {
         setLoading(true);
-        api.put("/api/user/reset_password", { email, password }).then((res) => {
-          if (res.status === 200) {
-            setLoading(false);
-            window.alert("비밀번호 재설정이 완료되었습니다!");
-            navigate("/signin");
-          }
-        });
+        await resetPassword(email, password);
+        window.alert("비밀번호 재설정이 완료되었습니다!");
+        navigate("/signin");
       } catch (error) {
-        setLoading(false);
         console.log(error);
       }
+      setLoading(false);
+    }
+  };
+
+  const checkValidation = async (email: string) => {
+    try {
+      const res = await checkCertiStatus(email);
+      if (!res) navigate("/find_password");
+    } catch (error) {
+      console.log(error);
+      navigate("/find_password");
     }
   };
 
   useEffect(() => {
     if (pathname === "/find_password/next") {
       // 인증 상태 요청
-      if (email !== "") {
-        api.get(`/api/certification/certi-status/${email}`).then((res) => {
-          if (!(res.status === 200) || !res.data) navigate("/find_password");
-        });
-      } else navigate("/find_password");
+      if (email.trim() === "") return;
+      checkValidation(email);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, pathname]);
 
   return (
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>북북 - 비밀번호 찾기</title>
-      </Helmet>
+      <Head title="비밀번호 찾기 | 북북" />
       {loading && <Loading />}
       <div className={styles.content}>
         <div className={styles.logo}>
@@ -80,7 +83,9 @@ export default function FindPassword() {
         </div>
         {!checkedEmail ? (
           <>
-            <h4 className={styles["label-sm"]}>본인 확인을 위해 이메일 인증을 해주세요.</h4>
+            <h4 className={styles["label-sm"]}>
+              본인 확인을 위해 이메일 인증을 해주세요.
+            </h4>
             <EmailCertiForResetPW email={email} setEmail={setEmail} />
           </>
         ) : (
@@ -97,7 +102,9 @@ export default function FindPassword() {
                 autoComplete="off"
                 placeholder="새 비밀번호 입력"
               />
-              {validatePw === false && <span>비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>}
+              {validatePw === false && (
+                <span>비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>
+              )}
               <input
                 className={styles.input}
                 name="pwConfirm"
@@ -108,7 +115,12 @@ export default function FindPassword() {
                 placeholder="새 비밀번호 확인"
               />
               {isSamePw === false && <span>비밀번호가 일치하지 않습니다.</span>}
-              <input className={styles.submit} type="submit" value="완료" disabled={!pwButtonDisabled} />
+              <input
+                className={styles.submit}
+                type="submit"
+                value="완료"
+                disabled={!pwButtonDisabled}
+              />
             </form>
           </div>
         )}

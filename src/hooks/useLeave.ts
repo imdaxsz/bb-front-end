@@ -1,38 +1,28 @@
 import { useState } from "react";
-import api, { isAxiosError, AxiosError } from "../api/api";
+
+import { deleteAccount as request } from "api/UserApi";
+import { ApiError, handleUnauthorizated } from "lib/error";
+
 import useSignOut from "./useSignout";
 
 export default function useLeave() {
   const { signOut } = useSignOut();
   const [loading, setLoading] = useState(false);
 
-  const deleteAccount = async (password: string, token: string | null) => {
+  const deleteAccount = async (password: string) => {
     setLoading(true);
     try {
-      const res = await api.post(
-        "/api/user/delete_account",
-        { password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setLoading(false);
-      if (res.status === 200 && res.data !== "ID or PW error!") {
-        window.alert("탈퇴 완료되었습니다.");
-        signOut();
-      } else window.alert("비밀번호를 다시 확인하세요.");
+      await request(password);
+      window.alert("탈퇴 완료되었습니다.");
+      signOut("/");
     } catch (error) {
-      if (isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        if (axiosError.response && axiosError.response.status === 403) signOut();
+      if (error instanceof ApiError) {
+        handleUnauthorizated(error, "alert");
+        if (error.status === 400) window.alert("비밀번호를 다시 확인하세요.");
       }
-      setLoading(false);
       console.log(error);
     }
+    setLoading(false);
   };
 
   return { loading, deleteAccount };

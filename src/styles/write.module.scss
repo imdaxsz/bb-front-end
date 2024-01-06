@@ -28,24 +28,24 @@
   font-size: 20px;
   padding: 8px 20px;
   border-radius: 30px;
-  border: 2px solid #e3e5e9;
+  border: 2px solid common.$bluegray-10;
   background: rgba(0, 0, 0, 0);
-  color: #b4b9c6;
+  color: common.$bluegray-30;
   cursor: pointer;
   &:hover {
-    border: 2px solid #a7c4bc;
-    color: #a7c4bc;
+    border: 2px solid common.$secondary;
+    color: common.$secondary;
     transition: all 0.02;
   }
 }
 
 @media screen and (max-width: 650px) {
-  .wrapper{
+  .wrapper {
     height: 100%;
     padding-top: 20px;
   }
 
-  .date{
+  .date {
     margin-top: 30px;
   }
 }

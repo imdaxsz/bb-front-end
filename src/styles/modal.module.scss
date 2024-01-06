@@ -67,7 +67,7 @@ $wrapper-width: 100%;
 }
 
 hr {
-  background: #ddd;
+  background: common.$neutral-10;
   height: 1px;
   border: 0;
 }
@@ -78,7 +78,7 @@ hr {
 
 .list-item {
   width: 100%;
-  border-bottom: solid 1px #ddd;
+  border-bottom: solid 1px common.$neutral-10;
   padding: 15px 0;
   cursor: pointer;
   color: #222;
@@ -86,12 +86,12 @@ hr {
 }
 
 .text-sm {
-  color: #aaa;
+  color: common.$neutral-30;
   font-size: 15px;
 }
 
 .des {
-  color: #888;
+  color: common.$neutral-50;
 }
 
 .review {
@@ -101,7 +101,7 @@ hr {
 .icon {
   @include common.setSize($icon, $icon);
   @include common.flex(row, center, center);
-  color: #aaa;
+  color: common.$neutral-30;
 }
 
 @media screen and (max-width: 650px) {

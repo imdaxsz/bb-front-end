@@ -1,22 +1,29 @@
 import { useEffect } from "react";
-import BookItem from "../components/BookItem";
-import { useSearchParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import Loading from "../components/Loading";
-import useMyBookList from "../hooks/useMyBookList";
+import { useSearchParams } from "react-router-dom";
 
-export default function MyBookList({ isAuthenticated }: { isAuthenticated: boolean }) {
+import BookItem from "components/BookItem";
+import Head from "components/Head";
+import Loading from "components/Loading";
+import useMyBookList from "hooks/useMyBookList";
+import { RootState } from "store";
+
+export default function MyBookList() {
   const token = useSelector((state: RootState) => state.auth.token);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
 
-  const { filteredBooks, getUserMyBookList, getSortedUserMyList, loading, setLoading } = useMyBookList();
+  const {
+    filteredBooks,
+    getUserMyBookList,
+    getSortedUserMyList,
+    loading,
+    setLoading,
+  } = useMyBookList();
 
   useEffect(() => {
     if (!token) setLoading(false);
-    else getUserMyBookList(token);
+    else getUserMyBookList();
   }, [getUserMyBookList, setLoading, token]);
 
   useEffect(() => {
@@ -25,11 +32,9 @@ export default function MyBookList({ isAuthenticated }: { isAuthenticated: boole
 
   return (
     <div className="wrapper">
-      <Helmet>
-        <title>북북 - 관심도서</title>
-      </Helmet>
+      <Head title="관심도서 | 북북" />
       {loading && <Loading />}
-      {isAuthenticated ? (
+      {token ? (
         <>
           {filteredBooks.length === 0 && !loading ? (
             <div className="guide">

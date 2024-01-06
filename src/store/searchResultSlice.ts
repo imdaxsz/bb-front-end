@@ -1,10 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { SearchResultBook } from "../types/types";
+
+import { DetailBookResponse } from "api/BookApi";
 
 interface searchResult {
   keyword: string;
-  books: SearchResultBook[] | null;
-  selected: SearchResultBook | null;
+  books: DetailBookResponse[] | null;
+  selected: DetailBookResponse | null;
   categoryId: string;
 }
 
@@ -24,10 +25,10 @@ export const searchResultSlice = createSlice({
     setKeyword(state, action: PayloadAction<string>) {
       state.keyword = action.payload;
     },
-    setResult(state, action: PayloadAction<SearchResultBook[]>) {
+    setResult(state, action: PayloadAction<DetailBookResponse[]>) {
       state.books = action.payload;
     },
-    setSelected(state, action: PayloadAction<SearchResultBook | null>) {
+    setSelected(state, action: PayloadAction<DetailBookResponse | null>) {
       state.selected = action.payload;
     },
     setCategoryId(state, action: PayloadAction<string>) {
@@ -36,5 +37,6 @@ export const searchResultSlice = createSlice({
   },
 });
 
-export const { reset, setKeyword, setResult, setSelected, setCategoryId } = searchResultSlice.actions;
+export const { reset, setKeyword, setResult, setSelected, setCategoryId } =
+  searchResultSlice.actions;
 export default searchResultSlice.reducer;

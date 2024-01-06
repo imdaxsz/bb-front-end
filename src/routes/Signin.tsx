@@ -1,11 +1,13 @@
-import api from "../api/api";
-import styles from "../styles/auth.module.scss";
 import { useState, FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
-import { signin } from "../store/authSlice";
-import GoogleLoginButton from "../components/GoogleLoginButton";
+import { Link, useNavigate } from "react-router-dom";
+
+import { signIn } from "api/UserApi";
+import GoogleLoginButton from "components/GoogleLoginButton";
+import Head from "components/Head";
+import { ApiError } from "lib/error";
+import { signin } from "store/authSlice";
+import styles from "styles/auth.module.scss";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
@@ -27,33 +29,47 @@ export default function Signin() {
     setPassword(e.target.value);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(false);
     if (email.length <= 0) setBlankEmail(true);
     else if (password.length <= 0) setBlankPw(true);
     if (!blankEmail && !blankPw) {
-      api.post("/api/user/signin", { email, password }).then((res) => {
-        if (res.status === 200 && res.data === "oauth member") {
-          window.alert("구글 연동으로 가입된 계정입니다. 구글 로그인을 이용해주세요.");
-        } else if (res.status === 200 && res.data !== "ID or PW error") {
-          dispatch(signin(res.data.token));
+      try {
+        const res = await signIn(email, password);
+        if (res.token) {
+          dispatch(signin(res.token));
           navigate("/");
-        } else setError(true);
-      });
+        }
+      } catch (error) {
+        if (error instanceof ApiError) {
+          if (error.status === 409)
+            window.alert(
+              "구글 연동으로 가입된 계정입니다. 구글 로그인을 이용해주세요.",
+            );
+          if (error.status === 400) setError(true);
+        }
+        console.log(error);
+      }
     }
   };
 
   return (
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>북북 - 로그인</title>
-      </Helmet>
+      <Head title="로그인 | 북북" />
       <div className={styles.content}>
         <div className={styles.logo}>
           <Link to="/">북북</Link>
         </div>
         <form onSubmit={onSubmit} className={styles.form} noValidate>
-          <input className={styles.input} name="email" type="email" value={email} onChange={onChangeEmail} placeholder="이메일" />
+          <input
+            className={styles.input}
+            name="email"
+            type="email"
+            value={email}
+            onChange={onChangeEmail}
+            placeholder="이메일"
+          />
           <input
             className={styles.input}
             name="password"
@@ -64,7 +80,12 @@ export default function Signin() {
             placeholder="비밀번호"
           />
           {error && <span>이메일 또는 비밀번호를 다시 확인해주세요.</span>}
-          <input className={styles.submit} disabled={!disabled} type="submit" value="로그인" />
+          <input
+            className={styles.submit}
+            disabled={!disabled}
+            type="submit"
+            value="로그인"
+          />
         </form>
         <ul className={styles.find}>
           <li>

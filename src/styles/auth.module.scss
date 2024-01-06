@@ -26,27 +26,27 @@
 }
 
 .input {
-  border: solid 2px #eee;
+  border: solid 2px common.$neutral-05;
   border-radius: 20px;
   padding: 12px 16px;
   margin-top: 10px;
   width: 100%;
   &:focus {
-    border-color: #a7c4bc;
+    border-color: common.$secondary;
     transition: all 0.02;
   }
   &.error {
-    border: solid 2px #ff3f3f;
+    border: solid 2px common.$warning;
   }
   &:disabled {
     cursor: default;
-    background: #eee;
+    background: common.$neutral-05;
   }
 }
 
 .submit {
   @extend .input;
-  background: #a7c4bc;
+  background: common.$secondary;
   color: white;
   text-align: center;
   font-weight: bold;
@@ -69,7 +69,7 @@
   color: inherit;
   font-size: 16px;
   font-weight: 500;
-  border: solid 2px #eee;
+  border: solid 2px common.$neutral-05;
   border-radius: 20px;
   padding: 12px 16px;
   margin-top: 30px;
@@ -78,12 +78,12 @@
 
 .find {
   @include common.flex(row, center, center);
-  // padding: 10px 0;
+
   li {
     position: relative;
     height: 50px;
     font-size: 14px;
-    color: #888;
+    color: common.$neutral-50;
     cursor: pointer;
     &::after {
       content: "|";
@@ -104,7 +104,7 @@
   @include common.flex(row, center, center);
   font-size: 24px;
   margin-bottom: 35px;
-  color: #5e8b7e;
+  color: common.$primary;
 }
 
 .label-sm {
@@ -117,7 +117,7 @@
   @include common.flex(column, center, center);
   span {
     font-size: 13px;
-    color: #ff3f3f;
+    color: common.$warning;
   }
 }
 

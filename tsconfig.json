@@ -15,7 +15,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["node", "react", "redux-persist"]
+    "types": ["node", "react", "redux-persist"],
+    "baseUrl": "src",
   },
   "include": ["src"]
 }

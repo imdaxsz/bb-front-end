@@ -3,7 +3,7 @@
 .wrapper {
   @include common.flex(row, center, center);
   margin-top: 30px;
-  color: #888;
+  color: common.$neutral-50;
   font-size: 14px;
   a,
   li {
@@ -68,6 +68,6 @@
 
 @media (hover: hover) {
   .page:hover {
-    border: solid 1px #aaa;
+    border: solid 1px common.$neutral-30;
   }
 }

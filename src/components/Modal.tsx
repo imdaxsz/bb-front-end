@@ -1,5 +1,6 @@
-import modal from "../styles/modal.module.scss";
 import { useEffect } from "react";
+
+import modal from "styles/modal.module.scss";
 
 interface Props {
   onClickOutside: () => void;
@@ -8,7 +9,12 @@ interface Props {
   size?: "md";
 }
 
-export default function Modal({ onClickOutside, content, bottom, size }: Props) {
+export default function Modal({
+  onClickOutside,
+  content,
+  bottom,
+  size,
+}: Props) {
   const onClickInside = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
@@ -28,8 +34,11 @@ export default function Modal({ onClickOutside, content, bottom, size }: Props) 
   }, []);
 
   return (
-    <div className={modal.wrapper} onClick={onClickOutside}>
-      <div className={`${modal.modal} ${size && modal["modal-sm"]}`} onClick={onClickInside}>
+    <div className={modal.wrapper} onMouseDown={onClickOutside}>
+      <div
+        className={`${modal.modal} ${size && modal["modal-sm"]}`}
+        onMouseDown={onClickInside}
+      >
         {content}
         <div className={modal.bottom}>{bottom}</div>
       </div>

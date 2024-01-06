@@ -1,17 +1,18 @@
 import { useRef, useState, useEffect } from "react";
-import styles from "../styles/write.module.scss";
-import { useSearchParams } from "react-router-dom";
-import SearchModal from "../components/SearchModal";
 import { BsPlusLg } from "react-icons/bs";
-import ReviewBookInfo from "../components/ReviewBookInfo";
-import TopBar from "../components/TopBar";
-import SavedList from "../components/SavedList";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import Loading from "../components/Loading";
-import useReview from "../hooks/useReview";
-import useSavedReview from "../hooks/useSavedReview";
-import useRecommend from "../hooks/useRecommend";
+import { useSearchParams } from "react-router-dom";
+
+import Loading from "components/Loading";
+import ReviewBookInfo from "components/ReviewBookInfo";
+import SavedList from "components/SavedList";
+import SearchModal from "components/SearchModal";
+import TopBar from "components/TopBar";
+import useRecommend from "hooks/useRecommend";
+import useReview from "hooks/useReview";
+import useSavedReview from "hooks/useSavedReview";
+import { RootState } from "store";
+import styles from "styles/write.module.scss";
 
 export default function Write() {
   const [searchModal, setSearchModal] = useState(false);
@@ -23,9 +24,20 @@ export default function Write() {
   const id = searchParams.get("logNo");
   const today = new Date();
 
-  const token = useSelector((state: RootState) => state.auth.token);
-
-  const { book, setBook, text, setText, rating, setRating, date, loading, setLoading, loadReview, addReview, updateReview } = useReview();
+  const {
+    book,
+    setBook,
+    text,
+    setText,
+    rating,
+    setRating,
+    date,
+    loading,
+    setLoading,
+    loadReview,
+    addReview,
+    updateReview,
+  } = useReview();
   const { reviews, loadSavedReviews } = useSavedReview();
   const { getRecommendBook } = useRecommend();
 
@@ -33,20 +45,21 @@ export default function Write() {
 
   const onSubmit = async (opt: "save" | "upload") => {
     if (!book) window.alert("후기를 작성할 책을 선택해주세요!");
-    else if (opt === "upload" && text === "") window.alert("후기 내용을 입력해주세요!");
+    else if (opt === "upload" && text === "")
+      window.alert("후기 내용을 입력해주세요!");
     else {
       if (mode === "new") {
         // 새 후기 저장
-        const id = await addReview(book, rating, today, text, opt, token, reviews);
+        const id = await addReview(book, rating, today, text, opt, reviews);
         if (id !== "" && opt === "upload") {
           // 새 후기 발행
           setLoading(true);
           // 후기 기반 도서 추천
-          await getRecommendBook(id, token);
+          await getRecommendBook(id);
         }
       }
       // 후기 수정
-      else updateReview(id, token);
+      else updateReview(id);
     }
   };
 
@@ -66,32 +79,62 @@ export default function Write() {
 
   useEffect(() => {
     // 후기 수정일 경우
-    if (mode === "edit") loadReview(id, token);
-    else loadSavedReviews(token, setLoading);
-  }, [id, mode, token, loadReview, loadSavedReviews, setLoading, savedCount]);
+    if (mode === "edit") loadReview(id);
+    else loadSavedReviews(setLoading);
+  }, [id, mode, loadReview, loadSavedReviews, setLoading, savedCount]);
 
   return (
     <>
       {loading && <Loading />}
-      {searchModal && <SearchModal setModal={setSearchModal} setBook={setBook} />}
-      {savedModal && <SavedList setModal={setSavedModal} setBook={setBook} setText={setText} setRating={setRating} token={token} />}
+      {searchModal && (
+        <SearchModal setModal={setSearchModal} setBook={setBook} />
+      )}
+      {savedModal && (
+        <SavedList
+          setModal={setSavedModal}
+          setBook={setBook}
+          setText={setText}
+          setRating={setRating}
+        />
+      )}
       {!loading && (
         <>
-          <TopBar write={{ mode: mode ? mode : "new", onClick: onSubmit, onNumClick: showSavedReviews }} />
+          <TopBar
+            write={{
+              mode: mode ? mode : "new",
+              onClick: onSubmit,
+              onNumClick: showSavedReviews,
+            }}
+          />
           <div className="wrapper">
             <div className={styles.wrapper}>
               <div className={styles.content}>
                 {!book ? (
-                  <div className={styles["btn-add"]} onClick={() => setSearchModal(true)}>
+                  <div
+                    className={styles["btn-add"]}
+                    onClick={() => setSearchModal(true)}
+                  >
                     <span>책 추가&nbsp;&nbsp;</span>
                     <BsPlusLg size={23} />
                   </div>
                 ) : (
-                  <ReviewBookInfo book={book} setBook={setBook} rating={rating} setRating={setRating} isEdit={mode === "edit"} />
+                  <ReviewBookInfo
+                    book={book}
+                    setBook={setBook}
+                    rating={rating}
+                    setRating={setRating}
+                    isEdit={mode === "edit"}
+                  />
                 )}
                 <form>
                   <div className={styles.date}>{date}</div>
-                  <textarea ref={textareaRef} value={text} onChange={onChange} placeholder="내용을 입력하세요" className={styles.textarea} />
+                  <textarea
+                    ref={textareaRef}
+                    value={text}
+                    onChange={onChange}
+                    placeholder="내용을 입력하세요"
+                    className={styles.textarea}
+                  />
                 </form>
               </div>
             </div>

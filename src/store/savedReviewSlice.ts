@@ -5,7 +5,7 @@ interface Count {
 }
 
 const initialState: Count = {
-  count: 0
+  count: 0,
 };
 
 export const savedReviewSlice = createSlice({

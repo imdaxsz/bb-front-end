@@ -1,7 +1,8 @@
-import { Book } from "../types/types";
-import styles from "../styles/book.module.scss";
-import { PiStarFill, PiStarLight } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
+import { PiStarFill, PiStarLight } from "react-icons/pi";
+
+import styles from "styles/book.module.scss";
+import { Book } from "types";
 
 interface ReviewBookInfoType {
   book: Book;
@@ -11,7 +12,13 @@ interface ReviewBookInfoType {
   isEdit?: boolean;
 }
 
-export default function ReviewBookInfo({ book, setBook, rating, setRating, isEdit }: ReviewBookInfoType) {
+export default function ReviewBookInfo({
+  book,
+  setBook,
+  rating,
+  setRating,
+  isEdit,
+}: ReviewBookInfoType) {
   const onClickStar = (i: number) => {
     if (setRating) setRating(i + 1);
   };
@@ -31,7 +38,7 @@ export default function ReviewBookInfo({ book, setBook, rating, setRating, isEdi
         </span>
       )}
       <div className={`${setBook ? styles["img-sm"] : styles["img-lg"]}`}>
-        <img src={book.image} alt={book.title} />
+        <img src={book.cover} alt={book.title} />
       </div>
       <div className={styles.info}>
         <div className={`${styles.title}`}>{book.title}</div>
@@ -39,10 +46,18 @@ export default function ReviewBookInfo({ book, setBook, rating, setRating, isEdi
         <p>출판&nbsp; {book.publisher}</p>
         <div className={`${styles.rating} ${setBook && "pointer"}`}>
           {[...Array(rating)].map((a, i) => (
-            <PiStarFill className="star-lg" key={i} onClick={() => onClickStar(i)} />
+            <PiStarFill
+              className="star-lg"
+              key={i}
+              onClick={() => onClickStar(i)}
+            />
           ))}
           {[...Array(5 - rating)].map((a, i) => (
-            <PiStarLight className="star-lg" key={i} onClick={() => onClickStar(rating + i)} />
+            <PiStarLight
+              className="star-lg"
+              key={i}
+              onClick={() => onClickStar(rating + i)}
+            />
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
-import styles from "../styles/auth.module.scss";
 import { FcGoogle } from "react-icons/fc";
+
+import styles from "styles/auth.module.scss";
 
 export default function GoogleLoginButton() {
   const onClickGoogle = () => {

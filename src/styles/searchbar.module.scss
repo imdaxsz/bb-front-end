@@ -7,7 +7,7 @@
   width: inherit;
   background: white;
   border-radius: 30px;
-  border: 2px solid #e3e5e9;
+  border: 2px solid common.$bluegray-10;
   overflow: hidden;
   height: fit-content;
 }
@@ -17,7 +17,7 @@
   @include common.flex(row, center, center);
   position: absolute;
   right: 0;
-  color: #cacfe0;
+  color: common.$bluegray-20;
 }
 
 .input {
@@ -32,10 +32,10 @@
 
 .container:focus-within {
   background: white;
-  border: 2px solid #a7c4bc;
+  border: 2px solid common.$secondary;
   transition: all 0.02;
   .icon {
-    color: #a7c4bc;
+    color: common.$secondary;
   }
 }
 
@@ -43,10 +43,10 @@
   .container {
     border: none;
     border-radius: 0;
-    border-bottom: 2px solid #e3e5e9;
+    border-bottom: 2px solid common.$bluegray-10;
     height: 50px;
     &:focus-within {
-      border-bottom: 2px solid #a7c4bc;
+      border-bottom: 2px solid common.$secondary;
     }
   }
   .input {

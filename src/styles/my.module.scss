@@ -34,8 +34,8 @@
   @extend .btn;
   width: 80px;
   background: white;
-  color: #888;
-  border: solid 1px #ccc;
+  color: common.$neutral-50;
+  border: solid 1px common.$neutral-20;
 }
 
 .right {
@@ -50,7 +50,7 @@
 
   a {
     font-size: 16px;
-    color: #888;
+    color: common.$neutral-50;
     @include common.flex(row, flex-start, center);
     &::after {
       content: ">";
@@ -89,7 +89,7 @@
   button {
     margin-top: 10px;
     &:disabled {
-      background: #bbb;
+      background: common.$bluegray-30;
       cursor: default;
     }
   }
@@ -99,7 +99,7 @@
       width: 100%;
       font-size: 13px;
       text-align: center;
-      color: #ff3f3f;
+      color: common.$warning;
     }
   }
 }
@@ -138,13 +138,17 @@
 .message {
   @include common.flex(row, flex-start, center);
   margin: 20px 0;
+
+  label {
+    cursor: pointer;
+  }
 }
 
 .delete-form {
   // 회원탈퇴 폼
   .input {
     @include common.setSize(180px, 35px);
-    border: solid 1px #dadada;
+    border: solid 1px common.$neutral-10;
     border-radius: 30px;
     padding: 0 12px;
     margin: 5px 0;

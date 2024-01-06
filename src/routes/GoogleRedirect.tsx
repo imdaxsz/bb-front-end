@@ -1,7 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api/api";
-import Loading from "../components/Loading";
+
+import { googleLogin as request } from "api/UserApi";
+import Loading from "components/Loading";
 
 export default function GoogleRedirect() {
   const navigate = useNavigate();
@@ -11,11 +12,18 @@ export default function GoogleRedirect() {
   const code = new URL(window.location.href).searchParams.get("code");
 
   // 2. 인가코드 서버에 보내면서 로그인 or 회원가입 요청
-  const googleLogin = useCallback(async (code: string) => {
-    const res = await api.get(`/auth/google?code=${code}`);
-    navigate(res.data);
-    setLoading(false);
-  }, [navigate]);
+  const googleLogin = useCallback(
+    async (code: string) => {
+      try {
+        const res = await request(code);
+        navigate(res);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    },
+    [navigate],
+  );
 
   useEffect(() => {
     if (code) {
