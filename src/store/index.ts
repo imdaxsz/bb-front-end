@@ -8,7 +8,7 @@ import { savedReviewSlice } from "./savedReviewSlice";
 import { searchResultSlice } from "./searchResultSlice";
 
 const persistConfig = {
-  key: "root",
+  key: "bookbook",
   storage,
   whitelist: ["auth"],
 };
