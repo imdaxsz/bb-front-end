@@ -11,9 +11,7 @@ export default function useSignOut() {
   const signOut = useCallback(
     (url?: string) => {
       dispatch(signout());
-
       if (url) navigate(url);
-      else navigate("/signin");
     },
     [dispatch, navigate],
   );
