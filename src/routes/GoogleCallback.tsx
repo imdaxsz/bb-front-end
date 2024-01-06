@@ -16,12 +16,14 @@ export default function GoogleCallback() {
     if (userExists) {
       window.alert("이메일로 가입된 계정입니다. 이메일로 로그인 해주세요.");
       navigate("/signin");
-    } else if (token) {
+      return;
+    }
+    if (token) {
       dispatch(signin(token));
       navigate("/");
-    } else {
-      navigate("/404");
+      return;
     }
+    navigate("/404");
   }, [dispatch, location.search, navigate]);
 
   return <></>;
