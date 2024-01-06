@@ -1,14 +1,12 @@
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
+import Head from "components/Head";
 import styles from "styles/auth.module.scss";
 
 export default function NotFound() {
   return (
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>북북 - 존재하지 않는 페이지</title>
-      </Helmet>
+      <Head title="존재하지 않는 페이지 | 북북" />
       <div className={styles.content}>
         <div className={styles.logo}>
           <Link to="/">북북</Link>

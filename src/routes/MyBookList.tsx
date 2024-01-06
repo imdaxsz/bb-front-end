@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
 import BookItem from "components/BookItem";
+import Head from "components/Head";
 import Loading from "components/Loading";
 import useMyBookList from "hooks/useMyBookList";
 import { RootState } from "store";
@@ -36,9 +36,7 @@ export default function MyBookList({
 
   return (
     <div className="wrapper">
-      <Helmet>
-        <title>북북 - 관심도서</title>
-      </Helmet>
+      <Head title="관심도서 | 북북" />
       {loading && <Loading />}
       {isAuthenticated ? (
         <>

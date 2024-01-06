@@ -1,8 +1,8 @@
 import { FormEvent, useState, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { checkCertiStatus, signUp } from "api/UserApi";
+import Head from "components/Head";
 import styles from "styles/auth.module.scss";
 
 import EmailCertiForSignUp from "./EmailCertiForSignUp";
@@ -71,9 +71,7 @@ export default function Signup() {
 
   return (
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>북북 - 회원가입</title>
-      </Helmet>
+      <Head title="회원가입 | 북북" />
       <div className={styles.content}>
         <div className={styles.logo}>
           <Link to="/">북북</Link>

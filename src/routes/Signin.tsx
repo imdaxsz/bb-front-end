@@ -1,10 +1,10 @@
 import { useState, FormEvent } from "react";
-import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import { signIn } from "api/UserApi";
 import GoogleLoginButton from "components/GoogleLoginButton";
+import Head from "components/Head";
 import { ApiError } from "lib/error";
 import { signin } from "store/authSlice";
 import styles from "styles/auth.module.scss";
@@ -56,9 +56,7 @@ export default function Signin() {
 
   return (
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>북북 - 로그인</title>
-      </Helmet>
+      <Head title="로그인 | 북북" />
       <div className={styles.content}>
         <div className={styles.logo}>
           <Link to="/">북북</Link>

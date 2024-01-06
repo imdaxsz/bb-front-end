@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
+import Head from "components/Head";
 import Loading from "components/Loading";
 import ReviewItem from "components/ReviewItem";
 import useGetReviews from "hooks/useGetReviews";
@@ -25,9 +25,7 @@ export default function Home({
 
   return (
     <div className="wrapper">
-      <Helmet>
-        <title>북북 - 홈</title>
-      </Helmet>
+      <Head />
       {loading && <Loading />}
       {isAuthenticated ? (
         <>

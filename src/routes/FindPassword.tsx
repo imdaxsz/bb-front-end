@@ -1,8 +1,8 @@
 import { useState, FormEvent, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { checkCertiStatus, resetPassword } from "api/UserApi";
+import Head from "components/Head";
 import Loading from "components/Loading";
 import styles from "styles/auth.module.scss";
 
@@ -75,9 +75,7 @@ export default function FindPassword() {
 
   return (
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>북북 - 비밀번호 찾기</title>
-      </Helmet>
+      <Head title="비밀번호 찾기 | 북북" />
       {loading && <Loading />}
       <div className={styles.content}>
         <div className={styles.logo}>

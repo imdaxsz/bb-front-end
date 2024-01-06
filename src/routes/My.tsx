@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import ChangePassword from "components/ChangePassword";
+import Head from "components/Head";
 import Loading from "components/Loading";
 import useSignOut from "hooks/useSignout";
 import useUserInfo from "hooks/useUserInfo";
@@ -14,14 +14,14 @@ export default function My() {
   const token = useSelector((state: RootState) => state.auth.token);
   const {
     email,
-    active,
+    isRecommendActive,
     isOauthUser,
     infoLoading,
     backUploading,
     getUserInfo,
     onRecommendClick,
     onRequestDataClick,
-  } = useUserInfo({ token });
+  } = useUserInfo();
   const { signOut } = useSignOut();
 
   useEffect(() => {
@@ -32,9 +32,7 @@ export default function My() {
 
   return (
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>북북 - 마이페이지</title>
-      </Helmet>
+      <Head title="마이페이지 | 북북" />
       {(infoLoading || backUploading) && <Loading />}
       {!infoLoading && (
         <div className={styles.content}>
@@ -57,7 +55,7 @@ export default function My() {
           <div className={styles["item-wrapper"]}>
             <span className={styles["title-md"]}>후기 작성 후 책 추천</span>
             <div
-              className={`toggle ${active ? "toggle-active" : ""}`}
+              className={`toggle ${isRecommendActive ? "toggle-active" : ""}`}
               onClick={() => onRecommendClick()}
             >
               <div className="circle" />

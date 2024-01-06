@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 import BookItem from "components/BookItem";
+import Head from "components/Head";
 import Loading from "components/Loading";
 import Pagination from "components/Pagination";
 import ReviewItem from "components/ReviewItem";
@@ -22,9 +22,7 @@ export default function SearchResult() {
 
   return (
     <div className="wrapper">
-      <Helmet>
-        <title>북북 - 검색 결과</title>
-      </Helmet>
+      <Head title={`'${keyword}' 검색 결과 - 북북`} />
       {loading && <Loading />}
       <div className="list-wrapper">
         <div className="list">

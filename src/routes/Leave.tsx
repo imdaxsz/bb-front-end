@@ -1,8 +1,8 @@
 import { useState, useEffect, FormEvent } from "react";
-import { Helmet } from "react-helmet-async";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
+import Head from "components/Head";
 import Loading from "components/Loading";
 import useLeave from "hooks/useLeave";
 import useUserInfo from "hooks/useUserInfo";
@@ -14,7 +14,7 @@ export default function Leave() {
   const [agree, setAgree] = useState(false);
   const token = useSelector((state: RootState) => state.auth.token);
 
-  const { email, getUserInfo, infoLoading } = useUserInfo({ token });
+  const { email, getUserInfo, infoLoading } = useUserInfo();
   const { loading, deleteAccount } = useLeave();
 
   const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,9 +41,7 @@ export default function Leave() {
 
   return (
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>북북 - 회원탈퇴</title>
-      </Helmet>
+      <Head title="회원탈퇴 | 북북" />
       {(infoLoading || loading) && <Loading />}
       {!infoLoading && (
         <div className={styles.content}>
