@@ -8,11 +8,7 @@ import Loading from "components/Loading";
 import useMyBookList from "hooks/useMyBookList";
 import { RootState } from "store";
 
-export default function MyBookList({
-  isAuthenticated,
-}: {
-  isAuthenticated: boolean;
-}) {
+export default function MyBookList() {
   const token = useSelector((state: RootState) => state.auth.token);
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
@@ -38,7 +34,7 @@ export default function MyBookList({
     <div className="wrapper">
       <Head title="관심도서 | 북북" />
       {loading && <Loading />}
-      {isAuthenticated ? (
+      {token ? (
         <>
           {filteredBooks.length === 0 && !loading ? (
             <div className="guide">

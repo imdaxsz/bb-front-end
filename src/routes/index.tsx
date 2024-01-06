@@ -21,92 +21,59 @@ import Write from "routes/Write";
 import { RootState } from "store";
 
 export default function Router() {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated,
-  );
+  const token = useSelector((state: RootState) => state.auth.token);
   return (
     <Routes>
       <Route path="" element={<Root />}>
-        <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/recommend" element={<Recommend />} />
+        <Route path="/my_list" element={<MyBookList />} />
         <Route path="/book/detail/:id" element={<BookDetail />} />
         <Route
           path="/my"
-          element={
-            <PrivateRoute
-              component={<My />}
-              isAuthenticated={isAuthenticated}
-            />
-          }
+          element={<PrivateRoute component={<My />} token={token} />}
         />
         <Route
           path="/review/detail/:id"
-          element={
-            <PrivateRoute
-              component={<ReviewDetail />}
-              isAuthenticated={isAuthenticated}
-            />
-          }
-        />
-        <Route
-          path="/my_list"
-          element={<MyBookList isAuthenticated={isAuthenticated} />}
+          element={<PrivateRoute component={<ReviewDetail />} token={token} />}
         />
         <Route path="/search/:filter" element={<SearchResult />} />
         <Route
           path="/leave"
-          element={
-            <PrivateRoute
-              component={<Leave />}
-              isAuthenticated={isAuthenticated}
-            />
-          }
+          element={<PrivateRoute component={<Leave />} token={token} />}
         />
       </Route>
       <Route
         path="/write"
-        element={
-          <PrivateRoute
-            component={<Write />}
-            isAuthenticated={isAuthenticated}
-          />
-        }
+        element={<PrivateRoute component={<Write />} token={token} />}
       />
       <Route
         path="/find_password"
-        element={
-          isAuthenticated ? <Navigate replace to="/" /> : <FindPassword />
-        }
+        element={token ? <Navigate replace to="/" /> : <FindPassword />}
       />
       <Route
         path="/find_password/next"
-        element={
-          isAuthenticated ? <Navigate replace to="/" /> : <FindPassword />
-        }
+        element={token ? <Navigate replace to="/" /> : <FindPassword />}
       />
       <Route
         path="/signin"
-        element={isAuthenticated ? <Navigate replace to="/" /> : <Signin />}
+        element={token ? <Navigate replace to="/" /> : <Signin />}
       />
       <Route
         path="/auth/google/callback"
-        element={
-          isAuthenticated ? <Navigate replace to="/" /> : <GoogleCallback />
-        }
+        element={token ? <Navigate replace to="/" /> : <GoogleCallback />}
       />
       <Route
         path="/auth/google"
-        element={
-          isAuthenticated ? <Navigate replace to="/" /> : <GoogleRedirect />
-        }
+        element={token ? <Navigate replace to="/" /> : <GoogleRedirect />}
       />
       <Route
         path="/signup"
-        element={isAuthenticated ? <Navigate replace to="/" /> : <Signup />}
+        element={token ? <Navigate replace to="/" /> : <Signup />}
       />
       <Route
         path="/signup/next"
-        element={isAuthenticated ? <Navigate replace to="/" /> : <Signup />}
+        element={token ? <Navigate replace to="/" /> : <Signup />}
       />
       <Route path="*" element={<NotFound />} />
     </Routes>

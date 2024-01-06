@@ -2,11 +2,11 @@ import { Navigate } from "react-router-dom";
 
 interface Props {
   component: JSX.Element;
-  isAuthenticated: boolean;
+  token: string | null;
 }
 
-const PrivateRoute = ({ component, isAuthenticated }: Props) => {
-  return isAuthenticated ? component : <Navigate replace to="/signin" />;
+const PrivateRoute = ({ component, token }: Props) => {
+  return token ? component : <Navigate replace to="/signin" />;
 };
 
 export default PrivateRoute;

@@ -8,11 +8,7 @@ import ReviewItem from "components/ReviewItem";
 import useGetReviews from "hooks/useGetReviews";
 import { RootState } from "store";
 
-export default function Home({
-  isAuthenticated,
-}: {
-  isAuthenticated: boolean;
-}) {
+export default function Home() {
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const token = useSelector((state: RootState) => state.auth.token);
@@ -27,7 +23,7 @@ export default function Home({
     <div className="wrapper">
       <Head />
       {loading && <Loading />}
-      {isAuthenticated ? (
+      {token ? (
         <>
           {reviews.length === 0 && !loading ? (
             <div className="guide">
