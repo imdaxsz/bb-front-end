@@ -34,7 +34,7 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
         setError(true);
         return;
       }
-      requestMailCode();
+      await requestMailCode();
     } catch (error) {
       console.log(error);
     }

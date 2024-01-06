@@ -49,7 +49,7 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
           setValidateEmail(2);
           return;
         }
-        requestMailCode();
+        await requestMailCode();
       } catch (error) {
         console.log("Error with check Email: ", error);
       }
