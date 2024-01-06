@@ -21,10 +21,10 @@ export default function useRecommend() {
         dispatch(setRecBook(setBookInfo([res])[0]));
         dispatch(setRecModal(true));
       }
-      navigate(`/review/detail/${id}`);
     } catch (error) {
       console.log(error);
     }
+    navigate(`/review/detail/${id}`);
   };
 
   return { getRecommendBook };
