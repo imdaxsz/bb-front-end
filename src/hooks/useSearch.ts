@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 
 import { searchBook, searchMyBook } from "api/BookApi";
 import { searchReview } from "api/ReviewApi";
+import { handleUnauthorizated } from "lib/error";
 import { Book, Review } from "types";
 import { setBookInfo } from "utils/setBookInfo";
 
@@ -35,6 +36,7 @@ export default function useSearch() {
         }
       } catch (error) {
         console.log(error);
+        handleUnauthorizated(error);
       }
       setLoading(false);
     },

@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 
 import { getReview } from "api/ReviewApi";
+import { handleUnauthorizated } from "lib/error";
 import { Review } from "types";
 import { getDate } from "utils/getDate";
 
@@ -18,6 +19,7 @@ export default function useGetReviewInfo() {
       setDate(getDate(new Date(res.date)));
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error);
     }
     setLoading(false);
   }, []);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { changePassword } from "api/UserApi";
+import { handleUnauthorizated } from "lib/error";
 import styles from "styles/auth.module.scss";
 import btnstyles from "styles/my.module.scss";
 
@@ -63,6 +64,7 @@ export default function ChangePassword({
         } else setError(1);
       } catch (error) {
         console.log(error);
+        handleUnauthorizated(error, "alert");
       }
       setLoading(false);
     }

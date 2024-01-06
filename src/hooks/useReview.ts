@@ -8,6 +8,7 @@ import {
   updateReview as requestUpdate,
   deleteReview as requestDelete,
 } from "api/ReviewApi";
+import { handleUnauthorizated } from "lib/error";
 import { RootState } from "store";
 import { setCount } from "store/savedReviewSlice";
 import { Book, Review } from "types";
@@ -19,7 +20,6 @@ type addReviewFunType = (
   date: Date,
   text: string,
   opt: "save" | "upload",
-  token: string | null,
   savedReviews?: Review[],
 ) => Promise<string>;
 
@@ -47,6 +47,7 @@ export default function useReview() {
       setDate(getDate(new Date(res.date)));
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error, "alert");
     }
     setLoading(false);
   }, []);
@@ -59,6 +60,7 @@ export default function useReview() {
       navigate(`/review/detail/${id}`);
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error, "confirm");
     }
   };
 
@@ -69,7 +71,6 @@ export default function useReview() {
     date,
     text,
     opt,
-    token,
     savedReviews,
   ) => {
     setLoading(true);
@@ -90,8 +91,8 @@ export default function useReview() {
       } else reviewId = res;
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error);
     }
-
     setLoading(false);
     return reviewId;
   };
@@ -103,6 +104,7 @@ export default function useReview() {
       navigate("/");
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error, "alert");
     }
   };
 

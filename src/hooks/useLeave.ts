@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { deleteAccount as request } from "api/UserApi";
-import { ApiError } from "lib/error";
+import { ApiError, handleUnauthorizated } from "lib/error";
 
 import useSignOut from "./useSignout";
 
@@ -17,6 +17,7 @@ export default function useLeave() {
       signOut("/");
     } catch (error) {
       if (error instanceof ApiError) {
+        handleUnauthorizated(error, "alert");
         if (error.status === 400) window.alert("비밀번호를 다시 확인하세요.");
       }
       console.log(error);

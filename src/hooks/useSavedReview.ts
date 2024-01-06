@@ -2,6 +2,7 @@ import { SetStateAction, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { deleteReview, getSavedReviews } from "api/ReviewApi";
+import { handleUnauthorizated } from "lib/error";
 import { RootState } from "store";
 import { setCount } from "store/savedReviewSlice";
 import { Review } from "types";
@@ -22,6 +23,7 @@ export default function useSavedReview() {
         dispatch(setCount(res.length));
       } catch (error) {
         console.log(error);
+        handleUnauthorizated(error, "confirm");
       }
       setLoading(false);
       if (setWriteLoading) setWriteLoading(false);
@@ -37,7 +39,7 @@ export default function useSavedReview() {
       dispatch(setCount(count - 1));
     } catch (error) {
       console.log(error);
-      window.alert("삭제 오류입니다");
+      handleUnauthorizated(error, "confirm");
     }
   };
 

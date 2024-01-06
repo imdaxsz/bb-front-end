@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 
 import { getReviews } from "api/ReviewApi";
+import { handleUnauthorizated } from "lib/error";
 import { Review } from "types";
 
 export default function useGetReviews() {
@@ -13,6 +14,7 @@ export default function useGetReviews() {
       setReviews(res);
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error);
     }
     setLoading(false);
   }, []);

@@ -4,6 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { BeatLoader } from "react-spinners";
 
 import { getLikeState, toggleLike } from "api/BookApi";
+import { handleUnauthorizated } from "lib/error";
 import styles from "styles/detail.module.scss";
 
 interface LikeProps {
@@ -45,6 +46,7 @@ export default function Like({ token, isbn }: LikeProps) {
       setLike((prev) => !prev);
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error, "confirm");
     }
   };
 

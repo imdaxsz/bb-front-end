@@ -2,26 +2,29 @@ import { useState, useCallback } from "react";
 
 import { toggleRecommend } from "api/RecommendApi";
 import { getUser } from "api/UserApi";
+import { handleUnauthorizated } from "lib/error";
 
 import useBackUp from "./useBackUp";
 
-export default function useUserInfo({ token }: { token: string | null }) {
+export default function useUserInfo() {
   const [email, setEmail] = useState("");
-  const [active, setActive] = useState(true);
+  const [isRecommendActive, setisRecommendActive] = useState(true);
   const [isOauthUser, setIsOauthUser] = useState(false);
-  const [infoLoading, setInfoLoading] = useState(Boolean(token));
+  const [infoLoading, setInfoLoading] = useState(false);
   const [backUploading, setBackUpLoading] = useState(false);
 
   const { backUp } = useBackUp();
 
   const getUserInfo = useCallback(async () => {
+    setInfoLoading(true);
     try {
       const res = await getUser();
       setEmail(res.email);
-      setActive(res.recommend);
+      setisRecommendActive(res.recommend);
       setIsOauthUser(res.oauth);
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error);
     }
     setInfoLoading(false);
   }, []);
@@ -29,9 +32,10 @@ export default function useUserInfo({ token }: { token: string | null }) {
   const onRecommendClick = async () => {
     try {
       await toggleRecommend();
-      setActive((prev) => !prev);
+      setisRecommendActive((prev) => !prev);
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error, "alert");
     }
   };
 
@@ -45,8 +49,7 @@ export default function useUserInfo({ token }: { token: string | null }) {
   };
 
   return {
-    active,
-    setActive,
+    isRecommendActive,
     email,
     setEmail,
     isOauthUser,

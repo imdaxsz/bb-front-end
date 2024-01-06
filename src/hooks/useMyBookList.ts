@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 
 import { getMyBooks } from "api/BookApi";
+import { handleUnauthorizated } from "lib/error";
 import { Book } from "types";
 import { setBookInfo } from "utils/setBookInfo";
 
@@ -16,6 +17,7 @@ export default function useMyBookList() {
       setFilteredBooks(setBookInfo(res));
     } catch (error) {
       console.log(error);
+      handleUnauthorizated(error);
     }
     setLoading(false);
   }, []);

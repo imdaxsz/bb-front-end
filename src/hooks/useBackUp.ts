@@ -1,4 +1,5 @@
 import { backUpReviews } from "api/ReviewApi";
+import { handleUnauthorizated } from "lib/error";
 
 export default function useBackUp() {
   const backUp = async () => {
@@ -15,6 +16,7 @@ export default function useBackUp() {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Error downloading backup:", error);
+      handleUnauthorizated(error, "alert");
     }
   };
 
