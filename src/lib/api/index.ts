@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { ApiError, BaseError } from "lib/error";
+import { ApiError, BaseError, ServerError } from "lib/error";
 import { store } from "store";
 
 const instance = axios.create({
@@ -19,13 +19,13 @@ instance.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    if (error.response?.status === 401) {
-      console.log(error, "unauthorized");
-      // TODO: access token 제거
-    }
-    if (error.response?.data) {
+    if (error.response?.status >= 400 && error.response?.status < 500) {
       const { message } = error.response.data;
       return Promise.reject(new ApiError(message, error.response.status));
+    }
+    if (error.response?.status >= 500) {
+      const { message } = error.response.data;
+      return Promise.reject(new ServerError(message, error.response.status));
     }
 
     if (error.message.startsWith("timeout")) {
