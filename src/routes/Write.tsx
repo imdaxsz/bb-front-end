@@ -24,8 +24,6 @@ export default function Write() {
   const id = searchParams.get("logNo");
   const today = new Date();
 
-  const token = useSelector((state: RootState) => state.auth.token);
-
   const {
     book,
     setBook,
@@ -52,15 +50,7 @@ export default function Write() {
     else {
       if (mode === "new") {
         // 새 후기 저장
-        const id = await addReview(
-          book,
-          rating,
-          today,
-          text,
-          opt,
-          token,
-          reviews,
-        );
+        const id = await addReview(book, rating, today, text, opt, reviews);
         if (id !== "" && opt === "upload") {
           // 새 후기 발행
           setLoading(true);

@@ -64,7 +64,6 @@ export const postReview = (
   });
 };
 
-// TODO: PATCH로 변경
 /**
  * @description 후기 목록 조회
  * @param {string} id 후기 아이디

@@ -22,15 +22,6 @@
   @include common.flex(row, center, center);
 }
 
-.thumnail {
-  @include common.setSize(200px, 280px);
-  img {
-    @include common.setSize(100%, 100%);
-    object-fit: cover;
-    border-radius: 0 25px 25px 0;
-  }
-}
-
 .info {
   width: calc(100% - 200px);
   color: black;

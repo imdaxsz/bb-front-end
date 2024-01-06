@@ -29,14 +29,6 @@ export const googleLogin = (code: string) => {
 };
 
 /**
- * @description 토큰 검증
- * @return 검증 여부 포함한 객체
- */
-export const verifyToken = () => {
-  return get<{ valid: boolean }>("/api/verify-token");
-};
-
-/**
  * @description 회원정보 조회
  */
 export const getUser = () => {
@@ -61,7 +53,6 @@ export const resetPassword = (email: string, password: string) => {
   return patch("/api/user/reset_password", { email, password });
 };
 
-// TODO: method del로 바꾸기
 /**
  * @description 회원탈퇴
  * @param {string} password

@@ -78,7 +78,7 @@
 
 .find {
   @include common.flex(row, center, center);
-  // padding: 10px 0;
+
   li {
     position: relative;
     height: 50px;
