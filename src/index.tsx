@@ -1,14 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 
 import { store } from "store";
 
 import App from "./App";
-import ScrollToTop from "./components/ScrollToTop";
 import "./styles/global.scss";
 import reportWebVitals from "./reportWebVitals";
 
@@ -16,12 +13,7 @@ const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <HelmetProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <App />
-        </BrowserRouter>
-      </HelmetProvider>
+      <App />
     </React.StrictMode>
   </Provider>,
 );
