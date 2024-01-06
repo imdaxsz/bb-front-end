@@ -11,7 +11,7 @@ export default function ReviewItem({ review }: { review: Review }) {
       type="review"
       id={review._id}
       title={review.book.title}
-      image={review.book.cover}
+      cover={review.book.cover}
     >
       <div className={styles.rating}>
         {[...Array(review.rating)].map((a, i) => (
