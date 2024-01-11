@@ -3,13 +3,13 @@ import { useCallback, useState } from "react";
 import { searchBook, searchMyBook } from "api/BookApi";
 import { searchReview } from "api/ReviewApi";
 import { handleUnauthorizated } from "lib/error";
-import { Book, Review } from "types";
+import { Book, Review, SearchType } from "types";
 import { setBookInfo } from "utils/setBookInfo";
 
 export type getSearchResultType = (
   page: string | null,
   keyword: string | null,
-  searchType: string,
+  searchType: SearchType,
 ) => void;
 
 export default function useSearch() {
@@ -27,7 +27,6 @@ export default function useSearch() {
           setReviews(res);
         } else if (searchType === "my_list") {
           const res = await searchMyBook(keyword);
-          console.log(res);
           setBooks(setBookInfo(res));
         } else {
           const res = await searchBook(keyword, page);

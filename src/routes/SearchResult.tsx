@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import BookItem from "components/BookItem";
 import Head from "components/Head";
@@ -7,18 +8,24 @@ import Loading from "components/Loading";
 import Pagination from "components/Pagination";
 import ReviewItem from "components/ReviewItem";
 import useSearch from "hooks/useSearch";
+import { RootState } from "store";
+import { SearchType } from "types";
 
 export default function SearchResult() {
   const searchType = useLocation().pathname.split("/")[2];
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("query");
   const page = searchParams.get("page") ? searchParams.get("page") : "1";
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const { books, reviews, totalItems, loading, getSearchResult } = useSearch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getSearchResult(page, keyword, searchType);
-  }, [searchType, page, keyword, getSearchResult]);
+    if (!["book", "review", "my_list"].includes(searchType)) return;
+    if (searchType !== "book" && !token) navigate("/signin", { replace: true });
+    getSearchResult(page, keyword, searchType as SearchType);
+  }, [searchType, page, keyword, getSearchResult, token, navigate]);
 
   return (
     <div className="wrapper">
