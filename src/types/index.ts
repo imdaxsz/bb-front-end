@@ -28,3 +28,5 @@ export interface User {
   recommend: boolean;
   oauth: boolean;
 }
+
+export type SearchType = "book" | "review" | "my_list";
