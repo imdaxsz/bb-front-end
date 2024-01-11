@@ -25,11 +25,17 @@ export default function SearchBar({ placeholder, keyword, setLoading }: Props) {
   const pathname = useLocation().pathname;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWord(e.currentTarget.value);
+    const { value } = e.currentTarget;
+    if (value.length > 15) return;
+    setWord(value);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (word.trim().length === 0) {
+      alert("검색어를 입력하세요!");
+      return;
+    }
     if (pathname === "/write") {
       dispatch(setKeyword(word));
       if (setLoading) setLoading(true);
