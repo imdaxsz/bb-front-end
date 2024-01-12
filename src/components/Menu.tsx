@@ -62,73 +62,70 @@ export default function Menu() {
             </li>
           </ul>
         )}
-        <ul>
-          <div className={styles.tab}>
-            <li
-              className={
-                ["/", "/search/review"].includes(fullPath) ? "active" : ""
-              }
-            >
-              <Link to="/">후기</Link>
-            </li>
-            <li className={fullPath.includes("my_list") ? "active" : ""}>
-              <Link to="/my_list">관심도서</Link>
-            </li>
-            <li
-              className={
-                ["/recommend", "/search/book"].includes(fullPath)
-                  ? "active"
-                  : ""
-              }
-            >
-              <Link to="/recommend?page=1">추천도서</Link>
-            </li>
-          </div>
-
+        <ul className={styles.tab}>
+          <li
+            className={
+              ["/", "/search/review"].includes(fullPath) ? "active" : ""
+            }
+          >
+            <Link to="/">후기</Link>
+          </li>
+          <li className={fullPath.includes("my_list") ? "active" : ""}>
+            <Link to="/my_list">관심도서</Link>
+          </li>
+          <li
+            className={
+              ["/recommend", "/search/book"].includes(fullPath) ? "active" : ""
+            }
+          >
+            <Link to="/recommend?page=1">추천도서</Link>
+          </li>
           {["", "search", "recommend", "my_list", "like"].includes(
             pathname,
           ) && (
-            <div className={styles.right}>
-              {pathname !== "recommend" && (
-                <li>
-                  <div className="dropdown" onClick={() => setStyle("block")}>
-                    <Link to={window.location.href} role="button">
-                      {filter}
-                    </Link>
-                    <ul className={`dropdown-list ${style}`}>
-                      {filterList.map((f, i) => (
-                        <li key={i} onClick={(e) => selectFilter(e, i)}>
-                          <Link
-                            to={`?${filterPath[i]}`}
-                            role="button"
-                            className={f === filter ? "selected" : ""}
-                          >
-                            {f}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </li>
-              )}
-              <li>
-                {isMobile ? (
-                  <div
-                    className={styles["mb-search-icon"]}
-                    onClick={onClickSearchbar}
-                  >
-                    <FiSearch size={20} />
-                  </div>
-                ) : (
-                  <div className={styles.searchbar}>
-                    <SearchBar
-                      placeholder={placeholder[pathname]}
-                      keyword={keyword ? keyword : ""}
-                    />
-                  </div>
+            <li className={styles.right}>
+              <ul>
+                {pathname !== "recommend" && (
+                  <li>
+                    <div className="dropdown" onClick={() => setStyle("block")}>
+                      <Link to={window.location.href} role="button">
+                        {filter}
+                      </Link>
+                      <ul className={`dropdown-list ${style}`}>
+                        {filterList.map((f, i) => (
+                          <li key={i} onClick={(e) => selectFilter(e, i)}>
+                            <Link
+                              to={`?${filterPath[i]}`}
+                              role="button"
+                              className={f === filter ? "selected" : ""}
+                            >
+                              {f}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
                 )}
-              </li>
-            </div>
+                <li>
+                  {isMobile ? (
+                    <div
+                      className={styles["mb-search-icon"]}
+                      onClick={onClickSearchbar}
+                    >
+                      <FiSearch size={20} />
+                    </div>
+                  ) : (
+                    <div className={styles.searchbar}>
+                      <SearchBar
+                        placeholder={placeholder[pathname]}
+                        keyword={keyword ? keyword : ""}
+                      />
+                    </div>
+                  )}
+                </li>
+              </ul>
+            </li>
           )}
         </ul>
       </div>
