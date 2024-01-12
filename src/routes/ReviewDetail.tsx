@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import Head from "components/Head";
 import Loading from "components/Loading";
 import ReviewBookInfo from "components/ReviewBookInfo";
 import useGetReviewInfo from "hooks/useGetReviewInfo";
@@ -28,6 +29,7 @@ export default function ReviewDetail() {
 
   return (
     <div className="wrapper">
+      <Head title="후기 | 북북" />
       {loading && <Loading />}
       {!loading && (
         <div className={styles.wrapper}>

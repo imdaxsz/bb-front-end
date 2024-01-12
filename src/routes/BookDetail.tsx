@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
+import Head from "components/Head";
 import Like from "components/Like";
 import Loading from "components/Loading";
 import useGetBookInfo from "hooks/useGetBookInfo";
@@ -20,6 +21,7 @@ export default function BookDetail() {
 
   return (
     <div className="wrapper">
+      <Head title={`${book ? book.title + " | 북북" : "북북"}`} />
       {loading && <Loading />}
       {!loading && (
         <div className={styles.wrapper}>

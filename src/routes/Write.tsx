@@ -3,6 +3,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
+import Head from "components/Head";
 import Loading from "components/Loading";
 import ReviewBookInfo from "components/ReviewBookInfo";
 import SavedList from "components/SavedList";
@@ -85,6 +86,7 @@ export default function Write() {
 
   return (
     <>
+      <Head title="에디터 | 북북" />
       {loading && <Loading />}
       {searchModal && (
         <SearchModal setModal={setSearchModal} setBook={setBook} />
