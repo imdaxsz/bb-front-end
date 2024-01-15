@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { ReviewHandlerType } from "hooks/useReview";
 import { RootState } from "store";
 import styles from "styles/modal.module.scss";
-import { Book } from "types";
 
 import {
   reset,
@@ -18,11 +18,11 @@ import SearchBar from "./SearchBar";
 import SearchBookItem from "./SearchBookItem";
 
 interface SearchBook {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setBook: React.Dispatch<React.SetStateAction<Book | null>>;
+  onClose: () => void;
+  setBook: ReviewHandlerType;
 }
 
-export default function SearchModal({ setModal, setBook }: SearchBook) {
+export default function SearchModal({ onClose, setBook }: SearchBook) {
   const result = useSelector((state: RootState) => state.searchResult.books);
   const selected = useSelector(
     (state: RootState) => state.searchResult.selected,
@@ -33,21 +33,22 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
   const [loading, setLoading] = useState(false);
 
   const onClickCancel = () => {
-    setModal(false);
+    onClose();
     dispatch(reset());
     setScrollY(0);
   };
 
   const onClickOk = () => {
-    if (!selected) window.alert("책을 선택해주세요!");
-    else {
-      setBook(selected);
-      setModal(false);
-      dispatch(setSelected(null));
-      dispatch(setResult([]));
-      dispatch(setKeyword(""));
-      setScrollY(0);
+    if (!selected) {
+      window.alert("책을 선택해주세요!");
+      return;
     }
+    setBook({ book: selected });
+    onClose();
+    dispatch(setSelected(null));
+    dispatch(setResult([]));
+    dispatch(setKeyword(""));
+    setScrollY(0);
   };
 
   useEffect(() => {
