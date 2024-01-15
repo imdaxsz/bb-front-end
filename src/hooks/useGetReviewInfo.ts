@@ -1,18 +1,18 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { getReview } from "api/ReviewApi";
 import { handleUnauthorizated } from "lib/error";
 import { Review } from "types";
 import { getDate } from "utils/getDate";
 
-export default function useGetReviewInfo() {
+export default function useGetReviewInfo({ id }: { id: string }) {
   const [review, setReview] = useState<Review | null>(null);
   const [date, setDate] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 후기 상세 조회
-  const getReviewDetailInfo = useCallback(async (id: string) => {
-    setLoading(true);
+  const getReviewDetailInfo = useCallback(async () => {
+    setIsLoading(true);
     try {
       const res = await getReview(id);
       setReview(res);
@@ -21,8 +21,12 @@ export default function useGetReviewInfo() {
       console.log(error);
       handleUnauthorizated(error);
     }
-    setLoading(false);
-  }, []);
+    setIsLoading(false);
+  }, [id]);
 
-  return { loading, review, date, getReviewDetailInfo };
+  useEffect(() => {
+    getReviewDetailInfo();
+  }, [getReviewDetailInfo]);
+
+  return { isLoading, review, date };
 }
