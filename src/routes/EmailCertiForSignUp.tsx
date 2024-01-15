@@ -3,24 +3,20 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { checkEmail, requestEmailCerti, verifyCode } from "api/UserApi";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 import styles from "styles/auth.module.scss";
 
 interface Props {
   email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function EmailCertiForSignUp({ email, setEmail }: Props) {
+export default function EmailCertiForSignUp({ email, onChange }: Props) {
   const [validateEmail, setValidateEmail] = useState<number | null>(null);
   const [code, setCode] = useState("");
   const [showCode, setShowCode] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
 
   const onChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
@@ -58,8 +54,12 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
     } else setValidateEmail(1);
   }, 200);
 
-  const onSubmit = debounce(async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await verify();
+  };
+
+  const verify = debounce(async () => {
     setLoading(true);
     try {
       const res = await verifyCode(email, code);
@@ -74,11 +74,11 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
       console.log(error);
     }
     setLoading(false);
-  }, 200);
+  }, 300);
 
   return (
     <form onSubmit={onSubmit} className={styles.form} noValidate>
-      {loading && <Loading />}
+      {loading && <Loader />}
       <input
         className={`${styles.input} ${
           (validateEmail === 1 || validateEmail === 2) && styles.error
@@ -86,7 +86,7 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
         name="email"
         type="email"
         value={email}
-        onChange={onChangeEmail}
+        onChange={onChange}
         placeholder="이메일"
       />
       {validateEmail === 1 && <span>이메일: 올바르지 않은 형식입니다.</span>}
