@@ -1,25 +1,17 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
 import Head from "components/Head";
 import Like from "components/Like";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 import useGetBookInfo from "hooks/useGetBookInfo";
 import bs from "styles/book.module.scss";
 import styles from "styles/detail.module.scss";
 
 export default function BookDetail() {
-  const id = useLocation().pathname.split("/")[3];
-  const { loading, book, getBookDetailInfo } = useGetBookInfo();
-
-  useEffect(() => {
-    getBookDetailInfo(id);
-  }, [getBookDetailInfo, id]);
+  const { loading, book } = useGetBookInfo();
 
   return (
     <div className="wrapper">
       <Head title={`${book ? book.title + " | 북북" : "북북"}`} />
-      {loading && <Loading />}
+      {loading && <Loader />}
       {!loading && (
         <div className={styles.wrapper}>
           <div className={styles.item}>
