@@ -1,10 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { getRecommendBooks as request } from "api/BookApi";
 import { Book } from "types";
 import { setBookInfo } from "utils/setBookInfo";
 
-export default function useGetBooks() {
+export default function useGetBooks({ page }: { page: string | null }) {
   const [loading, setLoading] = useState(false);
   const [totalBooks, setTotalBooks] = useState(0);
   const [books, setBooks] = useState<Book[] | null>(null);
@@ -22,5 +22,9 @@ export default function useGetBooks() {
     setLoading(false);
   }, []);
 
-  return { loading, books, totalBooks, getRecommendBooks };
+  useEffect(() => {
+    getRecommendBooks(page);
+  }, [getRecommendBooks, page]);
+
+  return { loading, books, totalBooks };
 }
