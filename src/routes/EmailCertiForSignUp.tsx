@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -36,7 +37,7 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
     setLoading(false);
   };
 
-  const requestCertifications = async () => {
+  const requestCertifications = debounce(async () => {
     const emailReg = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
     if (emailReg.test(email)) {
       // 패턴 검사
@@ -55,9 +56,9 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
       }
       setLoading(false);
     } else setValidateEmail(1);
-  };
+  }, 200);
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = debounce(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -73,7 +74,7 @@ export default function EmailCertiForSignUp({ email, setEmail }: Props) {
       console.log(error);
     }
     setLoading(false);
-  };
+  }, 200);
 
   return (
     <form onSubmit={onSubmit} className={styles.form} noValidate>

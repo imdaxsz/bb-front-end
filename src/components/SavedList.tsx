@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useEffect } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 
@@ -29,23 +30,26 @@ export default function SavedList({
     setModal(false);
   };
 
-  const onClickDelete = (e: React.MouseEvent<SVGElement>, i: number) => {
-    e.stopPropagation();
-    const ok = window.confirm(
-      "선택된 임시저장 글을 삭제하시겠습니까?\n삭제된 글은 복구되지 않습니다.",
-    );
-    if (ok) {
-      deleteSavedReview(i);
-    }
-  };
+  const onClickDelete = debounce(
+    (e: React.MouseEvent<SVGElement>, i: number) => {
+      e.stopPropagation();
+      const ok = window.confirm(
+        "선택된 임시저장 글을 삭제하시겠습니까?\n삭제된 글은 복구되지 않습니다.",
+      );
+      if (ok) {
+        deleteSavedReview(i);
+      }
+    },
+    200,
+  );
 
-  const loadReview = (i: number) => {
+  const loadReview = debounce((i: number) => {
     // 리뷰 불러오기
     setBook(reviews[i].book);
     setText(reviews[i].text);
     setRating(reviews[i].rating);
     setModal(false);
-  };
+  }, 200);
 
   useEffect(() => {
     loadSavedReviews();

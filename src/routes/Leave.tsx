@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useState, useEffect, FormEvent } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useSelector } from "react-redux";
@@ -26,12 +27,12 @@ export default function Leave() {
     else setAgree(false);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = debounce((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (agree) {
       deleteAccount(password);
     } else window.alert("회원 탈퇴 동의를 체크해 주세요.");
-  };
+  }, 200);
 
   useEffect(() => {
     if (token) {

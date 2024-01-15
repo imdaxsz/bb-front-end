@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -18,14 +19,14 @@ export default function ReviewDetail() {
     getReviewDetailInfo(id);
   }, [getReviewDetailInfo, id]);
 
-  const onClickDelete = () => {
+  const onClickDelete = debounce(async () => {
     const ok = window.confirm(
       "삭제된 후기는 복구할 수 없습니다.\n삭제하시겠습니까?",
     );
     if (ok) {
-      deleteReview(id);
+      await deleteReview(id);
     }
-  };
+  }, 200);
 
   return (
     <div className="wrapper">

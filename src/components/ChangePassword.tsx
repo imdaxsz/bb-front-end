@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useState } from "react";
 
 import { changePassword } from "api/UserApi";
@@ -49,7 +50,7 @@ export default function ChangePassword({
     else setValidatePw(false);
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = debounce(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const sameCurrentPw = newPw === currentPw && newPw !== "";
     // 현재 비밀번호와 동일 비밀번호인가
@@ -68,7 +69,7 @@ export default function ChangePassword({
       }
       setLoading(false);
     }
-  };
+  }, 200);
 
   return (
     <form onSubmit={onSubmit}>

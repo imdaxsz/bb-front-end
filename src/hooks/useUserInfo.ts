@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useState, useCallback } from "react";
 
 import { toggleRecommend } from "api/RecommendApi";
@@ -5,6 +6,8 @@ import { getUser } from "api/UserApi";
 import { handleUnauthorizated } from "lib/error";
 
 import useBackUp from "./useBackUp";
+
+const DEBOUNCE_DELAY = 200;
 
 export default function useUserInfo() {
   const [email, setEmail] = useState("");
@@ -29,7 +32,7 @@ export default function useUserInfo() {
     setInfoLoading(false);
   }, []);
 
-  const onRecommendClick = async () => {
+  const onRecommendClick = debounce(async () => {
     try {
       await toggleRecommend();
       setisRecommendActive((prev) => !prev);
@@ -37,16 +40,16 @@ export default function useUserInfo() {
       console.log(error);
       handleUnauthorizated(error, "alert");
     }
-  };
+  }, DEBOUNCE_DELAY);
 
-  const onRequestDataClick = async () => {
+  const onRequestDataClick = debounce(async () => {
     const ok = window.confirm("후기 데이터를 요청하시겠습니까?");
     if (ok) {
       setBackUpLoading(true);
       await backUp();
       setBackUpLoading(false);
     }
-  };
+  }, DEBOUNCE_DELAY);
 
   return {
     isRecommendActive,

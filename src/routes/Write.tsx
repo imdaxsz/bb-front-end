@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useRef, useState, useEffect } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { useSelector } from "react-redux";
@@ -44,7 +45,7 @@ export default function Write() {
 
   const savedCount = useSelector((state: RootState) => state.savedReview.count);
 
-  const onSubmit = async (opt: "save" | "upload") => {
+  const onSubmit = debounce(async (opt: "save" | "upload") => {
     if (!book) window.alert("후기를 작성할 책을 선택해주세요!");
     else if (opt === "upload" && text === "")
       window.alert("후기 내용을 입력해주세요!");
@@ -62,7 +63,7 @@ export default function Write() {
       // 후기 수정
       else updateReview(id);
     }
-  };
+  }, 200);
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.currentTarget.value);

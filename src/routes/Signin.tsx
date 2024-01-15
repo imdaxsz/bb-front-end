@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useState, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,7 +30,7 @@ export default function Signin() {
     setPassword(e.target.value);
   };
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = debounce(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(false);
     if (email.length <= 0) setBlankEmail(true);
@@ -52,7 +53,7 @@ export default function Signin() {
         console.log(error);
       }
     }
-  };
+  }, 200);
 
   return (
     <div className={styles.wrapper}>

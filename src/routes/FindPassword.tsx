@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useState, FormEvent, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -39,7 +40,7 @@ export default function FindPassword() {
     else setIsSamePw(true);
   };
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = debounce(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validatePw && isSamePw) {
       try {
@@ -52,7 +53,7 @@ export default function FindPassword() {
       }
       setLoading(false);
     }
-  };
+  }, 200);
 
   const checkValidation = async (email: string) => {
     try {

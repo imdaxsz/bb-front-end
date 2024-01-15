@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +26,7 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
     setCode(e.target.value);
   };
 
-  const requestCertifications = async () => {
+  const requestCertifications = debounce(async () => {
     setLoading(true);
     try {
       const res = await checkEmail(email);
@@ -39,7 +40,7 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
       console.log(error);
     }
     setLoading(false);
-  };
+  }, 200);
 
   const requestMailCode = async () => {
     setLoading(true);
@@ -52,7 +53,7 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
     setLoading(false);
   };
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = debounce(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -68,7 +69,7 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
       console.log(error);
     }
     setLoading(false);
-  };
+  }, 200);
 
   return (
     <form onSubmit={onSubmit} className={styles.form} noValidate>

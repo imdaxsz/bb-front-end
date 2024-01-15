@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useState, useEffect, useCallback } from "react";
 import { PiHeartFill, PiHeartLight } from "react-icons/pi";
 import { useMediaQuery } from "react-responsive";
@@ -35,7 +36,7 @@ export default function Like({ token, isbn }: LikeProps) {
     }
   }, [token, getLike]);
 
-  const onClick = async () => {
+  const onClick = debounce(async () => {
     if (!token) {
       window.alert("관심 도서 추가는 로그인 후 가능합니다!");
       return;
@@ -48,7 +49,7 @@ export default function Like({ token, isbn }: LikeProps) {
       console.log(error);
       handleUnauthorizated(error, "confirm");
     }
-  };
+  }, 200);
 
   return (
     <>
