@@ -3,10 +3,10 @@ import { useState } from "react";
 import { deleteAccount as request } from "api/UserApi";
 import { ApiError, handleUnauthorizated } from "lib/error";
 
-import useSignOut from "./useSignout";
+import useSignout from "./useSignout";
 
 export default function useLeave() {
-  const { signOut } = useSignOut();
+  const { signout } = useSignout();
   const [loading, setLoading] = useState(false);
 
   const deleteAccount = async (password: string) => {
@@ -14,7 +14,7 @@ export default function useLeave() {
     try {
       await request(password);
       window.alert("탈퇴 완료되었습니다.");
-      signOut("/");
+      signout("/");
     } catch (error) {
       if (error instanceof ApiError) {
         handleUnauthorizated(error, "alert");

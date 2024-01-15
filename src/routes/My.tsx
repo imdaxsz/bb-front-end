@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ChangePassword from "components/ChangePassword";
 import Head from "components/Head";
 import Loading from "components/Loading";
-import useSignOut from "hooks/useSignout";
+import useSignout from "hooks/useSignout";
 import useUserInfo from "hooks/useUserInfo";
 import { RootState } from "store";
 import styles from "styles/my.module.scss";
@@ -22,7 +22,7 @@ export default function My() {
     onRecommendClick,
     onRequestDataClick,
   } = useUserInfo();
-  const { signOut } = useSignOut();
+  const { signout } = useSignout();
 
   useEffect(() => {
     if (token) {
@@ -41,7 +41,7 @@ export default function My() {
             <span className={styles["user-info"]}>{email}</span>
             <button
               className={styles["btn-white"]}
-              onClick={() => signOut("/")}
+              onClick={() => signout("/")}
             >
               로그아웃
             </button>

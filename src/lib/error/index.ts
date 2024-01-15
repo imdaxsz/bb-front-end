@@ -1,5 +1,5 @@
 import { store } from "store";
-import { signout } from "store/authSlice";
+import { reset } from "store/authSlice";
 
 /** @description Base error class */
 export class BaseError extends Error {
@@ -36,7 +36,7 @@ export const handleUnauthorizated = (
     // alert 후 로그아웃 처리
     if (option === "alert") {
       window.alert("로그인 유지 시간이 만료되었어요!\n다시 로그인 해주세요.");
-      store.dispatch(signout());
+      store.dispatch(reset());
       return;
     }
     // 사용자가 확인 클릭 시에만 로그아웃 처리
@@ -44,11 +44,11 @@ export const handleUnauthorizated = (
       const ok = window.confirm(
         "로그인 유지 시간이 만료되었어요!\n로그인 페이지로 이동할까요?",
       );
-      if (ok) store.dispatch(signout());
+      if (ok) store.dispatch(reset());
       return;
     }
     // 위 두 조건이 아닐 경우 바로 로그아웃 처리
-    store.dispatch(signout());
+    store.dispatch(reset());
     if (callback) callback();
   }
 };
