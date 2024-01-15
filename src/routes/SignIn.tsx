@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 import GoogleLoginButton from "components/GoogleLoginButton";
 import Head from "components/Head";
-import useSignin from "hooks/useSignin";
+import useSignIn from "hooks/useSignIn";
 import styles from "styles/auth.module.scss";
 
-export default function Signin() {
-  const { form, error, isButtonDisabled, onChange, onSubmit } = useSignin();
+export default function SignIn() {
+  const { form, error, isButtonDisabled, onChange, onSubmit } = useSignIn();
 
   return (
     <div className={styles.wrapper}>

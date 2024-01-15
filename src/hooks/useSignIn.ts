@@ -7,7 +7,7 @@ import { signIn as request } from "api/UserApi";
 import { ApiError } from "lib/error";
 import { fetch } from "store/authSlice";
 
-export default function useSignin() {
+export default function useSignIn() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState(false);
 

@@ -13,8 +13,8 @@ const Recommend = lazy(() => import("routes/Recommend"));
 const ReviewDetail = lazy(() => import("routes/ReviewDetail"));
 const SearchResult = lazy(() => import("routes/SearchResult"));
 const Write = lazy(() => import("routes/Write"));
-const Signup = lazy(() => import("routes/Signup"));
-const Signin = lazy(() => import("routes/Signin"));
+const SignUp = lazy(() => import("routes/SignUp"));
+const SignIn = lazy(() => import("routes/SignIn"));
 const GoogleCallback = lazy(() => import("routes/GoogleCallback"));
 const GoogleRedirect = lazy(() => import("routes/GoogleRedirect"));
 const FindPassword = lazy(() => import("routes/FindPassword"));
@@ -43,11 +43,11 @@ export default function Router() {
       <Route element={<GuestOnlyRoutes token={token} />}>
         <Route path="/find_password" element={<FindPassword />} />
         <Route path="/find_password/next" element={<FindPassword />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="/auth/google" element={<GoogleRedirect />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signup/next" element={<Signup />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup/next" element={<SignUp />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
@@ -63,5 +63,5 @@ function GuestOnlyRoutes({ token }: Props) {
 }
 
 const PrivateRoutes = ({ token }: Props) => {
-  return token ? <Outlet /> : <Navigate replace to="/signin" />;
+  return token ? <Outlet /> : <Navigate replace to="/signIn" />;
 };
