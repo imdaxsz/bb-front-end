@@ -1,14 +1,20 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import { getReviews } from "api/ReviewApi";
 import { handleUnauthorizated } from "lib/error";
 import { Review } from "types";
 
-export default function useGetReviews() {
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState(true);
+interface Props {
+  token: string | null;
+  sort: string | null;
+}
 
-  const getUserReviews = useCallback(async (sort: string | null) => {
+export default function useGetReviews({ token, sort }: Props) {
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getUserReviews = useCallback(async () => {
+    setIsLoading(true);
     try {
       const res = await getReviews(sort);
       setReviews(res);
@@ -16,8 +22,12 @@ export default function useGetReviews() {
       console.log(error);
       handleUnauthorizated(error);
     }
-    setLoading(false);
-  }, []);
+    setIsLoading(false);
+  }, [sort]);
 
-  return { loading, setLoading, reviews, getUserReviews };
+  useEffect(() => {
+    if (token) getUserReviews();
+  }, [getUserReviews, token]);
+
+  return { isLoading, setIsLoading, reviews };
 }
