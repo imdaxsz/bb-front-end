@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import BookItem from "components/BookItem";
 import Head from "components/Head";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 import Pagination from "components/Pagination";
 import ReviewItem from "components/ReviewItem";
 import useSearch from "hooks/useSearch";
@@ -30,7 +30,7 @@ export default function SearchResult() {
   return (
     <div className="wrapper">
       <Head title={`'${keyword}' 검색 결과 - 북북`} />
-      {loading && <Loading />}
+      {loading && <Loader />}
       <div className="list-wrapper">
         <div className="list">
           {reviews.length === 0 &&

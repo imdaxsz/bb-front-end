@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
 import Head from "components/Head";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 import ReviewBookInfo from "components/ReviewBookInfo";
 import SavedList from "components/SavedList";
 import SearchModal from "components/SearchModal";
@@ -88,7 +88,7 @@ export default function Write() {
   return (
     <>
       <Head title="에디터 | 북북" />
-      {loading && <Loading />}
+      {loading && <Loader />}
       {searchModal && (
         <SearchModal setModal={setSearchModal} setBook={setBook} />
       )}

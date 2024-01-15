@@ -7,7 +7,7 @@ import styles from "styles/modal.module.scss";
 import { Book } from "types";
 import { getDate } from "utils/getDate";
 
-import Loading from "./Loading";
+import Loader from "./Loader";
 import Modal from "./Modal";
 
 interface Props {
@@ -58,7 +58,7 @@ export default function SavedList({
   const Content = () => {
     return (
       <>
-        {loading && <Loading />}
+        {loading && <Loader />}
         <div className={`${styles.title} ${styles.mb}`}>임시저장</div>
         <hr></hr>
         <div className={`${styles.list} ${styles.g0}`}>

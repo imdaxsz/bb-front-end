@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { checkEmail, requestEmailCerti, verifyCode } from "api/UserApi";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 import styles from "styles/auth.module.scss";
 
 interface Props {
@@ -73,7 +73,7 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
 
   return (
     <form onSubmit={onSubmit} className={styles.form} noValidate>
-      {loading && <Loading />}
+      {loading && <Loader />}
       <input
         className={styles.input}
         required

@@ -6,7 +6,7 @@ import { handleUnauthorizated } from "lib/error";
 import styles from "styles/auth.module.scss";
 import btnstyles from "styles/my.module.scss";
 
-import Loading from "./Loading";
+import Loader from "./Loader";
 
 export default function ChangePassword({
   isOauthUser,
@@ -73,7 +73,7 @@ export default function ChangePassword({
 
   return (
     <form onSubmit={onSubmit}>
-      {loading && <Loading />}
+      {loading && <Loader />}
       <input
         className={styles.input}
         name="currentPw"

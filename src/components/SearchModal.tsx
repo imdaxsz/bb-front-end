@@ -12,7 +12,7 @@ import {
   setSelected,
 } from "../store/searchResultSlice";
 
-import Loading from "./Loading";
+import Loader from "./Loader";
 import Modal from "./Modal";
 import SearchBar from "./SearchBar";
 import SearchBookItem from "./SearchBookItem";
@@ -64,7 +64,7 @@ export default function SearchModal({ setModal, setBook }: SearchBook) {
           <SearchBar placeholder="책 검색" setLoading={setLoading} />
         </div>
         <div className={styles.list} ref={listRef}>
-          {loading && <Loading />}
+          {loading && <Loader />}
           {result &&
             result.map((book, i) => (
               <SearchBookItem
