@@ -34,7 +34,7 @@ export default function SavedList({ onClose, setReview }: Props) {
     const { book, text, rating } = savedReviews[i];
     setReview({ book, text, rating });
     onClose();
-  }, 200);
+  }, 300);
 
   useEffect(() => {
     loadSavedReviews();

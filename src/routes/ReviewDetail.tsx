@@ -21,7 +21,7 @@ export default function ReviewDetail() {
     if (ok) {
       await deleteReview(id);
     }
-  }, 200);
+  }, 300);
 
   return (
     <div className="wrapper">

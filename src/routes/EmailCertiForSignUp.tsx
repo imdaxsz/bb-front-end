@@ -52,7 +52,7 @@ export default function EmailCertiForSignUp({ email, onChange }: Props) {
       }
       setLoading(false);
     } else setValidateEmail(1);
-  }, 200);
+  }, 300);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

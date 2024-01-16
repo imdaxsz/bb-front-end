@@ -35,7 +35,7 @@ export default function useLike({ isbn }: { isbn: string }) {
       console.log(error);
       handleUnauthorizated(error, "confirm");
     }
-  }, 200);
+  }, 300);
 
   // 서버에서 좋아요 여부 확인
   useEffect(() => {

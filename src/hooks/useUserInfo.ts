@@ -9,7 +9,7 @@ import { RootState } from "store";
 
 import useBackUp from "./useBackUp";
 
-const DEBOUNCE_DELAY = 200;
+const DEBOUNCE_WAIT = 300;
 
 export default function useUserInfo() {
   const token = useSelector((state: RootState) => state.auth.token);
@@ -43,7 +43,7 @@ export default function useUserInfo() {
       console.log(error);
       handleUnauthorizated(error, "alert");
     }
-  }, DEBOUNCE_DELAY);
+  }, DEBOUNCE_WAIT);
 
   const onRequestDataClick = debounce(async () => {
     const ok = window.confirm("후기 데이터를 요청하시겠습니까?");
@@ -52,7 +52,7 @@ export default function useUserInfo() {
       await backUp();
       setIsLoading((prev) => ({ ...prev, backUp: false }));
     }
-  }, DEBOUNCE_DELAY);
+  }, DEBOUNCE_WAIT);
 
   useEffect(() => {
     if (token) {
