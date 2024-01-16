@@ -1,17 +1,17 @@
-import { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Head from "components/Head";
-import useSignUp from "hooks/useSignUp";
+import Loader from "components/Loader";
+import useRegisterUser from "hooks/useRegisterUser";
 import styles from "styles/auth.module.scss";
 
 import EmailCertiForSignUp from "./EmailCertiForSignUp";
 
 export default function SignUp() {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const {
+    isLoading,
     form,
     isButtonDisabled,
     checkPassword,
@@ -19,23 +19,12 @@ export default function SignUp() {
     onSubmit,
     validatePw,
     isSamePw,
-    checkValidation,
-  } = useSignUp();
-
-  useEffect(() => {
-    if (pathname === "/signup/next") {
-      // 인증 상태 요청
-      if (form.email !== "") {
-        checkValidation(form.email);
-        return;
-      }
-      navigate("/signup");
-    }
-  }, [checkValidation, form.email, navigate, pathname]);
+  } = useRegisterUser({ newUser: true });
 
   return (
     <div className={styles.wrapper}>
       <Head title="회원가입 | 북북" />
+      {isLoading && <Loader />}
       <div className={styles.content}>
         <div className={styles.logo}>
           <Link to="/">북북</Link>
