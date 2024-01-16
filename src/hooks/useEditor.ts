@@ -1,8 +1,5 @@
 import { debounce } from "lodash";
 import { useEffect, useRef, useState } from "react";
-// import { useSelector } from "react-redux";
-
-// import { RootState } from "store";
 
 import useRecommend from "./useRecommend";
 import { ReviewForm, ReviewHandlerType, addReviewFunType } from "./useReview";
@@ -33,7 +30,6 @@ export default function useEditor({
   const [isLoading, setIsLoading] = useState(false);
 
   const { savedReviews, loadSavedReviews } = useSavedReview();
-  // const savedCount = useSelector((state: RootState) => state.savedReview.count);
 
   const today = new Date();
 
