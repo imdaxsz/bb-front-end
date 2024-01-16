@@ -8,19 +8,15 @@ import styles from "styles/auth.module.scss";
 
 interface Props {
   email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function EmailCertiForResetPW({ email, setEmail }: Props) {
+export default function EmailCertiForResetPW({ email, onChange }: Props) {
   const [error, setError] = useState(false);
   const [code, setCode] = useState("");
   const [showCode, setShowCode] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
 
   const onChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
@@ -40,7 +36,7 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
       console.log(error);
     }
     setLoading(false);
-  }, 200);
+  }, 300);
 
   const requestMailCode = async () => {
     setLoading(true);
@@ -53,8 +49,12 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
     setLoading(false);
   };
 
-  const onSubmit = debounce(async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await verify();
+  };
+
+  const verify = debounce(async () => {
     setLoading(true);
     try {
       const res = await verifyCode(email, code);
@@ -69,7 +69,7 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
       console.log(error);
     }
     setLoading(false);
-  }, 200);
+  }, 300);
 
   return (
     <form onSubmit={onSubmit} className={styles.form} noValidate>
@@ -77,9 +77,10 @@ export default function EmailCertiForResetPW({ email, setEmail }: Props) {
       <input
         className={styles.input}
         required
+        name="email"
         type="email"
         value={email}
-        onChange={onChangeEmail}
+        onChange={onChange}
         placeholder="이메일"
       />
       {error && <span>존재하지 않는 이메일입니다.</span>}
