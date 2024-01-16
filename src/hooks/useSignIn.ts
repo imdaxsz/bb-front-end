@@ -24,10 +24,10 @@ export default function useSignIn() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await requestSignin();
+    await handleForm();
   };
 
-  const requestSignin = debounce(async () => {
+  const handleForm = debounce(async () => {
     if (isButtonDisabled) {
       window.alert("이메일, 비밀번호를 입력해 주세요!");
       return;
