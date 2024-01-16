@@ -1,16 +1,22 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import { getMyBooks } from "api/BookApi";
 import { handleUnauthorizated } from "lib/error";
 import { Book } from "types";
 import { setBookInfo } from "utils/setBookInfo";
 
-export default function useMyBookList() {
+interface Props {
+  token: string | null;
+  sort: string | null;
+}
+
+export default function useMyBookList({ token, sort }: Props) {
   const [books, setBooks] = useState<Book[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const getUserMyBookList = useCallback(async () => {
+    setLoading(true);
     try {
       const res = await getMyBooks();
       setBooks(setBookInfo(res));
@@ -22,28 +28,35 @@ export default function useMyBookList() {
     setLoading(false);
   }, []);
 
-  const getSortedUserMyList = useCallback(
-    (sort: string | null) => {
-      if (books.length > 0) {
-        if (sort === "date_asc") {
-          setFilteredBooks([...books].reverse());
-        } else if (sort === "title") {
-          const result = [...books].sort((a, b) =>
-            a.title.localeCompare(b.title),
-          );
-          setFilteredBooks([...result]);
-        } else setFilteredBooks([...books]);
+  const getSortedUserMyList = useCallback(() => {
+    if (books.length > 0) {
+      if (sort === "date_asc") {
+        setFilteredBooks([...books].reverse());
+        return;
       }
-    },
-    [books],
-  );
+      if (sort === "title") {
+        const result = [...books].sort((a, b) =>
+          a.title.localeCompare(b.title),
+        );
+        setFilteredBooks([...result]);
+        return;
+      }
+      setFilteredBooks([...books]);
+    }
+  }, [books, sort]);
+
+  useEffect(() => {
+    if (token) getUserMyBookList();
+  }, [getUserMyBookList, token]);
+
+  useEffect(() => {
+    if (token) getSortedUserMyList();
+  }, [getSortedUserMyList, token]);
 
   return {
     loading,
     setLoading,
     books,
     filteredBooks,
-    getUserMyBookList,
-    getSortedUserMyList,
   };
 }

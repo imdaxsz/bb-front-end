@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { signin } from "store/authSlice";
+import { fetch } from "store/authSlice";
 
 export default function GoogleCallback() {
   const location = useLocation();
@@ -19,7 +19,7 @@ export default function GoogleCallback() {
       return;
     }
     if (token) {
-      dispatch(signin(token));
+      dispatch(fetch(token));
       navigate("/");
       return;
     }

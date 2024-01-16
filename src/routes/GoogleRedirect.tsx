@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { googleLogin as request } from "api/UserApi";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 
 export default function GoogleRedirect() {
   const navigate = useNavigate();
@@ -32,5 +32,5 @@ export default function GoogleRedirect() {
     }
   }, [code, googleLogin]);
 
-  return <>{loading && <Loading />}</>;
+  return <>{loading && <Loader />}</>;
 }

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { signout } from "store/authSlice";
+import { reset } from "store/authSlice";
 
 export default function useSignOut() {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ export default function useSignOut() {
 
   const signOut = useCallback(
     (url?: string) => {
-      dispatch(signout());
+      dispatch(reset());
       if (url) navigate(url);
     },
     [dispatch, navigate],

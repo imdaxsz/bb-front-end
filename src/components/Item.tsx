@@ -27,7 +27,7 @@ export default function Item({ type, id, title, cover, children, rec }: Props) {
       className={styles.wrapper}
     >
       <div className={styles.thumnail}>
-        <img src={cover} alt={title} loading="lazy" />
+        <img src={cover} alt={title.split("-")[0]} loading="lazy" />
       </div>
       <div className={`${styles.title} ellipsis`}>{title}</div>
       {children && children}

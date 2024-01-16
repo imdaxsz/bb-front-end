@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
 import BookItem from "components/BookItem";
 import Head from "components/Head";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 import useMyBookList from "hooks/useMyBookList";
 import { RootState } from "store";
 
@@ -13,27 +12,12 @@ export default function MyBookList() {
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
 
-  const {
-    filteredBooks,
-    getUserMyBookList,
-    getSortedUserMyList,
-    loading,
-    setLoading,
-  } = useMyBookList();
-
-  useEffect(() => {
-    if (!token) setLoading(false);
-    else getUserMyBookList();
-  }, [getUserMyBookList, setLoading, token]);
-
-  useEffect(() => {
-    if (token) getSortedUserMyList(sort);
-  }, [getSortedUserMyList, sort, token]);
+  const { filteredBooks, loading } = useMyBookList({ token, sort });
 
   return (
     <div className="wrapper">
       <Head title="관심도서 | 북북" />
-      {loading && <Loading />}
+      {loading && <Loader />}
       {token ? (
         <>
           {filteredBooks.length === 0 && !loading ? (

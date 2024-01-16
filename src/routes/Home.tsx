@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
 import Head from "components/Head";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 import ReviewItem from "components/ReviewItem";
 import useGetReviews from "hooks/useGetReviews";
 import { RootState } from "store";
@@ -12,20 +11,18 @@ export default function Home() {
   const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const token = useSelector((state: RootState) => state.auth.token);
-  const { reviews, getUserReviews, loading, setLoading } = useGetReviews();
-
-  useEffect(() => {
-    if (!token) setLoading(false);
-    else getUserReviews(sort);
-  }, [getUserReviews, setLoading, sort, token]);
+  const { reviews, isLoading } = useGetReviews({
+    token,
+    sort,
+  });
 
   return (
     <div className="wrapper">
       <Head />
-      {loading && <Loading />}
+      {isLoading && <Loader />}
       {token ? (
         <>
-          {reviews.length === 0 && !loading ? (
+          {reviews.length === 0 && !isLoading ? (
             <div className="guide">
               <span>아직 작성한 후기가 없어요.</span>
             </div>

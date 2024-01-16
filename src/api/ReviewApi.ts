@@ -87,5 +87,5 @@ export const deleteReview = (id: string) => {
  * @return 후기 목록
  */
 export const backUpReviews = () => {
-  return get<{ reviews: Review[] }>(`/api/review/backup`);
+  return get<Review[]>(`/api/review/backup`);
 };

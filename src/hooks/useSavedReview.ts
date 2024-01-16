@@ -23,7 +23,7 @@ export default function useSavedReview() {
         dispatch(setCount(res.length));
       } catch (error) {
         console.log(error);
-        handleUnauthorizated(error, "confirm");
+        handleUnauthorizated(error);
       }
       setLoading(false);
       if (setWriteLoading) setWriteLoading(false);
@@ -44,7 +44,7 @@ export default function useSavedReview() {
   };
 
   return {
-    reviews,
+    savedReviews: reviews,
     setReviews,
     loadSavedReviews,
     deleteSavedReview,

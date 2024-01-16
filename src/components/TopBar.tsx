@@ -16,12 +16,12 @@ export default function TopBar({ write }: Props) {
   const savedCount = useSelector((state: RootState) => state.savedReview.count);
   return (
     <div className={styles.wrapper}>
-      <div className={`${styles.topbar} ${write && styles["topbar-light"]}`}>
-        <ul>
-          <li className={styles.logo}>
-            <Link to="/">북북</Link>
-          </li>
-          <div className={styles.right}>
+      <ul className={`${styles.topbar} ${write && styles["topbar-light"]}`}>
+        <li className={styles.logo}>
+          <Link to="/">북북</Link>
+        </li>
+        <li>
+          <ul className={styles.right}>
             {!write ? (
               <>
                 <li>
@@ -58,9 +58,9 @@ export default function TopBar({ write }: Props) {
                 </li>
               </>
             )}
-          </div>
-        </ul>
-      </div>
+          </ul>
+        </li>
+      </ul>
     </div>
   );
 }

@@ -1,24 +1,25 @@
+import { lazy } from "react";
 import { useSelector } from "react-redux";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
-import PrivateRoute from "components/PrivateRoute";
 import Root from "components/Root";
-import BookDetail from "routes/BookDetail";
-import FindPassword from "routes/FindPassword";
-import GoogleCallback from "routes/GoogleCallback";
-import GoogleRedirect from "routes/GoogleRedirect";
 import Home from "routes/Home";
-import Leave from "routes/Leave";
-import My from "routes/My";
-import MyBookList from "routes/MyBookList";
-import NotFound from "routes/NotFound";
-import Recommend from "routes/Recommend";
-import ReviewDetail from "routes/ReviewDetail";
-import SearchResult from "routes/SearchResult";
-import Signin from "routes/Signin";
-import Signup from "routes/Signup";
-import Write from "routes/Write";
 import { RootState } from "store";
+
+const Leave = lazy(() => import("routes/Leave"));
+const My = lazy(() => import("routes/My"));
+const MyBookList = lazy(() => import("routes/MyBookList"));
+const Recommend = lazy(() => import("routes/Recommend"));
+const ReviewDetail = lazy(() => import("routes/ReviewDetail"));
+const SearchResult = lazy(() => import("routes/SearchResult"));
+const Write = lazy(() => import("routes/Write"));
+const SignUp = lazy(() => import("routes/SignUp"));
+const SignIn = lazy(() => import("routes/SignIn"));
+const GoogleCallback = lazy(() => import("routes/GoogleCallback"));
+const GoogleRedirect = lazy(() => import("routes/GoogleRedirect"));
+const FindPassword = lazy(() => import("routes/FindPassword"));
+const BookDetail = lazy(() => import("routes/BookDetail"));
+const NotFound = lazy(() => import("routes/NotFound"));
 
 export default function Router() {
   const token = useSelector((state: RootState) => state.auth.token);
@@ -29,53 +30,38 @@ export default function Router() {
         <Route path="/recommend" element={<Recommend />} />
         <Route path="/my_list" element={<MyBookList />} />
         <Route path="/book/detail/:id" element={<BookDetail />} />
-        <Route
-          path="/my"
-          element={<PrivateRoute component={<My />} token={token} />}
-        />
-        <Route
-          path="/review/detail/:id"
-          element={<PrivateRoute component={<ReviewDetail />} token={token} />}
-        />
         <Route path="/search/:filter" element={<SearchResult />} />
-        <Route
-          path="/leave"
-          element={<PrivateRoute component={<Leave />} token={token} />}
-        />
       </Route>
-      <Route
-        path="/write"
-        element={<PrivateRoute component={<Write />} token={token} />}
-      />
-      <Route
-        path="/find_password"
-        element={token ? <Navigate replace to="/" /> : <FindPassword />}
-      />
-      <Route
-        path="/find_password/next"
-        element={token ? <Navigate replace to="/" /> : <FindPassword />}
-      />
-      <Route
-        path="/signin"
-        element={token ? <Navigate replace to="/" /> : <Signin />}
-      />
-      <Route
-        path="/auth/google/callback"
-        element={token ? <Navigate replace to="/" /> : <GoogleCallback />}
-      />
-      <Route
-        path="/auth/google"
-        element={token ? <Navigate replace to="/" /> : <GoogleRedirect />}
-      />
-      <Route
-        path="/signup"
-        element={token ? <Navigate replace to="/" /> : <Signup />}
-      />
-      <Route
-        path="/signup/next"
-        element={token ? <Navigate replace to="/" /> : <Signup />}
-      />
+      <Route element={<PrivateRoutes token={token} />}>
+        <Route path="" element={<Root />}>
+          <Route path="/my" element={<My />} />
+          <Route path="/review/detail/:id" element={<ReviewDetail />} />
+          <Route path="/leave" element={<Leave />} />
+        </Route>
+        <Route path="/write" element={<Write />} />
+      </Route>
+      <Route element={<GuestOnlyRoutes token={token} />}>
+        <Route path="/find_password" element={<FindPassword />} />
+        <Route path="/find_password/next" element={<FindPassword />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/auth/google/callback" element={<GoogleCallback />} />
+        <Route path="/auth/google" element={<GoogleRedirect />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup/next" element={<SignUp />} />
+      </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
+
+interface Props {
+  token: string | null;
+}
+
+function GuestOnlyRoutes({ token }: Props) {
+  return token ? <Navigate replace to="/" /> : <Outlet />;
+}
+
+const PrivateRoutes = ({ token }: Props) => {
+  return token ? <Outlet /> : <Navigate replace to="/signIn" />;
+};

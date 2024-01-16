@@ -1,26 +1,17 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-
+import Head from "components/Head";
 import Like from "components/Like";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 import useGetBookInfo from "hooks/useGetBookInfo";
-import { RootState } from "store";
 import bs from "styles/book.module.scss";
 import styles from "styles/detail.module.scss";
 
 export default function BookDetail() {
-  const id = useLocation().pathname.split("/")[3];
-  const token = useSelector((state: RootState) => state.auth.token);
-  const { loading, book, getBookDetailInfo } = useGetBookInfo();
-
-  useEffect(() => {
-    getBookDetailInfo(id);
-  }, [getBookDetailInfo, id]);
+  const { loading, book } = useGetBookInfo();
 
   return (
     <div className="wrapper">
-      {loading && <Loading />}
+      <Head title={`${book ? book.title + " | 북북" : "북북"}`} />
+      {loading && <Loader />}
       {!loading && (
         <div className={styles.wrapper}>
           <div className={styles.item}>
@@ -50,7 +41,7 @@ export default function BookDetail() {
                     자세히 보기
                   </div>
                 </div>
-                <Like token={token} isbn={book.isbn} />
+                <Like isbn={book.isbn} />
               </>
             )}
           </div>

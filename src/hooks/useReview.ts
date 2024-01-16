@@ -14,19 +14,35 @@ import { setCount } from "store/savedReviewSlice";
 import { Book, Review } from "types";
 import { getDate } from "utils/getDate";
 
-type addReviewFunType = (
-  book: Book | null,
-  rating: number,
+export interface ReviewForm {
+  book: Book | null;
+  rating: number;
+  text: string;
+}
+
+export type addReviewFunType = (
+  reviewForm: ReviewForm,
   date: Date,
-  text: string,
   opt: "save" | "upload",
   savedReviews?: Review[],
 ) => Promise<string>;
 
+export type ReviewHandlerType = ({
+  book,
+  text,
+  rating,
+}: {
+  book?: Book | null;
+  text?: string;
+  rating?: number;
+}) => void;
+
 export default function useReview() {
-  const [text, setText] = useState("");
-  const [book, setBook] = useState<Book | null>(null);
-  const [rating, setRating] = useState(3);
+  const [review, setReview] = useState<ReviewForm>({
+    book: null,
+    text: "",
+    rating: 3,
+  });
   const today = new Date();
   const [date, setDate] = useState(getDate(today));
   const [loading, setLoading] = useState(false);
@@ -35,19 +51,23 @@ export default function useReview() {
   const dispatch = useDispatch();
   const savedCount = useSelector((state: RootState) => state.savedReview.count);
 
+  const onChangeReview: ReviewHandlerType = ({ book, text, rating }) => {
+    if (book !== undefined) setReview((prev) => ({ ...prev, book }));
+    if (text !== undefined) setReview((prev) => ({ ...prev, text }));
+    if (rating) setReview((prev) => ({ ...prev, rating }));
+  };
+
   // 후기 수정 시 후기 불러오기
   const loadReview = useCallback(async (id: string | null) => {
     if (!id) return;
     setLoading(true);
     try {
-      const res = await getReview(id);
-      setBook(res.book);
-      setRating(res.rating);
-      setText(res.text);
-      setDate(getDate(new Date(res.date)));
+      const { book, rating, text, date } = await getReview(id);
+      setReview({ book, text, rating });
+      setDate(getDate(new Date(date)));
     } catch (error) {
       console.log(error);
-      handleUnauthorizated(error, "alert");
+      handleUnauthorizated(error);
     }
     setLoading(false);
   }, []);
@@ -56,7 +76,7 @@ export default function useReview() {
   const updateReview = async (id: string | null) => {
     if (!id) return;
     try {
-      await requestUpdate(id, rating, text);
+      await requestUpdate(id, review.rating, review.text);
       navigate(`/review/detail/${id}`);
     } catch (error) {
       console.log(error);
@@ -66,16 +86,15 @@ export default function useReview() {
 
   // 후기 저장 또는 발행
   const addReview: addReviewFunType = async (
-    book,
-    rating,
+    reviewForm,
     date,
-    text,
     opt,
     savedReviews,
   ) => {
     setLoading(true);
     let reviewId = "";
     let isSavedReview = false; // 이미 임시저장되어 있는 리뷰인가
+    const { book, rating, text } = reviewForm;
 
     if (savedReviews && savedReviews.length > 0) {
       const savedIsbns = savedReviews.map((r) => r.book.isbn);
@@ -109,12 +128,8 @@ export default function useReview() {
   };
 
   return {
-    text,
-    setText,
-    book,
-    setBook,
-    rating,
-    setRating,
+    review,
+    onChangeReview,
     date,
     loading,
     setLoading,

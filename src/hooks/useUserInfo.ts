@@ -1,22 +1,28 @@
-import { useState, useCallback } from "react";
+import { debounce } from "lodash";
+import { useState, useCallback, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import { toggleRecommend } from "api/RecommendApi";
 import { getUser } from "api/UserApi";
 import { handleUnauthorizated } from "lib/error";
+import { RootState } from "store";
 
 import useBackUp from "./useBackUp";
 
+const DEBOUNCE_WAIT = 300;
+
 export default function useUserInfo() {
+  const token = useSelector((state: RootState) => state.auth.token);
+
   const [email, setEmail] = useState("");
   const [isRecommendActive, setisRecommendActive] = useState(true);
   const [isOauthUser, setIsOauthUser] = useState(false);
-  const [infoLoading, setInfoLoading] = useState(false);
-  const [backUploading, setBackUpLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({ info: false, backUp: false });
 
   const { backUp } = useBackUp();
 
   const getUserInfo = useCallback(async () => {
-    setInfoLoading(true);
+    setIsLoading((prev) => ({ ...prev, info: true }));
     try {
       const res = await getUser();
       setEmail(res.email);
@@ -26,10 +32,10 @@ export default function useUserInfo() {
       console.log(error);
       handleUnauthorizated(error);
     }
-    setInfoLoading(false);
+    setIsLoading((prev) => ({ ...prev, info: false }));
   }, []);
 
-  const onRecommendClick = async () => {
+  const onRecommendClick = debounce(async () => {
     try {
       await toggleRecommend();
       setisRecommendActive((prev) => !prev);
@@ -37,25 +43,28 @@ export default function useUserInfo() {
       console.log(error);
       handleUnauthorizated(error, "alert");
     }
-  };
+  }, DEBOUNCE_WAIT);
 
-  const onRequestDataClick = async () => {
+  const onRequestDataClick = debounce(async () => {
     const ok = window.confirm("후기 데이터를 요청하시겠습니까?");
     if (ok) {
-      setBackUpLoading(true);
+      setIsLoading((prev) => ({ ...prev, backUp: true }));
       await backUp();
-      setBackUpLoading(false);
+      setIsLoading((prev) => ({ ...prev, backUp: false }));
     }
-  };
+  }, DEBOUNCE_WAIT);
+
+  useEffect(() => {
+    if (token) {
+      getUserInfo();
+    }
+  }, [token, getUserInfo]);
 
   return {
-    isRecommendActive,
+    isLoading,
     email,
-    setEmail,
     isOauthUser,
-    infoLoading,
-    backUploading,
-    getUserInfo,
+    isRecommendActive,
     onRecommendClick,
     onRequestDataClick,
   };

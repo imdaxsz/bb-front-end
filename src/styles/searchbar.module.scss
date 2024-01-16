@@ -22,12 +22,12 @@
 
 .input {
   @include common.flex(row, center, center);
-  @include common.setSize(75%, 2.2em);
-  line-height: 2.2em;
+  @include common.setSize(75%, 2em);
+  line-height: 2em;
   position: relative;
   left: 15px;
   color: black;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .container:focus-within {
