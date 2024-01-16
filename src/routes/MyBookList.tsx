@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import BookItem from "components/BookItem";
 import Head from "components/Head";
 import Loader from "components/Loader";
+import ScrollToTopButton from "components/ScrollToTopButton";
 import useMyBookList from "hooks/useMyBookList";
 import { RootState } from "store";
 
@@ -17,6 +18,7 @@ export default function MyBookList() {
   return (
     <div className="wrapper">
       <Head title="관심도서 | 북북" />
+      <ScrollToTopButton />
       {loading && <Loader />}
       {token ? (
         <>
