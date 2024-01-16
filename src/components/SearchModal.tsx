@@ -12,7 +12,6 @@ import {
   setSelected,
 } from "../store/searchResultSlice";
 
-import Loader from "./Loader";
 import Modal from "./Modal";
 import SearchBar from "./SearchBar";
 import SearchBookItem from "./SearchBookItem";
@@ -30,7 +29,6 @@ export default function SearchModal({ onClose, setBook }: SearchBook) {
   const [scrollY, setScrollY] = useState(0);
   const listRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
 
   const onClickCancel = () => {
     onClose();
@@ -62,10 +60,9 @@ export default function SearchModal({ onClose, setBook }: SearchBook) {
     return (
       <>
         <div className={styles.searchbar}>
-          <SearchBar placeholder="책 검색" setLoading={setLoading} />
+          <SearchBar placeholder="책 검색" />
         </div>
         <div className={styles.list} ref={listRef}>
-          {loading && <Loader />}
           {result &&
             result.map((book, i) => (
               <SearchBookItem
