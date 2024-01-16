@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import Head from "components/Head";
 import Loader from "components/Loader";
 import ReviewItem from "components/ReviewItem";
+import ScrollToTopButton from "components/ScrollToTopButton";
 import useGetReviews from "hooks/useGetReviews";
 import { RootState } from "store";
 
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <div className="wrapper">
       <Head />
+      <ScrollToTopButton />
       {isLoading && <Loader />}
       {token ? (
         <>

@@ -4,6 +4,7 @@ import BookItem from "components/BookItem";
 import Head from "components/Head";
 import Loader from "components/Loader";
 import Pagination from "components/Pagination";
+import ScrollToTopButton from "components/ScrollToTopButton";
 import useGetBooks from "hooks/useGetBooks";
 
 export default function Recommend() {
@@ -14,6 +15,7 @@ export default function Recommend() {
   return (
     <div className="wrapper">
       <Head title="추천도서 | 북북" />
+      <ScrollToTopButton />
       <div className="list-wrapper">
         <div className="list" style={{ marginBottom: "70px" }}>
           {loading && <Loader />}
