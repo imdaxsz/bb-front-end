@@ -29,7 +29,7 @@ export default function useSignIn() {
 
   const requestSignin = debounce(async () => {
     if (isButtonDisabled) {
-      window.alert("아이디, 비밀번호를 입력해 주세요!");
+      window.alert("이메일, 비밀번호를 입력해 주세요!");
       return;
     }
 
