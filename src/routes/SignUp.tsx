@@ -5,7 +5,7 @@ import Loader from "components/Loader";
 import useRegisterUser from "hooks/useRegisterUser";
 import styles from "styles/auth.module.scss";
 
-import EmailCertiForSignUp from "./EmailCertiForSignUp";
+import EmailCertification from "./EmailCertification";
 
 export default function SignUp() {
   const { pathname } = useLocation();
@@ -30,7 +30,11 @@ export default function SignUp() {
           <Link to="/">북북</Link>
         </div>
         {pathname === "/signup" ? (
-          <EmailCertiForSignUp email={form.email} onChange={onChange} />
+          <EmailCertification
+            email={form.email}
+            onChange={onChange}
+            purpose="signUp"
+          />
         ) : (
           <form onSubmit={onSubmit} className={styles.form} noValidate>
             <input

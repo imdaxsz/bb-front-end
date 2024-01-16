@@ -5,7 +5,7 @@ import Loader from "components/Loader";
 import useRegisterUser from "hooks/useRegisterUser";
 import styles from "styles/auth.module.scss";
 
-import EmailCertiForResetPW from "./EmailCertiForResetPW";
+import EmailCertification from "./EmailCertification";
 
 export default function FindPassword() {
   const { pathname } = useLocation();
@@ -35,7 +35,11 @@ export default function FindPassword() {
             <h4 className={styles["label-sm"]}>
               본인 확인을 위해 이메일 인증을 해주세요.
             </h4>
-            <EmailCertiForResetPW email={form.email} onChange={onChange} />
+            <EmailCertification
+              email={form.email}
+              onChange={onChange}
+              purpose="resetPw"
+            />
           </>
         ) : (
           <div>
