@@ -1,0 +1,6 @@
+"rewrites": [
+  {
+    "source": "/api/:path*",
+    "destination": "'https://vcxempryst.us16.qoddiapp.com/api/:path*"
+  }
+]
