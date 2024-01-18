@@ -2,13 +2,13 @@ import { debounce } from "lodash";
 import { useEffect, useRef, useState } from "react";
 
 import useRecommend from "./useRecommend";
-import { ReviewForm, ReviewHandlerType, addReviewFunType } from "./useReview";
+import { ReviewForm, ReviewHandlerType, AddReviewFunType } from "./useReview";
 import useSavedReview from "./useSavedReview";
 
 interface Props {
   onChangeReview: ReviewHandlerType;
   loadReview: (id: string | null) => Promise<void>;
-  addReview: addReviewFunType;
+  addReview: AddReviewFunType;
   updateReview: (id: string | null) => Promise<void>;
   review: ReviewForm;
   mode: string | null;

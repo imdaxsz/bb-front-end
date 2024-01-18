@@ -10,7 +10,7 @@ import { setKeyword, setResult } from "store/searchResultSlice";
 import { Book, Review, SearchType } from "types";
 import { setBookInfo } from "utils/setBookInfo";
 
-export type getSearchResultType = (
+export type GetSearchResultType = (
   page: string | null,
   keyword: string | null,
   searchType: SearchType,
@@ -30,7 +30,7 @@ export default function useSearch(keyword?: string) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const getSearchResult: getSearchResultType = useCallback(
+  const getSearchResult: GetSearchResultType = useCallback(
     async (page, keyword, searchType) => {
       setLoading(true);
       try {

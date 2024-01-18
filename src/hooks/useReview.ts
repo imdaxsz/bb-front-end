@@ -20,7 +20,7 @@ export interface ReviewForm {
   text: string;
 }
 
-export type addReviewFunType = (
+export type AddReviewFunType = (
   reviewForm: ReviewForm,
   date: Date,
   opt: "save" | "upload",
@@ -85,7 +85,7 @@ export default function useReview() {
   };
 
   // 후기 저장 또는 발행
-  const addReview: addReviewFunType = async (
+  const addReview: AddReviewFunType = async (
     reviewForm,
     date,
     opt,
