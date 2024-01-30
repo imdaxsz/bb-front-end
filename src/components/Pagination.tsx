@@ -35,7 +35,7 @@ export default function Pagination({
   return (
     <div className={styles.wrapper}>
       <ul>
-        <li className={`${styles.move} ${noPrev && styles.visible}`}>
+        <li className={`${styles.move} ${noPrev && styles.invisible}`}>
           <Link to={`${url}page=${start - 1}`}>이전</Link>
         </li>
         {[...Array(pageCount)].map((a, i) => (
@@ -54,7 +54,7 @@ export default function Pagination({
             )}
           </React.Fragment>
         ))}
-        <li className={`${styles.move} ${noNext && styles.visible}`}>
+        <li className={`${styles.move} ${noNext && styles.invisible}`}>
           <Link to={`${url}page=${start + pageCount}`}>다음</Link>
         </li>
       </ul>

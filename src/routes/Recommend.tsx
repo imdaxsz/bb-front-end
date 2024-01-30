@@ -23,7 +23,7 @@ export default function Recommend() {
         </div>
         <Pagination
           totalItems={totalBooks}
-          currentPage={page ? parseInt(page) : 1}
+          currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1}
           pageCount={5}
           itemCountPerPage={50}
         />
