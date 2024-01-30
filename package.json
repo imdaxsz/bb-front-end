@@ -54,7 +54,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/lodash": "^4.14.202",
     "@types/redux-persist": "^4.3.1",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
