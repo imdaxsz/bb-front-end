@@ -7,7 +7,7 @@ import useUserInfo from "hooks/useUserInfo";
 import styles from "styles/my.module.scss";
 
 export default function Leave() {
-  const { email, isLoading } = useUserInfo();
+  const { email, isOauthUser, isLoading } = useUserInfo();
   const { leaveInProgress, password, onChangePw, onChangeCheck, onSubmit } =
     useLeave();
 
@@ -37,22 +37,26 @@ export default function Leave() {
             <div className={styles.message}>
               <input id="agree" type="checkbox" onChange={onChangeCheck} />
               <label htmlFor="agree">
-                &nbsp; 위 내용을 이해했으며, 모두 동의합니다.
+                &nbsp; 위 내용을 확인했으며, 이에 동의합니다.
               </label>
             </div>
-            <strong>
-              본인 확인을 위해 {email} 계정의 비밀번호를 입력해주세요.
-            </strong>
             <form onSubmit={onSubmit} className={styles["delete-form"]}>
-              <input
-                name="currentPw"
-                type="password"
-                value={password}
-                onChange={onChangePw}
-                placeholder="비밀번호 입력"
-                autoComplete="off"
-                className={styles.input}
-              />
+              {!isOauthUser && (
+                <>
+                  <strong>
+                    본인 확인을 위해 {email} 계정의 비밀번호를 입력해주세요.
+                  </strong>
+                  <input
+                    name="currentPw"
+                    type="password"
+                    value={password}
+                    onChange={onChangePw}
+                    placeholder="비밀번호 입력"
+                    autoComplete="off"
+                    className={styles.input}
+                  />
+                </>
+              )}
               <button type="submit" className={styles["btn-primary"]}>
                 회원 탈퇴
               </button>
