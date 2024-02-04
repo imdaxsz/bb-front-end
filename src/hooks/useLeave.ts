@@ -17,8 +17,7 @@ export default function useLeave() {
   };
 
   const onChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) setAgree(true);
-    else setAgree(false);
+    setAgree(e.target.checked);
   };
 
   const deleteAccount = async (password: string) => {
@@ -38,9 +37,11 @@ export default function useLeave() {
   };
 
   const handleForm = debounce(async () => {
-    if (agree) {
-      await deleteAccount(password);
-    } else window.alert("회원 탈퇴 동의를 체크해 주세요.");
+    if (!agree) {
+      window.alert("회원 탈퇴 동의를 체크해 주세요.");
+      return;
+    }
+    await deleteAccount(password);
   }, 300);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
