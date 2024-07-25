@@ -9,6 +9,9 @@
       "version": "detect"
     }
   },
+  "globals": {
+    "React": false
+  },
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
@@ -16,9 +19,6 @@
     "import/no-extraneous-dependencies": 0,
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "react/require-default-props": 0,
-    "globals": {
-      "React": "readonly" // React를 전역 변수로 정의합니다.
-    },
     "import/extensions": [
       "error",
       "ignorePackages",

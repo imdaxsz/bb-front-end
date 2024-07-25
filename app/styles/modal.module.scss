@@ -1,0 +1,114 @@
+@use 'common';
+
+$padding: 20px;
+$icon: 50px;
+$wrapper-width: 100%;
+
+.wrapper {
+  display: block;
+  @include common.setSize($wrapper-width, 100%);
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  bottom: 0;
+  z-index: 800;
+  @include common.flex(row, center, center);
+}
+
+.modal {
+  max-width: 700px;
+  @include common.setSize(70%, 600px);
+  border-radius: 16px;
+  background: white;
+  box-shadow: rgba(101, 119, 134, 0.2) 0px 0px 15px;
+  padding: $padding;
+  position: relative;
+}
+
+.modal-sm {
+  max-width: 500px;
+  min-width: auto;
+  @include common.setSize(80%, 450px);
+  border-radius: 16px;
+}
+
+.bottom {
+  position: absolute;
+  width: calc(100% - $padding * 2);
+  bottom: 20px;
+  gap: 10px;
+  @include common.flex(row, center, center);
+}
+
+.searchbar {
+  @include common.setSize(100%, 50px);
+  margin-bottom: 30px;
+}
+
+.list {
+  width: 100%;
+  height: calc(100% - 125px);
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  @include common.flex(column, flex-start, flex-start);
+  gap: 12px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  height: 2rem;
+  line-height: 2rem;
+  margin-bottom: 2px;
+}
+
+.mb {
+  margin-bottom: 10px;
+}
+
+.modal hr {
+  background: common.$neutral-10;
+  height: 1px;
+  border: 0;
+}
+
+.g0 {
+  gap: 0;
+}
+
+.list-item {
+  width: 100%;
+  border-bottom: solid 1px common.$neutral-10;
+  padding: 15px 0;
+  cursor: pointer;
+  color: #222;
+  @include common.flex(row, center, center);
+}
+
+.text-sm {
+  color: common.$neutral-30;
+  font-size: 15px;
+}
+
+.des {
+  color: common.$neutral-50;
+}
+
+.review {
+  width: calc(100% - $icon);
+}
+
+.icon {
+  @include common.setSize($icon, $icon);
+  @include common.flex(row, center, center);
+  color: common.$neutral-30;
+}
+
+@media screen and (max-width: 650px) {
+  .modal:not(.modal-sm) {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    border-radius: 0;
+  }
+}

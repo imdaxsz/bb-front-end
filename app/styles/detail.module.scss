@@ -1,0 +1,136 @@
+@use 'common';
+
+.wrapper {
+  @include common.setSize(100%, 105%);
+  padding: 50px 0 70px;
+}
+
+.item {
+  width: 100%;
+  max-width: 1150px;
+  border: solid 1px common.$neutral-05;
+  border-radius: 0 30px 30px 0;
+  margin: 0 auto;
+  padding: 30px 80px;
+  position: relative;
+  @include common.flex(column, center, center);
+}
+
+.book {
+  max-width: 50%;
+  @include common.setSize(fit-content, 250px);
+  @include common.flex(row, center, center);
+}
+
+.info {
+  width: calc(100% - 200px);
+  color: black;
+  margin-left: 40px;
+}
+
+.title {
+  font-size: 28px;
+  line-height: 120%;
+  margin-bottom: 8px;
+}
+
+.sub-info {
+  color: common.$neutral-50;
+  font-size: 20px;
+  line-height: 180%;
+}
+
+.rating {
+  margin-top: 20px;
+  height: 16px;
+}
+
+.tool {
+  @include common.setSize(120px, 50px);
+  @include common.flex(row, center, center);
+  padding: 15px 15px 0 0;
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  right: 0;
+}
+
+.tool-item {
+  width: 50%;
+  @include common.flex(row, center, center);
+  cursor: pointer;
+  &:hover {
+    color: common.$primary;
+  }
+}
+
+.content {
+  width: 100%;
+  margin-top: 20px;
+  padding: 30px 12px 12px;
+  border-top: solid 1px common.$neutral-20;
+  font-size: 18px;
+  & div:first-child {
+    margin-bottom: 10px;
+  }
+}
+
+.link {
+  color: common.$primary;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.like {
+  height: 1.5rem;
+  margin-top: 8px;
+  @include common.flex(row, center, center);
+  cursor: pointer;
+  position: absolute;
+  top: 30px;
+  right: 80px;
+  color: common.$neutral-60;
+  gap: 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .book {
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .wrapper {
+    height: 100%;
+    padding: 0;
+  }
+  .item {
+    border: none;
+    padding: 30px 10px;
+  }
+  .book {
+    max-width: 97%;
+    height: 200px;
+  }
+  .like {
+    margin-top: 0;
+    right: 20px;
+  }
+  .content {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .like {
+    position: relative;
+    right: auto;
+    width: 90%;
+    height: fit-content;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: solid 1px common.$neutral-05;
+  }
+}
