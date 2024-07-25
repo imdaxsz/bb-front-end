@@ -14,6 +14,27 @@ export interface BookInfo extends Book {
   link: string
 }
 
+// reponse types
+export interface BookInfoResponse extends Book {
+  isbn13: string
+}
+
+export interface DetailBookResponse extends BookInfoResponse {
+  pubDate: string
+  description: string
+  categoryId: string
+  categoryName: string
+  subInfo: {
+    itemPage: number
+  }
+  link: string
+}
+
+export interface BookList {
+  totalResults: number
+  item: DetailBookResponse[]
+}
+
 export interface Review {
   _id: string
   book: Book
