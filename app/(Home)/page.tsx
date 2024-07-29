@@ -1,54 +1,46 @@
-// import { useSelector } from 'react-redux'
-// import { useSearchParams } from 'react-router-dom'
-
-// import Menu from '@/components/Menu'
+import Menu from '@/components/Menu'
+import ReviewItem from '@/components/ReviewItem'
+import ScrollToTopButton from '@/components/ScrollToTopButton'
+import { nextFetch } from '@/lib/fetch'
+import { getToken } from '@/(auth)/_utils/getToken'
+import { Review } from '@/types'
 import type { Metadata } from 'next'
-
-// import Loader from 'components/Loader'
-// import ReviewItem from 'components/ReviewItem'
-// import ScrollToTopButton from 'components/ScrollToTopButton'
-// import useGetReviews from 'hooks/useGetReviews'
-// import { RootState } from 'store'
 
 export const metadata: Metadata = {
   title: '홈',
 }
 
-export default function Home() {
-  // const [searchParams] = useSearchParams()
-  // const sort = searchParams.get('sort')
-  // const token = useSelector((state: RootState) => state.auth.token)
-  // const { reviews, isLoading } = useGetReviews({
-  //   token,
-  //   sort,
-  // })
+export default async function Home() {
+  const token: string | null = await getToken()
+
+  const message = token
+    ? '아직 작성한 후기가 없어요.'
+    : '로그인 후, 나만의 책 후기를 남겨보세요!'
+
+  let reviews: Review[] = []
+
+  if (token)
+    reviews = await nextFetch<Review[]>('/api/review/list').then(
+      (res) => res.body,
+    )
 
   return (
     <div className="wrapper">
-      {/* <Menu /> */}
-      {/* <ScrollToTopButton />
-      {isLoading && <Loader />}
-      {token ? (
-        <>
-          {reviews.length === 0 && !isLoading ? (
-            <div className="guide">
-              <span>아직 작성한 후기가 없어요.</span>
-            </div>
-          ) : (
-            <div className="list-wrapper">
-              <div className="list">
-                {reviews.map((review, i) => (
-                  <ReviewItem review={review} key={i} />
-                ))}
-              </div>
-            </div>
-          )}
-        </>
-      ) : ( */}
-      <div className="guide">
-        <span>로그인 후, 나만의 책 후기를 남겨보세요!</span>
-      </div>
-      {/* )} */}
+      <Menu />
+      {token && reviews.length > 0 ? (
+        <div className="list-wrapper">
+          <ScrollToTopButton />
+          <div className="list">
+            {reviews.map((review) => (
+              <ReviewItem review={review} key={review._id} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="guide">
+          <span>{message}</span>
+        </div>
+      )}
     </div>
   )
 }
