@@ -1,24 +1,28 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
-import useSearch from '@/hooks/useSearch'
 import styles from '@/styles/searchbar.module.scss'
 
 import { MagnifyingGlass } from '@phosphor-icons/react'
-import Loader from './Loader'
 
 interface Props {
   placeholder: string
   keyword?: string
+  onSearch: (value: string) => void
 }
 
-export default function SearchBar({ placeholder, keyword }: Props) {
+export default function SearchBar({ placeholder, keyword, onSearch }: Props) {
   const focusRef = useRef<HTMLInputElement>(null)
   const pathname = usePathname()
+  const [word, setWord] = useState(keyword ?? '')
 
-  const { loading, onChange, search, word } = useSearch(keyword)
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget
+    if (value.length > 15) return
+    setWord(value)
+  }
 
   const focusSearchBar = () => {
     if (focusRef.current instanceof HTMLInputElement) focusRef.current.focus()
@@ -27,7 +31,7 @@ export default function SearchBar({ placeholder, keyword }: Props) {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (focusRef.current instanceof HTMLInputElement) focusRef.current.blur()
-    search()
+    onSearch(word)
   }
 
   return (
@@ -37,14 +41,13 @@ export default function SearchBar({ placeholder, keyword }: Props) {
       role="search"
       className={`${pathname === '/write' && styles.med}`}
     >
-      {loading && <Loader />}
       <div className={styles.container} onClick={focusSearchBar}>
-        <div className={styles.icon}>
+        <button type="submit" aria-label="검색" className={styles.icon}>
           <MagnifyingGlass
             weight="bold"
             size={`${pathname === '/write' ? 24 : 20}`}
           />
-        </div>
+        </button>
         <input
           onChange={onChange}
           type="text"
