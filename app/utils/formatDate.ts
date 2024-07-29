@@ -1,4 +1,4 @@
-export const getDate = (date: Date, opt?: string) => {
+export const formatDate = (date: Date, opt?: string) => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
