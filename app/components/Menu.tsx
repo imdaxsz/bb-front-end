@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import styles from '@/styles/bar.module.scss'
 import { MagnifyingGlass } from '@phosphor-icons/react'
 import SearchBar from './SearchBar'
@@ -18,7 +18,7 @@ export default function Menu() {
   const [filter, setFilter] = useState(filterList[0])
   const placeholder: Record<string, string> = {
     '': '도서명으로 후기 검색',
-    my_list: '제목 검색',
+    likes: '제목 검색',
     recommend: '제목 검색',
   }
 
@@ -31,6 +31,14 @@ export default function Menu() {
 
   const isMobile = useMediaQuery({ maxWidth: 650 })
   const [showMbSearch, setShowMbSearch] = useState(false)
+
+  const router = useRouter()
+
+  const onSearch = (word: string) => {
+    // eslint-disable-next-line no-nested-ternary
+    const option = isHome ? 'review' : isRecommend ? 'book' : 'likes'
+    router.push(`/search/${option}?query=${word}`)
+  }
 
   const selectFilter = (e: React.MouseEvent<HTMLLIElement>, i: number) => {
     e.stopPropagation()
@@ -65,6 +73,7 @@ export default function Menu() {
                 <SearchBar
                   placeholder={placeholder[pathname]}
                   keyword={keyword || ''}
+                  onSearch={onSearch}
                 />
               </div>
             </li>
@@ -77,8 +86,8 @@ export default function Menu() {
           <li className={isHome ? 'active' : ''}>
             <Link href="/">후기</Link>
           </li>
-          <li className={fullPath.includes('my_list') ? 'active' : ''}>
-            <Link href="/my_list" prefetch={false}>
+          <li className={fullPath.includes('likes') ? 'active' : ''}>
+            <Link href="/likes" prefetch={false}>
               관심도서
             </Link>
           </li>
@@ -87,7 +96,7 @@ export default function Menu() {
               추천도서
             </Link>
           </li>
-          {['', 'search', 'recommend', 'my_list'].includes(pathname) && (
+          {['', 'search', 'recommend', 'likes'].includes(pathname) && (
             <li className={styles.right}>
               <ul>
                 {!isRecommend && (
@@ -128,6 +137,7 @@ export default function Menu() {
                       <SearchBar
                         placeholder={placeholder[pathname]}
                         keyword={keyword || ''}
+                        onSearch={onSearch}
                       />
                     </div>
                   )}
