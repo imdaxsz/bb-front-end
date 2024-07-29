@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Book, PageSearchParams, PageURL, Review, SearchType } from '@/types'
 import { notFound } from 'next/navigation'
 import Pagination from '@/components/Pagination'
-import ReviewItem from '@/components/ReviewItem'
+import ReviewCard from '@/components/ReviewCard'
 import BookInfoCard from '@/components/BookInfoCard'
 import Menu from '@/components/Menu'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
@@ -64,7 +64,7 @@ export default async function SearchResultPage({
 function RenderSearchResult(item: Book | Review, isReview: boolean) {
   if (isReview) {
     const review = item as Review
-    return <ReviewItem review={review} key={review._id} />
+    return <ReviewCard review={review} key={review._id} />
   }
 
   const book = item as Book

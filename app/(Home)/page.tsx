@@ -1,5 +1,5 @@
 import Menu from '@/components/Menu'
-import ReviewItem from '@/components/ReviewItem'
+import ReviewCard from '@/components/ReviewCard'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { nextFetch } from '@/lib/fetch'
 import { getToken } from '@/(auth)/_utils/getToken'
@@ -32,7 +32,7 @@ export default async function Home() {
           <ScrollToTopButton />
           <div className="list">
             {reviews.map((review) => (
-              <ReviewItem review={review} key={review._id} />
+              <ReviewCard review={review} key={review._id} />
             ))}
           </div>
         </div>
