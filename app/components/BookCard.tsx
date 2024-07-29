@@ -23,12 +23,13 @@ export default function BookCard({
 }: Props) {
   return (
     <Link
-      href={`/${type}/detail/${id}`}
+      href={`/${type}/${id}`}
       onClick={onImageClick}
       className={styles.wrapper}
+      prefetch={false}
     >
       <div className={styles.thumnail}>
-        <Image width={150} height={210} src={cover} alt={title.split('-')[0]} />
+        <Image fill src={cover} alt={title.split('-')[0]} />
       </div>
       <div className={`${styles.title} ellipsis`}>{title}</div>
       {children && children}
