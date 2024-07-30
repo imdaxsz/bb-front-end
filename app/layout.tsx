@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import '@/styles/global.scss'
 import TopBar from './components/TopBar'
-import StoreProvider from './store/provider'
 
 export const metadata: Metadata = {
   title: {
@@ -19,10 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <StoreProvider>
-          <TopBar />
-          <main>{children}</main>
-        </StoreProvider>
+        <TopBar />
+        <main>{children}</main>
       </body>
     </html>
   )

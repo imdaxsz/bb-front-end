@@ -2,11 +2,6 @@
 
 import { nextFetch } from '@/lib/fetch'
 import { Review } from '@/types'
-import { cookies } from 'next/headers'
-
-export const deleteServerToken = async () => {
-  cookies().delete('token')
-}
 
 export const changePassword = (currentPw: string, newPw: string) => {
   return nextFetch('/api/user/change_password', {

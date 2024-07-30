@@ -1,16 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { requestEmailSignIn } from '@/(auth)/actions'
+import { fetchTokenCookie, requestEmailSignIn } from '@/(auth)/actions'
 import { handleApiError } from '@/lib/fetch'
-import { useRouter } from 'next/navigation'
 import useBoundStore from '@/store'
 
 export default function useSignIn() {
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState(false)
   const fetchToken = useBoundStore((state) => state.fetchToken)
-  const router = useRouter()
 
   let isButtonDisabled =
     form.email.trim().length === 0 || form.password.trim().length === 0
@@ -27,7 +25,7 @@ export default function useSignIn() {
     try {
       const { token } = await requestEmailSignIn(form)
       fetchToken(token)
-      router.push('/')
+      fetchTokenCookie(token)
     } catch (err) {
       const { status } = handleApiError(err)
       if (status === 409)
