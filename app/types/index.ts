@@ -1,3 +1,13 @@
+export interface PageParams {
+  params: { [key: string]: string }
+}
+
+export interface PageSearchParams {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export type PageURL = PageParams & PageSearchParams
+
 export interface Book {
   isbn: string
   title: string
@@ -44,10 +54,10 @@ export interface Review {
   date: Date
 }
 
+export type SearchType = 'book' | 'review' | 'likes'
+
 export interface User {
   email: string
   recommend: boolean
   oauth: boolean
 }
-
-export type SearchType = 'book' | 'review' | 'my_list'
