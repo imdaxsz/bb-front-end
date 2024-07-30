@@ -16,13 +16,16 @@ export default async function LikesPage({ searchParams }: PageSearchParams) {
   const token: string | null = await getToken()
   const { sort } = searchParams
 
-  const res = await nextFetch<BookInfoResponse[]>('api/like/list').then(
-    (r) => r.body,
-  )
-  const books = formatBooksInfo(res)
   let filteredBooks: Book[] = []
 
-  if (books.length > 0) filteredBooks = filterBooks(books, sort as BookSort)
+  if (token) {
+    const res = await nextFetch<BookInfoResponse[]>('api/like/list').then(
+      (r) => r.body,
+    )
+    const books = formatBooksInfo(res)
+
+    if (books.length > 0) filteredBooks = filterBooks(books, sort as BookSort)
+  }
 
   const message = token
     ? '관심 도서가 없어요.'
