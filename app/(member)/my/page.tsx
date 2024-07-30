@@ -3,6 +3,8 @@ import styles from '@/styles/my.module.scss'
 import Link from 'next/link'
 import { nextFetch } from '@/lib/fetch'
 import { User } from '@/types'
+import { getToken } from '@/(auth)/_utils/getToken'
+import { redirect } from 'next/navigation'
 import ChangePassword from './_components/ChangePassword'
 import SignOutButton from './_components/SignOutButton'
 import BackUpDataButton from './_components/BackUpDataButton'
@@ -13,6 +15,10 @@ export const metadata: Metadata = {
 }
 
 export default async function MyPage() {
+  const token = await getToken()
+
+  if (!token) redirect('/signin')
+
   const info = await nextFetch<User>('/api/user/info').then((res) => res.body)
   const { email, recommend, oauth } = info
 

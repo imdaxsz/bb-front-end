@@ -1,8 +1,8 @@
 'use client'
 
-import useChangePassword from '@/hooks/useChangePassword'
 import styles from '@/styles/auth.module.scss'
 import btnstyles from '@/styles/my.module.scss'
+import useChangePassword from '../_hooks/useChangePassword'
 
 export default function ChangePassword({
   isOauthUser,

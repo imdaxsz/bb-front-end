@@ -10,10 +10,12 @@ export default function ToggleButton({
   isRecommendActive: boolean
 }) {
   const [active, setActive] = useState(isRecommendActive)
+
   const onChangeToggle = debounce(async () => {
     await toggleRecommend()
     setActive((prev) => !prev)
   }, 300)
+
   return (
     <input
       type="checkbox"
