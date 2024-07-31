@@ -4,24 +4,21 @@ import Menu from '@/components/Menu'
 import Pagination from '@/components/Pagination'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { fetchExtended } from '@/lib/fetch'
-import { BookList } from '@/types'
-import { formatBooksInfo } from '@/utils/setBookInfo'
+import { BookList, PageSearchParams } from '@/types'
+import { formatBooksInfo } from '@/utils/formatBookInfo'
 
 export const metadata: Metadata = {
   title: '추천도서',
 }
 
-export default async function Recommend({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) {
+export default async function Recommend({ searchParams }: PageSearchParams) {
   const { page } = searchParams
 
   const { totalResults, item } = await fetchExtended<BookList>(
-    `api/book/recommend?page=${page}`,
+    `/api/book/recommend?page=${page}`,
     {
       method: 'GET',
+      next: { revalidate: 86400 }, // 하루 단위 재검증
     },
   ).then((res) => res.body)
   const books = formatBooksInfo(item)
