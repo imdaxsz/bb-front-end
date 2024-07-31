@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import '@/styles/global.scss'
-import TopBar from './components/TopBar'
+import RenderTopBar from './components/RenderTopBar'
+import { hasNoTopbarRoutes } from './config'
 
 export const metadata: Metadata = {
   title: {
@@ -12,14 +13,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="en">
       <body>
-        <TopBar />
+        <RenderTopBar hasNoTopbarRoutes={hasNoTopbarRoutes} />
         <main>{children}</main>
+        <div id="loader" />
       </body>
     </html>
   )
