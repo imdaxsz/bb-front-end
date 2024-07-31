@@ -18,6 +18,6 @@ export const privateRoutes = [
 export const guestRoutes = [
   '/signin',
   '/signup',
-  '/auth/google',
+  // '/auth/google', ISSUE - Error: failed to pipe response 발생
   '/find_password',
 ]
