@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { formatDate } from '@/utils/formatDate'
 import type { Metadata } from 'next'
 import Tools from './_components/Tools'
-import { getReview } from './actions'
+import { getReview } from '../../actions'
 
 export const metadata: Metadata = {
   title: '후기',

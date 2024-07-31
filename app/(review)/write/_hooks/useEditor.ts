@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { formatDate } from '@/utils/formatDate'
 import { Book, WriteMode } from '@/types'
-import { getReview } from '@/(review)/review/[id]/actions'
+import { getReview } from '@/(review)/actions'
 import useTextarea from './useTextarea'
 
 export interface ReviewForm {

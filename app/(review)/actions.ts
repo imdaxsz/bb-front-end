@@ -21,7 +21,7 @@ export const getReview = async (id: string) => {
  * @param {string} opt 발행 옵션 (업로드 | 임시저장)
  * @return 생성된 리뷰 아이디
  */
-export const postReview = (
+export const postReview = async (
   book: Book | null,
   rating: number,
   date: Date,
@@ -37,6 +37,23 @@ export const postReview = (
       text,
       status: opt,
     },
+  })
+}
+
+/**
+ * @description 후기 목록 조회
+ * @param {string} id 후기 아이디
+ * @param {number} rating 별점
+ * @param {string} text 후기 내용
+ */
+export const updateReview = async (
+  id: string,
+  rating: number,
+  text: string,
+) => {
+  return nextFetch<Review>(`/api/review/${id}`, {
+    method: 'PATCH',
+    body: { rating, text },
   })
 }
 
