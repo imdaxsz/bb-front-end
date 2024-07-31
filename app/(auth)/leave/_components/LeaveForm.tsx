@@ -9,7 +9,7 @@ interface LeaveFormProps {
 }
 
 export default function LeaveForm({ isOauthUser, email }: LeaveFormProps) {
-  const { form, onChangeForm, onSubmit } = useLeaveForm()
+  const { form, onChangeForm, onSubmit } = useLeaveForm({ isOauthUser })
   const { password } = form
 
   return (

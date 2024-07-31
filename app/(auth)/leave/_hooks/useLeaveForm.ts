@@ -4,7 +4,11 @@ import { handleApiError } from '@/lib/fetch'
 import { debounce } from 'lodash'
 import { useState } from 'react'
 
-export default function useLeaveForm() {
+export default function useLeaveForm({
+  isOauthUser,
+}: {
+  isOauthUser: boolean
+}) {
   const [form, setForm] = useState({ agree: false, password: '' })
   const { signOut } = useSignOut()
 
@@ -20,9 +24,15 @@ export default function useLeaveForm() {
   const handleForm = debounce(async () => {
     if (!form.agree) {
       window.alert('회원 탈퇴 동의를 체크해 주세요.')
+      return
+    }
+    if (!isOauthUser && form.password.trim() === '') {
+      window.alert('비밀번호를 입력해 주세요.')
+      return
     }
     try {
       await deleteAccount(form.password)
+      window.alert('탈퇴 완료되었습니다.')
       signOut()
     } catch (err) {
       const { status } = handleApiError(err)
