@@ -3,7 +3,6 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { ReviewHandlerType } from '@/hooks/useReview'
 import styles from '@/styles/modal.module.scss'
 
 import { Book } from '@/types'
@@ -13,10 +12,11 @@ import Modal from '@/components/Modal'
 import SearchBar from '@/components/SearchBar'
 import SearchBookItem from './SearchBookItem'
 import { searchBooks } from '../actions'
+import { ReviewHandler } from '../_hooks/useEditor'
 
 interface SearchBook {
   onClose: () => void
-  setBook: ReviewHandlerType
+  setBook: ReviewHandler
 }
 
 export default function SearchModal({ onClose, setBook }: SearchBook) {

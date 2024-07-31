@@ -1,6 +1,6 @@
 'use client'
 
-import { ReviewHandlerType } from '@/hooks/useReview'
+import { ReviewHandler } from '@/(review)/write/_hooks/useEditor'
 import styles from '@/styles/book.module.scss'
 import { Book } from '@/types'
 import { Star, XCircle } from '@phosphor-icons/react'
@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid'
 interface ReviewBookInfoType {
   book: Book
   rating: number
-  setRating?: ReviewHandlerType
+  setRating?: ReviewHandler
   isEdit?: boolean
 }
 
