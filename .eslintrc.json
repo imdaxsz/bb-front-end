@@ -4,6 +4,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "plugins": ["@typescript-eslint/eslint-plugin"],
   "settings": {
     "react": {
       "version": "detect"
@@ -13,12 +14,28 @@
     "React": false
   },
   "rules": {
-    "react/react-in-jsx-scope": "off",
+    "react/react-in-jsx-scope": 0,
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
-    "import/prefer-default-export": "off",
+    "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": 0,
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "react/require-default-props": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "no-underscore-dangle": 0,
+    "no-console": 0,
+    "no-alert": 0,
+    "no-unused-vars": 0,
+    "react/jsx-no-useless-fragment": 0,
+    "@typescript-eslint/no-unused-vars": "error",
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "some": ["nesting", "id"]
+      }
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
