@@ -7,14 +7,14 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Menu from '@/components/Menu'
 import { PageParams } from '@/types'
-import fetchInfo from './fetchInfo'
+import { getToken } from '@/(auth)/_utils/getToken'
 import LikeButton from './_components/LikeButton'
-import { getIsBookLiked } from './actions'
+import { fetchBookInfo, getIsBookLiked } from './actions'
 
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
-  const info = await fetchInfo(params.id)
+  const info = await fetchBookInfo(params.id)
   return {
     title: info.title,
   }
@@ -23,9 +23,10 @@ export async function generateMetadata({
 export default async function BookDetail({ params }: PageParams) {
   if (!params.id) notFound()
 
-  const info = await fetchInfo(params.id)
+  const info = await fetchBookInfo(params.id)
   const book = formatBookDetailInfo(info)
-  const isLiked = await getIsBookLiked(book.isbn)
+  const token = await getToken()
+  const isLiked = token ? await getIsBookLiked(book.isbn) : false
 
   if (!book) notFound()
 
@@ -55,7 +56,7 @@ export default async function BookDetail({ params }: PageParams) {
               자세히 보기
             </Link>
           </div>
-          <LikeButton isLiked={isLiked} isbn={book.isbn} />
+          <LikeButton token={token} isLiked={isLiked} isbn={book.isbn} />
         </div>
       </div>
     </div>

@@ -10,15 +10,20 @@ import { useRouter } from 'next/navigation'
 import { toggleLike } from '../actions'
 
 interface LikeProps {
+  token: string | null
   isbn: string
   isLiked: boolean
 }
 
-export default function LikeButton({ isbn, isLiked }: LikeProps) {
+export default function LikeButton({ token, isbn, isLiked }: LikeProps) {
   const isMobile = useMediaQuery({ maxWidth: 450 })
   const router = useRouter()
 
   const onClick = async () => {
+    if (!token) {
+      window.alert('관심 도서 추가는 로그인 후 가능합니다!')
+      return
+    }
     await toggleLike(isbn)
     router.refresh()
   }
