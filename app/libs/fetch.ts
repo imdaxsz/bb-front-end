@@ -69,8 +69,9 @@ export const fetchExtended = returnFetchJson({
       return args
     },
 
-    response: async (response) => {
+    response: async (response, requestArgs) => {
       if (response.status >= 400) {
+        console.log('Request URL:', requestArgs[0].toString())
         const { message } = await response.json()
         const apiError = { status: response.status, message }
         throw new Error(JSON.stringify(apiError))

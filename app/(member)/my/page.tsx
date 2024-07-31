@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import styles from '@/styles/my.module.scss'
 import Link from 'next/link'
-import { nextFetch } from '@/lib/fetch'
+import { nextFetch } from '@/libs/fetch'
 import { User } from '@/types'
 import { getToken } from '@/(auth)/_utils/getToken'
 import { redirect } from 'next/navigation'

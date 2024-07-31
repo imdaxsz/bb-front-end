@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import styles from '@/styles/my.module.scss'
 import { CheckFat } from '@phosphor-icons/react/dist/ssr'
-import { nextFetch } from '@/lib/fetch'
+import { nextFetch } from '@/libs/fetch'
 import { User } from '@/types'
 import LeaveForm from './_components/LeaveForm'
 

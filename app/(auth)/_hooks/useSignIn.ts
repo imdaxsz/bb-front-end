@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { fetchTokenCookie, requestEmailSignIn } from '@/(auth)/actions'
-import { handleApiError } from '@/lib/fetch'
-import useBoundStore from '@/store'
+import { handleApiError } from '@/libs/fetch'
+import useBoundStore from '@/stores'
 
 export default function useSignIn() {
   const [form, setForm] = useState({ email: '', password: '' })

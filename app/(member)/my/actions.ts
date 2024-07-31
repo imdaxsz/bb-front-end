@@ -1,6 +1,6 @@
 'use server'
 
-import { nextFetch } from '@/lib/fetch'
+import { nextFetch } from '@/libs/fetch'
 import { Review } from '@/types'
 
 export const changePassword = (currentPw: string, newPw: string) => {

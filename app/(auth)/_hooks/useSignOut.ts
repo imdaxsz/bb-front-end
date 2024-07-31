@@ -1,5 +1,5 @@
 import { deleteServerToken } from '@/(auth)/actions'
-import useBoundStore from '@/store'
+import useBoundStore from '@/stores'
 import { useRouter } from 'next/navigation'
 
 export default function useSignOut() {

@@ -2,7 +2,7 @@ import { debounce } from 'lodash'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import useBoundStore from '@/store'
+import useBoundStore from '@/stores'
 import { checkEmail, requestEmailCertification, verifyCode } from '../actions'
 
 export interface CertificationProps {

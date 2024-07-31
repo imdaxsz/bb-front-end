@@ -1,7 +1,7 @@
 import Menu from '@/components/Menu'
 import ReviewCard from '@/components/ReviewCard'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
-import { nextFetch } from '@/lib/fetch'
+import { nextFetch } from '@/libs/fetch'
 import { getToken } from '@/(auth)/_utils/getToken'
 import { Review } from '@/types'
 import type { Metadata } from 'next'

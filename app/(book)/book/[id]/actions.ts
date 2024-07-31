@@ -1,6 +1,6 @@
 'use server'
 
-import { nextFetch } from '@/lib/fetch'
+import { nextFetch } from '@/libs/fetch'
 
 export const getIsBookLiked = async (isbn: string) => {
   const res = await nextFetch<{ isLiked: boolean }>(

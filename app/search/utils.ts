@@ -1,4 +1,4 @@
-import { nextFetch } from '@/lib/fetch'
+import { nextFetch } from '@/libs/fetch'
 import { Book, BookInfoResponse, BookList, Review, SearchType } from '@/types'
 import { formatBooksInfo } from '@/utils/formatBookInfo'
 

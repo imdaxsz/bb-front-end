@@ -1,5 +1,5 @@
 import { changePassword } from '@/(member)/my/actions'
-import { handleApiError } from '@/lib/fetch'
+import { handleApiError } from '@/libs/fetch'
 import { validatePassword } from '@/utils/validatePassword'
 import { useState } from 'react'
 import { debounce } from 'lodash'

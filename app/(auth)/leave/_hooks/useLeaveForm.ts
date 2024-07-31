@@ -1,6 +1,6 @@
 import useSignOut from '@/(auth)/_hooks/useSignOut'
 import { deleteAccount } from '@/(auth)/actions'
-import { handleApiError } from '@/lib/fetch'
+import { handleApiError } from '@/libs/fetch'
 import { debounce } from 'lodash'
 import { useState } from 'react'
 

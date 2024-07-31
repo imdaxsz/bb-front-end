@@ -8,7 +8,7 @@ import {
   resetPassword as requestResetPw,
 } from '@/(auth)/actions'
 import { validatePassword } from '@/utils/validatePassword'
-import useBoundStore from '@/store'
+import useBoundStore from '@/stores'
 
 export default function useUserSetup({ newUser }: { newUser: boolean }) {
   const { cerifiedEmail, resetCertifiedEmail } = useBoundStore((state) => ({

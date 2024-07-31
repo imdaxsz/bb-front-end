@@ -1,4 +1,4 @@
-import useBoundStore from '@/store'
+import useBoundStore from '@/stores'
 
 export const getClientToken = (): string | null => {
   const { token } = useBoundStore.getState()

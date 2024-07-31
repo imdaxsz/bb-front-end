@@ -1,6 +1,6 @@
 'use server'
 
-import { fetchExtended, nextFetch } from '@/lib/fetch'
+import { nextFetch } from '@/libs/fetch'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation'
  * @returns token
  */
 export const fetchGoogleSignToken = async (code: string) => {
-  return fetchExtended<{ token: string }>(
+  return nextFetch<{ token: string }>(
     `${process.env.NEXT_PUBLIC_API_ROOT}/auth/google?code=${code}`,
   ).then((res) => res.body)
 }
@@ -25,7 +25,7 @@ export const requestEmailSignIn = async ({
   email: string
   password: string
 }) => {
-  return fetchExtended<{ token: string }>(
+  return nextFetch<{ token: string }>(
     `${process.env.NEXT_PUBLIC_API_ROOT}/api/user/signin`,
     {
       method: 'POST',
@@ -37,7 +37,7 @@ export const requestEmailSignIn = async ({
 /**
  * @description 쿠키에 토큰 저장
  */
-export const fetchTokenCookie = (token: string) => {
+export const fetchTokenCookie = async (token: string) => {
   cookies().set('token', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',

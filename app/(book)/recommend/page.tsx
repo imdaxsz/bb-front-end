@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import Menu from '@/components/Menu'
 import Pagination from '@/components/Pagination'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
-import { fetchExtended } from '@/lib/fetch'
+import { nextFetch } from '@/libs/fetch'
 import { BookList, PageSearchParams } from '@/types'
 import { formatBooksInfo } from '@/utils/formatBookInfo'
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function Recommend({ searchParams }: PageSearchParams) {
   const { page } = searchParams
 
-  const { totalResults, item } = await fetchExtended<BookList>(
+  const { totalResults, item } = await nextFetch<BookList>(
     `/api/book/recommend?page=${page}`,
     {
       method: 'GET',

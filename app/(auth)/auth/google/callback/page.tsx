@@ -1,7 +1,7 @@
 'use client'
 
 import { fetchTokenCookie } from '@/(auth)/actions'
-import useBoundStore from '@/store'
+import useBoundStore from '@/stores'
 import { PageSearchParams } from '@/types'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
