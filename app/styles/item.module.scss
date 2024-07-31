@@ -6,6 +6,7 @@
 }
 
 .thumnail {
+  position: relative;
   @include common.setSize(100%, 210px);
   img {
     @include common.setSize(100%, 100%);

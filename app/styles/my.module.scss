@@ -125,13 +125,11 @@
   .inform {
     @include common.flex(row, flex-start, center);
     margin-bottom: 5px;
-    gap: 2px;
+    gap: 8px;
   }
   .icon {
     @include common.flex(row, flex-start, center);
     color: common.$primary;
-    width: 20px;
-    height: 20px;
     flex-shrink: 0;
   }
 }

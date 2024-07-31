@@ -1,7 +1,7 @@
 @use 'common';
 
 .wrapper {
-  @include common.setSize(100%, calc(100% - 52px));
+  @include common.setSize(100%, 100%);
   @include common.flex(row, center, center);
 }
 

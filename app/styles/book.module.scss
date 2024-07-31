@@ -8,6 +8,7 @@
 }
 
 .img {
+  position: relative;
   img {
     @include common.setSize(100%, 100%);
     object-fit: cover;
@@ -72,15 +73,14 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: common.$primary;
-  color: white;
-  @include common.setSize(24px, 24px);
+  // background: common.$primary;
+  // color: white;
+  // @include common.setSize(24px, 24px);
   @include common.flex(row, center, center);
   border-radius: 50%;
   cursor: pointer;
   svg {
-    width: 20px;
-    height: 20px;
+    color: common.$primary;
   }
 }
 

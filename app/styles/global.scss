@@ -25,7 +25,7 @@ body,
 }
 
 main {
-  @include common.setSize(100%, $wrapper-height);
+  @include common.setSize(100%, 100%);
 }
 
 body {
