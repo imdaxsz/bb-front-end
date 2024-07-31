@@ -56,6 +56,8 @@ export interface Review {
 
 export type SearchType = 'book' | 'review' | 'likes'
 
+export type WriteMode = 'new' | 'edit'
+
 export interface User {
   email: string
   recommend: boolean
