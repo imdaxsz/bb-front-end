@@ -17,7 +17,7 @@ export default function useChangePassword() {
     form.newPw.trim().length === 0 ||
     form.confirmPw.trim().length === 0
 
-  const [isvalidatedPw, setIsValidatedPw] = useState<boolean | null>(null)
+  const [isvalidPw, setIsValidPw] = useState<boolean | null>(null)
   const [isSamePw, setIsSamePw] = useState<boolean | null>(null)
 
   const [error, setError] = useState(0)
@@ -33,7 +33,7 @@ export default function useChangePassword() {
     if (name === 'confirmPw') setIsSamePw(form.newPw === value)
   }
 
-  const onBlur = () => setIsValidatedPw(validatePassword(form.newPw))
+  const onBlur = () => setIsValidPw(validatePassword(form.newPw))
 
   const handleForm = debounce(async () => {
     const sameCurrentPw = form.newPw === form.currentPw && form.newPw !== ''
@@ -42,7 +42,7 @@ export default function useChangePassword() {
       setError(2)
       return
     }
-    if (isvalidatedPw && isSamePw && !sameCurrentPw) {
+    if (isvalidPw && isSamePw && !sameCurrentPw) {
       setIsLoading(true)
       try {
         await changePassword(form.currentPw, form.newPw)
@@ -65,7 +65,7 @@ export default function useChangePassword() {
 
   return {
     form,
-    isvalidatedPw,
+    isvalidPw,
     isSamePw,
     error,
     errorMessage,

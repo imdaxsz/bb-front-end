@@ -11,7 +11,7 @@ export default function ChangePassword({
 }) {
   const {
     form,
-    isvalidatedPw,
+    isvalidPw,
     isSamePw,
     error,
     errorMessage,
@@ -34,7 +34,7 @@ export default function ChangePassword({
         disabled={isOauthUser}
       />
       <input
-        className={`${styles.input} ${isvalidatedPw === false && styles.error}`}
+        className={`${styles.input} ${isvalidPw === false && styles.error}`}
         name="newPw"
         type="password"
         value={form.newPw}
@@ -44,7 +44,7 @@ export default function ChangePassword({
         placeholder="새 비밀번호"
         disabled={isOauthUser}
       />
-      {isvalidatedPw === false && (
+      {isvalidPw === false && (
         <span>새 비밀번호: 8~16자의 영문, 숫자를 사용해 주세요.</span>
       )}
       <input
