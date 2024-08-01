@@ -24,4 +24,5 @@ const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
 
 export const createPersistedAuthSlice = persist(createAuthSlice, {
   name: 'bookbook',
+  partialize: (state) => ({ token: state.token }),
 })
