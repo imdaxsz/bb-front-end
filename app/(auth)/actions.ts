@@ -95,7 +95,7 @@ export const verifyCode = async (email: string, code: string) => {
  * @param {string} email
  */
 export const checkCertiStatus = async (email: string) => {
-  return nextFetch<{ exists: boolean }>(
+  return nextFetch<{ certified: boolean }>(
     `/api/certification/certi-status/${email}`,
   ).then((res) => res.body)
 }

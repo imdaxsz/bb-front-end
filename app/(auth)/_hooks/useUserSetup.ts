@@ -82,8 +82,8 @@ export default function useUserSetup({ newUser }: { newUser: boolean }) {
     async (email: string) => {
       const redirectUrl = newUser ? '/signup' : '/find_password'
       try {
-        const res = await checkCertiStatus(email)
-        if (!res) router.push(redirectUrl)
+        const { certified } = await checkCertiStatus(email)
+        if (!certified) router.push(redirectUrl)
       } catch (error) {
         console.log(error)
         router.push(redirectUrl)
@@ -110,7 +110,7 @@ export default function useUserSetup({ newUser }: { newUser: boolean }) {
     return () => {
       window.removeEventListener('popstate', resetCertifiedEmail)
     }
-  }, [])
+  }, [resetCertifiedEmail])
 
   return {
     isLoading,
