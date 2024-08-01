@@ -6,6 +6,7 @@ import { Plus } from '@phosphor-icons/react'
 
 import useModal from '@/hooks/useModal'
 import { WriteMode } from '@/types'
+import Loader from '@/components/Loader'
 import EditorTopBar from './_components/EditorTopBar'
 import useEditor from './_hooks/useEditor'
 import SearchModal from './_components/SearchModal'
@@ -17,7 +18,18 @@ interface EditorProps {
 }
 
 export default function Write({ mode, id }: EditorProps) {
-  const { textareaRef, date, review, onChangeReview } = useEditor({ id, mode })
+  const {
+    isLoading,
+    textareaRef,
+    savedCount,
+    date,
+    review,
+    onChangeReview,
+    onSubmit,
+  } = useEditor({
+    id,
+    mode,
+  })
   const { book, text, rating } = review
 
   const { isVisible: isSearchModalVisible, toggleModal: toggleSearchModal } =
@@ -29,18 +41,17 @@ export default function Write({ mode, id }: EditorProps) {
     <>
       <EditorTopBar
         mode={mode}
-        onClick={() => {}}
+        onClick={onSubmit}
         onNumClick={toggleSavedModal}
-        savedCount={1}
+        savedCount={savedCount}
       />
-      {/* {(loading || isEditorLoading) && <Loader />} */}
+      {isLoading && <Loader />}
       {isSearchModalVisible && (
         <SearchModal onClose={toggleSearchModal} setBook={onChangeReview} />
       )}
       {isSavedModalVisible && (
         <SavedList onClose={toggleSavedModal} setReview={onChangeReview} />
       )}
-      {/* {!loading && !isEditorLoading && ( */}
       <div className="wrapper">
         <div className={styles.wrapper}>
           <div className={styles.content}>

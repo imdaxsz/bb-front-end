@@ -54,6 +54,12 @@ export interface Review {
   date: Date
 }
 
+export interface ReviewForm {
+  book: Book | null
+  rating: number
+  text: string
+}
+
 export type SearchType = 'book' | 'review' | 'likes'
 
 export type WriteMode = 'new' | 'edit'

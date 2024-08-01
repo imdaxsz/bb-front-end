@@ -31,9 +31,14 @@ export default function ReviewBookInfo({
   return (
     <div className={styles.wrapper}>
       {setRating && !isEdit && (
-        <span className={styles.delete} onClick={onClickDelete}>
+        <button
+          type="button"
+          aria-label="삭제"
+          className={styles.delete}
+          onClick={onClickDelete}
+        >
           <XCircle size={30} weight="fill" />
-        </span>
+        </button>
       )}
       <div className={`${setRating ? styles['img-sm'] : styles['img-lg']}`}>
         <Image fill src={book.cover} alt={book.title} />

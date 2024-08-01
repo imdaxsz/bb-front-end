@@ -57,9 +57,9 @@ export default function SavedList({ onClose, setReview }: Props) {
                   {formatDate(new Date(review.date), '-')}
                 </div>
               </div>
-              <div className={styles.icon}>
+              <button type="button" aria-label="삭제" className={styles.icon}>
                 <Trash size={20} onClick={(e) => onClickDelete(e, i)} />
-              </div>
+              </button>
             </div>
           ))}
         </div>

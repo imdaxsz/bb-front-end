@@ -2,6 +2,7 @@
 
 import { nextFetch } from '@/libs/fetch'
 import { Book, Review } from '@/types'
+import { redirect } from 'next/navigation'
 
 /**
  * @description 후기 상세 조회
@@ -28,7 +29,7 @@ export const postReview = async (
   text: string,
   opt: string,
 ) => {
-  return nextFetch(`/api/review/new`, {
+  return nextFetch<{ id: string; isNewReview: boolean }>(`/api/review/new`, {
     method: 'POST',
     body: {
       book,
@@ -37,7 +38,7 @@ export const postReview = async (
       text,
       status: opt,
     },
-  })
+  }).then((res) => res.body)
 }
 
 /**
@@ -51,12 +52,37 @@ export const updateReview = async (
   rating: number,
   text: string,
 ) => {
-  return nextFetch<Review>(`/api/review/${id}`, {
+  await nextFetch<Review>(`/api/review/${id}`, {
     method: 'PATCH',
     body: { rating, text },
   })
+
+  redirect(`/review/${id}`)
 }
 
+/**
+ * @description 리뷰 삭제
+ * @param {string} id 리뷰 아이디
+ */
 export const deleteReview = async (id: string) => {
   return nextFetch(`/api/review/${id}`, { method: 'DELETE' })
+}
+
+/**
+ * @description 후기 상세 조회
+ * @param {string} id
+ * @returns 후기 정보
+ */
+export const getSavedReviews = async () => {
+  return nextFetch<Review[]>(`/api/review/saved`).then((res) => res.body)
+}
+
+/**
+ * @description 임시 저장 후기 개수 조회
+ * @returns 후기 개수
+ */
+export const getSavedReviewsCount = async () => {
+  return nextFetch<{ count: number }>(`/api/review/saved/count`).then(
+    (res) => res.body,
+  )
 }

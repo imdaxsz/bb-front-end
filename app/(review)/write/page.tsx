@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function WritePage({ searchParams }: PageSearchParams) {
   const mode = (searchParams.mode as string) ?? 'new'
-  const logNo = (searchParams.mode as string) ?? ''
+  const logNo = (searchParams.logNo as string) ?? ''
 
   return <Editor mode={mode as WriteMode} id={logNo} />
 }

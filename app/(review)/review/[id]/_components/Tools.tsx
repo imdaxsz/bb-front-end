@@ -3,19 +3,24 @@
 import styles from '@/styles/detail.module.scss'
 import { debounce } from 'lodash'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { deleteReview } from '@/(review)/actions'
 
 interface ToolsProps {
   id: string
 }
 
 export default function Tools({ id }: ToolsProps) {
+  const router = useRouter()
+
   const onClickDelete = debounce(async () => {
     const ok = window.confirm(
       '삭제된 후기는 복구할 수 없습니다.\n삭제하시겠습니까?',
     )
     if (ok) {
-      // TODO: FIX
-      console.log('DELETE REVIEW:', id)
+      await deleteReview(id)
+      window.alert('삭제되었습니다.')
+      router.push('/')
     }
   }, 300)
 

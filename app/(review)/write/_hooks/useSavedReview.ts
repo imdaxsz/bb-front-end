@@ -1,7 +1,7 @@
-import { deleteReview } from '@/(review)/actions'
+import { deleteReview, getSavedReviews } from '@/(review)/actions'
 import { Review } from '@/types'
 import { useState, useCallback, useEffect } from 'react'
-import { getSavedReviews } from '../actions'
+import { handleUnauthorized } from '@/(auth)/_utils/handleUnauthorized'
 
 export default function useSavedReview() {
   const [reviews, setReviews] = useState<Review[]>([])
@@ -9,13 +9,11 @@ export default function useSavedReview() {
 
   const fetchSavedReviews = useCallback(async () => {
     setLoading(true)
-    // if (setWriteLoading) setWriteLoading(true)
     try {
       const res = await getSavedReviews()
       setReviews(res)
-      // dispatch(setCount(res.length))
     } catch (error) {
-      console.log(error)
+      handleUnauthorized(error)
       // handleUnauthorizated(error)
     }
     setLoading(false)
@@ -30,7 +28,7 @@ export default function useSavedReview() {
       // dispatch(setCount(count - 1))
     } catch (error) {
       console.log(error)
-      // handleUnauthorizated(error, 'confirm')
+      handleUnauthorized(error, 'confirm')
     }
   }
 
