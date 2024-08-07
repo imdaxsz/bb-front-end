@@ -2,11 +2,14 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { formatDate } from '@/utils/formatDate'
-import { ReviewForm, WriteMode } from '@/types'
+import { BookInfoResponse, ReviewForm, WriteMode } from '@/types'
 import { getReview } from '@/(review)/actions'
 import { useRouter } from 'next/navigation'
+import { formatBooksInfo } from '@/utils/formatBookInfo'
 import useTextarea from './useTextarea'
 import useReview from './useReview'
+import { getRecommendBook } from '../actions'
+import useRecommend from './useRecommend'
 
 export type ReviewHandler = (args: Partial<ReviewForm>) => void
 
@@ -31,12 +34,18 @@ export default function useEditor({ id, mode }: EditorProps) {
 
   const router = useRouter()
 
+  const { categoryId, setRecommendBook, toggleRecommendModal } = useRecommend()
+
   // 후기 수정 시 후기 불러오기
   const loadReview = useCallback(async (reviewId: string) => {
     setIsLoading(true)
-    const { book, rating, text, date: createdAt } = await getReview(reviewId)
-    setReview({ book, text, rating })
-    setDate(formatDate(new Date(createdAt)))
+    try {
+      const { book, rating, text, date: createdAt } = await getReview(reviewId)
+      setReview({ book, text, rating })
+      setDate(formatDate(new Date(createdAt)))
+    } catch (error) {
+      // handleUnauthorized(error)
+    }
     setIsLoading(false)
   }, [])
 
@@ -57,7 +66,11 @@ export default function useEditor({ id, mode }: EditorProps) {
     }
     const createdId = await create(review, today, opt)
     if (createdId && opt === 'upload') {
-      console.log('추천 모달 생성')
+      const result = await getRecommendBook(categoryId)
+      if (typeof result !== 'string') {
+        setRecommendBook(formatBooksInfo([result as BookInfoResponse])[0])
+        toggleRecommendModal()
+      }
     }
     if (opt === 'upload') router.push(`/review/${createdId}`)
     setIsLoading(false)

@@ -2,24 +2,34 @@
 
 import useBoundStore from '@/stores'
 import styles from '@/styles/book.module.scss'
-import { Book } from '@/types'
+import { DetailBookResponse } from '@/types'
 import Image from 'next/image'
 
 interface Props {
-  book: Book
+  book: DetailBookResponse
 }
 
 export default function SearchBookItem({ book }: Props) {
-  const selectedBook = useBoundStore((state) => state.book)
-  const selectBook = useBoundStore((state) => state.setSelectedBook)
+  const { selectedBook, selectBook, setCategoryId } = useBoundStore(
+    (state) => ({
+      selectedBook: state.selectedBook,
+      selectBook: state.setSelectedBook,
+      setCategoryId: state.setCategoryId,
+    }),
+  )
   const isSelected = selectedBook && selectedBook.isbn === book.isbn
+
+  const onClick = () => {
+    selectBook(book)
+    setCategoryId(book.categoryId)
+  }
 
   return (
     <div
       className={`${styles.wrapper} ${styles.hover} ${
         isSelected ? styles.focus : ''
       }`}
-      onClick={() => selectBook(book)}
+      onClick={onClick}
     >
       <div className={styles['img-sm']}>
         <Image fill src={book.cover} alt={book.title} />

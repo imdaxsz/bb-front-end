@@ -4,6 +4,7 @@ import { PageParams } from '@/types'
 import { notFound } from 'next/navigation'
 import { formatDate } from '@/utils/formatDate'
 import type { Metadata } from 'next'
+import RecommendModal from '@/(review)/write/_components/RecommendModal'
 import Tools from './_components/Tools'
 import { getReview } from '../../actions'
 
@@ -23,6 +24,7 @@ export default async function ReviewDetail({ params }: PageParams) {
 
   return (
     <div className="wrapper">
+      <RecommendModal />
       <div className={styles.wrapper}>
         <div className={styles.item}>
           <Tools id={id} />

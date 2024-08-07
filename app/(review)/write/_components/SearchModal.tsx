@@ -5,8 +5,7 @@
 import { useRef, useState } from 'react'
 import styles from '@/styles/modal.module.scss'
 
-import { Book } from '@/types'
-import { formatBooksInfo } from '@/utils/formatBookInfo'
+import { DetailBookResponse } from '@/types'
 import useBoundStore from '@/stores'
 import Modal from '@/components/Modal'
 import SearchBar from '@/components/SearchBar'
@@ -21,9 +20,11 @@ interface SearchBook {
 
 export default function SearchModal({ onClose, setBook }: SearchBook) {
   const listRef = useRef<HTMLDivElement | null>(null)
-  const [books, setBooks] = useState<Book[] | null>(null)
-  const selectedBook = useBoundStore((state) => state.book)
-  const resetSelectedBook = useBoundStore((state) => state.resetSelectedBook)
+  const [books, setBooks] = useState<DetailBookResponse[] | null>(null)
+  const { selectedBook, resetSelectedBook } = useBoundStore((state) => ({
+    selectedBook: state.selectedBook,
+    resetSelectedBook: state.resetSelectedBook,
+  }))
 
   const onClickCancel = () => {
     onClose()
@@ -43,7 +44,7 @@ export default function SearchModal({ onClose, setBook }: SearchBook) {
 
   const onSearch = async (keyword: string) => {
     const res = await searchBooks(keyword)
-    setBooks(formatBooksInfo(res.item))
+    setBooks(res.item)
     if (listRef.current) listRef.current.scrollTop = 0
   }
 
@@ -58,7 +59,7 @@ export default function SearchModal({ onClose, setBook }: SearchBook) {
 
 interface ContentProps {
   listRef: React.MutableRefObject<HTMLDivElement | null>
-  result: Book[] | null
+  result: DetailBookResponse[] | null
   onSearch: (keyword: string) => void
 }
 
