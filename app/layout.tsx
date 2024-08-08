@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import '@/styles/global.scss'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import RenderTopBar from './components/RenderTopBar'
 import { hasNoTopbarRoutes } from './config'
 import ScrollToTop from './components/ScrollToTop'
+import QueryClientProviders from './libs/providers'
 
 export const metadata: Metadata = {
   title: {
@@ -20,10 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ScrollToTop />
-        <RenderTopBar hasNoTopbarRoutes={hasNoTopbarRoutes} />
-        <main>{children}</main>
-        <div id="loader" />
+        <QueryClientProviders>
+          <ReactQueryDevtools />
+          <ScrollToTop />
+          <RenderTopBar hasNoTopbarRoutes={hasNoTopbarRoutes} />
+          <main>{children}</main>
+          <div id="loader" />
+        </QueryClientProviders>
       </body>
     </html>
   )
