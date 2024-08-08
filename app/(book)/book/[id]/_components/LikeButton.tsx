@@ -6,26 +6,26 @@ import { useMediaQuery } from 'react-responsive'
 
 import styles from '@/styles/detail.module.scss'
 import { Heart } from '@phosphor-icons/react'
-import { useRouter } from 'next/navigation'
-import { toggleLike } from '../actions'
+import useGetIsLiked from '../_hooks/useGetIsLiked'
+import useToggleLike from '../_hooks/useToggleLike'
 
 interface LikeProps {
   token: string | null
   isbn: string
-  isLiked: boolean
 }
 
-export default function LikeButton({ token, isbn, isLiked }: LikeProps) {
+export default function LikeButton({ token, isbn }: LikeProps) {
   const isMobile = useMediaQuery({ maxWidth: 450 })
-  const router = useRouter()
+
+  const data = useGetIsLiked({ isbn, token })
+  const isLiked = token ? Boolean(data) : false
+  const likeMutation = useToggleLike({ isbn, token })
 
   const onClick = async () => {
     if (!token) {
       window.alert('관심 도서 추가는 로그인 후 가능합니다!')
-      return
     }
-    await toggleLike(isbn)
-    router.refresh()
+    likeMutation.mutate()
   }
 
   return (

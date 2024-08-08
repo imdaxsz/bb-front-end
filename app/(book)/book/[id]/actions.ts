@@ -2,6 +2,7 @@
 
 import { nextFetch } from '@/libs/fetch'
 import { DetailBookResponse } from '@/types'
+import { revalidatePath } from 'next/cache'
 
 export async function fetchBookInfo(id: string) {
   return nextFetch<DetailBookResponse>(`/api/book/detail/${id}`, {
@@ -21,5 +22,6 @@ export const toggleLike = async (isbn: string) => {
   const res = nextFetch(`/api/like`, { method: 'POST', body: { isbn } }).then(
     (r) => r.body,
   )
-  console.log(res)
+  revalidatePath('/likes')
+  return res
 }

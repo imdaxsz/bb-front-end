@@ -8,6 +8,11 @@ import { notFound } from 'next/navigation'
 import Menu from '@/components/Menu'
 import { PageParams } from '@/types'
 import { getToken } from '@/(auth)/_utils/getToken'
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query'
 import LikeButton from './_components/LikeButton'
 import { fetchBookInfo, getIsBookLiked } from './actions'
 
@@ -26,9 +31,15 @@ export default async function BookDetail({ params }: PageParams) {
   const info = await fetchBookInfo(params.id)
   const book = formatBookDetailInfo(info)
   const token = await getToken()
-  const isLiked = token ? await getIsBookLiked(book.isbn) : false
 
   if (!book) notFound()
+
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['like', book.isbn, token],
+    queryFn: () => getIsBookLiked(book.isbn),
+  })
 
   return (
     <div className="wrapper">
@@ -56,7 +67,9 @@ export default async function BookDetail({ params }: PageParams) {
               자세히 보기
             </Link>
           </div>
-          <LikeButton token={token} isLiked={isLiked} isbn={book.isbn} />
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <LikeButton token={token} isbn={book.isbn} />
+          </HydrationBoundary>
         </div>
       </div>
     </div>
