@@ -1,8 +1,19 @@
 'use server'
 
 import { nextFetch } from '@/libs/fetch'
-import { Book, Review } from '@/types'
+import { Review, ReviewForm } from '@/types'
+import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+
+/**
+ * @description 후기 목록 조회
+ * @param {string} sort 정렬
+ * @returns 후기 정보
+ */
+export const getReviews = async (sort?: string) => {
+  const url = sort ? `/api/review/list?sort=${sort}` : `/api/review/list`
+  return nextFetch<Review[]>(url).then((res) => res.body)
+}
 
 /**
  * @description 후기 상세 조회
@@ -15,34 +26,33 @@ export const getReview = async (id: string) => {
 
 /**
  * @description 새로운 후기 작성 또는 저장
- * @param {Book | null} book 도서 정보
- * @param {number} rating 별점
+ * @param {ReviewForm} review 후기 form
  * @param {Date} date 후기 작성 시간
- * @param {string} text 후기 내용
  * @param {string} opt 발행 옵션 (업로드 | 임시저장)
  * @return 생성된 리뷰 아이디
  */
 export const postReview = async (
-  book: Book | null,
-  rating: number,
+  review: ReviewForm,
   date: Date,
-  text: string,
   opt: string,
 ) => {
-  return nextFetch<{ id: string; isNewReview: boolean }>(`/api/review/new`, {
+  const id = nextFetch<{ id: string }>(`/api/review/new`, {
     method: 'POST',
     body: {
-      book,
-      rating,
+      ...review,
       date,
-      text,
       status: opt,
     },
   }).then((res) => res.body)
+
+  const path = opt === 'save' ? '/write' : '/'
+  revalidatePath(path)
+
+  return id
 }
 
 /**
- * @description 후기 목록 조회
+ * @description 후기 수정
  * @param {string} id 후기 아이디
  * @param {number} rating 별점
  * @param {string} text 후기 내용
@@ -64,8 +74,11 @@ export const updateReview = async (
  * @description 리뷰 삭제
  * @param {string} id 리뷰 아이디
  */
-export const deleteReview = async (id: string) => {
-  return nextFetch(`/api/review/${id}`, { method: 'DELETE' })
+export const deleteReview = async (id: string, saved?: boolean) => {
+  const res = nextFetch(`/api/review/${id}`, { method: 'DELETE' })
+  const path = saved ? '/write' : '/'
+  revalidatePath(path)
+  return res
 }
 
 /**

@@ -9,6 +9,7 @@ import { DetailBookResponse } from '@/types'
 import useBoundStore from '@/stores'
 import Modal from '@/components/Modal'
 import SearchBar from '@/components/SearchBar'
+import Loader from '@/components/Loader'
 import SearchBookItem from './SearchBookItem'
 import { searchBooks } from '../actions'
 import { ReviewHandler } from '../_hooks/useEditor'
@@ -21,6 +22,7 @@ interface SearchBook {
 export default function SearchModal({ onClose, setBook }: SearchBook) {
   const listRef = useRef<HTMLDivElement | null>(null)
   const [books, setBooks] = useState<DetailBookResponse[] | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const { selectedBook, resetSelectedBook } = useBoundStore((state) => ({
     selectedBook: state.selectedBook,
     resetSelectedBook: state.resetSelectedBook,
@@ -43,17 +45,24 @@ export default function SearchModal({ onClose, setBook }: SearchBook) {
   }
 
   const onSearch = async (keyword: string) => {
+    setIsLoading(true)
     const res = await searchBooks(keyword)
     setBooks(res.item)
     if (listRef.current) listRef.current.scrollTop = 0
+    setIsLoading(false)
   }
 
   return (
-    <Modal
-      onClickOutside={onClickCancel}
-      content={<Content listRef={listRef} result={books} onSearch={onSearch} />}
-      bottom={<Bottom onClickCancel={onClickCancel} onClickOk={onClickOk} />}
-    />
+    <>
+      {isLoading && <Loader />}
+      <Modal
+        onClickOutside={onClickCancel}
+        content={
+          <Content listRef={listRef} result={books} onSearch={onSearch} />
+        }
+        bottom={<Bottom onClickCancel={onClickCancel} onClickOk={onClickOk} />}
+      />
+    </>
   )
 }
 

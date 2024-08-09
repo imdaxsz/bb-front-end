@@ -6,18 +6,18 @@
 import Link from 'next/link'
 import styles from '@/styles/bar.module.scss'
 
-type SubmitOption = 'save' | 'upload'
-
 interface EditorTopBarProps {
   mode: string
-  onClick: (opt: SubmitOption) => void
+  onSubmit: () => void
+  onSaveClick: () => void
   onNumClick: () => void
   savedCount: number
 }
 
 export default function EditorTopBar({
   mode,
-  onClick,
+  onSubmit,
+  onSaveClick,
   onNumClick,
   savedCount,
 }: EditorTopBarProps) {
@@ -30,18 +30,20 @@ export default function EditorTopBar({
         <ul className={styles.right}>
           {mode === 'new' && (
             <li>
-              <button
-                type="button"
-                aria-label="임시저장"
-                className={styles.save}
-              >
-                <span onClick={() => onClick('save')}>임시저장</span>
+              <div aria-label="임시저장" className={styles.save}>
+                <button type="button" onClick={onSaveClick}>
+                  임시저장
+                </button>
                 {savedCount > 0 && (
-                  <span onClick={onNumClick} className={styles.number}>
+                  <button
+                    type="button"
+                    onClick={onNumClick}
+                    className={styles.number}
+                  >
                     {savedCount}
-                  </span>
+                  </button>
                 )}
-              </button>
+              </div>
             </li>
           )}
           <li>
@@ -49,7 +51,7 @@ export default function EditorTopBar({
               type="submit"
               aria-label="완료"
               className={styles.upload}
-              onClick={() => onClick('upload')}
+              onClick={onSubmit}
             >
               완료
             </button>

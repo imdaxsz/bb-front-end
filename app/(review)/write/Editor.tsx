@@ -11,18 +11,21 @@ import EditorTopBar from './_components/EditorTopBar'
 import useEditor from './_hooks/useEditor'
 import SearchModal from './_components/SearchModal'
 import SavedList from './_components/SavedList'
+import useGetSavedReviews from './_hooks/useGetSavedReviews'
+import useCreateSavedReview from './_hooks/useCreateSavedReview'
 
 interface EditorProps {
+  token: string
   mode: WriteMode
   id?: string
 }
 
-export default function Write({ mode, id }: EditorProps) {
+export default function Editor({ token, mode, id }: EditorProps) {
   const {
     isLoading,
     textareaRef,
-    savedCount,
     date,
+    today,
     review,
     onChangeReview,
     onSubmit,
@@ -37,20 +40,28 @@ export default function Write({ mode, id }: EditorProps) {
   const { isVisible: isSavedModalVisible, toggleModal: toggleSavedModal } =
     useModal()
 
+  const { data: savedReviews, savedReviewCount } = useGetSavedReviews(token)
+  const { onClickSaveReview } = useCreateSavedReview()
+
   return (
     <>
       <EditorTopBar
         mode={mode}
-        onClick={onSubmit}
+        onSubmit={onSubmit}
+        onSaveClick={() => onClickSaveReview(review, today)}
         onNumClick={toggleSavedModal}
-        savedCount={savedCount}
+        savedCount={savedReviewCount}
       />
       {isLoading && <Loader />}
       {isSearchModalVisible && (
         <SearchModal onClose={toggleSearchModal} setBook={onChangeReview} />
       )}
       {isSavedModalVisible && (
-        <SavedList onClose={toggleSavedModal} setReview={onChangeReview} />
+        <SavedList
+          reviews={savedReviews ?? []}
+          onClose={toggleSavedModal}
+          setReview={onChangeReview}
+        />
       )}
       <div className="wrapper">
         <div className={styles.wrapper}>

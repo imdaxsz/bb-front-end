@@ -30,7 +30,7 @@ export default function useEditor({ id, mode }: EditorProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   const { textareaRef, setTextareaHeight } = useTextarea()
-  const { create, update, savedCount } = useReview()
+  const { create, update } = useReview()
 
   const router = useRouter()
 
@@ -49,12 +49,13 @@ export default function useEditor({ id, mode }: EditorProps) {
     setIsLoading(false)
   }, [])
 
-  const onSubmit = async (opt: 'save' | 'upload') => {
+  // 후기 발행
+  const onSubmit = async () => {
     if (!review.book) {
       window.alert('후기를 작성할 책을 선택해주세요!')
       return
     }
-    if (opt === 'upload' && review.text.trim() === '') {
+    if (review.text.trim() === '') {
       window.alert('후기 내용을 입력해주세요!')
       return
     }
@@ -64,15 +65,15 @@ export default function useEditor({ id, mode }: EditorProps) {
       await update(id, review.rating, review.text)
       return
     }
-    const createdId = await create(review, today, opt)
-    if (createdId && opt === 'upload') {
-      const result = await getRecommendBook(categoryId)
-      if (typeof result !== 'string') {
-        setRecommendBook(formatBooksInfo([result as BookInfoResponse])[0])
-        toggleRecommendModal()
-      }
+    const createdId = await create(review, today)
+
+    const result = await getRecommendBook(categoryId)
+    if (typeof result !== 'string') {
+      setRecommendBook(formatBooksInfo([result as BookInfoResponse])[0])
+      toggleRecommendModal()
     }
-    if (opt === 'upload') router.push(`/review/${createdId}`)
+
+    router.push(`/review/${createdId}`)
     setIsLoading(false)
   }
 
@@ -87,7 +88,7 @@ export default function useEditor({ id, mode }: EditorProps) {
 
   return {
     isLoading,
-    savedCount,
+    today,
     date,
     review,
     onChangeReview,

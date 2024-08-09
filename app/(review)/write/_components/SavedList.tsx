@@ -8,32 +8,33 @@ import styles from '@/styles/modal.module.scss'
 import { Trash } from '@phosphor-icons/react'
 import { formatDate } from '@/utils/formatDate'
 
-import Loader from '@/components/Loader'
 import Modal from '@/components/Modal'
-import useSavedReview from '../_hooks/useSavedReview'
+import { Review } from '@/types'
 import { ReviewHandler } from '../_hooks/useEditor'
+import useDeleteSavedReview from '../_hooks/useDeleteSavedReview'
 
 interface Props {
+  reviews: Review[]
   onClose: () => void
   setReview: ReviewHandler
 }
 
-export default function SavedList({ onClose, setReview }: Props) {
-  const { savedReviews, deleteSavedReview, loading } = useSavedReview()
+export default function SavedList({ reviews, onClose, setReview }: Props) {
+  const deleteReviewMutation = useDeleteSavedReview()
 
-  const onClickDelete = (e: React.MouseEvent<SVGElement>, i: number) => {
+  const onClickDelete = (e: React.MouseEvent<SVGElement>, id: string) => {
     e.stopPropagation()
     const ok = window.confirm(
       '선택된 임시저장 글을 삭제하시겠습니까?\n삭제된 글은 복구되지 않습니다.',
     )
     if (ok) {
-      deleteSavedReview(i)
+      deleteReviewMutation.mutate(id)
     }
   }
 
   const loadReview = debounce((i: number) => {
     // 리뷰 불러오기
-    const { book, text, rating } = savedReviews[i]
+    const { book, text, rating } = reviews[i]
     setReview({ book, text, rating })
     onClose()
   }, 300)
@@ -41,11 +42,10 @@ export default function SavedList({ onClose, setReview }: Props) {
   function Content() {
     return (
       <>
-        {loading && <Loader />}
-        <div className={`${styles.title} ${styles.mb}`}>임시저장</div>
+        <h2 className={`${styles.title} ${styles.mb}`}>임시저장</h2>
         <hr />
         <div className={`${styles.list} ${styles.g0}`}>
-          {savedReviews.map((review, i) => (
+          {reviews.map((review, i) => (
             <div
               className={styles['list-item']}
               key={review._id}
@@ -58,7 +58,10 @@ export default function SavedList({ onClose, setReview }: Props) {
                 </div>
               </div>
               <button type="button" aria-label="삭제" className={styles.icon}>
-                <Trash size={20} onClick={(e) => onClickDelete(e, i)} />
+                <Trash
+                  size={20}
+                  onClick={(e) => onClickDelete(e, review._id)}
+                />
               </button>
             </div>
           ))}
