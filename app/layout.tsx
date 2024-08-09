@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import '@/styles/global.scss'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import RenderTopBar from './components/RenderTopBar'
 import { hasNoTopbarRoutes } from './config'
 import ScrollToTop from './components/ScrollToTop'
@@ -23,7 +22,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <QueryClientProviders>
-          <ReactQueryDevtools />
           <ScrollToTop />
           <RenderTopBar hasNoTopbarRoutes={hasNoTopbarRoutes} />
           <main>{children}</main>
