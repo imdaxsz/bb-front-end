@@ -32,8 +32,8 @@ export default async function ReviewDetail({ params }: PageParams) {
             <ReviewBookInfo book={review.book} rating={review.rating} />
           </div>
           <div className={styles.content}>
-            <div>{date}</div>
-            <div>{review.text}</div>
+            <p className={styles.date}>{date}</p>
+            <p>{review.text}</p>
           </div>
         </div>
       </div>

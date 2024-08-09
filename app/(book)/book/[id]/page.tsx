@@ -49,11 +49,11 @@ export default async function BookDetail({ params }: PageParams) {
           <div className={styles.book}>
             <div>
               <div className={bs['img-lg']}>
-                <Image fill src={book.cover} alt={book.title} />
+                <Image fill sizes="100%" src={book.cover} alt={book.title} />
               </div>
             </div>
             <div className={bs['detail-info']}>
-              <div className={bs['detail-title']}>{book.title}</div>
+              <h2 className={bs.title}>{book.title}</h2>
               <p>저자&nbsp; {book.author}</p>
               <p>출판&nbsp; {book.publisher}</p>
               <p>출간&nbsp; {book.pubDate}</p>
@@ -62,7 +62,7 @@ export default async function BookDetail({ params }: PageParams) {
             </div>
           </div>
           <div className={styles.content}>
-            <div>{book.description}</div>
+            <p className={styles.info}>{book.description}</p>
             <Link href={book.link} target="_blank" className={styles.link}>
               자세히 보기
             </Link>

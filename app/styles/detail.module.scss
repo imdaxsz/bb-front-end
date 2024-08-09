@@ -22,22 +22,16 @@
   @include common.flex(row, center, center);
 }
 
-.info {
-  width: calc(100% - 200px);
-  color: black;
-  margin-left: 40px;
-}
+// .info {
+//   width: calc(100% - 200px);
+//   color: black;
+//   margin-left: 40px;
+// }
 
 .title {
   font-size: 28px;
   line-height: 120%;
   margin-bottom: 8px;
-}
-
-.sub-info {
-  color: common.$neutral-50;
-  font-size: 20px;
-  line-height: 180%;
 }
 
 .rating {
@@ -70,8 +64,13 @@
   padding: 30px 12px 12px;
   border-top: solid 1px common.$neutral-20;
   font-size: 18px;
-  & div:first-child {
+
+  .date {
     margin-bottom: 10px;
+  }
+
+  .info {
+    margin-bottom: 20px;
   }
 }
 
@@ -93,6 +92,10 @@
   right: 80px;
   color: common.$neutral-60;
   gap: 10px;
+
+  span {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -132,5 +135,9 @@
     padding: 8px 12px;
     border-radius: 8px;
     border: solid 1px common.$neutral-05;
+
+    span {
+      display: block;
+    }
   }
 }

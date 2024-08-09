@@ -80,7 +80,7 @@ export default function Editor({ token, mode, id }: EditorProps) {
               />
             )}
             <form>
-              <div className={styles.date}>{date}</div>
+              <span className={styles.date}>{date}</span>
               <textarea
                 ref={textareaRef}
                 value={text}

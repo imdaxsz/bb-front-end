@@ -41,10 +41,10 @@ export default function ReviewBookInfo({
         </button>
       )}
       <div className={`${setRating ? styles['img-sm'] : styles['img-lg']}`}>
-        <Image fill src={book.cover} alt={book.title} />
+        <Image fill sizes="100%" src={book.cover} alt={book.title} />
       </div>
       <div className={styles.info}>
-        <div className={`${styles.title}`}>{book.title}</div>
+        <h2 className={`${styles.title}`}>{book.title}</h2>
         <p>저자&nbsp; {book.author}</p>
         <p>출판&nbsp; {book.publisher}</p>
         <div className={`${styles.rating} ${setRating && 'pointer'}`}>

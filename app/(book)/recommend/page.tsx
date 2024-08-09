@@ -27,6 +27,7 @@ export default async function Recommend({ searchParams }: PageSearchParams) {
     <div className="wrapper">
       <Menu />
       <ScrollToTopButton />
+      <h2 className="h-0">추천도서</h2>
       <div className="list-wrapper">
         <div className="list" style={{ marginBottom: '70px' }}>
           {books &&

@@ -1,17 +1,22 @@
 import Menu from '@/components/Menu'
 import ReviewCard from '@/components/ReviewCard'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
-import { nextFetch } from '@/libs/fetch'
 import { getToken } from '@/(auth)/_utils/getToken'
-import { Review } from '@/types'
+import { PageSearchParams, Review } from '@/types'
 import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
+import { getReviews } from '@/(review)/actions'
 
 export const metadata: Metadata = {
   title: '홈',
 }
 
-export default async function Home() {
+export default async function Home({ searchParams }: PageSearchParams) {
   const token: string | null = await getToken()
+  const { sort } = searchParams
+
+  if (sort && !['date_asc', 'title'].includes((sort as string) ?? ''))
+    redirect('/')
 
   const message = token
     ? '아직 작성한 후기가 없어요.'
@@ -19,14 +24,18 @@ export default async function Home() {
 
   let reviews: Review[] = []
 
-  if (token)
-    reviews = await nextFetch<Review[]>('/api/review/list').then(
-      (res) => res.body,
-    )
+  if (token) {
+    try {
+      reviews = await getReviews(sort as string)
+    } catch (error) {
+      console.log('401')
+    }
+  }
 
   return (
     <div className="wrapper">
       <Menu />
+      <h2 className="h-0">후기</h2>
       {token && reviews.length > 0 ? (
         <div className="list-wrapper">
           <ScrollToTopButton />

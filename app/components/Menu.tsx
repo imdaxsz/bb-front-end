@@ -60,7 +60,7 @@ export default function Menu() {
   }, [filterList, filterPath, sort])
 
   return (
-    <div className={styles['menu-wrapper']}>
+    <nav className={styles['menu-wrapper']}>
       <div className={styles.menu}>
         {isMobile && (
           <ul
@@ -147,6 +147,6 @@ export default function Menu() {
           )}
         </ul>
       </div>
-    </div>
+    </nav>
   )
 }

@@ -12,7 +12,9 @@ export default function SignIn() {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.logo}>
-          <Link href="/">북북</Link>
+          <Link href="/">
+            <h1>북북</h1>
+          </Link>
         </div>
         <form onSubmit={onSubmit} className={styles.form} noValidate>
           <input

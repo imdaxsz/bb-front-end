@@ -17,21 +17,21 @@ export default async function LeavePage() {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.leave}>
-          <h4>회원 탈퇴</h4>
+          <h2>회원 탈퇴 안내</h2>
           <div className={styles.inform}>
             <div className={styles.icon}>
               <CheckFat size={18} weight="fill" />
             </div>
-            <span>탈퇴할 경우 복구가 불가능합니다.</span>
+            <h3>탈퇴할 경우 복구가 불가능합니다.</h3>
           </div>
           <div className={styles.inform}>
             <div className={styles.icon}>
               <CheckFat size={18} weight="fill" />
             </div>
-            <span>
+            <h3>
               탈퇴 후 회원정보 및 서비스 이용기록(후기/관심 도서)는 모두
               삭제됩니다.
-            </span>
+            </h3>
           </div>
           <LeaveForm isOauthUser={oauth} email={email} />
         </div>

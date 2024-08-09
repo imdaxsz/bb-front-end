@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { debounce } from 'lodash'
+// import { handleUnauthorized } from '@/(auth)/_utils/handleUnauthorized'
 import { toggleRecommend } from '../actions'
 
 export default function ToggleButton({
@@ -12,16 +13,24 @@ export default function ToggleButton({
   const [active, setActive] = useState(isRecommendActive)
 
   const onChangeToggle = debounce(async () => {
-    await toggleRecommend()
-    setActive((prev) => !prev)
+    try {
+      await toggleRecommend()
+      setActive((prev) => !prev)
+    } catch (error) {
+      // handleUnauthorized(error, 'alert')
+    }
   }, 300)
 
   return (
-    <input
-      type="checkbox"
-      checked={active}
-      className="toggle"
-      onChange={onChangeToggle}
-    />
+    <>
+      <label htmlFor="recommend">추천 설정</label>
+      <input
+        id="recommend"
+        type="checkbox"
+        checked={active}
+        className="toggle"
+        onChange={onChangeToggle}
+      />
+    </>
   )
 }

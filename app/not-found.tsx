@@ -11,7 +11,9 @@ export default function NotFound() {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.logo}>
-          <Link href="/">북북</Link>
+          <Link href="/">
+            <h1>북북</h1>
+          </Link>
         </div>
         <div className="guide">
           <p style={{ fontSize: '24px', fontWeight: '600', margin: '20px' }}>

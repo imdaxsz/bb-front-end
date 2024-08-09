@@ -20,18 +20,11 @@
 
 .topbar-editor {
   background: white;
-  button {
+  button,
+  div {
     font-size: 16px;
-    padding: 4px 12px;
     border-radius: 20px;
     font-weight: 500;
-  }
-
-  span {
-    &:first-child {
-      padding: 0 6px;
-      color: common.$neutral-80;
-    }
   }
 
   .number {
@@ -50,11 +43,18 @@
     background: common.$primary;
     border: none;
     color: white;
+    padding: 4px 12px;
   }
   .save {
     background: white;
     border: solid 1px common.$neutral-20;
     padding: 4px 6px;
+    @include common.flex(row, center, center);
+
+    button:first-child {
+      padding: 0 6px;
+      color: common.$neutral-80;
+    }
   }
   .right {
     li:first-child {
@@ -65,8 +65,11 @@
 
 .logo {
   margin-left: 20px;
+}
+.logo h1 {
   font-family: 'GeekbleMalang2';
   font-size: 30px;
+  font-weight: normal;
   line-height: 90%;
 }
 

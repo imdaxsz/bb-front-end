@@ -12,13 +12,17 @@
 .logo {
   width: 100%;
   font-family: 'GeekbleMalang2';
-  font-size: 50px;
-  line-height: 94%;
   color: common.$primary;
   margin-bottom: 10px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
+
+  h1 {
+    font-size: 50px;
+    line-height: 94%;
+    font-weight: normal;
+  }
 
   & > a {
     display: block;

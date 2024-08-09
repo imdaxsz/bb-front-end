@@ -62,6 +62,10 @@ button {
   box-sizing: border-box;
   font-family: 'SUITE Variable';
   cursor: pointer;
+
+  svg {
+    display: block;
+  }
 }
 
 ul {
@@ -87,6 +91,11 @@ li {
 
 .wrapper {
   @include common.setSize(100%, $wrapper-height);
+}
+
+.h-0 {
+  height: 0;
+  overflow: hidden;
 }
 
 .btn {

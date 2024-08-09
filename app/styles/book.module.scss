@@ -1,7 +1,8 @@
 @use 'common';
 
 .wrapper {
-  @include common.setSize(100%, 150.8px);
+  width: 100%;
+  // @include common.setSize(100%, 150.8px);
   @include common.flex(row, flex-start, center);
   border: solid 3px white;
   position: relative;
@@ -34,7 +35,7 @@
 
 .info {
   position: relative;
-  width: calc(100% - 152px);
+  width: calc(100% - 160px);
   p {
     color: common.$neutral-60;
     line-height: 1.5;
@@ -51,10 +52,7 @@
   line-height: 25px;
   margin-bottom: 4px;
   font-weight: bold;
-}
-
-.detail-title {
-  @extend .title;
+  display: block;
 }
 
 .focus {
@@ -73,11 +71,10 @@
   position: absolute;
   top: 0;
   right: 0;
-  // background: common.$primary;
-  // color: white;
-  // @include common.setSize(24px, 24px);
-  @include common.flex(row, center, center);
+  z-index:60;
+  @include common.setSize(fit-content, fit-content);
   border-radius: 50%;
+  background: white;
   cursor: pointer;
   svg {
     color: common.$primary;
@@ -105,11 +102,7 @@
     left: 2px;
     top: 2px;
   }
-
-  .detail-title {
-    font-size: 16px;
-    line-height: 18px;
-  }
+  
   .detail-info {
     p {
       font-size: 13px;

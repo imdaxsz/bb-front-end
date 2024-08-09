@@ -24,7 +24,9 @@ export default function EditorTopBar({
   return (
     <ul className={`${styles.topbar} ${styles['topbar-editor']}`}>
       <li className={styles.logo}>
-        <Link href="/">북북</Link>
+        <Link href="/">
+          <h1>북북</h1>
+        </Link>
       </li>
       <li>
         <ul className={styles.right}>

@@ -2,7 +2,7 @@ import ScrollToTopButton from '@/components/ScrollToTopButton'
 import BookInfoCard from '@/components/BookInfoCard'
 import { Book, BookInfoResponse, PageSearchParams } from '@/types'
 import { Metadata } from 'next'
-import { nextFetch } from '@/libs/fetch'
+import { handleApiError, nextFetch } from '@/libs/fetch'
 import { getToken } from '@/(auth)/_utils/getToken'
 import Menu from '@/components/Menu'
 import { formatBooksInfo } from '@/utils/formatBookInfo'
@@ -19,12 +19,17 @@ export default async function LikesPage({ searchParams }: PageSearchParams) {
   let filteredBooks: Book[] = []
 
   if (token) {
-    const res = await nextFetch<BookInfoResponse[]>('api/like/list').then(
-      (r) => r.body,
-    )
-    const books = formatBooksInfo(res)
+    try {
+      const res = await nextFetch<BookInfoResponse[]>('api/like/list').then(
+        (r) => r.body,
+      )
+      const books = formatBooksInfo(res)
 
-    if (books.length > 0) filteredBooks = filterBooks(books, sort as BookSort)
+      if (books.length > 0) filteredBooks = filterBooks(books, sort as BookSort)
+    } catch (error) {
+      const { status } = handleApiError(error)
+      console.log(status)
+    }
   }
 
   const message = token
@@ -34,6 +39,7 @@ export default async function LikesPage({ searchParams }: PageSearchParams) {
   return (
     <div className="wrapper">
       <Menu />
+      <h2 className="h-0">관심도서</h2>
       {token && filteredBooks.length > 0 ? (
         <div className="list-wrapper">
           <ScrollToTopButton />

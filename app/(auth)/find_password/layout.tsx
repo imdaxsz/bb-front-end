@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: '비밀번호 찾기',
 }
 
-export default function SignUpLayout({
+export default function FindPasswordLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -15,7 +15,9 @@ export default function SignUpLayout({
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.logo}>
-          <Link href="/">북북</Link>
+          <Link href="/">
+            <h1>북북</h1>
+          </Link>
         </div>
         {children}
       </div>

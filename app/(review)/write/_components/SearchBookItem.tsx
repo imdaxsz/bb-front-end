@@ -32,10 +32,10 @@ export default function SearchBookItem({ book }: Props) {
       onClick={onClick}
     >
       <div className={styles['img-sm']}>
-        <Image fill src={book.cover} alt={book.title} />
+        <Image fill sizes="100%" src={book.cover} alt={book.title} />
       </div>
       <div className={styles.info}>
-        <div className={`${styles.title} ellipsis`}>{book.title}</div>
+        <strong className={`${styles.title} ellipsis`}>{book.title}</strong>
         <p>저자&nbsp; {book.author}</p>
         <p>출판&nbsp; {book.publisher}</p>
       </div>

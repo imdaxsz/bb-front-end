@@ -29,9 +29,9 @@ export default function BookCard({
       prefetch={false}
     >
       <div className={styles.thumnail}>
-        <Image fill src={cover} alt={title.split('-')[0]} />
+        <Image fill sizes="100%" src={cover} alt={title.split('-')[0]} />
       </div>
-      <div className={`${styles.title} ellipsis`}>{title}</div>
+      <span className={`${styles.title} ellipsis`}>{title}</span>
       {children && children}
     </Link>
   )

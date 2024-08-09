@@ -4,7 +4,7 @@ import useUserSetup from '@/(auth)/_hooks/useUserSetup'
 import Loader from '@/components/Loader'
 import styles from '@/styles/auth.module.scss'
 
-export default function SignUp() {
+export default function FindPasswordNext() {
   const {
     isLoading,
     form,
@@ -18,7 +18,7 @@ export default function SignUp() {
   return (
     <div>
       {isLoading && <Loader />}
-      <h4 className={styles['label-sm']}>비밀번호 재설정</h4>
+      <h2 className={styles['label-sm']}>비밀번호 재설정</h2>
       <form onSubmit={onSubmit} noValidate className={styles.form}>
         <input
           className={styles.input}

@@ -28,9 +28,7 @@ export default function LeaveForm({ isOauthUser, email }: LeaveFormProps) {
         </div>
         {!isOauthUser && (
           <>
-            <strong>
-              본인 확인을 위해 {email} 계정의 비밀번호를 입력해주세요.
-            </strong>
+            <h3>본인 확인을 위해 {email} 계정의 비밀번호를 입력해주세요.</h3>
             <input
               name="currentPw"
               type="password"
