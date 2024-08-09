@@ -2,7 +2,7 @@ import { Book } from '@/types'
 import { StateCreator } from 'zustand'
 
 type State = {
-  book: Book | null
+  selectedBook: Book | null
 }
 
 type Actions = {
@@ -13,13 +13,13 @@ type Actions = {
 export type SelectedBookSlice = State & Actions
 
 const initialState: State = {
-  book: null,
+  selectedBook: null,
 }
 
 export const createSelectedBookSlice: StateCreator<SelectedBookSlice> = (
   set,
 ) => ({
   ...initialState,
-  setSelectedBook: (book) => set({ book }),
+  setSelectedBook: (selectedBook) => set({ selectedBook }),
   resetSelectedBook: () => set(initialState),
 })
