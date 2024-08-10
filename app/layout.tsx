@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   verification: {
     google: '_Phk681bVpcJD9Nijvey2eoGnPFOYzJQ9Y7Hvm4_hBk',
   },
+  other: {
+    'naver-site-verification': '7331d2415d59dafb86997bf9bac00e2ee391fdbf',
+  },
   openGraph: {
     siteName: '북북',
     images: {
