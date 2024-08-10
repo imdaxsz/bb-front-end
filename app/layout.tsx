@@ -14,6 +14,18 @@ export const metadata: Metadata = {
   verification: {
     google: '_Phk681bVpcJD9Nijvey2eoGnPFOYzJQ9Y7Hvm4_hBk',
   },
+  openGraph: {
+    siteName: '북북',
+    images: {
+      url: '/og-image.png',
+    },
+  },
+  twitter: {
+    title: '북북',
+    images: {
+      url: '/og-image.png',
+    },
+  },
 }
 
 export default function RootLayout({
