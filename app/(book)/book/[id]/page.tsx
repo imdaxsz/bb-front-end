@@ -26,6 +26,16 @@ export async function generateMetadata({
       index: true,
       follow: false,
     },
+    openGraph: {
+      images: {
+        url: info.cover,
+      },
+    },
+    twitter: {
+      images: {
+        url: info.cover,
+      },
+    },
   }
 }
 
