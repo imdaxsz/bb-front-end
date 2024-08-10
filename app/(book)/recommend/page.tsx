@@ -9,6 +9,9 @@ import { formatBooksInfo } from '@/utils/formatBookInfo'
 
 export const metadata: Metadata = {
   title: '추천도서',
+  alternates: {
+    canonical: 'https://bookbook-phi.vercel.app/recommend',
+  },
 }
 
 export default async function Recommend({ searchParams }: PageSearchParams) {

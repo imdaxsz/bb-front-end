@@ -22,6 +22,10 @@ export async function generateMetadata({
   const info = await fetchBookInfo(params.id)
   return {
     title: info.title,
+    robots: {
+      index: true,
+      follow: false,
+    },
   }
 }
 

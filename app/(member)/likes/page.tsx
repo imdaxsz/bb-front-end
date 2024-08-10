@@ -10,6 +10,10 @@ import { BookSort, filterBooks } from './filterBooks'
 
 export const metadata: Metadata = {
   title: '관심도서',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default async function LikesPage({ searchParams }: PageSearchParams) {

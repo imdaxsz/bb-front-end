@@ -11,6 +11,10 @@ import { getSavedReviews, getSavedReviewsCount } from '../actions'
 
 export const metadata: Metadata = {
   title: '에디터',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default async function WritePage({ searchParams }: PageSearchParams) {

@@ -12,6 +12,10 @@ import ToggleButton from './_components/ToggleButton'
 
 export const metadata: Metadata = {
   title: '마이페이지',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default async function MyPage() {

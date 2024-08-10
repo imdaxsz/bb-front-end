@@ -7,6 +7,10 @@ import LeaveForm from './_components/LeaveForm'
 
 export const metadata: Metadata = {
   title: '회원탈퇴',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default async function LeavePage() {

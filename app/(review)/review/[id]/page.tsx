@@ -10,6 +10,10 @@ import { getReview } from '../../actions'
 
 export const metadata: Metadata = {
   title: '후기',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default async function ReviewDetail({ params }: PageParams) {
