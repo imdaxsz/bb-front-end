@@ -9,7 +9,7 @@ import Tools from './_components/Tools'
 import { getReview } from '../../actions'
 
 export const metadata: Metadata = {
-  title: '후기',
+  title: '리뷰',
   robots: {
     index: false,
     follow: false,

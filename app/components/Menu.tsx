@@ -17,7 +17,7 @@ export default function Menu() {
   const filterPath = useMemo(() => ['', 'sort=date_asc', 'sort=title'], [])
   const [filter, setFilter] = useState(filterList[0])
   const placeholder: Record<string, string> = {
-    '': '도서명으로 후기 검색',
+    '': '도서명으로 리뷰 검색',
     likes: '제목 검색',
     recommend: '제목 검색',
   }
@@ -84,7 +84,7 @@ export default function Menu() {
         )}
         <ul className={styles.tab}>
           <li className={isHome ? 'active' : ''}>
-            <Link href="/">후기</Link>
+            <Link href="/">리뷰</Link>
           </li>
           <li className={fullPath.includes('likes') ? 'active' : ''}>
             <Link href="/likes" prefetch={false}>

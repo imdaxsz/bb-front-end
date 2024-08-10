@@ -19,8 +19,8 @@ export default async function Home({ searchParams }: PageSearchParams) {
     redirect('/')
 
   const message = token
-    ? '아직 작성한 후기가 없어요.'
-    : '로그인 후, 나만의 책 후기를 남겨보세요!'
+    ? '아직 작성한 리뷰가 없어요.'
+    : '로그인 후, 나만의 책 리뷰를 남겨보세요!'
 
   let reviews: Review[] = []
 
@@ -35,7 +35,7 @@ export default async function Home({ searchParams }: PageSearchParams) {
   return (
     <div className="wrapper">
       <Menu />
-      <h2 className="h-0">후기</h2>
+      <h2 className="h-0">리뷰</h2>
       {token && reviews.length > 0 ? (
         <div className="list-wrapper">
           <ScrollToTopButton />

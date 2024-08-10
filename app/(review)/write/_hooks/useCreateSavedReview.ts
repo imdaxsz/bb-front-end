@@ -21,7 +21,7 @@ export default function useCreateSavedReview() {
 
   const onClickSaveReview = (review: ReviewForm, date: Date) => {
     if (!review.book) {
-      window.alert('후기를 작성할 책을 선택해주세요!')
+      window.alert('리뷰를 작성할 책을 선택해주세요!')
       return
     }
     mutation.mutate({ review, date })

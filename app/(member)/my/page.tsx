@@ -41,11 +41,11 @@ export default async function MyPage() {
           </div>
         </div>
         <div className={styles['item-wrapper']}>
-          <h2 className={styles['title-md']}>후기 작성 후 책 추천</h2>
+          <h2 className={styles['title-md']}>리뷰 작성 후 책 추천</h2>
           <ToggleButton isRecommendActive={recommend} />
         </div>
         <div className={styles['item-wrapper']}>
-          <h2 className={styles['title-md']}>후기 데이터 다운로드</h2>
+          <h2 className={styles['title-md']}>리뷰 데이터 다운로드</h2>
           <BackUpDataButton />
         </div>
         <div className={styles['item-wrapper']}>

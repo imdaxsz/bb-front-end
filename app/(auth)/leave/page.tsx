@@ -33,7 +33,7 @@ export default async function LeavePage() {
               <CheckFat size={18} weight="fill" />
             </div>
             <h3>
-              탈퇴 후 회원정보 및 서비스 이용기록(후기/관심 도서)는 모두
+              탈퇴 후 회원정보 및 서비스 이용기록(리뷰/관심 도서)는 모두
               삭제됩니다.
             </h3>
           </div>

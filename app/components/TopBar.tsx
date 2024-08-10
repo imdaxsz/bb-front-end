@@ -14,7 +14,7 @@ export default function TopBar() {
           <ul className={styles.right}>
             <li>
               <Link href="/write?mode=new" prefetch={false}>
-                후기작성
+                리뷰작성
               </Link>
             </li>
             <li>
