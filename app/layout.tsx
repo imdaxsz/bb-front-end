@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     default: '북북 | 도서 리뷰 및 추천 서비스',
   },
   description: '도서 리뷰를 작성하고 다음에 읽을 도서를 추천받아보세요.',
+  verification: {
+    google: '_Phk681bVpcJD9Nijvey2eoGnPFOYzJQ9Y7Hvm4_hBk',
+  },
 }
 
 export default function RootLayout({
