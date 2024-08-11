@@ -4,7 +4,7 @@ import { Book, BookInfoResponse, PageSearchParams } from '@/types'
 import { Metadata } from 'next'
 import { handleApiError, nextFetch } from '@/libs/fetch'
 import { getToken } from '@/(auth)/_utils/getToken'
-import Menu from '@/components/Menu'
+import Menu from '@/components/Menu/index'
 import { formatBooksInfo } from '@/utils/formatBookInfo'
 import { BookSort, filterBooks } from './filterBooks'
 

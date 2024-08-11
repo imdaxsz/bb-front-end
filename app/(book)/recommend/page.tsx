@@ -1,6 +1,6 @@
 import BookInfoCard from '@/components/BookInfoCard'
 import { Metadata } from 'next'
-import Menu from '@/components/Menu'
+import Menu from '@/components/Menu/index'
 import Pagination from '@/components/Pagination'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { nextFetch } from '@/libs/fetch'

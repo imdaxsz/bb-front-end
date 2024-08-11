@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import Pagination from '@/components/Pagination'
 import ReviewCard from '@/components/ReviewCard'
 import BookInfoCard from '@/components/BookInfoCard'
-import Menu from '@/components/Menu'
+import Menu from '@/components/Menu/index'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { formatSearchResult, search } from '../utils'
 

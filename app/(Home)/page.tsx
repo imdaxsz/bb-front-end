@@ -1,4 +1,4 @@
-import Menu from '@/components/Menu'
+import Menu from '@/components/Menu/index'
 import ReviewCard from '@/components/ReviewCard'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { getToken } from '@/(auth)/_utils/getToken'
