@@ -1,0 +1,97 @@
+@use 'common';
+
+.wrapper {
+  @include common.setSize(100%, calc(100% - 50px));
+  @include common.flex(row, center, center);
+}
+
+.content {
+  width: 90%;
+  max-width: 860px;
+  padding: 0 20px;
+  span {
+    font-size: 20px;
+  }
+}
+
+.leave {
+  max-width: 700px;
+  @include common.setSize(100%, 100%);
+  margin: 0 auto;
+
+  h3 {
+    line-height: 35px;
+    font-weight: normal;
+    font-size: 18px;
+  }
+
+  h2 {
+    color: common.$highlight;
+    width: 100%;
+    font-size: 24px;
+    margin-bottom: 100px;
+  }
+}
+
+.inform {
+  @include common.flex(row, flex-start, center);
+  margin-bottom: 5px;
+  gap: 8px;
+}
+
+.icon {
+  @include common.flex(row, flex-start, center);
+  color: common.$primary;
+  flex-shrink: 0;
+}
+
+.form {
+  button {
+    display: block;
+    margin: 60px auto 0;
+  }
+}
+
+.input {
+  @include common.setSize(180px, 35px);
+  border: solid 1px common.$neutral-10;
+  border-radius: 30px;
+  padding: 0 12px;
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+.message {
+  @include common.flex(row, flex-start, center);
+  margin: 20px 0;
+
+  label {
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .leave {
+    height: fit-content;
+    h2 {
+      margin-bottom: 70px;
+    }
+    h3 {
+      font-size: 16px;
+      line-height: normal;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .inform {
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .input {
+    width: 100%;
+  }
+}

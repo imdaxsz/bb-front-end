@@ -46,7 +46,7 @@ export default async function Home({ searchParams }: PageSearchParams) {
           </div>
         </div>
       ) : (
-        <div className="guide">
+        <div className="empty guide">
           <span>{message}</span>
         </div>
       )}

@@ -1,0 +1,14 @@
+.wrapper {
+  width: 100%;
+  padding: 50px 0 70px;
+}
+
+.list {
+  width: 90%;
+  max-width: 1150px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  place-items: center;
+  gap: 70px 8.65%;
+}

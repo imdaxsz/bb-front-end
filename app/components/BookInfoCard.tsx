@@ -1,4 +1,4 @@
-import styles from '@/styles/item.module.scss'
+import styles from '@/styles/card.module.scss'
 import { Book } from '@/types'
 
 import BookCard from './BookCard'

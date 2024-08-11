@@ -1,6 +1,6 @@
 import { Star } from '@phosphor-icons/react/dist/ssr'
 
-import styles from '@/styles/item.module.scss'
+import styles from '@/styles/card.module.scss'
 import { Review } from '@/types'
 
 import { v4 as uuidv4 } from 'uuid'

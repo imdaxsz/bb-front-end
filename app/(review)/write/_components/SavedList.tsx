@@ -42,9 +42,9 @@ export default function SavedList({ reviews, onClose, setReview }: Props) {
   function Content() {
     return (
       <>
-        <h2 className={`${styles.title} ${styles.mb}`}>임시저장</h2>
+        <h2 className={`${styles.title} ${styles['mb-10']}`}>임시저장</h2>
         <hr />
-        <div className={`${styles.list} ${styles.g0}`}>
+        <div className={`${styles.list} ${styles['g-0']}`}>
           {reviews.map((review, i) => (
             <div
               className={styles['list-item']}

@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '@/styles/my.module.scss'
+import styles from '@/styles/leave.module.scss'
 import useLeaveForm from '../_hooks/useLeaveForm'
 
 interface LeaveFormProps {
@@ -14,7 +14,7 @@ export default function LeaveForm({ isOauthUser, email }: LeaveFormProps) {
 
   return (
     <div>
-      <form onSubmit={onSubmit} className={styles['delete-form']}>
+      <form onSubmit={onSubmit} className={styles.form}>
         <div className={styles.message}>
           <input
             id="agree"
@@ -28,7 +28,10 @@ export default function LeaveForm({ isOauthUser, email }: LeaveFormProps) {
         </div>
         {!isOauthUser && (
           <>
-            <h3>본인 확인을 위해 {email} 계정의 비밀번호를 입력해주세요.</h3>
+            <h3>
+              본인 확인을 위해 <strong>{email}</strong> 계정의 비밀번호를
+              입력해주세요.
+            </h3>
             <input
               name="currentPw"
               type="password"
@@ -40,7 +43,7 @@ export default function LeaveForm({ isOauthUser, email }: LeaveFormProps) {
             />
           </>
         )}
-        <button type="submit" className={styles['btn-primary']}>
+        <button type="submit" className="btn btn-primary">
           회원 탈퇴
         </button>
       </form>

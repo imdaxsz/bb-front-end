@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useState } from 'react'
+import styles from '@/styles/dropdown.module.scss'
 
 interface DropdownProps {
   initialValue: string
@@ -12,7 +13,7 @@ export default function Dropdown({ initialValue, items, keys }: DropdownProps) {
   const [currentValue, setCurrentValue] = useState(initialValue)
 
   const onClick = () => {
-    setDisplay('block')
+    setDisplay((prev) => (prev === '' ? 'block' : ''))
   }
 
   const selectFilter = (e: React.MouseEvent<HTMLLIElement>, i: number) => {
@@ -22,11 +23,11 @@ export default function Dropdown({ initialValue, items, keys }: DropdownProps) {
   }
 
   return (
-    <div className="dropdown" onClick={onClick}>
+    <div className={styles.container} onClick={onClick}>
       <Link href="#" role="button">
         {currentValue}
       </Link>
-      <ul className={`dropdown-list ${display}`}>
+      <ul className={`${styles.list} ${display}`}>
         {items.map((item, i) => (
           <li key={keys[i]} onClick={(e) => selectFilter(e, i)}>
             <Link

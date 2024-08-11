@@ -30,22 +30,22 @@ export default async function MyPage() {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles['item-wrapper']}>
-          <h2 className={styles.title}>이메일</h2>
-          <span className={styles['user-info']}>{email}</span>
+          <h2 className={styles.label}>이메일</h2>
+          <span className={styles.email}>{email}</span>
           <SignOutButton />
         </div>
         <div className={styles['password-wrapper']}>
-          <h2 className={styles.title}>비밀번호 재설정</h2>
+          <h2 className={styles.label}>비밀번호 재설정</h2>
           <div className={styles.password}>
             <ChangePassword isOauthUser={oauth} />
           </div>
         </div>
         <div className={styles['item-wrapper']}>
-          <h2 className={styles['title-md']}>리뷰 작성 후 책 추천</h2>
+          <h2 className={styles['label-md']}>리뷰 작성 후 책 추천</h2>
           <ToggleButton isRecommendActive={recommend} />
         </div>
         <div className={styles['item-wrapper']}>
-          <h2 className={styles['title-md']}>리뷰 데이터 다운로드</h2>
+          <h2 className={styles['label-md']}>리뷰 데이터 다운로드</h2>
           <BackUpDataButton />
         </div>
         <div className={styles['item-wrapper']}>

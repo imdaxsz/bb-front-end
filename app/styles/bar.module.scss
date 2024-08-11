@@ -8,7 +8,7 @@
 }
 
 .topbar {
-  @include common.setSize(100%, 52px);
+  @include common.setSize(100%, common.$header-height);
   @include common.set-fixed(0, 500);
   background: white;
   border-bottom: solid 1px common.$neutral-05;

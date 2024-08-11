@@ -1,7 +1,7 @@
 'use client'
 
 import { ReviewHandler } from '@/(review)/write/_hooks/useEditor'
-import styles from '@/styles/book.module.scss'
+import styles from '@/styles/bookInfo.module.scss'
 import { Book } from '@/types'
 import { Star, XCircle } from '@phosphor-icons/react'
 import Image from 'next/image'

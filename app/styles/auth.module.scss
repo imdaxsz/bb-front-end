@@ -35,6 +35,7 @@
   padding: 12px 16px;
   margin-top: 10px;
   width: 100%;
+
   &:focus {
     border-color: common.$secondary;
     transition: all 0.02;
@@ -57,6 +58,7 @@
   font-size: 20px;
   margin-top: 20px;
   cursor: pointer;
+
   &:hover {
     background: common.$primary;
     transition: all 0.2s;
@@ -89,6 +91,7 @@
     font-size: 14px;
     color: common.$neutral-50;
     cursor: pointer;
+
     &::after {
       content: '|';
       font-size: 13px;

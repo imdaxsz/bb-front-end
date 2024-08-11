@@ -1,7 +1,7 @@
 'use client'
 
 import useBoundStore from '@/stores'
-import styles from '@/styles/book.module.scss'
+import styles from '@/styles/bookInfo.module.scss'
 import { DetailBookResponse } from '@/types'
 import Image from 'next/image'
 

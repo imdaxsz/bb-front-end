@@ -1,7 +1,6 @@
 'use client'
 
 import styles from '@/styles/auth.module.scss'
-import btnstyles from '@/styles/my.module.scss'
 import useChangePassword from '../_hooks/useChangePassword'
 
 export default function ChangePassword({
@@ -62,7 +61,7 @@ export default function ChangePassword({
       <button
         disabled={hasEmptyField}
         type="submit"
-        className={btnstyles['btn-primary']}
+        className="btn btn-primary"
       >
         변경
       </button>

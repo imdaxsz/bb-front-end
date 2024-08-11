@@ -1,4 +1,4 @@
-import bs from '@/styles/book.module.scss'
+import bs from '@/styles/bookInfo.module.scss'
 import styles from '@/styles/detail.module.scss'
 import { formatBookDetailInfo } from '@/utils/formatBookInfo'
 import { Metadata } from 'next'

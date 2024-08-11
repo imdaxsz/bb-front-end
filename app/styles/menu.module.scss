@@ -1,7 +1,7 @@
 @use 'common';
 
 .wrapper {
-  @include common.setSize(100%, 52px);
+  @include common.setSize(100%, common.$header-height);
   max-width: 1200px;
   display: block;
   margin: 0 auto;
@@ -9,7 +9,7 @@
 
 .menu {
   @include common.setSize(inherit, inherit);
-  @include common.set-fixed(52px, 440);
+  @include common.set-fixed(common.$header-height, 440);
   max-width: 1200px;
   padding: 0 25px;
   left: 50%;
