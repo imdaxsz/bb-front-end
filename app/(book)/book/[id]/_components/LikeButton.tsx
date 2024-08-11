@@ -1,8 +1,4 @@
-/* eslint-disable no-use-before-define */
-
 'use client'
-
-import { useMediaQuery } from 'react-responsive'
 
 import styles from '@/styles/detail.module.scss'
 import { Heart } from '@phosphor-icons/react'
@@ -15,8 +11,6 @@ interface LikeProps {
 }
 
 export default function LikeButton({ token, isbn }: LikeProps) {
-  const isMobile = useMediaQuery({ maxWidth: 450 })
-
   const data = useGetIsLiked({ isbn, token })
   const isLiked = token ? Boolean(data) : false
   const likeMutation = useToggleLike({ isbn, token })
@@ -29,34 +23,18 @@ export default function LikeButton({ token, isbn }: LikeProps) {
   }
 
   return (
-    <>
-      {isMobile ? (
-        <button type="button" onClick={onClick} className={styles.like}>
-          <span>관심도서</span>
-          <Icon isLiked={isLiked} />
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={onClick}
-          className={styles.like}
-          aria-label="관심 도서"
-        >
-          <Icon isLiked={isLiked} />
-        </button>
-      )}
-    </>
-  )
-}
-
-function Icon({ isLiked }: { isLiked: boolean }) {
-  return (
-    <>
+    <button
+      type="button"
+      onClick={onClick}
+      className={styles.like}
+      aria-label="관심 도서"
+    >
+      <span>관심도서</span>
       {isLiked ? (
         <Heart color="#f94a7b" weight="fill" size={32} />
       ) : (
         <Heart size={32} />
       )}
-    </>
+    </button>
   )
 }
