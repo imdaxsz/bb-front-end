@@ -3,13 +3,8 @@ import ReviewCard from '@/components/ReviewCard'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { getToken } from '@/(auth)/_utils/getToken'
 import { PageSearchParams, Review } from '@/types'
-import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { getReviews } from '@/(review)/actions'
-
-export const metadata: Metadata = {
-  title: '홈',
-}
 
 export default async function Home({ searchParams }: PageSearchParams) {
   const token: string | null = await getToken()
