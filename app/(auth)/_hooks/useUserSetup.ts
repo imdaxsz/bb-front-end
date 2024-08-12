@@ -2,11 +2,7 @@ import { debounce } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 
 import { usePathname, useRouter } from 'next/navigation'
-import {
-  checkCertiStatus,
-  signUp as requestSignUp,
-  resetPassword as requestResetPw,
-} from '@/(auth)/actions'
+import auth from '@/(auth)/services'
 import { validatePassword } from '@/utils/validatePassword'
 import useBoundStore from '@/stores'
 
@@ -41,12 +37,12 @@ export default function useUserSetup({ newUser }: { newUser: boolean }) {
   }
 
   const signUp = async () => {
-    await requestSignUp(cerifiedEmail, form.password)
+    await auth.signUp(cerifiedEmail, form.password)
     window.alert('가입이 완료되었습니다!')
   }
 
   const resetPassword = async () => {
-    await requestResetPw(cerifiedEmail, form.password)
+    await auth.resetPassword(cerifiedEmail, form.password)
     window.alert('비밀번호 재설정이 완료되었습니다!')
   }
 
@@ -82,7 +78,7 @@ export default function useUserSetup({ newUser }: { newUser: boolean }) {
     async (email: string) => {
       const redirectUrl = newUser ? '/signup' : '/find_password'
       try {
-        const { certified } = await checkCertiStatus(email)
+        const { certified } = await auth.checkCertiStatus(email)
         if (!certified) router.push(redirectUrl)
       } catch (error) {
         console.log(error)

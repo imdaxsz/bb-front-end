@@ -1,5 +1,6 @@
 import useSignOut from '@/(auth)/_hooks/useSignOut'
-import { deleteAccount } from '@/(auth)/actions'
+// import { handleUnauthorized } from '@/(auth)/_utils/handleUnauthorized'
+import auth from '@/(auth)/services'
 import { handleApiError } from '@/libs/fetch'
 import { debounce } from 'lodash'
 import { useState } from 'react'
@@ -31,13 +32,13 @@ export default function useLeaveForm({
       return
     }
     try {
-      await deleteAccount(form.password)
+      await auth.deleteAccount(form.password)
       window.alert('탈퇴 완료되었습니다.')
       signOut()
     } catch (err) {
       const { status } = handleApiError(err)
-
       if (status === 400) window.alert('비밀번호를 다시 확인하세요.')
+      // handleUnauthorized(err, 'alert')
     }
   }, 300)
 

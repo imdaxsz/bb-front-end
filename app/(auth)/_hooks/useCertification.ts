@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import useBoundStore from '@/stores'
-import { checkEmail, requestEmailCertification, verifyCode } from '../actions'
+import auth from '@/(auth)/services'
 
 export interface CertificationProps {
   purpose: 'signUp' | 'resetPw'
@@ -32,7 +32,7 @@ export default function useCertification({ purpose }: CertificationProps) {
   const requestMailCode = async () => {
     setIsLoading(true)
     try {
-      await requestEmailCertification(form.email)
+      await auth.requestEmailCertification(form.email)
       setShowCode(true)
     } catch (error) {
       console.log(error)
@@ -54,7 +54,7 @@ export default function useCertification({ purpose }: CertificationProps) {
     setIsLoading(true)
     try {
       // 이메일 존재 여부 검사
-      const res = await checkEmail(form.email)
+      const res = await auth.checkEmail(form.email)
       // 인증 목적에 따라 조건과 오류 코드를 나눕니다.
       const errorCondition = isSignUp ? res.exists : !res.exists
       const errorCode = isSignUp ? 2 : 3
@@ -78,7 +78,7 @@ export default function useCertification({ purpose }: CertificationProps) {
       purpose === 'signUp' ? '/signup/next' : '/find_password/next'
     setIsLoading(true)
     try {
-      const res = await verifyCode(form.email, form.code)
+      const res = await auth.verifyCode(form.email, form.code)
       if (res) {
         window.alert('인증에 성공하였습니다.')
         setCertifiedEmail(form.email)

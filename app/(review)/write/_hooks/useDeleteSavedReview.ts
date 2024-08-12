@@ -1,5 +1,6 @@
 import { getClientToken } from '@/(auth)/_utils/getClientToken'
-import { deleteReview } from '@/(review)/actions'
+import { nextRevalidatePath } from '@/utils/revalidatePath'
+import review from '@/(review)/services'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -8,8 +9,9 @@ export default function useDeleteSavedReview() {
   const token = getClientToken()
 
   return useMutation({
-    mutationFn: (id: string) => deleteReview(id, true),
+    mutationFn: (id: string) => review.deleteReview(id),
     onSuccess: () => {
+      nextRevalidatePath('/write')
       queryClient.invalidateQueries({
         queryKey: ['savedReviews', token],
       })

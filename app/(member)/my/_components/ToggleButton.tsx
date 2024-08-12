@@ -1,25 +1,13 @@
 'use client'
 
-import { useState } from 'react'
-import { debounce } from 'lodash'
-// import { handleUnauthorized } from '@/(auth)/_utils/handleUnauthorized'
-import { toggleRecommend } from '../actions'
+import useToggleRecommend from '../_hooks/useToggleRecommend'
 
 export default function ToggleButton({
   isRecommendActive,
 }: {
   isRecommendActive: boolean
 }) {
-  const [active, setActive] = useState(isRecommendActive)
-
-  const onChangeToggle = debounce(async () => {
-    try {
-      await toggleRecommend()
-      setActive((prev) => !prev)
-    } catch (error) {
-      // handleUnauthorized(error, 'alert')
-    }
-  }, 300)
+  const { active, onChangeToggle } = useToggleRecommend(isRecommendActive)
 
   return (
     <>

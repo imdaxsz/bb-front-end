@@ -3,7 +3,7 @@
 
 'use client'
 
-import { toggleRecommend } from '@/(member)/my/actions'
+import member from '@/(member)/services'
 import BookInfoCard from '@/components/BookInfoCard'
 import Modal from '@/components/Modal'
 import useBoundStore from '@/stores'
@@ -23,7 +23,7 @@ export default function RecommendModal() {
   }
 
   const onNoMoreRec = async () => {
-    await toggleRecommend()
+    await member.toggleRecommend()
     resetBook()
   }
 

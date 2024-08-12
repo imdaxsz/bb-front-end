@@ -3,12 +3,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import { formatDate } from '@/utils/formatDate'
 import { BookInfoResponse, ReviewForm, WriteMode } from '@/types'
-import { getReview } from '@/(review)/actions'
 import { useRouter } from 'next/navigation'
 import { formatBooksInfo } from '@/utils/formatBookInfo'
+import bookApi from '@/(book)/services'
+import reviewApi from '@/(review)/services'
 import useTextarea from './useTextarea'
 import useReview from './useReview'
-import { getRecommendBook } from '../actions'
 import useRecommend from './useRecommend'
 
 export type ReviewHandler = (args: Partial<ReviewForm>) => void
@@ -40,7 +40,12 @@ export default function useEditor({ id, mode }: EditorProps) {
   const loadReview = useCallback(async (reviewId: string) => {
     setIsLoading(true)
     try {
-      const { book, rating, text, date: createdAt } = await getReview(reviewId)
+      const {
+        book,
+        rating,
+        text,
+        date: createdAt,
+      } = await reviewApi.getReview(reviewId)
       setReview({ book, text, rating })
       setDate(formatDate(new Date(createdAt)))
     } catch (error) {
@@ -67,7 +72,7 @@ export default function useEditor({ id, mode }: EditorProps) {
     }
     const createdId = await create(review, today)
 
-    const result = await getRecommendBook(categoryId)
+    const result = await bookApi.getRecommendBook(categoryId)
     if (typeof result !== 'string') {
       setRecommendBook(formatBooksInfo([result as BookInfoResponse])[0])
       toggleRecommendModal()

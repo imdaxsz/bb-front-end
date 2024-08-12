@@ -13,13 +13,13 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query'
+import bookApi from '@/(book)/services'
 import LikeButton from './_components/LikeButton'
-import { fetchBookInfo, getIsBookLiked } from './actions'
 
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
-  const info = await fetchBookInfo(params.id)
+  const info = await bookApi.getBookInfo(params.id)
   return {
     title: info.title,
     robots: {
@@ -42,7 +42,7 @@ export async function generateMetadata({
 export default async function BookDetail({ params }: PageParams) {
   if (!params.id) notFound()
 
-  const info = await fetchBookInfo(params.id)
+  const info = await bookApi.getBookInfo(params.id)
   const book = formatBookDetailInfo(info)
   const token = await getToken()
 
@@ -52,7 +52,7 @@ export default async function BookDetail({ params }: PageParams) {
 
   await queryClient.prefetchQuery({
     queryKey: ['like', book.isbn, token],
-    queryFn: () => getIsBookLiked(book.isbn),
+    queryFn: () => bookApi.getIsBookLiked(book.isbn),
   })
 
   return (

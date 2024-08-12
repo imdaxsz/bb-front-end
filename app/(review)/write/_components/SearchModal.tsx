@@ -10,8 +10,8 @@ import useBoundStore from '@/stores'
 import Modal from '@/components/Modal'
 import SearchBar from '@/components/SearchBar'
 import Loader from '@/components/Loader'
+import book from '@/(book)/services'
 import SearchBookItem from './SearchBookItem'
-import { searchBooks } from '../actions'
 import { ReviewHandler } from '../_hooks/useEditor'
 
 interface SearchBook {
@@ -46,7 +46,7 @@ export default function SearchModal({ onClose, setBook }: SearchBook) {
 
   const onSearch = async (keyword: string) => {
     setIsLoading(true)
-    const res = await searchBooks(keyword)
+    const res = await book.searchBooks(keyword)
     setBooks(res.item)
     if (listRef.current) listRef.current.scrollTop = 0
     setIsLoading(false)
@@ -80,7 +80,7 @@ function Content({ listRef, result, onSearch }: ContentProps) {
       </div>
       <div className={styles.list} ref={listRef}>
         {result &&
-          result.map((book) => <SearchBookItem book={book} key={book.isbn} />)}
+          result.map((item) => <SearchBookItem book={item} key={item.isbn} />)}
         {result && result.length === 0 && <p>검색 결과가 없습니다.</p>}
       </div>
     </>

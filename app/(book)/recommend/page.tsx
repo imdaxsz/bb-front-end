@@ -3,9 +3,9 @@ import { Metadata } from 'next'
 import Menu from '@/components/Menu/index'
 import Pagination from '@/components/Pagination'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
-import { nextFetch } from '@/libs/fetch'
-import { BookList, PageSearchParams } from '@/types'
+import { PageSearchParams } from '@/types'
 import { formatBooksInfo } from '@/utils/formatBookInfo'
+import bookApi from '../services'
 
 export const metadata: Metadata = {
   title: '추천도서',
@@ -17,13 +17,9 @@ export const metadata: Metadata = {
 export default async function Recommend({ searchParams }: PageSearchParams) {
   const { page } = searchParams
 
-  const { totalResults, item } = await nextFetch<BookList>(
-    `/api/book/recommend?page=${page}`,
-    {
-      method: 'GET',
-      next: { revalidate: 86400 }, // 하루 단위 재검증
-    },
-  ).then((res) => res.body)
+  const { totalResults, item } = await bookApi.getRecommendBooks(
+    page ? (page as string) : '1',
+  )
   const books = formatBooksInfo(item)
 
   return (

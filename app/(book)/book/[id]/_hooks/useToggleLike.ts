@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { toggleLike } from '../actions'
+import book from '@/(book)/services'
+import { nextRevalidatePath } from '@/utils/revalidatePath'
 
 export default function useToggleLike({
   isbn,
@@ -11,7 +12,7 @@ export default function useToggleLike({
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: () => toggleLike(isbn),
+    mutationFn: () => book.toggleLike(isbn),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['like', isbn, token] })
       const previousIsLiked = queryClient.getQueryData(['like', isbn, token])
@@ -19,8 +20,10 @@ export default function useToggleLike({
 
       return { previousIsLiked }
     },
+    onSuccess: () => {
+      nextRevalidatePath('/likes')
+    },
     onError: (error, variables, context) => {
-      console.log(context)
       if (!context) return
 
       queryClient.setQueryData(['like', isbn, token], context.previousIsLiked)

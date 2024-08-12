@@ -6,8 +6,8 @@ import {
   QueryClient,
 } from '@tanstack/react-query'
 import { getToken } from '@/(auth)/_utils/getToken'
+import review from '@/(review)/services'
 import Editor from './Editor'
-import { getSavedReviews, getSavedReviewsCount } from '../actions'
 
 export const metadata: Metadata = {
   title: '에디터',
@@ -28,12 +28,12 @@ export default async function WritePage({ searchParams }: PageSearchParams) {
 
   await queryClient.prefetchQuery({
     queryKey: ['savedReviews', token],
-    queryFn: getSavedReviews,
+    queryFn: review.getSavedReviews,
   })
 
   await queryClient.prefetchQuery({
     queryKey: ['savedReviews', token, 'count'],
-    queryFn: getSavedReviewsCount,
+    queryFn: review.getSavedReviewsCount,
   })
 
   return (

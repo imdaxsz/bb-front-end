@@ -5,8 +5,8 @@ import { notFound } from 'next/navigation'
 import { formatDate } from '@/utils/formatDate'
 import type { Metadata } from 'next'
 import RecommendModal from '@/(review)/write/_components/RecommendModal'
+import reviewApi from '@/(review)/services'
 import Tools from './_components/Tools'
-import { getReview } from '../../actions'
 
 export const metadata: Metadata = {
   title: '리뷰',
@@ -20,7 +20,7 @@ export default async function ReviewDetail({ params }: PageParams) {
   const { id } = params
   if (!id) notFound()
 
-  const review = await getReview(id)
+  const review = await reviewApi.getReview(id)
 
   if (!review) notFound()
 

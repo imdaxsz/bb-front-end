@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { fetchTokenCookie, requestEmailSignIn } from '@/(auth)/actions'
+import auth from '@/(auth)/services'
 import { handleApiError } from '@/libs/fetch'
 import useBoundStore from '@/stores'
+import { fetchTokenCookie } from '../_utils/fetchTokenCookie'
 
 export default function useSignIn() {
   const [form, setForm] = useState({ email: '', password: '' })
@@ -23,7 +24,7 @@ export default function useSignIn() {
     isButtonDisabled = true
 
     try {
-      const { token } = await requestEmailSignIn(form)
+      const { token } = await auth.requestEmailSignIn(form)
       fetchToken(token)
       fetchTokenCookie(token)
     } catch (err) {

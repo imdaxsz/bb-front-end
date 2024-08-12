@@ -1,8 +1,9 @@
-import { postReview } from '@/(review)/actions'
+import reviewApi from '@/(review)/services'
 import { ReviewForm } from '@/types'
 import { getClientToken } from '@/(auth)/_utils/getClientToken'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { nextRevalidatePath } from '@/utils/revalidatePath'
 
 export default function useCreateSavedReview() {
   const queryClient = useQueryClient()
@@ -10,8 +11,9 @@ export default function useCreateSavedReview() {
 
   const mutation = useMutation({
     mutationFn: ({ review, date }: { review: ReviewForm; date: Date }) =>
-      postReview(review, date, 'save'),
+      reviewApi.postReview(review, date, 'save'),
     onSuccess: () => {
+      nextRevalidatePath('/write')
       queryClient.invalidateQueries({
         queryKey: ['savedReviews', token],
       })

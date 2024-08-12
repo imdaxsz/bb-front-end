@@ -1,16 +1,16 @@
-import { getSavedReviews, getSavedReviewsCount } from '@/(review)/actions'
 import { useSuspenseQueries } from '@tanstack/react-query'
+import review from '@/(review)/services'
 
 export default function useGetSavedReviews(token: string) {
   const [{ data }, { data: reviewCount }] = useSuspenseQueries({
     queries: [
       {
         queryKey: ['savedReviews', token],
-        queryFn: getSavedReviews,
+        queryFn: review.getSavedReviews,
       },
       {
         queryKey: ['savedReviews', token, 'count'],
-        queryFn: getSavedReviewsCount,
+        queryFn: review.getSavedReviewsCount,
       },
     ],
   })

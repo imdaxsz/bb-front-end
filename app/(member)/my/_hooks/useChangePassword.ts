@@ -1,8 +1,9 @@
-import { changePassword } from '@/(member)/my/actions'
+import member from '@/(member)/services'
 import { handleApiError } from '@/libs/fetch'
 import { validatePassword } from '@/utils/validatePassword'
 import { useState } from 'react'
 import { debounce } from 'lodash'
+// import { handleUnauthorized } from '@/(auth)/_utils/handleUnauthorized'
 
 export default function useChangePassword() {
   const [form, setForm] = useState({
@@ -45,7 +46,7 @@ export default function useChangePassword() {
     if (isvalidPw && isSamePw && !sameCurrentPw) {
       setIsLoading(true)
       try {
-        await changePassword(form.currentPw, form.newPw)
+        await member.changePassword(form.currentPw, form.newPw)
         window.alert('비밀번호 변경이 완료되었습니다.')
         window.location.reload()
       } catch (err) {
@@ -53,6 +54,7 @@ export default function useChangePassword() {
         if (status === 400) {
           window.alert('비밀번호가 틀렸습니다!')
         }
+        // handleUnauthorized(error, 'alert')
       }
       setIsLoading(false)
     }
