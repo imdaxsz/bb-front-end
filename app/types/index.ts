@@ -40,9 +40,9 @@ export interface DetailBookResponse extends BookInfoResponse {
   link: string
 }
 
-export interface BookList {
+export interface List<T> {
   totalResults: number
-  item: DetailBookResponse[]
+  item: T[]
 }
 
 export interface Review {
@@ -68,4 +68,10 @@ export interface User {
   email: string
   recommend: boolean
   oauth: boolean
+}
+
+export interface CursorPage<T> {
+  items: T[]
+  cursor: string
+  hasNext: boolean
 }

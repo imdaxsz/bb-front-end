@@ -1,5 +1,5 @@
 import { nextFetch } from '@/libs/fetch'
-import { Review, ReviewForm } from '@/types'
+import { List, Review, ReviewForm } from '@/types'
 
 class ReviewApi {
   /**
@@ -7,9 +7,10 @@ class ReviewApi {
    * @param {string} sort 정렬
    * @returns 후기 정보
    */
-  async getReviews(sort?: string) {
-    const url = sort ? `/api/review/list?sort=${sort}` : `/api/review/list`
-    return nextFetch<Review[]>(url).then((res) => res.body)
+  async getReviews(sort?: string, page?: string) {
+    const query = `sort=${sort}&page=${page}`
+    const url = `/api/review/list?${query}`
+    return nextFetch<List<Review>>(url).then((res) => res.body)
   }
 
   /**

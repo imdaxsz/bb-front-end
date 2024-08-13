@@ -1,5 +1,5 @@
 import { nextFetch } from '@/libs/fetch'
-import { BookInfoResponse, BookList, DetailBookResponse } from '@/types'
+import { BookInfoResponse, DetailBookResponse, List } from '@/types'
 
 class BookApi {
   async getBookInfo(id: string) {
@@ -16,26 +16,30 @@ class BookApi {
     return res.isLiked
   }
 
-  async toggleLike(isbn: string) {
-    const res = nextFetch(`/api/like`, { method: 'POST', body: { isbn } }).then(
-      (r) => r.body,
-    )
+  async toggleLike(isbn: string, title: string) {
+    const res = nextFetch(`/api/like`, {
+      method: 'POST',
+      body: { isbn, title },
+    }).then((r) => r.body)
     return res
   }
 
   // 추천 도서 목록 조회
   async getRecommendBooks(page: string) {
-    return nextFetch<BookList>(`/api/book/recommend?page=${page}`, {
-      method: 'GET',
-      next: { revalidate: 86400 }, // 하루 단위 재검증
-    }).then((res) => res.body)
+    return nextFetch<List<DetailBookResponse>>(
+      `/api/book/recommend?page=${page}`,
+      {
+        method: 'GET',
+        next: { revalidate: 86400 }, // 하루 단위 재검증
+      },
+    ).then((res) => res.body)
   }
 
   // 도서 검색
   async searchBooks(keyword: string) {
-    return nextFetch<BookList>(`/api/search/book?query=${keyword}`).then(
-      (res) => res.body,
-    )
+    return nextFetch<List<DetailBookResponse>>(
+      `/api/search/book?query=${keyword}`,
+    ).then((res) => res.body)
   }
 
   // 도서 추천 받기

@@ -1,15 +1,15 @@
 import { nextFetch } from '@/libs/fetch'
-import { BookInfoResponse, Review, User } from '@/types'
+import { BookInfoResponse, List, Review, User } from '@/types'
 
 class MemberApi {
-  async getLikes() {
-    const r = await nextFetch<BookInfoResponse[]>('api/like/list')
-    return r.body
+  async getLikes(sort?: string, page?: string) {
+    const query = `sort=${sort}&page=${page}`
+    const url = `/api/like/list?${query}`
+    return nextFetch<List<BookInfoResponse>>(url).then((res) => res.body)
   }
 
   async getUserInfo() {
-    const res = await nextFetch<User>('/api/user/info')
-    return res.body
+    return nextFetch<User>('/api/user/info').then((res) => res.body)
   }
 
   async changePassword(currentPw: string, newPw: string) {
