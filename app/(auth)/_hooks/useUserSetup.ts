@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { usePathname, useRouter } from 'next/navigation'
 import auth from '@/(auth)/services'
-import { validatePassword } from '@/utils/validatePassword'
 import useBoundStore from '@/stores'
+import { validatePassword } from '../_utils/validatePassword'
 
 export default function useUserSetup({ newUser }: { newUser: boolean }) {
   const { cerifiedEmail, resetCertifiedEmail } = useBoundStore((state) => ({

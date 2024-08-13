@@ -1,9 +1,9 @@
 import member from '@/(member)/services'
 import { handleApiError } from '@/libs/fetch'
-import { validatePassword } from '@/utils/validatePassword'
 import { useState } from 'react'
 import { debounce } from 'lodash'
 import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
+import { validatePassword } from '@/(auth)/_utils/validatePassword'
 
 export default function useChangePassword() {
   const { handleUnauthorized } = useHandleUnauthorized()
