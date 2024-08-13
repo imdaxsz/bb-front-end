@@ -1,6 +1,6 @@
 {
   "extends": ["next/core-web-vitals", "airbnb", "plugin:prettier/recommended"],
-  "ignorePatterns": ["build", "node_modules/*"],
+  "ignorePatterns": ["build", "node_modules/*", ".next"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
