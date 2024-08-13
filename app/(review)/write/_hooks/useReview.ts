@@ -1,4 +1,4 @@
-// import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
+import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
 import { ReviewForm } from '@/types'
 import review from '@/(review)/services'
 import { useRouter } from 'next/navigation'
@@ -11,7 +11,8 @@ export type AddReviewFunType = (
 
 export default function useReview() {
   const router = useRouter()
-  // const { handleUnauthorized } = useHandleUnauthorized()
+
+  const { handleUnauthorized } = useHandleUnauthorized()
 
   const update = async (id: string, rating: number, text: string) => {
     if (!id) return
@@ -20,20 +21,18 @@ export default function useReview() {
       router.push(`/review/${id}`)
       router.refresh()
     } catch (error) {
-      console.log(error)
-      // handleUnauthorized(error, 'confirm')
+      handleUnauthorized(error, 'confirm')
     }
   }
 
-  // 후기 저장 또는 발행
+  // 후기 발행
   const create: AddReviewFunType = async (reviewForm, date) => {
     try {
       const { id } = await review.postReview(reviewForm, date, 'upload')
       nextRevalidatePath('/')
       return id
     } catch (error) {
-      console.log(error)
-      // handleUnauthorized(error, 'confirm')
+      handleUnauthorized(error, 'confirm')
     }
     return null
   }
