@@ -97,12 +97,6 @@ export const nextFetch = async <T>(
   })
 }
 
-export type ApiResponse<T> = {
-  status: number
-  statusText: string
-  data: T
-}
-
 export type HandleApiError = (error: unknown) => {
   status: number
   message: string
@@ -110,7 +104,11 @@ export type HandleApiError = (error: unknown) => {
 
 export const handleApiError: HandleApiError = (error) => {
   if (error instanceof Error) {
-    return JSON.parse(error.message)
+    try {
+      return JSON.parse(error.message)
+    } catch (err) {
+      return error
+    }
   }
   throw new Error('Unknown Error')
 }
