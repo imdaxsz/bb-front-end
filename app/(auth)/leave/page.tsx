@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import styles from '@/styles/leave.module.scss'
 import { CheckFat } from '@phosphor-icons/react/dist/ssr'
-import { handleApiError, nextFetch } from '@/libs/fetch'
-import { User } from '@/types'
+import { handleApiError } from '@/libs/fetch'
+import member from '@/(member)/services'
 import { redirect } from 'next/navigation'
 import LeaveForm from './_components/LeaveForm'
 
@@ -18,7 +18,7 @@ export default async function LeavePage() {
   let info = null
 
   try {
-    info = await nextFetch<User>('/api/user/info').then((res) => res.body)
+    info = await member.getUserInfo()
   } catch (error) {
     const { status } = handleApiError(error)
     if (status === 401) redirect('/signout')
