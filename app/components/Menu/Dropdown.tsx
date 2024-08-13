@@ -3,37 +3,39 @@ import { useState } from 'react'
 import styles from '@/styles/dropdown.module.scss'
 
 interface DropdownProps {
-  initialValue: string
+  selectedValue: string
   items: string[]
   keys: string[]
 }
 
-export default function Dropdown({ initialValue, items, keys }: DropdownProps) {
+export default function Dropdown({
+  selectedValue,
+  items,
+  keys,
+}: DropdownProps) {
   const [display, setDisplay] = useState('')
-  const [currentValue, setCurrentValue] = useState(initialValue)
 
   const onClick = () => {
     setDisplay((prev) => (prev === '' ? 'block' : ''))
   }
 
-  const selectFilter = (e: React.MouseEvent<HTMLLIElement>, i: number) => {
+  const selectFilter = (e: React.MouseEvent<HTMLLIElement>) => {
     e.stopPropagation()
-    setCurrentValue(items[i])
     setDisplay('')
   }
 
   return (
     <div className={styles.container} onClick={onClick}>
       <Link href="#" role="button">
-        {currentValue}
+        {selectedValue}
       </Link>
       <ul className={`${styles.list} ${display}`}>
         {items.map((item, i) => (
-          <li key={keys[i]} onClick={(e) => selectFilter(e, i)}>
+          <li key={keys[i]} onClick={selectFilter}>
             <Link
               href={`?${keys[i]}`}
               role="button"
-              className={item === currentValue ? 'selected' : ''}
+              className={item === selectedValue ? 'selected' : ''}
             >
               {item}
             </Link>
