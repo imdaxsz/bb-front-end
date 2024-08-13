@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { formatBooksInfo } from '@/utils/formatBookInfo'
 import bookApi from '@/(book)/services'
 import reviewApi from '@/(review)/services'
+import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
 import useTextarea from './useTextarea'
 import useReview from './useReview'
 import useRecommend from './useRecommend'
@@ -18,6 +19,8 @@ interface EditorProps {
   mode?: WriteMode
 }
 export default function useEditor({ id, mode }: EditorProps) {
+  const { handleUnauthorized } = useHandleUnauthorized()
+
   const InitialReview: ReviewForm = {
     book: null,
     text: '',
@@ -49,7 +52,7 @@ export default function useEditor({ id, mode }: EditorProps) {
       setReview({ book, text, rating })
       setDate(formatDate(new Date(createdAt)))
     } catch (error) {
-      // handleUnauthorized(error)
+      handleUnauthorized(error)
     }
     setIsLoading(false)
   }, [])

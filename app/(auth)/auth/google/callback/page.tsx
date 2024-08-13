@@ -1,6 +1,6 @@
 'use client'
 
-import { fetchTokenCookie } from '@/(auth)/actions'
+import { fetchTokenCookie } from '@/(auth)/_utils/fetchTokenCookie'
 import useBoundStore from '@/stores'
 import { PageSearchParams } from '@/types'
 import { useRouter } from 'next/navigation'

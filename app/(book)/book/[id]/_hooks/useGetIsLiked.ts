@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getIsBookLiked } from '../actions'
+import book from '@/(book)/services'
 
 export default function useGetIsLiked({
   isbn,
@@ -8,11 +8,13 @@ export default function useGetIsLiked({
   isbn: string
   token: string | null
 }) {
-  const { data } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ['like', isbn, token],
-    queryFn: () => getIsBookLiked(isbn),
+    queryFn: () => book.getIsBookLiked(isbn),
     enabled: Boolean(token),
   })
+
+  if (error) return false
 
   return data
 }

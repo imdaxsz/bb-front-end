@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import book from '@/(book)/services'
 import { nextRevalidatePath } from '@/utils/revalidatePath'
+import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
 
 export default function useToggleLike({
   isbn,
@@ -10,6 +11,7 @@ export default function useToggleLike({
   token: string | null
 }) {
   const queryClient = useQueryClient()
+  const { handleUnauthorized } = useHandleUnauthorized()
 
   return useMutation({
     mutationFn: () => book.toggleLike(isbn),
@@ -27,6 +29,7 @@ export default function useToggleLike({
       if (!context) return
 
       queryClient.setQueryData(['like', isbn, token], context.previousIsLiked)
+      handleUnauthorized(error, 'confirm')
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['like', isbn, token] })

@@ -1,7 +1,9 @@
-// import { handleUnauthorized } from '@/(auth)/_utils/handleUnauthorized'
+import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
 import member from '@/(member)/services'
 
 export default function useBackUpData() {
+  const { handleUnauthorized } = useHandleUnauthorized()
+
   const onClickBackUp = async () => {
     const ok = window.confirm('리뷰 데이터를 요청하시겠습니까?')
     if (!ok) return
@@ -23,7 +25,7 @@ export default function useBackUpData() {
 
       URL.revokeObjectURL(url)
     } catch (error) {
-      // handleUnauthorized(error, 'alert')
+      handleUnauthorized(error, 'alert')
     }
   }
 

@@ -1,12 +1,14 @@
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import BookInfoCard from '@/components/BookInfoCard'
-import { Book, BookInfoResponse, PageSearchParams } from '@/types'
+import { Book, PageSearchParams } from '@/types'
 import { Metadata } from 'next'
-import { handleApiError, nextFetch } from '@/libs/fetch'
+import { handleApiError } from '@/libs/fetch'
 import { getToken } from '@/(auth)/_utils/getToken'
+import member from '@/(member)/services'
 import Menu from '@/components/Menu/index'
 import { formatBooksInfo } from '@/utils/formatBookInfo'
-import { BookSort, filterBooks } from './filterBooks'
+import { redirect } from 'next/navigation'
+import { BookSort, filterBooks } from './_utils/filterBooks'
 
 export const metadata: Metadata = {
   title: '관심도서',
@@ -24,15 +26,13 @@ export default async function LikesPage({ searchParams }: PageSearchParams) {
 
   if (token) {
     try {
-      const res = await nextFetch<BookInfoResponse[]>('api/like/list').then(
-        (r) => r.body,
-      )
+      const res = await member.getLikes()
       const books = formatBooksInfo(res)
 
       if (books.length > 0) filteredBooks = filterBooks(books, sort as BookSort)
     } catch (error) {
       const { status } = handleApiError(error)
-      console.log(status)
+      if (status === 401) redirect('/signout')
     }
   }
 

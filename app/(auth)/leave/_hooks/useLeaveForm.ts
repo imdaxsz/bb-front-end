@@ -1,5 +1,5 @@
 import useSignOut from '@/(auth)/_hooks/useSignOut'
-// import { handleUnauthorized } from '@/(auth)/_utils/handleUnauthorized'
+import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
 import auth from '@/(auth)/services'
 import { handleApiError } from '@/libs/fetch'
 import { debounce } from 'lodash'
@@ -12,6 +12,8 @@ export default function useLeaveForm({
 }) {
   const [form, setForm] = useState({ agree: false, password: '' })
   const { signOut } = useSignOut()
+
+  const { handleUnauthorized } = useHandleUnauthorized()
 
   const onChangeForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target
@@ -38,7 +40,7 @@ export default function useLeaveForm({
     } catch (err) {
       const { status } = handleApiError(err)
       if (status === 400) window.alert('비밀번호를 다시 확인하세요.')
-      // handleUnauthorized(err, 'alert')
+      handleUnauthorized(err, 'alert')
     }
   }, 300)
 

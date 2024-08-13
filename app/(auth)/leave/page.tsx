@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import styles from '@/styles/leave.module.scss'
 import { CheckFat } from '@phosphor-icons/react/dist/ssr'
-import { nextFetch } from '@/libs/fetch'
+import { handleApiError, nextFetch } from '@/libs/fetch'
 import { User } from '@/types'
+import { redirect } from 'next/navigation'
 import LeaveForm from './_components/LeaveForm'
 
 export const metadata: Metadata = {
@@ -14,7 +15,16 @@ export const metadata: Metadata = {
 }
 
 export default async function LeavePage() {
-  const info = await nextFetch<User>('/api/user/info').then((res) => res.body)
+  let info = null
+
+  try {
+    info = await nextFetch<User>('/api/user/info').then((res) => res.body)
+  } catch (error) {
+    const { status } = handleApiError(error)
+    if (status === 401) redirect('/signout')
+    if (!info) redirect('/signout')
+  }
+
   const { email, oauth } = info
 
   return (

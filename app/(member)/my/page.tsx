@@ -1,10 +1,10 @@
 import { Metadata } from 'next'
 import styles from '@/styles/my.module.scss'
 import Link from 'next/link'
-import { nextFetch } from '@/libs/fetch'
-import { User } from '@/types'
+import { handleApiError } from '@/libs/fetch'
 import { getToken } from '@/(auth)/_utils/getToken'
 import { redirect } from 'next/navigation'
+import member from '@/(member)/services'
 import ChangePassword from './_components/ChangePassword'
 import SignOutButton from './_components/SignOutButton'
 import BackUpDataButton from './_components/BackUpDataButton'
@@ -23,7 +23,16 @@ export default async function MyPage() {
 
   if (!token) redirect('/signin')
 
-  const info = await nextFetch<User>('/api/user/info').then((res) => res.body)
+  let info = null
+
+  try {
+    info = await member.getUserInfo()
+  } catch (error) {
+    const { status } = handleApiError(error)
+    if (status === 401) redirect('/signout')
+    if (!info) redirect('/signout')
+  }
+
   const { email, recommend, oauth } = info
 
   return (

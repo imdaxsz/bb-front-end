@@ -3,9 +3,11 @@ import { handleApiError } from '@/libs/fetch'
 import { validatePassword } from '@/utils/validatePassword'
 import { useState } from 'react'
 import { debounce } from 'lodash'
-// import { handleUnauthorized } from '@/(auth)/_utils/handleUnauthorized'
+import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
 
 export default function useChangePassword() {
+  const { handleUnauthorized } = useHandleUnauthorized()
+
   const [form, setForm] = useState({
     currentPw: '',
     newPw: '',
@@ -54,7 +56,7 @@ export default function useChangePassword() {
         if (status === 400) {
           window.alert('비밀번호가 틀렸습니다!')
         }
-        // handleUnauthorized(error, 'alert')
+        handleUnauthorized(error, 'alert')
       }
       setIsLoading(false)
     }
