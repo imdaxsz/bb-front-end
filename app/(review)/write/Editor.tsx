@@ -5,8 +5,8 @@ import styles from '@/styles/write.module.scss'
 import { Plus } from '@phosphor-icons/react'
 
 import useModal from '@/hooks/useModal'
-import { WriteMode } from '@/types'
 import Loader from '@/components/Loader'
+import { EditorProps } from '@/types'
 import EditorTopBar from './_components/EditorTopBar'
 import useEditor from './_hooks/useEditor'
 import SearchModal from './_components/SearchModal'
@@ -14,13 +14,7 @@ import SavedList from './_components/SavedList'
 import useGetSavedReviews from './_hooks/useGetSavedReviews'
 import useCreateSavedReview from './_hooks/useCreateSavedReview'
 
-interface EditorProps {
-  token: string
-  mode: WriteMode
-  id?: string
-}
-
-export default function Editor({ token, mode, id }: EditorProps) {
+export default function Editor({ token, mode, editItem }: EditorProps) {
   const {
     isLoading,
     textareaRef,
@@ -30,8 +24,7 @@ export default function Editor({ token, mode, id }: EditorProps) {
     onChangeReview,
     onSubmit,
   } = useEditor({
-    id,
-    mode,
+    editItem,
   })
   const { book, text, rating } = review
 

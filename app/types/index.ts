@@ -64,6 +64,12 @@ export type SearchType = 'book' | 'review' | 'likes'
 
 export type WriteMode = 'new' | 'edit'
 
+export interface EditorProps {
+  token: string
+  mode: WriteMode
+  editItem?: Review
+}
+
 export interface User {
   email: string
   recommend: boolean

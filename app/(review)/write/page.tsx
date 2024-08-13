@@ -36,9 +36,11 @@ export default async function WritePage({ searchParams }: PageSearchParams) {
     queryFn: review.getSavedReviewsCount,
   })
 
+  const editItem = logNo ? await review.getReview(logNo) : undefined
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Editor token={token} mode={mode as WriteMode} id={logNo} />
+      <Editor token={token} mode={mode as WriteMode} editItem={editItem} />
     </HydrationBoundary>
   )
 }

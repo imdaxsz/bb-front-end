@@ -1,26 +1,18 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { formatDate } from '@/utils/formatDate'
-import { BookInfoResponse, ReviewForm, WriteMode } from '@/types'
+import { BookInfoResponse, EditorProps, ReviewForm } from '@/types'
 import { useRouter } from 'next/navigation'
-import { formatBooksInfo } from '@/utils/formatBookInfo'
 import bookApi from '@/(book)/services'
-import reviewApi from '@/(review)/services'
-import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
+import { formatBooksInfo } from '@/(book)/_utils/formatBookInfo'
 import useTextarea from './useTextarea'
 import useReview from './useReview'
 import useRecommend from './useRecommend'
 
 export type ReviewHandler = (args: Partial<ReviewForm>) => void
 
-interface EditorProps {
-  id?: string
-  mode?: WriteMode
-}
-export default function useEditor({ id, mode }: EditorProps) {
-  const { handleUnauthorized } = useHandleUnauthorized()
-
+export default function useEditor({ editItem }: Pick<EditorProps, 'editItem'>) {
   const InitialReview: ReviewForm = {
     book: null,
     text: '',
@@ -39,23 +31,10 @@ export default function useEditor({ id, mode }: EditorProps) {
 
   const { categoryId, setRecommendBook, toggleRecommendModal } = useRecommend()
 
-  // 후기 수정 시 후기 불러오기
-  const loadReview = useCallback(async (reviewId: string) => {
-    setIsLoading(true)
-    try {
-      const {
-        book,
-        rating,
-        text,
-        date: createdAt,
-      } = await reviewApi.getReview(reviewId)
-      setReview({ book, text, rating })
-      setDate(formatDate(new Date(createdAt)))
-    } catch (error) {
-      handleUnauthorized(error)
-    }
-    setIsLoading(false)
-  }, [])
+  const onChangeReview: ReviewHandler = (args) => {
+    setReview((prev) => ({ ...prev, ...args }))
+    if (args.text) setTextareaHeight()
+  }
 
   // 후기 발행
   const onSubmit = async () => {
@@ -68,9 +47,10 @@ export default function useEditor({ id, mode }: EditorProps) {
       return
     }
     setIsLoading(true)
-    if (mode === 'edit') {
-      if (!id) return
-      await update(id, review.rating, review.text)
+
+    // 후기 수정
+    if (editItem) {
+      await update(editItem?._id, review.rating, review.text)
       return
     }
     const createdId = await create(review, today)
@@ -85,14 +65,13 @@ export default function useEditor({ id, mode }: EditorProps) {
     setIsLoading(false)
   }
 
+  // 후기 수정 시 후기 불러오기
   useEffect(() => {
-    if (mode === 'edit' && id) loadReview(id)
-  }, [mode, loadReview, id])
-
-  const onChangeReview: ReviewHandler = (args) => {
-    setReview((prev) => ({ ...prev, ...args }))
-    if (args.text) setTextareaHeight()
-  }
+    if (!editItem) return
+    const { book, text, rating, date: createdAt } = editItem
+    setReview({ book, text, rating })
+    setDate(formatDate(new Date(createdAt)))
+  }, [editItem])
 
   return {
     isLoading,
