@@ -3,17 +3,12 @@
 import styles from '@/styles/detail.module.scss'
 import { Heart } from '@phosphor-icons/react'
 import useGetIsLiked from '../_hooks/useGetIsLiked'
-import useToggleLike from '../_hooks/useToggleLike'
+import useToggleLike, { LikeProps } from '../_hooks/useToggleLike'
 
-interface LikeProps {
-  token: string | null
-  isbn: string
-}
-
-export default function LikeButton({ token, isbn }: LikeProps) {
+export default function LikeButton({ token, isbn, title }: LikeProps) {
   const data = useGetIsLiked({ isbn, token })
   const isLiked = token ? Boolean(data) : false
-  const likeMutation = useToggleLike({ isbn, token })
+  const likeMutation = useToggleLike({ isbn, token, title })
 
   const onClick = async () => {
     if (!token) {

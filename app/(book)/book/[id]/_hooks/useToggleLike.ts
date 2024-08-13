@@ -3,18 +3,18 @@ import book from '@/(book)/services'
 import { nextRevalidatePath } from '@/utils/revalidatePath'
 import useHandleUnauthorized from '@/(auth)/_hooks/useHandleUnauthorized'
 
-export default function useToggleLike({
-  isbn,
-  token,
-}: {
-  isbn: string
+export interface LikeProps {
   token: string | null
-}) {
+  isbn: string
+  title: string
+}
+
+export default function useToggleLike({ isbn, title, token }: LikeProps) {
   const queryClient = useQueryClient()
   const { handleUnauthorized } = useHandleUnauthorized()
 
   return useMutation({
-    mutationFn: () => book.toggleLike(isbn),
+    mutationFn: () => book.toggleLike(isbn, title),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['like', isbn, token] })
       const previousIsLiked = queryClient.getQueryData(['like', isbn, token])

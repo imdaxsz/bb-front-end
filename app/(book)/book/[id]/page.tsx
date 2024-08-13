@@ -82,7 +82,7 @@ export default async function BookDetail({ params }: PageParams) {
             </Link>
           </div>
           <HydrationBoundary state={dehydrate(queryClient)}>
-            <LikeButton token={token} isbn={book.isbn} />
+            <LikeButton token={token} isbn={book.isbn} title={book.title} />
           </HydrationBoundary>
         </div>
       </div>
