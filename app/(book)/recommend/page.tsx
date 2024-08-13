@@ -28,7 +28,7 @@ export default async function Recommend({ searchParams }: PageSearchParams) {
       <ScrollToTopButton />
       <h2 className="h-0">추천도서</h2>
       <div className="list-wrapper">
-        <div className="list" style={{ marginBottom: '70px' }}>
+        <div className="list">
           {books &&
             books.map((book) => <BookInfoCard book={book} key={book.isbn} />)}
         </div>

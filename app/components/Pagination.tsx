@@ -37,6 +37,8 @@ export default function Pagination({
     if (currentPage < start) setStart((prev) => prev - pageCount)
   }, [currentPage, pageCount, start])
 
+  if (totalPages === 1) return <></>
+
   return (
     <div className={styles.wrapper}>
       <ul>
