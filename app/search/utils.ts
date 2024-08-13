@@ -1,8 +1,18 @@
+import { formatBooksInfo } from '@/(book)/_utils/formatBookInfo'
 import { nextFetch } from '@/libs/fetch'
-import { Book, BookInfoResponse, BookList, Review, SearchType } from '@/types'
-import { formatBooksInfo } from '@/utils/formatBookInfo'
+import {
+  Book,
+  BookInfoResponse,
+  DetailBookResponse,
+  List,
+  Review,
+  SearchType,
+} from '@/types'
 
-export type SearchResult = BookInfoResponse[] | Review[] | BookList
+export type SearchResult =
+  | BookInfoResponse[]
+  | Review[]
+  | List<DetailBookResponse>
 
 export const search = async (
   filter: SearchType,
