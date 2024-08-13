@@ -6,7 +6,7 @@ export default function SignOutButton() {
   const { signOut } = useSignOut()
 
   return (
-    <button type="button" className="btn btn-light" onClick={signOut}>
+    <button type="button" className="btn btn-light" onClick={() => signOut()}>
       로그아웃
     </button>
   )
