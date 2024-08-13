@@ -79,7 +79,7 @@ export default function Menu() {
                 {!isRecommend && (
                   <li>
                     <Dropdown
-                      initialValue={filter}
+                      selectedValue={filter}
                       items={filterList}
                       keys={filterPath}
                     />
