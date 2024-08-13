@@ -1,6 +1,5 @@
 import bs from '@/styles/bookInfo.module.scss'
 import styles from '@/styles/detail.module.scss'
-import { formatBookDetailInfo } from '@/utils/formatBookInfo'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,6 +13,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query'
 import bookApi from '@/(book)/services'
+import { formatBookDetailInfo } from '@/(book)/_utils/formatBookInfo'
 import LikeButton from './_components/LikeButton'
 
 export async function generateMetadata({

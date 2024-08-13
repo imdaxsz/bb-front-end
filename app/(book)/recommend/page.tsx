@@ -4,8 +4,8 @@ import Menu from '@/components/Menu/index'
 import Pagination from '@/components/Pagination'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { PageSearchParams } from '@/types'
-import { formatBooksInfo } from '@/utils/formatBookInfo'
 import bookApi from '../services'
+import { formatBooksInfo } from '../_utils/formatBookInfo'
 
 export const metadata: Metadata = {
   title: '추천도서',

@@ -6,9 +6,9 @@ import { handleApiError } from '@/libs/fetch'
 import { getToken } from '@/(auth)/_utils/getToken'
 import member from '@/(member)/services'
 import Menu from '@/components/Menu/index'
-import { formatBooksInfo } from '@/utils/formatBookInfo'
 import { redirect } from 'next/navigation'
 import Pagination from '@/components/Pagination'
+import { formatBooksInfo } from '@/(book)/_utils/formatBookInfo'
 
 export const metadata: Metadata = {
   title: '관심도서',
