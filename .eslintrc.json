@@ -10,6 +10,9 @@
       "version": "detect"
     }
   },
+  "env":{
+    "jest": true
+  },
   "globals": {
     "React": false
   },

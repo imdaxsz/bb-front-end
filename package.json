@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "jest",
     "lint": "next lint .",
     "format": "prettier --cache --write .",
     "prepare": "husky install"
@@ -24,7 +25,6 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.5.12",
