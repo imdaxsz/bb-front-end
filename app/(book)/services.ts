@@ -36,9 +36,9 @@ class BookApi {
   }
 
   // 도서 검색
-  async searchBooks(keyword: string) {
+  async searchBooks(keyword: string, page?: string) {
     return nextFetch<List<DetailBookResponse>>(
-      `/api/search/book?query=${keyword}`,
+      `/api/search/book?query=${keyword}&page=${page}`,
     ).then((res) => res.body)
   }
 

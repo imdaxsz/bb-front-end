@@ -2,8 +2,8 @@ import { nextFetch } from '@/libs/fetch'
 import { BookInfoResponse, List, Review, User } from '@/types'
 
 class MemberApi {
-  async getLikes(sort?: string, page?: string) {
-    const query = `sort=${sort}&page=${page}`
+  async getLikes(sort?: string, page?: string, keyword?: string) {
+    const query = `sort=${sort}&page=${page}&keyword=${keyword}`
     const url = `/api/like/list?${query}`
     return nextFetch<List<BookInfoResponse>>(url).then((res) => res.body)
   }

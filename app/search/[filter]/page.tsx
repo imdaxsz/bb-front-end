@@ -23,16 +23,18 @@ export default async function SearchResultPage({
   searchParams,
 }: PageURL) {
   const { filter } = params
-  const { query, page } = searchParams
+  const { sort, query, page } = searchParams
+  const sortOption = (sort as string) ?? ''
+  const currentPage = (page as string) ?? '1'
 
   if (!['book', 'review', 'likes'].includes(filter)) notFound()
+  if (!['', 'title', 'date_asc'].includes(sortOption)) notFound()
   if (typeof query !== 'string') notFound()
 
-  const res = await search(filter as SearchType, query)
+  const res = await search(filter as SearchType, query, currentPage, sortOption)
   const { items, totalItems } = formatSearchResult(filter as SearchType, res)
 
   const IS_REVIEW = filter === 'review'
-  const IS_BOOKS = filter === 'book'
 
   return (
     <div className="wrapper">
@@ -46,16 +48,12 @@ export default async function SearchResultPage({
           {items.length === 0 && '검색 결과가 없어요.'}
           {items.map((item) => RenderSearchResult(item, IS_REVIEW))}
         </div>
-        {IS_BOOKS && (
-          <Pagination
-            totalItems={totalItems}
-            currentPage={
-              typeof page === 'string' && Number(page) > 0 ? Number(page) : 1
-            }
-            pageCount={5}
-            itemCountPerPage={50}
-          />
-        )}
+        <Pagination
+          totalItems={totalItems}
+          currentPage={Number(currentPage)}
+          pageCount={5}
+          itemCountPerPage={50}
+        />
       </div>
     </div>
   )

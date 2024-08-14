@@ -7,8 +7,8 @@ class ReviewApi {
    * @param {string} sort 정렬
    * @returns 후기 정보
    */
-  async getReviews(sort?: string, page?: string) {
-    const query = `sort=${sort}&page=${page}`
+  async getReviews(sort?: string, page?: string, keyword?: string) {
+    const query = `sort=${sort}&page=${page}&keyword=${keyword}`
     const url = `/api/review/list?${query}`
     return nextFetch<List<Review>>(url).then((res) => res.body)
   }
@@ -21,6 +21,12 @@ class ReviewApi {
   async getReview(id: string) {
     return nextFetch<Review>(`/api/review/detail/${id}`).then((res) => res.body)
   }
+
+  // async searchReview(keyword: string) {
+  //   return nextFetch<Review[]>(`/api/search/review?query=${keyword}`).then(
+  //     (res) => res.body,
+  //   )
+  // }
 
   /**
    * @description 임시 저장 리뷰 목록 조회
