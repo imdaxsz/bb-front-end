@@ -45,6 +45,10 @@ export default function SearchModal({ onClose, setBook }: SearchBook) {
   }
 
   const onSearch = async (keyword: string) => {
+    if (keyword.trim().length === 0) {
+      window.alert('검색어를 입력해 주세요!')
+      return
+    }
     setIsLoading(true)
     const res = await book.searchBooks(keyword)
     setBooks(res.item)
