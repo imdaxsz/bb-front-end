@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import styles from '@/styles/menu.module.scss'
 import { MagnifyingGlass } from '@phosphor-icons/react'
+import { menuRoutes } from '@/config'
 import SearchBar from '../SearchBar'
 import MobileSearchbar from './MobileSearchbar'
 import Dropdown from './Dropdown'
@@ -35,6 +36,10 @@ export default function Menu() {
   const router = useRouter()
 
   const onSearch = (word: string) => {
+    if (word.trim().length === 0) {
+      window.alert('검색어를 입력해 주세요!')
+      return
+    }
     // eslint-disable-next-line no-nested-ternary
     const option = isHome ? 'review' : isRecommend ? 'book' : 'likes'
     router.push(`/search/${option}?query=${word}`)
@@ -60,19 +65,14 @@ export default function Menu() {
       />
       <div className={styles.menu}>
         <ul className={styles.tab}>
-          <li className={isHome ? 'active' : ''}>
-            <Link href="/">리뷰</Link>
-          </li>
-          <li className={fullPath.includes('likes') ? 'active' : ''}>
-            <Link href="/likes" prefetch={false}>
-              관심도서
-            </Link>
-          </li>
-          <li className={isRecommend ? 'active' : ''}>
-            <Link href="/recommend?page=1" prefetch={false}>
-              추천도서
-            </Link>
-          </li>
+          {menuRoutes.map((item) => (
+            <li
+              key={item.key}
+              className={item.match.test(fullPath) ? 'active' : ''}
+            >
+              <Link href={item.path}>{item.label}</Link>
+            </li>
+          ))}
           {['', 'search', 'recommend', 'likes'].includes(pathname) && (
             <li className={styles.right}>
               <ul>

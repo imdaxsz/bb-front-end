@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import styles from '@/styles/dropdown.module.scss'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 interface DropdownProps {
   selectedValue: string
@@ -24,6 +25,20 @@ export default function Dropdown({
     setDisplay('')
   }
 
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  const getNextUrl = (key: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (!key) {
+      params.delete('sort')
+      return `${pathname}?${params.toString()}`
+    }
+    const [name, value] = key.split('=')
+    params.set(name, value)
+    return `${pathname}?${params.toString()}`
+  }
+
   return (
     <div className={styles.container} onClick={onClick}>
       <Link href="#" role="button">
@@ -33,7 +48,7 @@ export default function Dropdown({
         {items.map((item, i) => (
           <li key={keys[i]} onClick={selectFilter}>
             <Link
-              href={`?${keys[i]}`}
+              href={getNextUrl(keys[i])}
               role="button"
               className={item === selectedValue ? 'selected' : ''}
             >

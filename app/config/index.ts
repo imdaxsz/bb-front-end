@@ -21,3 +21,27 @@ export const guestRoutes = [
   // '/auth/google', ISSUE - Error: failed to pipe response 발생
   '/find_password',
 ]
+
+export const menuRoutes = [
+  {
+    key: 'home',
+    path: '/',
+    match: /^\/$|^\/search\/review/,
+    prefetch: true,
+    label: '리뷰',
+  },
+  {
+    key: 'likes',
+    path: '/likes',
+    match: /^(\/likes|\/search\/likes)/,
+    prefetch: false,
+    label: '관심도서',
+  },
+  {
+    key: 'recommend',
+    path: '/recommend?page=1',
+    match: /^(\/recommend|\/search\/book)/,
+    prefetch: false,
+    label: '추천도서',
+  },
+]
