@@ -7,19 +7,14 @@ const fetchAuthor = (author: string) => {
   )
 }
 
-export const formatBooksInfo = (data: BookInfoResponse[]) => {
-  const results: Book[] = []
-  data.forEach((b) => {
-    const book: Book = {
-      isbn: b.isbn13 !== '' ? b.isbn13 : b.isbn,
-      title: b.title,
-      author: fetchAuthor(b.author),
-      publisher: b.publisher,
-      cover: b.cover,
-    }
-    results.push(book)
-  })
-  return results
+export const formatBooksInfo = (data: BookInfoResponse[]): Book[] => {
+  return data.map((b) => ({
+    isbn: b.isbn13 !== '' ? b.isbn13 : b.isbn,
+    title: b.title,
+    author: fetchAuthor(b.author),
+    publisher: b.publisher,
+    cover: b.cover,
+  }))
 }
 
 export const formatBookDetailInfo = (data: DetailBookResponse) => {
