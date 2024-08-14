@@ -71,7 +71,8 @@
   z-index: 450;
   background: #f7f7f7;
   transform: translateY(-50px);
-  transition: all 0.2s;
+  transition: transform 0.2s;
+
   li:first-of-type {
     width: 100%;
     padding-left: 16px;
@@ -89,6 +90,7 @@
 }
 
 .show {
+  position: fixed;
   transform: translateY(0px);
 }
 
