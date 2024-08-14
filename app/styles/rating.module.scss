@@ -1,0 +1,21 @@
+@use 'common';
+
+$sm-icon: 16px;
+$lg-icon: 30px;
+
+.star-sm {
+  @include common.setSize($sm-icon, $sm-icon);
+  float: left;
+  color: common.$highlight;
+}
+
+.star-lg {
+  @extend .star-sm;
+  @include common.setSize($lg-icon, $lg-icon);
+}
+
+@media screen and (max-width: 650px) {
+  .star-lg {
+    @include common.setSize(24px, 24px);
+  }
+}

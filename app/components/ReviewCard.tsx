@@ -1,10 +1,8 @@
-import { Star } from '@phosphor-icons/react/dist/ssr'
-
 import styles from '@/styles/card.module.scss'
 import { Review } from '@/types'
 
-import { v4 as uuidv4 } from 'uuid'
 import BookCard from './BookCard'
+import Rating from './Rating'
 
 export default function ReviewCard({ review }: { review: Review }) {
   return (
@@ -15,12 +13,7 @@ export default function ReviewCard({ review }: { review: Review }) {
       cover={review.book.cover}
     >
       <div className={styles.rating}>
-        {[...Array(review.rating)].map(() => (
-          <Star weight="fill" className="star" key={uuidv4()} />
-        ))}
-        {[...Array(5 - review.rating)].map(() => (
-          <Star className="star" key={uuidv4()} />
-        ))}
+        <Rating value={review.rating} readonly />
       </div>
     </BookCard>
   )

@@ -41,6 +41,10 @@
     line-height: 1.5;
     @include common.ellipsis;
   }
+
+  div {
+    margin-top: 10px;
+  }
 }
 
 .detail-info {
@@ -63,10 +67,6 @@
   cursor: pointer;
 }
 
-.rating {
-  margin-top: 10px;
-}
-
 .delete {
   position: absolute;
   top: 0;
@@ -87,15 +87,15 @@
     line-height: 18px;
   }
   .info {
+    min-width: 120px;
     width: calc(100% - 122px);
     p {
       font-size: 13px;
       line-height: normal;
     }
-  }
-
-  .rating {
-    margin-top: 6px;
+    div {
+      margin-top: 6px;
+    }
   }
 
   .delete {

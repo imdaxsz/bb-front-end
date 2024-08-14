@@ -3,8 +3,6 @@
 
 // size
 $wrapper-height: calc(100% - common.$header-height);
-$sm-icon: 16px;
-$lg-icon: 30px;
 
 * {
   box-sizing: border-box;
@@ -151,17 +149,6 @@ li {
   font-size: 20px;
 }
 
-.star {
-  @include common.setSize($sm-icon, $sm-icon);
-  float: left;
-  color: common.$highlight;
-}
-
-.star-lg {
-  @extend .star;
-  @include common.setSize($lg-icon, $lg-icon);
-}
-
 .pointer {
   cursor: pointer;
 }
@@ -239,9 +226,5 @@ input.toggle:checked::before {
 @media screen and (max-width: 650px) {
   .guide {
     font-size: 16px;
-  }
-
-  .star-lg {
-    @include common.setSize(24px, 24px);
   }
 }

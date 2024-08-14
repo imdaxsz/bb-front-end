@@ -3,9 +3,9 @@
 import { ReviewHandler } from '@/(review)/write/_hooks/useEditor'
 import styles from '@/styles/bookInfo.module.scss'
 import { Book } from '@/types'
-import { Star, XCircle } from '@phosphor-icons/react'
+import { XCircle } from '@phosphor-icons/react'
 import Image from 'next/image'
-import { v4 as uuidv4 } from 'uuid'
+import Rating from './Rating'
 
 interface ReviewBookInfoType {
   book: Book
@@ -20,8 +20,8 @@ export default function ReviewBookInfo({
   rating,
   isEdit = false,
 }: ReviewBookInfoType) {
-  const onClickStar = (i: number) => {
-    if (setRating) setRating({ rating: i + 1 })
+  const onRate = (i: number) => {
+    if (setRating) setRating({ rating: i })
   }
 
   const onClickDelete = () => {
@@ -47,23 +47,7 @@ export default function ReviewBookInfo({
         <h2 className={`${styles.title}`}>{book.title}</h2>
         <p>저자&nbsp; {book.author}</p>
         <p>출판&nbsp; {book.publisher}</p>
-        <div className={`${styles.rating} ${setRating && 'pointer'}`}>
-          {[...Array(rating)].map((a, i) => (
-            <Star
-              weight="fill"
-              className="star-lg"
-              key={uuidv4()}
-              onClick={() => onClickStar(i)}
-            />
-          ))}
-          {[...Array(5 - rating)].map((_, i) => (
-            <Star
-              className="star-lg"
-              key={uuidv4()}
-              onClick={() => onClickStar(rating + i)}
-            />
-          ))}
-        </div>
+        <Rating size="lg" value={rating} readonly={!isEdit} onRate={onRate} />
       </div>
     </div>
   )
