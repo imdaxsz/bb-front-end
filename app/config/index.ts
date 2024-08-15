@@ -45,3 +45,5 @@ export const menuRoutes = [
     label: '추천도서',
   },
 ]
+
+export const API_ROOT = process.env.NEXT_PUBLIC_API_ROOT

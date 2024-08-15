@@ -6,9 +6,9 @@ class AuthApi {
    * @returns token
    */
   async fetchGoogleSignToken(code: string) {
-    return nextFetch<{ token: string }>(
-      `${process.env.NEXT_PUBLIC_API_ROOT}/auth/google?code=${code}`,
-    ).then((res) => res.body)
+    return nextFetch<{ token: string }>(`/api/auth/google?code=${code}`).then(
+      (res) => res.body,
+    )
   }
 
   /**
@@ -22,13 +22,10 @@ class AuthApi {
     email: string
     password: string
   }) {
-    return nextFetch<{ token: string }>(
-      `${process.env.NEXT_PUBLIC_API_ROOT}/api/user/signin`,
-      {
-        method: 'POST',
-        body: { email, password },
-      },
-    ).then((res) => res.body)
+    return nextFetch<{ token: string }>(`/api/user/signin`, {
+      method: 'POST',
+      body: { email, password },
+    }).then((res) => res.body)
   }
 
   /**

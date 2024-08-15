@@ -1,5 +1,6 @@
 import returnFetch, { FetchArgs, ReturnFetchDefaultOptions } from 'return-fetch'
 import { getToken } from '@/(auth)/_utils/getToken'
+import { API_ROOT } from '@/config'
 
 // Use as a replacer of `RequestInit`
 type JsonRequestInit = Omit<NonNullable<FetchArgs[1]>, 'body'> & {
@@ -59,7 +60,7 @@ export const returnFetchJson = (args?: ReturnFetchDefaultOptions) => {
 
 // Create an extended fetch function and use it instead of the global fetch.
 export const fetchExtended = returnFetchJson({
-  baseUrl: process.env.NEXT_PUBLIC_API_ROOT,
+  baseUrl: API_ROOT,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -90,6 +91,7 @@ export const nextFetch = async <T>(
 
   return fetchExtended<T>(url, {
     ...init,
+    credentials: 'include',
     headers: {
       ...init?.headers,
       Authorization: `Bearer ${token}`,
