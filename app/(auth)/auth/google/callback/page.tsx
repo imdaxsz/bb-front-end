@@ -10,8 +10,11 @@ export default function GoogleCallback({ searchParams }: PageSearchParams) {
   const router = useRouter()
   const fetchToken = useBoundStore((state) => state.fetchToken)
 
-  const { token } = searchParams
-  if (!token) router.push('/')
+  const { token, msg } = searchParams
+  if (msg && msg === 'conflict') {
+    window.alert('이메일로 가입된 계정입니다. 이메일 로그인을 이용해 주세요.')
+    router.replace('/signin')
+  }
 
   useEffect(() => {
     if (typeof token === 'string') {
