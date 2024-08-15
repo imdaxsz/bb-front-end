@@ -3,7 +3,7 @@ import { useState } from 'react'
 import styles from '@/styles/dropdown.module.scss'
 import { usePathname, useSearchParams } from 'next/navigation'
 
-interface DropdownProps {
+export interface DropdownProps {
   selectedValue: string
   items: string[]
   keys: string[]
