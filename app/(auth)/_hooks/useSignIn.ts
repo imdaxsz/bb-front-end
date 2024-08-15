@@ -31,7 +31,7 @@ export default function useSignIn() {
       const { status } = handleApiError(err)
       if (status === 409)
         window.alert(
-          '구글 연동으로 가입된 계정입니다. 구글 로그인을 이용해주세요.',
+          '구글 연동으로 가입된 계정입니다. 구글 로그인을 이용해 주세요.',
         )
       if (status === 400) setError(true)
     }
