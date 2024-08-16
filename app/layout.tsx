@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import '@/styles/global.scss'
 import RenderTopBar from './components/RenderTopBar'
 import { hasNoTopbarRoutes } from './config'
@@ -7,6 +7,10 @@ import QueryClientProviders from './libs/providers'
 import { baseMetadata } from './config/metadata'
 
 export const metadata: Metadata = baseMetadata
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
+}
 
 export default function RootLayout({
   children,
