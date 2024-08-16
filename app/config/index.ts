@@ -47,3 +47,8 @@ export const menuRoutes = [
 ]
 
 export const API_ROOT = process.env.NEXT_PUBLIC_API_ROOT
+
+export const SERVICE_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://bookbook-phi.vercel.app/'
