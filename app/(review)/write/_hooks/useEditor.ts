@@ -6,6 +6,7 @@ import { BookInfoResponse, EditorProps, ReviewForm } from '@/types'
 import { useRouter } from 'next/navigation'
 import bookApi from '@/(book)/services'
 import { formatBooksInfo } from '@/(book)/_utils/formatBookInfo'
+import useBeforeRouteChange from '@/hooks/useBeforeRouteChange'
 import useTextarea from './useTextarea'
 import useReview from './useReview'
 import useRecommend from './useRecommend'
@@ -72,6 +73,10 @@ export default function useEditor({ editItem }: Pick<EditorProps, 'editItem'>) {
     setReview({ book, text, rating })
     setDate(formatDate(new Date(createdAt)))
   }, [editItem])
+
+  const isContentChanged = Boolean(review.book || review.text.trim())
+
+  useBeforeRouteChange(isContentChanged)
 
   return {
     isLoading,
