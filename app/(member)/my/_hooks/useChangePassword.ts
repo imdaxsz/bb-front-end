@@ -45,7 +45,7 @@ export default function useChangePassword() {
       setError(2)
       return
     }
-    if (isvalidPw && isSamePw && !sameCurrentPw) {
+    if (isvalidPw && isSamePw) {
       setIsLoading(true)
       try {
         await member.changePassword(form.currentPw, form.newPw)
