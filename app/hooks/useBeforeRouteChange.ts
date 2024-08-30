@@ -23,7 +23,6 @@ export default function useBeforeRouteChange(isSaved: boolean) {
   )
 
   useEffect(() => {
-    console.log(window.history.state)
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       if (isSaved) event.preventDefault()
       return ''

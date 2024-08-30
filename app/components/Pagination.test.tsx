@@ -20,8 +20,8 @@ jest.mock('next/navigation', () => ({
   },
 }))
 
-describe('Pagination 컴포넌트', () => {
-  it('컴포넌트가 올바르게 렌더링 되어야 합니다.', () => {
+describe('Pagination', () => {
+  it('컴포넌트가 올바르게 렌더링 되어야 한다.', () => {
     render(
       <Pagination
         totalItems={50}
@@ -68,7 +68,7 @@ describe('Pagination 컴포넌트', () => {
     expect(nextLink).toHaveClass('invisible')
   })
 
-  it('query string이 없는 경우 link는 "?page=페이지번호"가 현재 pathname 뒤에 붙은 URL을 가진다.', () => {
+  it('query string이 없는 경우 link는 "?page=페이지번호"가 현재 pathname 뒤에 붙은 URL을 가져야 한다.', () => {
     render(
       <Pagination
         totalItems={50}
@@ -83,7 +83,7 @@ describe('Pagination 컴포넌트', () => {
     expect(href).toBe('/test?page=2')
   })
 
-  it('query string이 있는 경우 link는 "&page=페이지번호"가 현재 pathname 뒤에 붙은 URL을 가진다.', () => {
+  it('query string이 있는 경우 link는 "&page=페이지번호"가 현재 pathname 뒤에 붙은 URL을 가져야 한다.', () => {
     mockUseSearchParams.mockClear()
     mockUseSearchParams.mockReturnValue({
       toString: () => 'sort=date_asc&page=1', // 기본 쿼리 파라미터 설정
@@ -107,7 +107,7 @@ describe('Pagination 컴포넌트', () => {
     expect(href).toBe('/test?sort=date_asc&page=2')
   })
 
-  it('이전 link는 현재 보이는 페이지 숫자 목록에서 첫번째 숫자-1로 이동하는 URL을 가진다.', () => {
+  it('이전 link는 현재 보이는 페이지 숫자 목록에서 첫번째 숫자-1로 이동하는 URL을 가져야 한다.', () => {
     mockUseSearchParams.mockClear()
     mockUseSearchParams.mockReturnValue({
       toString: () => 'page=8', // 기본 쿼리 파라미터 설정
@@ -131,7 +131,7 @@ describe('Pagination 컴포넌트', () => {
     expect(href).toBe('/test?page=5')
   })
 
-  it('다음 link는 현재 보이는 페이지 숫자 목록에서 마지막 숫자+1로 이동하는 URL을 가진다.', () => {
+  it('다음 link는 현재 보이는 페이지 숫자 목록에서 마지막 숫자+1로 이동하는 URL을 가져야 한다.', () => {
     mockUseSearchParams.mockClear()
     mockUseSearchParams.mockReturnValue({
       toString: () => 'page=8', // 기본 쿼리 파라미터 설정
