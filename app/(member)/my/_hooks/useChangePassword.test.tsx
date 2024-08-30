@@ -16,10 +16,10 @@ jest.mock('@/(auth)/_utils/validatePassword', () => ({
   validatePassword: jest.fn().mockReturnValue(true),
 }))
 
-describe('useChangePassword 훅 테스트', () => {
+describe('useChangePassword', () => {
   const mockAlert = jest.spyOn(window, 'alert').mockImplementation(() => {})
 
-  it('초기 상태를 제대로 설정하는지 확인', () => {
+  it('초기값이 올바르게 설정되어야 한다.', () => {
     const { result } = renderHook(() => useChangePassword())
 
     expect(result.current.form).toEqual({
