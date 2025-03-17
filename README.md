@@ -16,4 +16,4 @@ PC / Mobile 모두 이용 가능하며, PWA를 적용하여 데스크톱 또는 
 <br/>
 
 ## Link
-▶️ [사이트 바로가기](https://bookbook-phi.vercel.app/)
+▶️ [사이트 바로가기](https://bookbook.site/)

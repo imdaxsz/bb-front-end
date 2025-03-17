@@ -9,7 +9,7 @@ import BookList from './BookList'
 export const metadata: Metadata = {
   title: '추천도서',
   alternates: {
-    canonical: 'https://bookbook-phi.vercel.app/recommend',
+    canonical: 'https://bookbook.site/recommend',
   },
 }
 
