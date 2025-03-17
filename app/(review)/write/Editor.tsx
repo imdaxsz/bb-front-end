@@ -69,7 +69,7 @@ export default function Editor({ token, mode, editItem }: EditorProps) {
                 book={book}
                 setRating={onChangeReview}
                 rating={rating}
-                isEdit={mode === 'edit'}
+                isEditMode={mode === 'edit'}
               />
             )}
             <form>

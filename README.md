@@ -16,10 +16,12 @@ PC / Mobile 모두 이용 가능하며, PWA를 적용하여 데스크톱 또는 
 <br/>
 
 ## Link
-▶️ [사이트 바로가기](https://bookbook-phi.vercel.app/) 
+
+▶️ [사이트 바로가기](https://bookbook.site/)
 
 <br/>
 
 ## 시연 영상
+
 📹 [Wiki](https://github.com/imdaxsz/bb-front-end/wiki/%EC%8B%9C%EC%97%B0-%EC%98%81%EC%83%81)
 

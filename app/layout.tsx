@@ -2,7 +2,7 @@
 import type { Metadata, Viewport } from 'next'
 import '@/styles/global.scss'
 import RenderTopBar from './components/RenderTopBar'
-import { hasNoTopbarRoutes } from './config'
+import { hasNoTopbarRoutes, SERVICE_URL } from './config'
 import ScrollToTop from './components/ScrollToTop'
 import QueryClientProviders from './libs/providers'
 import { baseMetadata } from './config/metadata'
@@ -18,11 +18,10 @@ const jsonLd = {
   '@type': 'WebSite',
   name: '북북',
   description: baseMetadata.description,
-  url: 'https://bookbook-phi.vercel.app',
+  url: SERVICE_URL,
   potentialAction: {
     '@type': 'SearchAction',
-    target:
-      'https://bookbook-phi.vercel.app/search/book?query={search_term_string}',
+    target: 'https://bookbook.site/search/book?query={search_term_string}',
     'query-input': 'required name=search_term_string',
   },
 }

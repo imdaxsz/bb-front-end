@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bookbook-phi.vercel.app/sitemap.xml
+Sitemap: https://bookbook.site/sitemap.xml

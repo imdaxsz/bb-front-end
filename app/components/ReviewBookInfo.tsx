@@ -11,14 +11,14 @@ interface ReviewBookInfoType {
   book: Book
   rating: number
   setRating?: ReviewHandler
-  isEdit?: boolean
+  isEditMode?: boolean
 }
 
 export default function ReviewBookInfo({
   book,
-  setRating = undefined,
+  setRating,
   rating,
-  isEdit = false,
+  isEditMode = false,
 }: ReviewBookInfoType) {
   const onRate = (i: number) => {
     if (setRating) setRating({ rating: i })
@@ -30,7 +30,7 @@ export default function ReviewBookInfo({
 
   return (
     <div className={styles.wrapper}>
-      {setRating && !isEdit && (
+      {setRating && !isEditMode && (
         <button
           type="button"
           aria-label="삭제"
@@ -47,7 +47,12 @@ export default function ReviewBookInfo({
         <h2 className={`${styles.title}`}>{book.title}</h2>
         <p>저자&nbsp; {book.author}</p>
         <p>출판&nbsp; {book.publisher}</p>
-        <Rating size="lg" value={rating} readonly={!isEdit} onRate={onRate} />
+        <Rating
+          size="lg"
+          value={rating}
+          readonly={!setRating}
+          onRate={onRate}
+        />
       </div>
     </div>
   )
