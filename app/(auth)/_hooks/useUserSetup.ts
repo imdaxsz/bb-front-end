@@ -57,8 +57,8 @@ export default function useUserSetup({ newUser }: { newUser: boolean }) {
         setIsLoading(true)
         // eslint-disable-next-line no-unused-expressions
         newUser ? await signUp() : await resetPassword()
-        resetCertifiedEmail()
         router.push('/signin')
+        resetCertifiedEmail()
       } catch (error) {
         console.log(error)
       }
